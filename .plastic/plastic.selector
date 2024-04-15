@@ -1,0 +1,4 @@
+repository "west_game@gruppo7@cloud"
+  path "/"
+    smartbranch "/main/details"    
+     
