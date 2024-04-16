@@ -16,7 +16,7 @@ public class ProjectileGun : MonoBehaviour
     public float spread, reloadTime, timeBetweenShots;
     public int magazineSize, bulletsPerTap;
     public bool allowButtonHold;
-    [Tooltip("Se attivato, il tempo di ricarica è moltiplicato per i proiettili sparati.")]
+    [Tooltip("Se attivato, il tempo di ricarica dipende  dai proiettili sparati.")]
     public bool hasCylinder;
 
     int bulletsLeft, bulletsShot;
@@ -69,9 +69,6 @@ public class ProjectileGun : MonoBehaviour
     {
         MyInput();
 
-        // OLD
-        // if(ammunitionDisplay != null) ammunitionDisplay.SetText(bulletsLeft / bulletsPerTap + " / " + magazineSize / bulletsPerTap);
-
         ////Set ammo display, if it exists :D
         if (ammoInfo != null && !reloading)
             ammoInfo.SetText(bulletsLeft / bulletsPerTap + " / " + magazineSize / bulletsPerTap);
@@ -97,7 +94,7 @@ public class ProjectileGun : MonoBehaviour
         //Shooting
         if (readyToShoot && shooting && !reloading && bulletsLeft > 0)
         {
-            if(hasCylinder) StopAllCoroutines();
+            if (hasCylinder) StopAllCoroutines();
             //Set bullets shot to 0
             bulletsShot = 0;
 
@@ -111,11 +108,10 @@ public class ProjectileGun : MonoBehaviour
 
         //Find the exact hit position using a raycast
         Ray ray = fpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); //Just a ray through the middle of your current view
-        RaycastHit hit;
 
         //check if ray hits something
         Vector3 targetPoint;
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out RaycastHit hit))
             targetPoint = hit.point;
         else
             targetPoint = ray.GetPoint(75); //Just a point far away from the player
@@ -173,7 +169,7 @@ public class ProjectileGun : MonoBehaviour
 
     private void Reload()
     {
-        
+
         reloading = true;
         // TEST cambio colore crosshair
         // In sovrapposizione con ColorOnHover (TROVARE SOLUZIONE)
@@ -181,18 +177,8 @@ public class ProjectileGun : MonoBehaviour
 
         if (hasCylinder)
         {
-            // MODIFICA GROSSA DA PROVARE: Dare la possibilità al giocatore di interrompere la ricarica in anticipo con armi revolver
-
             StopAllCoroutines();
             StartCoroutine(CylinderReload());
-
-
-            // Se l'arma ha un caricatore a tamburo il tempo di ricarica dipende dai colpi rimasti
-
-            // FUNZIONANTE MA NON PUò ESSERE INTERROTTA LA RICARICA PRIMA CHE IL CARICATORE SIA PIENO
-            //Invoke(nameof(ReloadFinished), reloadTime * (magazineSize - bulletsLeft));
-
-            //   Debug.Log("Time to reload: " + reloadTime * (magazineSize - bulletsLeft));
         }
         else
         {
@@ -201,7 +187,6 @@ public class ProjectileGun : MonoBehaviour
             audioSource.Play();
             Invoke(nameof(ReloadFinished), reloadTime); //Invoke ReloadFinished function with your reloadTime as delay
         }
-            
     }
 
     IEnumerator CylinderReload()
@@ -214,10 +199,11 @@ public class ProjectileGun : MonoBehaviour
             bulletsLeft++;
             audioSource.clip = reloadSound;
             audioSource.Play();
-            Debug.Log("Bullets left: " + bulletsLeft);
+            // Debug.Log("Bullets left: " + bulletsLeft);
             reloading = false;
             ResetShot();
-        }        
+        }
+        crosshair.color = crosshairColor;
     }
     private void ReloadFinished()
     {
@@ -225,7 +211,6 @@ public class ProjectileGun : MonoBehaviour
         //Fill magazine
         bulletsLeft = magazineSize;
         reloading = false;
-        // SOSTITUIRE CON COLORE INIZIALE
         crosshair.color = crosshairColor;
     }
 }
