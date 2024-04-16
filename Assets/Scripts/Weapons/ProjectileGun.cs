@@ -63,6 +63,8 @@ public class ProjectileGun : MonoBehaviour
         //make sure magazine is full
         bulletsLeft = magazineSize;
         readyToShoot = true;
+
+        
     }
 
     private void Update()
@@ -74,6 +76,10 @@ public class ProjectileGun : MonoBehaviour
             ammoInfo.SetText(bulletsLeft / bulletsPerTap + " / " + magazineSize / bulletsPerTap);
         else if (reloading) ammoInfo.text = "Reloading...";
 
+        if (crosshair && crosshairSprite)
+        {
+            crosshair.sprite = crosshairSprite;
+        }
         // FORSE QUI FINIRE o METTERE IN START o RIMUOVERE
         //if (crosshair && crosshairSprite)
         //{
