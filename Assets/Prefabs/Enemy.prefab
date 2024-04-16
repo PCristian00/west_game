@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 8447471667515042588}
   - component: {fileID: 860381349001417016}
   - component: {fileID: 7537281848661584428}
+  - component: {fileID: 5031995962872018576}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Enemy
@@ -173,6 +174,9 @@ MonoBehaviour:
   attackSound: {fileID: 8300000, guid: f0fd1072ca4135c46ba2f406f17fd329, type: 3}
   hitSound: {fileID: 8300000, guid: 67cb86cccd5bd30409d34fe89f01f267, type: 3}
   deathSound: {fileID: 8300000, guid: 9d130f1bc996ab5408ab8a00d0b693b9, type: 3}
+  attackEffect: {fileID: 0}
+  hitEffect: {fileID: 0}
+  deathEffect: {fileID: 5939177980392235594, guid: f2f084bab52db7f4086d13c7eb7d66e8, type: 3}
 --- !u!54 &860381349001417016
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -223,3 +227,16 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5031995962872018576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7067134833345967684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b298743526bbd1418dd819577cd388b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 0, g: 0, b: 0, a: 0}

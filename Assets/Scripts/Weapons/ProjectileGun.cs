@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
+using System.Collections;
 
 public class ProjectileGun : MonoBehaviour
 {
@@ -16,7 +16,7 @@ public class ProjectileGun : MonoBehaviour
     public float spread, reloadTime, timeBetweenShots;
     public int magazineSize, bulletsPerTap;
     public bool allowButtonHold;
-    [Tooltip("Se attivato, il tempo di ricarica è moltiplicato per i proiettili sparati.")]
+    [Tooltip("Se attivato, il tempo di ricarica dipende  dai proiettili sparati.")]
     public bool hasCylinder;
 
     int bulletsLeft, bulletsShot;
@@ -39,7 +39,8 @@ public class ProjectileGun : MonoBehaviour
     public TextMeshProUGUI ammoInfo;
     // DA IMPLEMENTARE??
     public Sprite crosshairSprite;
-    public Image crosshair;
+    public UnityEngine.UI.Image crosshair;
+    private Color crosshairColor;
 
     //Sound
     [Header("Sound")]
@@ -54,6 +55,7 @@ public class ProjectileGun : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        crosshairColor = crosshair.color;
     }
 
     private void Awake()
@@ -67,19 +69,15 @@ public class ProjectileGun : MonoBehaviour
     {
         MyInput();
 
-        // OLD
-        // if(ammunitionDisplay != null) ammunitionDisplay.SetText(bulletsLeft / bulletsPerTap + " / " + magazineSize / bulletsPerTap);
-
         ////Set ammo display, if it exists :D
         if (ammoInfo != null && !reloading)
             ammoInfo.SetText(bulletsLeft / bulletsPerTap + " / " + magazineSize / bulletsPerTap);
         else if (reloading) ammoInfo.text = "Reloading...";
 
-        // FORSE QUI FINIRE
-        //if (crosshair && crosshairSprite)
-        //{
-        //crosshair.sprite = crosshairSprite;
-        //}
+        if (crosshair && crosshairSprite)
+        {
+            crosshair.sprite = crosshairSprite;
+        }
     }
     private void MyInput()
     {
@@ -95,6 +93,8 @@ public class ProjectileGun : MonoBehaviour
         //Shooting
         if (readyToShoot && shooting && !reloading && bulletsLeft > 0)
         {
+            // Se l'arma è a tamburo (cylinder), la ricarica può essere interrotta dal giocatore
+            if (hasCylinder) StopAllCoroutines();
             //Set bullets shot to 0
             bulletsShot = 0;
 
@@ -108,11 +108,10 @@ public class ProjectileGun : MonoBehaviour
 
         //Find the exact hit position using a raycast
         Ray ray = fpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); //Just a ray through the middle of your current view
-        RaycastHit hit;
 
         //check if ray hits something
         Vector3 targetPoint;
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out RaycastHit hit))
             targetPoint = hit.point;
         else
             targetPoint = ray.GetPoint(75); //Just a point far away from the player
@@ -170,37 +169,41 @@ public class ProjectileGun : MonoBehaviour
 
     private void Reload()
     {
-        audioSource.loop = true;
-        audioSource.clip = reloadSound;
-        audioSource.Play();
+
         reloading = true;
+        // TEST cambio colore crosshair
+        // In sovrapposizione con ColorOnHover (TROVARE SOLUZIONE)
+        crosshair.color = Color.black;
 
         if (hasCylinder)
         {
-            // MODIFICA GROSSA DA PROVARE: Dare la possibilità al giocatore di interrompere la ricarica in anticipo con armi revolver
-
-            //int old_magazineSize = magazineSize;
-
-            //magazineSize = 1;
-            //Debug.Log("New mag (pre while)=" + magazineSize);
-            //do
-            //{
-            //    Invoke(nameof(ReloadFinished), reloadTime);
-            //    magazineSize++;
-            //    Debug.Log("new mag = "+magazineSize);
-            //    Debug.Log("shooting = " + shooting);
-            //} while ((magazineSize<=old_magazineSize) || shooting);
-
-
-            // Se l'arma ha un caricatore a tamburo il tempo di ricarica dipende dai colpi rimasti
-
-            // FUNZIONANTE MA NON PUò ESSERE INTERROTTA LA RICARICA PRIMA CHE IL CARICATORE SIA PIENO
-            Invoke(nameof(ReloadFinished), reloadTime * (magazineSize - bulletsLeft));
-
-            Debug.Log("Time to reload: " + reloadTime * (magazineSize - bulletsLeft));
+            StopAllCoroutines();
+            StartCoroutine(CylinderReload());
         }
         else
+        {
+            audioSource.loop = true;
+            audioSource.clip = reloadSound;
+            audioSource.Play();
             Invoke(nameof(ReloadFinished), reloadTime); //Invoke ReloadFinished function with your reloadTime as delay
+        }
+    }
+
+    IEnumerator CylinderReload()
+    {
+        float t = 0f;
+        while (bulletsLeft < magazineSize)
+        {
+            yield return new WaitForSeconds(reloadTime);
+            t += Time.deltaTime / reloadTime;
+            bulletsLeft++;
+            audioSource.clip = reloadSound;
+            audioSource.Play();
+            // Debug.Log("Bullets left: " + bulletsLeft);
+            reloading = false;
+            ResetShot();
+        }
+        crosshair.color = crosshairColor;
     }
     private void ReloadFinished()
     {
@@ -208,5 +211,6 @@ public class ProjectileGun : MonoBehaviour
         //Fill magazine
         bulletsLeft = magazineSize;
         reloading = false;
+        crosshair.color = crosshairColor;
     }
 }
