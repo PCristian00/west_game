@@ -63,8 +63,6 @@ public class ProjectileGun : MonoBehaviour
         //make sure magazine is full
         bulletsLeft = magazineSize;
         readyToShoot = true;
-
-        
     }
 
     private void Update()
@@ -80,11 +78,6 @@ public class ProjectileGun : MonoBehaviour
         {
             crosshair.sprite = crosshairSprite;
         }
-        // FORSE QUI FINIRE o METTERE IN START o RIMUOVERE
-        //if (crosshair && crosshairSprite)
-        //{
-        //crosshair.sprite = crosshairSprite;
-        //}
     }
     private void MyInput()
     {
@@ -100,6 +93,7 @@ public class ProjectileGun : MonoBehaviour
         //Shooting
         if (readyToShoot && shooting && !reloading && bulletsLeft > 0)
         {
+            // Se l'arma è a tamburo (cylinder), la ricarica può essere interrotta dal giocatore
             if (hasCylinder) StopAllCoroutines();
             //Set bullets shot to 0
             bulletsShot = 0;
