@@ -658,7 +658,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camera: {fileID: 963194227}
-  raycastDistance: 5
+  raycastDistance: 10
 --- !u!1 &343961448 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2722399515713252442, guid: 37f35f0ebe7bcae49a9e82f7303fb002, type: 3}
@@ -1175,7 +1175,7 @@ GameObject:
   - component: {fileID: 488973233}
   m_Layer: 0
   m_Name: GrenadeLauncher
-  m_TagString: Untagged
+  m_TagString: Gun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3799,7 +3799,7 @@ GameObject:
   - component: {fileID: 1593348375}
   m_Layer: 0
   m_Name: Assault
-  m_TagString: Untagged
+  m_TagString: Gun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

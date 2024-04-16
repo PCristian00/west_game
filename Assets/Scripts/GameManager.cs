@@ -39,17 +39,17 @@ public class GameManager : MonoBehaviour
 
         if (PlayerManager.isDead) gameOver = true;
 
-        if(!gameOver)
+        if (!gameOver)
         {
             // ATTENZIONE: Le scatole di test (Cube) attualmente hanno il tag Enemy
             enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
-           // Debug.Log("Nemici in gioco: " + enemyCount);
+            // Debug.Log("Nemici in gioco: " + enemyCount);
 
-            if (enemyCount==0)
+            if (enemyCount == 0)
             {
                 // Debug.Log("Nessun nemico rimasto!");
-                Instantiate(enemy,enemySpawn.transform.position, enemy.transform.rotation);
+                Instantiate(enemy, enemySpawn.transform.position, enemy.transform.rotation);
             }
-        }      
+        }
     }
 }

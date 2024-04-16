@@ -202,7 +202,7 @@ public class ProjectileGun : MonoBehaviour
             // FUNZIONANTE MA NON PUò ESSERE INTERROTTA LA RICARICA PRIMA CHE IL CARICATORE SIA PIENO
             Invoke(nameof(ReloadFinished), reloadTime * (magazineSize - bulletsLeft));
 
-         //   Debug.Log("Time to reload: " + reloadTime * (magazineSize - bulletsLeft));
+            //   Debug.Log("Time to reload: " + reloadTime * (magazineSize - bulletsLeft));
         }
         else
             Invoke(nameof(ReloadFinished), reloadTime); //Invoke ReloadFinished function with your reloadTime as delay
