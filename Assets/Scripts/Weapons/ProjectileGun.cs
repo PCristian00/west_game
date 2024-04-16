@@ -40,6 +40,7 @@ public class ProjectileGun : MonoBehaviour
     // DA IMPLEMENTARE??
     public Sprite crosshairSprite;
     public Image crosshair;
+    private Color crosshairColor;
 
     //Sound
     [Header("Sound")]
@@ -54,6 +55,7 @@ public class ProjectileGun : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        crosshairColor = crosshair.color;
     }
 
     private void Awake()
@@ -174,6 +176,8 @@ public class ProjectileGun : MonoBehaviour
         audioSource.clip = reloadSound;
         audioSource.Play();
         reloading = true;
+        // TEST cambio colore crosshair
+        crosshair.color = Color.black;
 
         if (hasCylinder)
         {
@@ -208,5 +212,7 @@ public class ProjectileGun : MonoBehaviour
         //Fill magazine
         bulletsLeft = magazineSize;
         reloading = false;
+        // SOSTITUIRE CON COLORE INIZIALE
+        crosshair.color = crosshairColor;
     }
 }
