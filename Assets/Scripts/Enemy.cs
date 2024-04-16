@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
     public NavMeshAgent agent;
     public Transform player;
     public LayerMask whatIsGround, whatIsPlayer;
+    private Rigidbody rb;
 
     [Header("Stats")]
     public float health;
@@ -30,6 +31,7 @@ public class Enemy : MonoBehaviour
     public float sightRange;
     public float attackRange;
     public bool playerInSightRange, playerInAttackRange;
+    private bool canAttack = true;
 
     [Header("Sound")]
     public AudioClip attackSound;
@@ -37,6 +39,16 @@ public class Enemy : MonoBehaviour
     public AudioClip deathSound;
     // AGGIUNGERE SUONI DI:
     // Movimento, Rilevamento giocatore (SOLO SE ANCORA PATTUGLIA)
+
+    [Header("Graphics")]
+    public GameObject attackEffect;
+    public GameObject hitEffect;
+    public GameObject deathEffect;
+
+    private void Start()
+    {
+        rb=GetComponent<Rigidbody>();
+    }
 
     private void Awake()
     {
@@ -92,7 +104,7 @@ public class Enemy : MonoBehaviour
 
         transform.LookAt(player);
 
-        if (!alreadyAttacked)
+        if (!alreadyAttacked && canAttack)
         {
             ///Attack code here
             Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
@@ -113,13 +125,20 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
-        Debug.Log("OUCH! " + gameObject.name + " ha subito " + damage + " danni!!!");
-        if (health <= 0) Invoke(nameof(DestroyEnemy), 0.5f);
+        // Debug.Log("OUCH! " + gameObject.name + " ha subito " + damage + " danni!!!");
+        if (health <= 0 && canAttack)
+        {
+            canAttack = false;
+            AudioSource.PlayClipAtPoint(deathSound, gameObject.transform.position);
+            Instantiate(deathEffect, transform.position, Quaternion.identity);
+            //rb.AddExplosionForce(3, transform.position, 3);
+            Invoke(nameof(DestroyEnemy), 0.5f);
+        }
         else AudioSource.PlayClipAtPoint(hitSound, gameObject.transform.position);
     }
     private void DestroyEnemy()
     {
-        AudioSource.PlayClipAtPoint(deathSound, gameObject.transform.position);
+        
         Debug.Log("NEMICO " + gameObject.name + " DISTRUTTO");
         Destroy(gameObject);
     }
