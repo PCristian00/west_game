@@ -77,7 +77,7 @@ public class ProjectileGun : MonoBehaviour
             ammoInfo.SetText(bulletsLeft / bulletsPerTap + " / " + magazineSize / bulletsPerTap);
         else if (reloading) ammoInfo.text = "Reloading...";
 
-        // FORSE QUI FINIRE
+        // FORSE QUI FINIRE o METTERE IN START o RIMUOVERE
         //if (crosshair && crosshairSprite)
         //{
         //crosshair.sprite = crosshairSprite;
@@ -177,6 +177,7 @@ public class ProjectileGun : MonoBehaviour
         audioSource.Play();
         reloading = true;
         // TEST cambio colore crosshair
+        // In sovrapposizione con ColorOnHover (TROVARE SOLUZIONE)
         crosshair.color = Color.black;
 
         if (hasCylinder)
@@ -201,7 +202,7 @@ public class ProjectileGun : MonoBehaviour
             // FUNZIONANTE MA NON PUò ESSERE INTERROTTA LA RICARICA PRIMA CHE IL CARICATORE SIA PIENO
             Invoke(nameof(ReloadFinished), reloadTime * (magazineSize - bulletsLeft));
 
-            Debug.Log("Time to reload: " + reloadTime * (magazineSize - bulletsLeft));
+         //   Debug.Log("Time to reload: " + reloadTime * (magazineSize - bulletsLeft));
         }
         else
             Invoke(nameof(ReloadFinished), reloadTime); //Invoke ReloadFinished function with your reloadTime as delay

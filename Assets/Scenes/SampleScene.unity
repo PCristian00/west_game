@@ -533,6 +533,7 @@ GameObject:
   - component: {fileID: 303864297}
   - component: {fileID: 303864296}
   - component: {fileID: 303864298}
+  - component: {fileID: 303864300}
   - component: {fileID: 303864299}
   m_Layer: 8
   m_Name: Player
@@ -644,6 +645,20 @@ MonoBehaviour:
   - {fileID: 382362592}
   - {fileID: 1593348373}
   - {fileID: 488973231}
+--- !u!114 &303864300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303864294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1993e0fd611bb95418aa6fe3ac64c696, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _camera: {fileID: 963194227}
+  raycastDistance: 5
 --- !u!1 &343961448 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2722399515713252442, guid: 37f35f0ebe7bcae49a9e82f7303fb002, type: 3}
@@ -4413,7 +4428,7 @@ GameObject:
   - component: {fileID: 1801492410}
   m_Layer: 5
   m_Name: Center
-  m_TagString: Untagged
+  m_TagString: Crosshair
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4450,7 +4465,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6037736, g: 0.054111768, b: 0.0645559, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6149,6 +6164,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5031995962872018576, guid: e3e6eba3aaa82554d8c84047e4cfce2c, type: 3}
+      propertyPath: color.b
+      value: 0.8962264
+      objectReference: {fileID: 0}
+    - target: {fileID: 5031995962872018576, guid: e3e6eba3aaa82554d8c84047e4cfce2c, type: 3}
+      propertyPath: color.g
+      value: 0.21560161
+      objectReference: {fileID: 0}
+    - target: {fileID: 5031995962872018576, guid: e3e6eba3aaa82554d8c84047e4cfce2c, type: 3}
+      propertyPath: color.r
+      value: 0.2381161
+      objectReference: {fileID: 0}
+    - target: {fileID: 5031995962872018576, guid: e3e6eba3aaa82554d8c84047e4cfce2c, type: 3}
+      propertyPath: crosshair
+      value: 
+      objectReference: {fileID: 1801492410}
     - target: {fileID: 7067134833345967684, guid: e3e6eba3aaa82554d8c84047e4cfce2c, type: 3}
       propertyPath: m_Name
       value: Enemy
