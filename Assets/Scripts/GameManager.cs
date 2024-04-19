@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
+
     [Header("References")]
     public PlayerManager PlayerManager;
 
@@ -22,6 +24,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        instance = this;
         PlayerManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
     }
 
@@ -29,7 +32,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         if (healthInfo != null)
-            if (PlayerManager.isDead)
+            if (gameOver)
             {
                 healthInfo.SetText("MORTO!");
             }
@@ -38,7 +41,7 @@ public class GameManager : MonoBehaviour
                 healthInfo.SetText("Health: " + PlayerManager.health);
             }
 
-        if (PlayerManager.isDead) gameOver = true;
+       // if (PlayerManager.isDead) gameOver = true;
 
         if (!gameOver)
         {
