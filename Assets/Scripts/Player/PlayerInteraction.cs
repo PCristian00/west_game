@@ -8,8 +8,8 @@ public class PlayerInteraction : MonoBehaviour
     private GameObject lastHitGameObject;
 
     // Utilizzate per cambiare raycastDistance in base a gittata arma (OTTIMIZZARE)
-    [SerializeField] private ProjectileGun currentGun;
-    [SerializeField] private ProjectileGun previousGun;
+    [SerializeField] private ProjectileGun currentWeapon;
+    [SerializeField] private ProjectileGun prevWeapon;
 
     void Update()
     {
@@ -72,14 +72,14 @@ public class PlayerInteraction : MonoBehaviour
         // METTERE IN FUNZIONE CHE SI AGGIORNA SOLO A CAMBIO ARMA??? [VEDI FORSE CAMBIO STATI ESCAPE ROOM]
         // FUNZIONANTE MA POCO OTTIMIZZATO
         // FORSE INTERAGIRE CON LoadoutManager
-        if (GameObject.FindGameObjectWithTag("Gun").TryGetComponent<ProjectileGun>(out currentGun))
+        if (GameObject.FindGameObjectWithTag("Gun").TryGetComponent<ProjectileGun>(out currentWeapon))
         {
 
-            if (currentGun != previousGun)
+            if (currentWeapon != prevWeapon)
             {
-                Debug.Log("Arma attuale: " + currentGun.name + "\nGittata (shoot Force): " + currentGun.shootForce + " impostata come distanza di interazione");
-                raycastDistance = currentGun.shootForce;
-                previousGun = currentGun;
+                Debug.Log("Arma attuale: " + currentWeapon.name + "\nGittata (shoot Force): " + currentWeapon.shootForce + " impostata come distanza di interazione");
+                raycastDistance = currentWeapon.shootForce;
+                prevWeapon = currentWeapon;
             }
         }
     }
