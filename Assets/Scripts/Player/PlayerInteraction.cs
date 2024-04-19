@@ -7,15 +7,19 @@ public class PlayerInteraction : MonoBehaviour
 
     private GameObject lastHitGameObject;
 
-    // Update is called once per frame
+    // Utilizzate per cambiare raycastDistance in base a gittata arma (OTTIMIZZARE)
+    [SerializeField] private ProjectileGun currentGun;
+    [SerializeField] private ProjectileGun previousGun;
+
     void Update()
     {
+        ChangeRaycastDistance();
+
         Ray ray = _camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
 
 
         if (Physics.Raycast(ray, out RaycastHit hitInfo, raycastDistance))
         {
-            //Interactable hitInteractable = hitInfo.collider.GetComponent<Interactable>();
             GameObject hitGameObject = hitInfo.collider.gameObject;
             if (hitGameObject != lastHitGameObject)
             {
@@ -29,20 +33,14 @@ public class PlayerInteraction : MonoBehaviour
 
                 lastHitGameObject = hitGameObject;
 
-                //hitInteractable.HoverEnter();
                 foreach (var interactable in lastHitGameObject.GetComponents<IHover>())
                 {
                     interactable.HoverEnter();
                 }
-
-
             }
-
-            //if(hitInteractable==null) return;
 
             if (Input.GetButtonDown("Fire1"))
             {
-                //hitInteractable.Activate();
                 foreach (var interactable in lastHitGameObject.GetComponents<IActivate>())
                 {
                     interactable.Activate();
@@ -50,7 +48,6 @@ public class PlayerInteraction : MonoBehaviour
             }
             else if (Input.GetButtonDown("Fire2"))
             {
-                //hitInteractable.Examine();
                 foreach (var interactable in lastHitGameObject.GetComponents<IExamine>())
                 {
                     interactable.Examine();
@@ -61,12 +58,28 @@ public class PlayerInteraction : MonoBehaviour
         {
             if (lastHitGameObject != null)
             {
-                //lastHitGameObject.HoverExit();
                 foreach (var interactable in lastHitGameObject.GetComponents<IHover>())
                 {
                     interactable.HoverExit();
                 }
                 lastHitGameObject = null;
+            }
+        }
+    }
+
+    private void ChangeRaycastDistance()
+    {
+        // METTERE IN FUNZIONE CHE SI AGGIORNA SOLO A CAMBIO ARMA??? [VEDI FORSE CAMBIO STATI ESCAPE ROOM]
+        // FUNZIONANTE MA POCO OTTIMIZZATO
+        // FORSE INTERAGIRE CON LoadoutManager
+        if (GameObject.FindGameObjectWithTag("Gun").TryGetComponent<ProjectileGun>(out currentGun))
+        {
+
+            if (currentGun != previousGun)
+            {
+                Debug.Log("Arma attuale: " + currentGun.name + "\nGittata (shoot Force): " + currentGun.shootForce + " impostata come distanza di interazione");
+                raycastDistance = currentGun.shootForce;
+                previousGun = currentGun;
             }
         }
     }
