@@ -11,8 +11,17 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private ProjectileGun currentWeapon;
     [SerializeField] private ProjectileGun prevWeapon;
 
+    //[SerializeField] private LoadoutManager;
+
+
+    // int testCounter = 0;
+
     void Update()
     {
+
+
+        // Debug.Log(LoadoutManager.Instance.CurrentWeapon);
+
         ChangeRaycastDistance();
 
         Ray ray = _camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
@@ -69,6 +78,13 @@ public class PlayerInteraction : MonoBehaviour
 
     private void ChangeRaycastDistance()
     {
+        //LoadoutManager.Instance.CurrentWeapon.TryGetComponent<ProjectileGun>(out currentWeapon);
+        //if (currentWeapon != prevWeapon)
+        //{
+        //    Debug.Log("Arma attuale: " + currentWeapon.name + "\nGittata (shoot Force): " + currentWeapon.shootForce + " impostata come distanza di interazione");
+        //    raycastDistance = currentWeapon.shootForce;
+        //    prevWeapon = currentWeapon;
+        //}
         // METTERE IN FUNZIONE CHE SI AGGIORNA SOLO A CAMBIO ARMA??? [VEDI FORSE CAMBIO STATI ESCAPE ROOM]
         // FUNZIONANTE MA POCO OTTIMIZZATO
         // FORSE INTERAGIRE CON LoadoutManager
@@ -77,10 +93,12 @@ public class PlayerInteraction : MonoBehaviour
 
             if (currentWeapon != prevWeapon)
             {
-                Debug.Log("Arma attuale: " + currentWeapon.name + "\nGittata (shoot Force): " + currentWeapon.shootForce + " impostata come distanza di interazione");
+                // Debug.Log("Arma attuale: " + currentWeapon.name + "\nGittata (shoot Force): " + currentWeapon.shootForce + " impostata come distanza di interazione");
                 raycastDistance = currentWeapon.shootForce;
                 prevWeapon = currentWeapon;
             }
         }
     }
+
+
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,20 +7,41 @@ using UnityEngine;
 
 public class LoadoutManager : MonoBehaviour
 {
+    public static LoadoutManager Instance;
 
     public GameObject[] weapons;
 
     private int current;
-    // Start is called before the first frame update
-    //void Start()
-    //{
-    //  Debug.Log("Armi su giocatore: "+weapons.Length);
-    //  foreach (var weapon in weapons)
-    //    {
-    //        Debug.Log("Arma: " + weapon.name +";");
-    //    }
-    //}
 
+    public GameObject _currentWeapon;
+
+    public event Action<GameObject> OnWeaponChanged;
+
+    public GameObject CurrentWeapon
+    {
+        get => _currentWeapon;
+
+        protected set
+        {
+            if (_currentWeapon == value)
+            {
+                Debug.Log("Current weapon: " + _currentWeapon.name);
+                return;
+            }
+
+            _currentWeapon = value;
+            Debug.Log("New current weapon: " + _currentWeapon.name);
+            OnWeaponChanged?.Invoke(_currentWeapon);
+        }
+    }
+
+    private void Start()
+    {
+        Instance = this;
+        LoadOutInfo();
+
+
+    }
     // Update is called once per frame
     void Update()
     {
@@ -39,6 +61,7 @@ public class LoadoutManager : MonoBehaviour
             }
             // Debug.Log("AUM// Arma " + current + ": " + weapons[current].gameObject.name);
             weapons[current].SetActive(true);
+            CurrentWeapon = weapons[current];
         }
         else if (Input.GetButtonDown("PrevWeapon"))
         {
@@ -52,6 +75,16 @@ public class LoadoutManager : MonoBehaviour
             }
             //  Debug.Log("DEC// Arma " + current+": " + weapons[current].gameObject.name);
             weapons[current].SetActive(true);
+            CurrentWeapon = weapons[current];
+        }
+    }
+
+    private void LoadOutInfo()
+    {
+        Debug.Log("Armi su giocatore: " + weapons.Length);
+        foreach (var weapon in weapons)
+        {
+            Debug.Log("Arma: " + weapon.name + ";");
         }
     }
 }
