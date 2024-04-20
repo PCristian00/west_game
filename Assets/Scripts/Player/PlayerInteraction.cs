@@ -6,8 +6,12 @@ public class PlayerInteraction : MonoBehaviour
     public float raycastDistance = 5f;
 
     private GameObject lastHitGameObject;
+    private void Start()
+    {
+        OnWeaponChanged(LoadoutManager.Instance.CurrentWeapon);
+    }
 
-    void Update()
+    private void Update()
     {
         LoadoutManager.Instance.OnWeaponChanged += OnWeaponChanged;
 

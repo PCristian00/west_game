@@ -586,6 +586,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   jumpSound: {fileID: 8300000, guid: 92a217430f2e4ee4a90c4337eeba9e95, type: 3}
+  CodySound: {fileID: 8300000, guid: 9e426a726b0217b40a785599e460be74, type: 3}
 --- !u!54 &303864297
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -626,7 +627,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 10
-  isDead: 0
   hitSound: {fileID: 8300000, guid: d3269f2fda0939e4493bd5063a5f334a, type: 3}
   deathSound: {fileID: 8300000, guid: 9e426a726b0217b40a785599e460be74, type: 3}
 --- !u!114 &303864299
@@ -645,6 +645,7 @@ MonoBehaviour:
   - {fileID: 382362592}
   - {fileID: 1593348373}
   - {fileID: 488973231}
+  _currentWeapon: {fileID: 0}
 --- !u!114 &303864300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -834,7 +835,7 @@ MonoBehaviour:
   bullet: {fileID: 5205490927276427104, guid: cc23d493a8fde574c93700c9a2908fc4, type: 3}
   shootForce: 20
   upwardForce: 0
-  timeBetweenShooting: 0.5
+  timeBetweenShooting: 1
   spread: 0.25
   reloadTime: 1
   timeBetweenShots: 1
@@ -844,6 +845,9 @@ MonoBehaviour:
   hasCylinder: 1
   playerRb: {fileID: 303864297}
   recoilForce: 3
+  shooting: 0
+  readyToShoot: 0
+  reloading: 0
   fpsCam: {fileID: 963194227}
   attackPoint: {fileID: 408264822}
   muzzleFlash: {fileID: 0}
@@ -1158,16 +1162,19 @@ MonoBehaviour:
   bullet: {fileID: 5205490927276427104, guid: ff84b793b400a94439712448c9cec971, type: 3}
   shootForce: 15
   upwardForce: 5
-  timeBetweenShooting: 1
+  timeBetweenShooting: 2
   spread: 1
-  reloadTime: 1
+  reloadTime: 4
   timeBetweenShots: 1
-  magazineSize: 2
+  magazineSize: 4
   bulletsPerTap: 1
   allowButtonHold: 0
   hasCylinder: 0
   playerRb: {fileID: 303864297}
   recoilForce: 5
+  shooting: 0
+  readyToShoot: 0
+  reloading: 0
   fpsCam: {fileID: 963194227}
   attackPoint: {fileID: 586938323}
   muzzleFlash: {fileID: 0}
@@ -3658,9 +3665,9 @@ MonoBehaviour:
   bullet: {fileID: 5205490927276427104, guid: cc23d493a8fde574c93700c9a2908fc4, type: 3}
   shootForce: 30
   upwardForce: 0
-  timeBetweenShooting: 0.1
-  spread: 0
-  reloadTime: 1
+  timeBetweenShooting: 0.2
+  spread: 0.1
+  reloadTime: 2.5
   timeBetweenShots: 1
   magazineSize: 48
   bulletsPerTap: 1
@@ -3668,6 +3675,9 @@ MonoBehaviour:
   hasCylinder: 0
   playerRb: {fileID: 303864297}
   recoilForce: 1
+  shooting: 0
+  readyToShoot: 0
+  reloading: 0
   fpsCam: {fileID: 963194227}
   attackPoint: {fileID: 1625303507}
   muzzleFlash: {fileID: 0}

@@ -13,7 +13,7 @@ public class LoadoutManager : MonoBehaviour
 
     private int current = 0;
 
-    public GameObject _currentWeapon;
+    private GameObject _currentWeapon;
 
     public event Action<GameObject> OnWeaponChanged;
 

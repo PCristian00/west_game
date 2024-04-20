@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Sound")]
     public AudioClip jumpSound;
-
+   
     float horizontalInput;
     float verticalInput;
 
@@ -86,19 +86,19 @@ public class PlayerMovement : MonoBehaviour
         // on ground
         if (grounded)
         {
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+            rb.AddForce(10f * moveSpeed * moveDirection.normalized, ForceMode.Force);
             // IMPLEMENTARE SUONO PASSI??
         }
             
 
         // in air (FORSE RIMUOVERE - FA FARE SCHIVATE IN ARIA)
         else if (!grounded)
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+            rb.AddForce(10f * airMultiplier * moveSpeed * moveDirection.normalized, ForceMode.Force);
     }
 
     private void SpeedControl()
     {
-        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        Vector3 flatVel = new(rb.velocity.x, 0f, rb.velocity.z);
 
         // limit velocity if needed
         if (flatVel.magnitude > moveSpeed)
