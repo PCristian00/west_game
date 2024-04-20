@@ -140,6 +140,7 @@ public class ProjectileGun : MonoBehaviour
             Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
 
         // Play sound
+        if(shootSound)
         audioSource.PlayOneShot(shootSound, 1);
 
         bulletsLeft--;
