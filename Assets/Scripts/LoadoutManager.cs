@@ -11,7 +11,7 @@ public class LoadoutManager : MonoBehaviour
 
     public GameObject[] weapons;
 
-    private int current;
+    private int current = 0;
 
     public GameObject _currentWeapon;
 
@@ -38,6 +38,7 @@ public class LoadoutManager : MonoBehaviour
     private void Start()
     {
         Instance = this;
+        CurrentWeapon = weapons[current];
         LoadOutInfo();
 
 
@@ -48,35 +49,39 @@ public class LoadoutManager : MonoBehaviour
 
         // FORSE FARE CON ROTELLA MOUSE
 
-
-        if (Input.GetButtonDown("NextWeapon"))
+        // L'arma viene cambiata solo se non sta ricaricando
+        if (!_currentWeapon.GetComponent<ProjectileGun>().reloading)
         {
-
-            weapons[current].SetActive(false);
-            current++;
-            // Debug.Log(current);
-            if (current >= weapons.Length)
+            if (Input.GetButtonDown("NextWeapon"))
             {
-                current = 0;
+
+                weapons[current].SetActive(false);
+                current++;
+                // Debug.Log(current);
+                if (current >= weapons.Length)
+                {
+                    current = 0;
+                }
+                // Debug.Log("AUM// Arma " + current + ": " + weapons[current].gameObject.name);
+                weapons[current].SetActive(true);
+                CurrentWeapon = weapons[current];
             }
-            // Debug.Log("AUM// Arma " + current + ": " + weapons[current].gameObject.name);
-            weapons[current].SetActive(true);
-            CurrentWeapon = weapons[current];
-        }
-        else if (Input.GetButtonDown("PrevWeapon"))
-        {
-            weapons[current].SetActive(false);
-            current--;
-            //  Debug.Log(current);
-            if (current < 0)
+            else if (Input.GetButtonDown("PrevWeapon"))
             {
+                weapons[current].SetActive(false);
+                current--;
                 //  Debug.Log(current);
-                current = weapons.Length - 1;
+                if (current < 0)
+                {
+                    //  Debug.Log(current);
+                    current = weapons.Length - 1;
+                }
+                //  Debug.Log("DEC// Arma " + current+": " + weapons[current].gameObject.name);
+                weapons[current].SetActive(true);
+                CurrentWeapon = weapons[current];
             }
-            //  Debug.Log("DEC// Arma " + current+": " + weapons[current].gameObject.name);
-            weapons[current].SetActive(true);
-            CurrentWeapon = weapons[current];
         }
+       // else Debug.Log("IMPOSSIBILE CAMBIARE. RICARICA");
     }
 
     private void LoadOutInfo()
