@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,52 +7,89 @@ using UnityEngine;
 
 public class LoadoutManager : MonoBehaviour
 {
+    public static LoadoutManager Instance;
 
     public GameObject[] weapons;
 
-    private int current;
-    // Start is called before the first frame update
-    //void Start()
-    //{
-    //  Debug.Log("Armi su giocatore: "+weapons.Length);
-    //  foreach (var weapon in weapons)
-    //    {
-    //        Debug.Log("Arma: " + weapon.name +";");
-    //    }
-    //}
+    private int current = 0;
 
+    public GameObject _currentWeapon;
+
+    public event Action<GameObject> OnWeaponChanged;
+
+    public GameObject CurrentWeapon
+    {
+        get => _currentWeapon;
+
+        protected set
+        {
+            if (_currentWeapon == value)
+            {
+                Debug.Log("Current weapon: " + _currentWeapon.name);
+                return;
+            }
+
+            _currentWeapon = value;
+            Debug.Log("New current weapon: " + _currentWeapon.name);
+            OnWeaponChanged?.Invoke(_currentWeapon);
+        }
+    }
+
+    private void Start()
+    {
+        Instance = this;
+        CurrentWeapon = weapons[current];
+        LoadOutInfo();
+
+
+    }
     // Update is called once per frame
     void Update()
     {
 
         // FORSE FARE CON ROTELLA MOUSE
 
-
-        if (Input.GetButtonDown("NextWeapon"))
+        // L'arma viene cambiata solo se non sta ricaricando
+        if (!_currentWeapon.GetComponent<ProjectileGun>().reloading)
         {
-
-            weapons[current].SetActive(false);
-            current++;
-            // Debug.Log(current);
-            if (current >= weapons.Length)
+            if (Input.GetButtonDown("NextWeapon"))
             {
-                current = 0;
+
+                weapons[current].SetActive(false);
+                current++;
+                // Debug.Log(current);
+                if (current >= weapons.Length)
+                {
+                    current = 0;
+                }
+                // Debug.Log("AUM// Arma " + current + ": " + weapons[current].gameObject.name);
+                weapons[current].SetActive(true);
+                CurrentWeapon = weapons[current];
             }
-            // Debug.Log("AUM// Arma " + current + ": " + weapons[current].gameObject.name);
-            weapons[current].SetActive(true);
-        }
-        else if (Input.GetButtonDown("PrevWeapon"))
-        {
-            weapons[current].SetActive(false);
-            current--;
-            //  Debug.Log(current);
-            if (current < 0)
+            else if (Input.GetButtonDown("PrevWeapon"))
             {
+                weapons[current].SetActive(false);
+                current--;
                 //  Debug.Log(current);
-                current = weapons.Length - 1;
+                if (current < 0)
+                {
+                    //  Debug.Log(current);
+                    current = weapons.Length - 1;
+                }
+                //  Debug.Log("DEC// Arma " + current+": " + weapons[current].gameObject.name);
+                weapons[current].SetActive(true);
+                CurrentWeapon = weapons[current];
             }
-            //  Debug.Log("DEC// Arma " + current+": " + weapons[current].gameObject.name);
-            weapons[current].SetActive(true);
+        }
+       // else Debug.Log("IMPOSSIBILE CAMBIARE. RICARICA");
+    }
+
+    private void LoadOutInfo()
+    {
+        Debug.Log("Armi su giocatore: " + weapons.Length);
+        foreach (var weapon in weapons)
+        {
+            Debug.Log("Arma: " + weapon.name + ";");
         }
     }
 }
