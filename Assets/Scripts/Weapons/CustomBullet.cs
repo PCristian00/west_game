@@ -47,6 +47,7 @@ public class CustomBullet : MonoBehaviour
         //Instantiate explosion
         if (explosion != null) Instantiate(explosion, transform.position, Quaternion.identity);
 
+        if(explosionSound)
         AudioSource.PlayClipAtPoint(explosionSound, transform.position);
 
         //Check for enemies 
