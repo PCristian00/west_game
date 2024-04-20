@@ -7,22 +7,9 @@ public class PlayerInteraction : MonoBehaviour
 
     private GameObject lastHitGameObject;
 
-    // Utilizzate per cambiare raycastDistance in base a gittata arma (OTTIMIZZARE)
-    // [SerializeField] private ProjectileGun currentWeapon;
-    // [SerializeField] private ProjectileGun prevWeapon;
-
-    //[SerializeField] private LoadoutManager;
-
-
-    // int testCounter = 0;
-
     void Update()
     {
-
-
-        // Debug.Log(LoadoutManager.Instance.CurrentWeapon);
-
-        ChangeRaycastDistance();
+        LoadoutManager.Instance.OnWeaponChanged += OnWeaponChanged;
 
         Ray ray = _camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
 
@@ -76,42 +63,12 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
-    private void ChangeRaycastDistance()
-    {
-        //LoadoutManager.Instance.CurrentWeapon.TryGetComponent<ProjectileGun>(out currentWeapon);
-        //if (currentWeapon != prevWeapon)
-        //{
-        //    
-        //    raycastDistance = currentWeapon.shootForce;
-        //    prevWeapon = currentWeapon;
-        //}
-        // METTERE IN FUNZIONE CHE SI AGGIORNA SOLO A CAMBIO ARMA??? [VEDI FORSE CAMBIO STATI ESCAPE ROOM]
-        // FUNZIONANTE MA POCO OTTIMIZZATO
-        // FORSE INTERAGIRE CON LoadoutManager
-
-        LoadoutManager.Instance.OnWeaponChanged += OnWeaponChanged;
-
-        OnWeaponChanged(LoadoutManager.Instance.CurrentWeapon);
-
-
-        //if (GameObject.FindGameObjectWithTag("Gun").TryGetComponent<ProjectileGun>(out currentWeapon))
-        //{
-
-        //    if (currentWeapon != prevWeapon)
-        //    {
-        //        // Debug.Log("Arma attuale: " + currentWeapon.name + "\nGittata (shoot Force): " + currentWeapon.shootForce + " impostata come distanza di interazione");
-        //        raycastDistance = currentWeapon.shootForce;
-        //        prevWeapon = currentWeapon;
-        //    }
-        //}
-    }
-
     private void OnWeaponChanged(GameObject gun)
     {
-        // Debug.Log("Arma cambiata. Aggiornamento Raycast");
         ProjectileGun currentWeapon = gun.GetComponent<ProjectileGun>();
-        Debug.Log("Arma attuale: " + currentWeapon.name + "\nGittata (shoot Force): " + currentWeapon.shootForce + " impostata come distanza di interazione");
         raycastDistance = currentWeapon.shootForce;
-        //  prevWeapon = currentWeapon;
+
+        // ATTENZIONE: QUESTA RIGA DI DEBUG FA CROLLARE GLI FPS
+        // Debug.Log("Arma attuale: " + currentWeapon.name + "\nGittata (shoot Force): " + currentWeapon.shootForce + " impostata come distanza di interazione");
     }
 }
