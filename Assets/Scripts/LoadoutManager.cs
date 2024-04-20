@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 // FORSE COPIARE IN GAME MANAGER
@@ -25,12 +23,12 @@ public class LoadoutManager : MonoBehaviour
         {
             if (_currentWeapon == value)
             {
-                Debug.Log("Current weapon: " + _currentWeapon.name);
+                // Debug.Log("Current weapon: " + _currentWeapon.name);
                 return;
             }
 
             _currentWeapon = value;
-            Debug.Log("New current weapon: " + _currentWeapon.name);
+            // Debug.Log("New current weapon: " + _currentWeapon.name);
             OnWeaponChanged?.Invoke(_currentWeapon);
         }
     }
@@ -40,19 +38,16 @@ public class LoadoutManager : MonoBehaviour
         Instance = this;
         CurrentWeapon = weapons[current];
         LoadOutInfo();
-
-
     }
     // Update is called once per frame
     void Update()
     {
-
         // FORSE FARE CON ROTELLA MOUSE
 
         // L'arma viene cambiata solo se non sta ricaricando
         if (!_currentWeapon.GetComponent<ProjectileGun>().reloading)
         {
-            if (Input.GetButtonDown("NextWeapon"))
+            if (Input.GetButtonDown("NextWeapon") || Input.GetAxis("Mouse ScrollWheel") > 0f)
             {
 
                 weapons[current].SetActive(false);
@@ -66,7 +61,7 @@ public class LoadoutManager : MonoBehaviour
                 weapons[current].SetActive(true);
                 CurrentWeapon = weapons[current];
             }
-            else if (Input.GetButtonDown("PrevWeapon"))
+            else if (Input.GetButtonDown("PrevWeapon") || Input.GetAxis("Mouse ScrollWheel") < 0f)
             {
                 weapons[current].SetActive(false);
                 current--;
@@ -81,7 +76,7 @@ public class LoadoutManager : MonoBehaviour
                 CurrentWeapon = weapons[current];
             }
         }
-       // else Debug.Log("IMPOSSIBILE CAMBIARE. RICARICA");
+        // else Debug.Log("IMPOSSIBILE CAMBIARE. RICARICA");
     }
 
     private void LoadOutInfo()
