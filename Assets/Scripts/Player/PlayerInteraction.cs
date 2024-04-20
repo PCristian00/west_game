@@ -8,8 +8,8 @@ public class PlayerInteraction : MonoBehaviour
     private GameObject lastHitGameObject;
 
     // Utilizzate per cambiare raycastDistance in base a gittata arma (OTTIMIZZARE)
-   // [SerializeField] private ProjectileGun currentWeapon;
-   // [SerializeField] private ProjectileGun prevWeapon;
+    // [SerializeField] private ProjectileGun currentWeapon;
+    // [SerializeField] private ProjectileGun prevWeapon;
 
     //[SerializeField] private LoadoutManager;
 
@@ -81,7 +81,7 @@ public class PlayerInteraction : MonoBehaviour
         //LoadoutManager.Instance.CurrentWeapon.TryGetComponent<ProjectileGun>(out currentWeapon);
         //if (currentWeapon != prevWeapon)
         //{
-        //    Debug.Log("Arma attuale: " + currentWeapon.name + "\nGittata (shoot Force): " + currentWeapon.shootForce + " impostata come distanza di interazione");
+        //    
         //    raycastDistance = currentWeapon.shootForce;
         //    prevWeapon = currentWeapon;
         //}
@@ -108,9 +108,10 @@ public class PlayerInteraction : MonoBehaviour
 
     private void OnWeaponChanged(GameObject gun)
     {
-        Debug.Log("Arma cambiata. Aggiornamento Raycast");
-       ProjectileGun currentWeapon = gun.GetComponent<ProjectileGun>();
+        // Debug.Log("Arma cambiata. Aggiornamento Raycast");
+        ProjectileGun currentWeapon = gun.GetComponent<ProjectileGun>();
+        Debug.Log("Arma attuale: " + currentWeapon.name + "\nGittata (shoot Force): " + currentWeapon.shootForce + " impostata come distanza di interazione");
         raycastDistance = currentWeapon.shootForce;
-      //  prevWeapon = currentWeapon;
+        //  prevWeapon = currentWeapon;
     }
 }
