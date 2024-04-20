@@ -26,7 +26,7 @@ public class ProjectileGun : MonoBehaviour
     public float recoilForce;
 
     //bools
-    bool shooting, readyToShoot, reloading;
+    public bool shooting, readyToShoot, reloading;
 
     //Reference
     [Header("Reference")]
@@ -140,6 +140,7 @@ public class ProjectileGun : MonoBehaviour
             Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
 
         // Play sound
+        if(shootSound)
         audioSource.PlayOneShot(shootSound, 1);
 
         bulletsLeft--;
@@ -163,6 +164,7 @@ public class ProjectileGun : MonoBehaviour
     private void ResetShot()
     {
         //Allow shooting and invoking again
+        reloading = false;
         readyToShoot = true;
         allowInvoke = true;
     }
@@ -200,7 +202,7 @@ public class ProjectileGun : MonoBehaviour
             audioSource.clip = reloadSound;
             audioSource.Play();
             // Debug.Log("Bullets left: " + bulletsLeft);
-            reloading = false;
+            // reloading = false;
             ResetShot();
         }
         crosshair.color = crosshairColor;

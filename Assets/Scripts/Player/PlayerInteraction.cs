@@ -6,16 +6,20 @@ public class PlayerInteraction : MonoBehaviour
     public float raycastDistance = 5f;
 
     private GameObject lastHitGameObject;
-
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
+        OnWeaponChanged(LoadoutManager.Instance.CurrentWeapon);
+    }
+
+    private void Update()
+    {
+        LoadoutManager.Instance.OnWeaponChanged += OnWeaponChanged;
+
         Ray ray = _camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
 
 
         if (Physics.Raycast(ray, out RaycastHit hitInfo, raycastDistance))
         {
-            //Interactable hitInteractable = hitInfo.collider.GetComponent<Interactable>();
             GameObject hitGameObject = hitInfo.collider.gameObject;
             if (hitGameObject != lastHitGameObject)
             {
@@ -29,20 +33,14 @@ public class PlayerInteraction : MonoBehaviour
 
                 lastHitGameObject = hitGameObject;
 
-                //hitInteractable.HoverEnter();
                 foreach (var interactable in lastHitGameObject.GetComponents<IHover>())
                 {
                     interactable.HoverEnter();
                 }
-
-
             }
-
-            //if(hitInteractable==null) return;
 
             if (Input.GetButtonDown("Fire1"))
             {
-                //hitInteractable.Activate();
                 foreach (var interactable in lastHitGameObject.GetComponents<IActivate>())
                 {
                     interactable.Activate();
@@ -50,7 +48,6 @@ public class PlayerInteraction : MonoBehaviour
             }
             else if (Input.GetButtonDown("Fire2"))
             {
-                //hitInteractable.Examine();
                 foreach (var interactable in lastHitGameObject.GetComponents<IExamine>())
                 {
                     interactable.Examine();
@@ -61,7 +58,6 @@ public class PlayerInteraction : MonoBehaviour
         {
             if (lastHitGameObject != null)
             {
-                //lastHitGameObject.HoverExit();
                 foreach (var interactable in lastHitGameObject.GetComponents<IHover>())
                 {
                     interactable.HoverExit();
@@ -69,5 +65,14 @@ public class PlayerInteraction : MonoBehaviour
                 lastHitGameObject = null;
             }
         }
+    }
+
+    private void OnWeaponChanged(GameObject gun)
+    {
+        ProjectileGun currentWeapon = gun.GetComponent<ProjectileGun>();
+        raycastDistance = currentWeapon.shootForce;
+
+        // ATTENZIONE: QUESTA RIGA DI DEBUG FA CROLLARE GLI FPS
+        // Debug.Log("Arma attuale: " + currentWeapon.name + "\nGittata (shoot Force): " + currentWeapon.shootForce + " impostata come distanza di interazione");
     }
 }

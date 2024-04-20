@@ -4,7 +4,7 @@ public class PlayerManager : MonoBehaviour
 {
     public int health;
 
-    public bool isDead = false;    
+    // public bool isDead = false;    
     
     [Header("Sound")]
     // public AudioClip attackSound;
@@ -25,7 +25,8 @@ public class PlayerManager : MonoBehaviour
     private void Death()
     {
         Debug.Log("SEI MORTO");
-        isDead = true;
+        GameManager.instance.gameOver = true;
+       // isDead = true;
         AudioSource.PlayClipAtPoint(deathSound,gameObject.transform.position);
     }
 }
