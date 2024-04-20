@@ -88,17 +88,28 @@ public class PlayerInteraction : MonoBehaviour
         // METTERE IN FUNZIONE CHE SI AGGIORNA SOLO A CAMBIO ARMA??? [VEDI FORSE CAMBIO STATI ESCAPE ROOM]
         // FUNZIONANTE MA POCO OTTIMIZZATO
         // FORSE INTERAGIRE CON LoadoutManager
-        if (GameObject.FindGameObjectWithTag("Gun").TryGetComponent<ProjectileGun>(out currentWeapon))
-        {
 
-            if (currentWeapon != prevWeapon)
-            {
-                // Debug.Log("Arma attuale: " + currentWeapon.name + "\nGittata (shoot Force): " + currentWeapon.shootForce + " impostata come distanza di interazione");
-                raycastDistance = currentWeapon.shootForce;
-                prevWeapon = currentWeapon;
-            }
-        }
+        LoadoutManager.Instance.OnWeaponChanged += OnWeaponChanged;
+
+        OnWeaponChanged(LoadoutManager.Instance.CurrentWeapon);
+
+
+        //if (GameObject.FindGameObjectWithTag("Gun").TryGetComponent<ProjectileGun>(out currentWeapon))
+        //{
+
+        //    if (currentWeapon != prevWeapon)
+        //    {
+        //        // Debug.Log("Arma attuale: " + currentWeapon.name + "\nGittata (shoot Force): " + currentWeapon.shootForce + " impostata come distanza di interazione");
+        //        raycastDistance = currentWeapon.shootForce;
+        //        prevWeapon = currentWeapon;
+        //    }
+        //}
     }
 
-
+    private void OnWeaponChanged(GameObject gun)
+    {
+        currentWeapon = gun.GetComponent<ProjectileGun>();
+        raycastDistance = currentWeapon.shootForce;
+        prevWeapon = currentWeapon;
+    }
 }
