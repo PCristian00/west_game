@@ -14,10 +14,4 @@ public class OpenOnExamine : MonoBehaviour, IExamine
     {
         _transformAnimation = GetComponent<TransformAnimation>();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-       
-    }
 }

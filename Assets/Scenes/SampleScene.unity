@@ -3444,7 +3444,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 297e9fd5a5a03714aac3437c3bbb541b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlightColor: {r: 0.16251092, g: 0.8584906, b: 0.14983091, a: 0}
+  highlightColor: {r: 0.1490196, g: 0.81070405, b: 0.85882354, a: 0}
 --- !u!114 &1567832359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3457,11 +3457,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b91706c47ad5b044a90fe20c69fd51c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  translation: {x: 0, y: 0, z: 0}
-  rotationAxis: {x: 1, y: 0, z: 0}
-  rotationDegrees: 90
-  targetScale: {x: 1, y: 1, z: 1}
-  duration: 1
+  translation: {x: -1.7, y: 0, z: -1}
+  rotationAxis: {x: 0, y: 0, z: 1}
+  rotationDegrees: -90
+  targetScale: {x: -138.82956, y: -9.37179, z: -89.21769}
+  duration: 2
   curve:
     serializedVersion: 2
     m_Curve:
@@ -3477,8 +3477,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: 2
+      outSlope: 2
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
@@ -5984,11 +5984,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b91706c47ad5b044a90fe20c69fd51c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  translation: {x: 1.18, y: 1.34, z: 2.2}
-  rotationAxis: {x: 1, y: 0.8, z: 0.92}
-  rotationDegrees: 90
-  targetScale: {x: 1, y: 1, z: 1}
-  duration: 1
+  translation: {x: 1.7, y: 0, z: -1}
+  rotationAxis: {x: 0, y: 0, z: 1}
+  rotationDegrees: -90
+  targetScale: {x: 138.8296, y: 9.37179, z: 89.21769}
+  duration: 2
   curve:
     serializedVersion: 2
     m_Curve:
@@ -6004,8 +6004,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: 2
+      outSlope: 2
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
