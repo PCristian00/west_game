@@ -3137,6 +3137,7 @@ MonoBehaviour:
   healthInfo: {fileID: 1840845687}
   enemy: {fileID: 7067134833345967684, guid: e3e6eba3aaa82554d8c84047e4cfce2c, type: 3}
   enemySpawn: {fileID: 1774779853}
+  enemySpawnRate: 5
   gameOver: 0
 --- !u!1 &1405390680 stripped
 GameObject:

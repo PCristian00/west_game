@@ -176,7 +176,7 @@ MonoBehaviour:
   deathSound: {fileID: 8300000, guid: 9d130f1bc996ab5408ab8a00d0b693b9, type: 3}
   attackEffect: {fileID: 0}
   hitEffect: {fileID: 0}
-  deathEffect: {fileID: 5939177980392235594, guid: f2f084bab52db7f4086d13c7eb7d66e8, type: 3}
+  deathEffect: {fileID: 100008, guid: 1ae4db7b36e51124b89d2b32303a7a0b, type: 3}
 --- !u!54 &860381349001417016
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -239,4 +239,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b298743526bbd1418dd819577cd388b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 0.754717, g: 0.010679938, b: 0.010679938, a: 0}
