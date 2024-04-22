@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ColorOnHover : MonoBehaviour, IHover
+public class ColorCrosshairOnHover : MonoBehaviour, IHover
 {
 
     public Color color;
