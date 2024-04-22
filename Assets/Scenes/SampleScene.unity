@@ -6095,6 +6095,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8447471667515042588, guid: e3e6eba3aaa82554d8c84047e4cfce2c, type: 3}
+      propertyPath: icon
+      value: 
+      objectReference: {fileID: 1679698929264017356}
+    - target: {fileID: 8447471667515042588, guid: e3e6eba3aaa82554d8c84047e4cfce2c, type: 3}
       propertyPath: timeBetweenAttacks
       value: 2
       objectReference: {fileID: 0}
@@ -6103,6 +6107,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3e6eba3aaa82554d8c84047e4cfce2c, type: 3}
+--- !u!1 &1679698929264017356 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6735172774812297241, guid: e3e6eba3aaa82554d8c84047e4cfce2c, type: 3}
+  m_PrefabInstance: {fileID: 1679698929264017355}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4016033084767430183
 PrefabInstance:
   m_ObjectHideFlags: 0

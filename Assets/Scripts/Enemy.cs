@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     public Transform player;
     public LayerMask whatIsGround, whatIsPlayer;
     private Rigidbody rb;
+  
 
     [Header("Stats")]
     public float health;
@@ -44,10 +45,12 @@ public class Enemy : MonoBehaviour
     public GameObject attackEffect;
     public GameObject hitEffect;
     public GameObject deathEffect;
+    public GameObject icon;
 
     private void Start()
     {
         rb=GetComponent<Rigidbody>();
+        icon.SetActive(false);
     }
 
     private void Awake()
@@ -69,6 +72,7 @@ public class Enemy : MonoBehaviour
 
     private void Patroling()
     {
+        icon.SetActive(false);
         if (!walkPointSet) SearchWalkPoint();
 
         if (walkPointSet)
@@ -94,6 +98,7 @@ public class Enemy : MonoBehaviour
 
     private void ChasePlayer()
     {
+        icon.SetActive(true);
         agent.SetDestination(player.position);
     }
 
