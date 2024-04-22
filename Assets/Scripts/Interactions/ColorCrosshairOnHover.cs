@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class ColorCrosshairOnHover : MonoBehaviour, IHover
 {
 
-    public Color color;
+    // public Color color;
     private Image crosshair;
     // TROVARE MODO PER COLORE ORIGINALE MIRINO
     // private Color crosshairColor;
