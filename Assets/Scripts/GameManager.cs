@@ -14,11 +14,15 @@ public class GameManager : MonoBehaviour
 
     public GameObject enemySpawn;
 
+    public int enemySpawnRate = 5;
+
     private int enemyCount;
     private bool noEnemies = false;
 
     [Header("States")]
     public bool gameOver = false;
+
+    // INSERIRE STATI CON ENUM
 
 
     // Start is called before the first frame update
@@ -26,6 +30,8 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
         PlayerManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
+
+        // ATTENZIONE: Le scatole di test (Cube) attualmente hanno il tag Enemy
         enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
     }
 
@@ -42,27 +48,18 @@ public class GameManager : MonoBehaviour
                 healthInfo.SetText("Health: " + PlayerManager.health);
             }
 
-        // if (PlayerManager.isDead) gameOver = true;
-
         if (!gameOver && noEnemies == false)
         {
-           
-            // ATTENZIONE: Le scatole di test (Cube) attualmente hanno il tag Enemy
-           
+
             // Debug.Log("Nemici in gioco: " + enemyCount);
 
             if (enemyCount == 0)
                 noEnemies = true;
             else return;
-            // Debug.Log("Nessun nemico rimasto!");
-            //SpawnEnemy();
 
-            // QUESTA RIGA PER ORA NON VA BENE
-            // VENGONO CONTINUAMENTE SPAWNATI NUOVI NEMICI (enemy count è zero durante l'attesa di spawn)
-            Invoke(nameof(SpawnEnemy), 5);
+            Invoke(nameof(SpawnEnemy), enemySpawnRate);
         }
     }
-
 
     private void SpawnEnemy()
     {
