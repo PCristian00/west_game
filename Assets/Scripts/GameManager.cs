@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     public GameObject enemySpawn;
 
     private int enemyCount;
-    // private bool noEnemies;
+    private bool noEnemies = false;
 
     [Header("States")]
     public bool gameOver = false;
@@ -51,13 +51,15 @@ public class GameManager : MonoBehaviour
 
             if (enemyCount == 0)
             {
-                // noEnemies = true;
+                if (noEnemies == false)
+                    noEnemies = true;
+                else return;
                 // Debug.Log("Nessun nemico rimasto!");
-                SpawnEnemy();
+                //SpawnEnemy();
 
                 // QUESTA RIGA PER ORA NON VA BENE
                 // VENGONO CONTINUAMENTE SPAWNATI NUOVI NEMICI (enemy count è zero durante l'attesa di spawn)
-                //Invoke(nameof(SpawnEnemy), 5);
+                Invoke(nameof(SpawnEnemy), 5);
             }
         }
     }
@@ -65,5 +67,6 @@ public class GameManager : MonoBehaviour
     private void SpawnEnemy()
     {
         Instantiate(enemy, enemySpawn.transform.position, enemy.transform.rotation);
+        noEnemies = false;
     }
 }
