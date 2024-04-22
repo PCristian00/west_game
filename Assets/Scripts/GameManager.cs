@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
         PlayerManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
+        enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
     }
 
     // Update is called once per frame
@@ -41,32 +42,37 @@ public class GameManager : MonoBehaviour
                 healthInfo.SetText("Health: " + PlayerManager.health);
             }
 
-       // if (PlayerManager.isDead) gameOver = true;
+        // if (PlayerManager.isDead) gameOver = true;
 
-        if (!gameOver)
+        if (!gameOver && noEnemies == false)
         {
+           
             // ATTENZIONE: Le scatole di test (Cube) attualmente hanno il tag Enemy
-            enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
+           
             // Debug.Log("Nemici in gioco: " + enemyCount);
 
             if (enemyCount == 0)
-            {
-                if (noEnemies == false)
-                    noEnemies = true;
-                else return;
-                // Debug.Log("Nessun nemico rimasto!");
-                //SpawnEnemy();
+                noEnemies = true;
+            else return;
+            // Debug.Log("Nessun nemico rimasto!");
+            //SpawnEnemy();
 
-                // QUESTA RIGA PER ORA NON VA BENE
-                // VENGONO CONTINUAMENTE SPAWNATI NUOVI NEMICI (enemy count è zero durante l'attesa di spawn)
-                Invoke(nameof(SpawnEnemy), 5);
-            }
+            // QUESTA RIGA PER ORA NON VA BENE
+            // VENGONO CONTINUAMENTE SPAWNATI NUOVI NEMICI (enemy count è zero durante l'attesa di spawn)
+            Invoke(nameof(SpawnEnemy), 5);
         }
     }
+
 
     private void SpawnEnemy()
     {
         Instantiate(enemy, enemySpawn.transform.position, enemy.transform.rotation);
         noEnemies = false;
+        enemyCount++;
+    }
+
+    public void EnemyKilled()
+    {
+        enemyCount--;
     }
 }
