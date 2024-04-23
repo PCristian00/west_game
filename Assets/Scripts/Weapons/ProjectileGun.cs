@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using TMPro;
 using System.Collections;
+using UnityEngine.UI;
 
 public class ProjectileGun : MonoBehaviour
 {
@@ -32,14 +33,13 @@ public class ProjectileGun : MonoBehaviour
     [Header("Reference")]
     public Camera fpsCam;
     public Transform attackPoint;
+    private Image crosshair;
 
     //Graphics
     [Header("Graphics")]
     public GameObject muzzleFlash;
     public TextMeshProUGUI ammoInfo;
-    // DA IMPLEMENTARE??
-    public Sprite crosshairSprite;
-    public UnityEngine.UI.Image crosshair;
+    public Sprite crosshairSprite;   
     private Color crosshairColor;
     private EasyReloadAnimation reloadAnimation;
 
@@ -56,6 +56,7 @@ public class ProjectileGun : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        crosshair = GameObject.FindGameObjectWithTag("Crosshair").GetComponent<Image>();
         crosshairColor = crosshair.color;
         reloadAnimation = GetComponent<EasyReloadAnimation>();
     }
@@ -216,11 +217,14 @@ public class ProjectileGun : MonoBehaviour
     }
     private void ReloadFinished()
     {
+
+        // PROBLEMI CON ROCKET LAUNCHER: TESTARE DI NUOVO
+
         audioSource.loop = false;
         //Fill magazine
         bulletsLeft = magazineSize;
-        reloading = false;
         crosshair.color = crosshairColor;
+        reloading = false;
         Debug.Log("Reload finished! (R ="+reloading+")");
     }
 }
