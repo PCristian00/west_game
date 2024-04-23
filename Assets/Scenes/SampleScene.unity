@@ -794,6 +794,7 @@ GameObject:
   - component: {fileID: 382362593}
   - component: {fileID: 382362594}
   - component: {fileID: 382362595}
+  - component: {fileID: 382362596}
   m_Layer: 0
   m_Name: Revolver
   m_TagString: Gun
@@ -951,6 +952,44 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &382362596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 382362592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4f131c42264fb744b520784835d4635, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationAxis: {x: 1, y: 0, z: 0}
+  rotationDegrees: 90
+  curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &408264821
 GameObject:
   m_ObjectHideFlags: 0
@@ -1024,6 +1063,7 @@ GameObject:
   m_Component:
   - component: {fileID: 488973232}
   - component: {fileID: 488973234}
+  - component: {fileID: 488973235}
   - component: {fileID: 488973233}
   m_Layer: 0
   m_Name: RocketLauncher
@@ -1182,6 +1222,44 @@ MonoBehaviour:
   shootSound: {fileID: 8300000, guid: 40e71b0f7bd610849b40f150553f4702, type: 3}
   reloadSound: {fileID: 8300000, guid: c3430338b7987524d96ce1f63db280cd, type: 3}
   allowInvoke: 1
+--- !u!114 &488973235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 488973231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4f131c42264fb744b520784835d4635, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationAxis: {x: 1, y: 0, z: 0}
+  rotationDegrees: 90
+  curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &490604700 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6338650637150883797, guid: 37f35f0ebe7bcae49a9e82f7303fb002, type: 3}
@@ -3574,6 +3652,7 @@ GameObject:
   - component: {fileID: 1593348374}
   - component: {fileID: 1593348376}
   - component: {fileID: 1593348375}
+  - component: {fileID: 1593348377}
   m_Layer: 0
   m_Name: Assault
   m_TagString: Gun
@@ -3731,6 +3810,44 @@ MonoBehaviour:
   shootSound: {fileID: 8300000, guid: 03f9161cedca06d4cad5a5047b3d5c9f, type: 3}
   reloadSound: {fileID: 8300000, guid: 5c189f5e216cd81498f8dff29b3ae84c, type: 3}
   allowInvoke: 1
+--- !u!114 &1593348377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593348373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4f131c42264fb744b520784835d4635, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationAxis: {x: 4, y: 1, z: 2}
+  rotationDegrees: 45
+  curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &1595882847
 PrefabInstance:
   m_ObjectHideFlags: 0

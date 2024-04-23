@@ -41,6 +41,7 @@ public class ProjectileGun : MonoBehaviour
     public Sprite crosshairSprite;
     public UnityEngine.UI.Image crosshair;
     private Color crosshairColor;
+    private EasyReloadAnimation reloadAnimation;
 
     //Sound
     [Header("Sound")]
@@ -56,6 +57,7 @@ public class ProjectileGun : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         crosshairColor = crosshair.color;
+        reloadAnimation = GetComponent<EasyReloadAnimation>();
     }
 
     private void Awake()
@@ -173,6 +175,7 @@ public class ProjectileGun : MonoBehaviour
     {
 
         reloading = true;
+        
         // TEST cambio colore crosshair
         // In sovrapposizione con ColorOnHover (TROVARE SOLUZIONE)
         crosshair.color = Color.black;
@@ -186,6 +189,8 @@ public class ProjectileGun : MonoBehaviour
         {
             audioSource.loop = true;
             audioSource.clip = reloadSound;
+            if(reloadAnimation)
+            reloadAnimation.Play(reloadTime);
             audioSource.Play();
             Invoke(nameof(ReloadFinished), reloadTime); //Invoke ReloadFinished function with your reloadTime as delay
         }
@@ -200,6 +205,8 @@ public class ProjectileGun : MonoBehaviour
             t += Time.deltaTime / reloadTime;
             bulletsLeft++;
             audioSource.clip = reloadSound;
+            if(reloadAnimation)
+            reloadAnimation.Play(reloadTime);
             audioSource.Play();
             // Debug.Log("Bullets left: " + bulletsLeft);
             // reloading = false;
@@ -214,5 +221,6 @@ public class ProjectileGun : MonoBehaviour
         bulletsLeft = magazineSize;
         reloading = false;
         crosshair.color = crosshairColor;
+        Debug.Log("Reload finished! (R ="+reloading+")");
     }
 }
