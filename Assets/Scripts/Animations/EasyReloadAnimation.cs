@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class EasyReloadAnimation : MonoBehaviour
 {
-   // [SerializeField] private Vector3 translation = Vector3.zero;
+
+    // NOTA: Copiata da TransformAnimation
+    // PER ORA GESTISCE SOLO ROTAZIONI
+    // VA DA UN MOVIMENTO AD UN ALTRO E TORNA INDIETRO
+
+    // [SerializeField] private Vector3 translation = Vector3.zero;
     [SerializeField] private Vector3 rotationAxis = Vector3.right;
     [SerializeField] private float rotationDegrees = 0f;
     // [SerializeField] private Vector3 targetScale = Vector3.one;
@@ -12,9 +17,9 @@ public class EasyReloadAnimation : MonoBehaviour
 
     [SerializeField] private AnimationCurve curve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
-    private Vector3 startPosition;
+    // private Vector3 startPosition;
     private Quaternion startRotation;
-    private Vector3 startScale;
+    // private Vector3 startScale;
 
     private Vector3 targetPosition;
     private Quaternion targetRotation;
@@ -26,9 +31,9 @@ public class EasyReloadAnimation : MonoBehaviour
     private void Start()
     {
         _transform = GetComponent<Transform>();
-        startPosition = _transform.localPosition;
+        //  startPosition = _transform.localPosition;
         startRotation = _transform.localRotation;
-        startScale = _transform.localScale;
+        // startScale = _transform.localScale;
 
         // targetPosition = startPosition + translation;
         targetRotation = startRotation * Quaternion.AngleAxis(rotationDegrees, rotationAxis);
@@ -50,8 +55,8 @@ public class EasyReloadAnimation : MonoBehaviour
         // Vector3 currentStartScale = forward ? startScale : targetScale ;
         // Quaternion currentStartRotation = forward ? startRotation : targetRotation ;
 
-        Vector3 currentStartPosition = _transform.localPosition;
-        Vector3 currentStartScale = _transform.localScale;
+        // Vector3 currentStartPosition = _transform.localPosition;
+        // Vector3 currentStartScale = _transform.localScale;
         Quaternion currentStartRotation = _transform.localRotation;
 
         // Vector3 currentTargetPosition = forward ? targetPosition : startPosition;
