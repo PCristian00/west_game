@@ -963,7 +963,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f131c42264fb744b520784835d4635, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationAxis: {x: 1, y: 0, z: 0}
+  rotationAxis: {x: 3, y: -3, z: -3}
   rotationDegrees: 90
   curve:
     serializedVersion: 2
@@ -1062,8 +1062,8 @@ GameObject:
   m_Component:
   - component: {fileID: 488973232}
   - component: {fileID: 488973234}
-  - component: {fileID: 488973235}
   - component: {fileID: 488973233}
+  - component: {fileID: 488973235}
   m_Layer: 0
   m_Name: RocketLauncher
   m_TagString: Gun
@@ -1232,8 +1232,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f131c42264fb744b520784835d4635, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationAxis: {x: 1, y: 0, z: 0}
-  rotationDegrees: 90
+  rotationAxis: {x: -10, y: 0, z: 5}
+  rotationDegrees: 180
   curve:
     serializedVersion: 2
     m_Curve:
