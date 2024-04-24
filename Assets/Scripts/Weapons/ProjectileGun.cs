@@ -39,7 +39,7 @@ public class ProjectileGun : MonoBehaviour
     [Header("Graphics")]
     public GameObject muzzleFlash;
     public TextMeshProUGUI ammoInfo;
-    public Sprite crosshairSprite;   
+    public Sprite crosshairSprite;
     private Color crosshairColor;
     private EasyReloadAnimation reloadAnimation;
 
@@ -148,8 +148,8 @@ public class ProjectileGun : MonoBehaviour
             Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
 
         // Play sound
-        if(shootSound)
-        audioSource.PlayOneShot(shootSound, 1);
+        if (shootSound)
+            audioSource.PlayOneShot(shootSound, 1);
 
         bulletsLeft--;
         bulletsShot++;
@@ -172,16 +172,15 @@ public class ProjectileGun : MonoBehaviour
     private void ResetShot()
     {
         //Allow shooting and invoking again
-       // reloading = false;
+        // reloading = false;
         readyToShoot = true;
         allowInvoke = true;
     }
 
     private void Reload()
     {
-
         reloading = true;
-        
+
         // TEST cambio colore crosshair
         // In sovrapposizione con ColorOnHover (TROVARE SOLUZIONE)
         crosshair.color = Color.black;
@@ -195,8 +194,8 @@ public class ProjectileGun : MonoBehaviour
         {
             audioSource.loop = true;
             audioSource.clip = reloadSound;
-            if(reloadAnimation)
-            reloadAnimation.Play(reloadTime);
+            if (reloadAnimation)
+                reloadAnimation.Play(reloadTime);
             audioSource.Play();
             Invoke(nameof(ReloadFinished), reloadTime); //Invoke ReloadFinished function with your reloadTime as delay
         }
@@ -208,13 +207,15 @@ public class ProjectileGun : MonoBehaviour
         float t = 0f;
         while (bulletsLeft < magazineSize)
         {
+            if (reloadAnimation)
+                reloadAnimation.Play(reloadTime);
+            audioSource.Play();
+
             yield return new WaitForSeconds(reloadTime);
             t += Time.deltaTime / reloadTime;
             bulletsLeft++;
             audioSource.clip = reloadSound;
-            if(reloadAnimation)
-            reloadAnimation.Play(reloadTime);
-            audioSource.Play();
+           
             // Debug.Log("Bullets left: " + bulletsLeft);
             reloading = false;
             ResetShot();
@@ -223,9 +224,6 @@ public class ProjectileGun : MonoBehaviour
     }
     private void ReloadFinished()
     {
-
-        // PROBLEMI CON ROCKET LAUNCHER: TESTARE DI NUOVO
-
         audioSource.loop = false;
         //Fill magazine
         bulletsLeft = magazineSize;

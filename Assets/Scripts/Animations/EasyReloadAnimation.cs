@@ -91,4 +91,6 @@ public class EasyReloadAnimation : MonoBehaviour
             _transform.localRotation = Quaternion.Lerp(currentStartRotation, currentTargetRotation, curve.Evaluate(t));
         }
     }
+
+    // TROVARE UN MODO PER TORNARE PIù VELOCEMENTE ALL'INIZIO SE IL GIOCATORE SPARA (CYLINDER RELOAD)
 }
