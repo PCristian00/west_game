@@ -97,7 +97,12 @@ public class ProjectileGun : MonoBehaviour
         if (readyToShoot && shooting && !reloading && bulletsLeft > 0)
         {
             // Se l'arma è a tamburo (cylinder), la ricarica può essere interrotta dal giocatore
-            if (hasCylinder) StopAllCoroutines();
+            if (hasCylinder)
+            {
+                StopAllCoroutines();
+                crosshair.color = crosshairColor;
+            }
+
             //Set bullets shot to 0
             bulletsShot = 0;
 
@@ -167,7 +172,7 @@ public class ProjectileGun : MonoBehaviour
     private void ResetShot()
     {
         //Allow shooting and invoking again
-        reloading = false;
+       // reloading = false;
         readyToShoot = true;
         allowInvoke = true;
     }
@@ -199,6 +204,7 @@ public class ProjectileGun : MonoBehaviour
 
     IEnumerator CylinderReload()
     {
+
         float t = 0f;
         while (bulletsLeft < magazineSize)
         {
@@ -210,7 +216,7 @@ public class ProjectileGun : MonoBehaviour
             reloadAnimation.Play(reloadTime);
             audioSource.Play();
             // Debug.Log("Bullets left: " + bulletsLeft);
-            // reloading = false;
+            reloading = false;
             ResetShot();
         }
         crosshair.color = crosshairColor;
@@ -225,6 +231,6 @@ public class ProjectileGun : MonoBehaviour
         bulletsLeft = magazineSize;
         crosshair.color = crosshairColor;
         reloading = false;
-        Debug.Log("Reload finished! (R ="+reloading+")");
+        Debug.Log("Reload finished! (R = " + reloading + ")");
     }
 }
