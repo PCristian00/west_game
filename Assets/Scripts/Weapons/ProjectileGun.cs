@@ -27,7 +27,7 @@ public class ProjectileGun : MonoBehaviour
     public float recoilForce;
 
     //bools
-    public bool shooting, readyToShoot, reloading, isColliding = false;
+    public bool shooting, readyToShoot, reloading;
 
     //Reference
     [Header("Reference")]
@@ -44,7 +44,7 @@ public class ProjectileGun : MonoBehaviour
     private Color crosshairColor;
 
     [SerializeField] private RotationAnimation reloadAnimation;
-    
+
     [SerializeField] private RotationAnimation collisionAnimation;
 
     //Sound
@@ -242,32 +242,49 @@ public class ProjectileGun : MonoBehaviour
     }
 
     // TROVARE SOLUZIONE AL "LOOP" CHE SI VEDE
-    // PRIMI TEST CON isColliding FALLIMENTARI
+  
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Bullet") && !other.CompareTag("Player") && !isColliding)
+        if (!other.CompareTag("Bullet") && !other.CompareTag("Player"))
         {
-            Debug.Log("Test: collisione trigger di " + gameObject.name + " con " + other.name + "[tag = " + other.tag + " ]");
+            //  Debug.Log("Test: collisione trigger di " + gameObject.name + " con " + other.name + "[tag = " + other.tag + " ]");
             // reloadAnimation.Play(0.2f, true);
             collisionAnimation.Play(1f, true);
-            isColliding = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (!other.CompareTag("Bullet") && !other.CompareTag("Player"))
+        {
+            // Debug.Log("Test: collisione trigger exit di " + gameObject.name + " con " + other.name + "[tag = " + other.tag + " ]");
+            // reloadAnimation.Play(0.2f, false);
+            collisionAnimation.Play(1f, false);
         }
     }
 
     //private void OnCollisionEnter(Collision collision)
     //{
-    //    Debug.Log("Test: collisione di " + gameObject.name + " con " + collision.gameObject.name);
+    //    // Debug.Log("Test: collisione di " + gameObject.name + " con " + collision.gameObject.name);
+
+    //    if (!collision.gameObject.CompareTag("Bullet") && !collision.gameObject.CompareTag("Player") && !isColliding)
+    //    {
+    //        Debug.Log("Test: collisione di " + gameObject.name + " con " + collision.gameObject.name + "[tag = " + collision.gameObject.tag + " ]");
+    //        // reloadAnimation.Play(0.2f, true);
+    //        collisionAnimation.Play(1f, true);
+    //        isColliding = true;
+    //    }
     //}
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (!other.CompareTag("Bullet") && !other.CompareTag("Player") && isColliding)
-        {
-            Debug.Log("Test: collisione trigger exit di " + gameObject.name + " con " + other.name + "[tag = " + other.tag + " ]");
-            // reloadAnimation.Play(0.2f, false);
-            collisionAnimation.Play(1f, false);
-            isColliding = false;
-        }
-    }
+    //private void OnCollisionExit(Collision collision)
+    //{
+    //    if (!collision.gameObject.CompareTag("Bullet") && !collision.gameObject.CompareTag("Player") && !isColliding)
+    //    {
+    //        Debug.Log("Test: collisione exit di " + gameObject.name + " con " + collision.gameObject.name + "[tag = " + collision.gameObject.tag + " ]");
+    //        // reloadAnimation.Play(0.2f, true);
+    //        collisionAnimation.Play(1f, false);
+    //        isColliding = true;
+    //    }
+    //}
 }
