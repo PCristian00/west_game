@@ -14,11 +14,15 @@ public class GameManager : MonoBehaviour
 
     public GameObject enemySpawn;
 
+    public int enemySpawnRate = 5;
+
     private int enemyCount;
-    // private bool noEnemies;
+    private bool noEnemies = false;
 
     [Header("States")]
     public bool gameOver = false;
+
+    // INSERIRE STATI CON ENUM
 
 
     // Start is called before the first frame update
@@ -26,6 +30,9 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
         PlayerManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
+
+        // ATTENZIONE: Le scatole di test (Cube) attualmente hanno il tag Enemy
+        enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
     }
 
     // Update is called once per frame
@@ -41,29 +48,28 @@ public class GameManager : MonoBehaviour
                 healthInfo.SetText("Health: " + PlayerManager.health);
             }
 
-       // if (PlayerManager.isDead) gameOver = true;
-
-        if (!gameOver)
+        if (!gameOver && noEnemies == false)
         {
-            // ATTENZIONE: Le scatole di test (Cube) attualmente hanno il tag Enemy
-            enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
+
             // Debug.Log("Nemici in gioco: " + enemyCount);
 
             if (enemyCount == 0)
-            {
-                // noEnemies = true;
-                // Debug.Log("Nessun nemico rimasto!");
-                SpawnEnemy();
+                noEnemies = true;
+            else return;
 
-                // QUESTA RIGA PER ORA NON VA BENE
-                // VENGONO CONTINUAMENTE SPAWNATI NUOVI NEMICI (enemy count è zero durante l'attesa di spawn)
-                //Invoke(nameof(SpawnEnemy), 5);
-            }
+            Invoke(nameof(SpawnEnemy), enemySpawnRate);
         }
     }
 
     private void SpawnEnemy()
     {
         Instantiate(enemy, enemySpawn.transform.position, enemy.transform.rotation);
+        noEnemies = false;
+        enemyCount++;
+    }
+
+    public void EnemyKilled()
+    {
+        enemyCount--;
     }
 }

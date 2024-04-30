@@ -302,13 +302,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 5632919807749576438}
-  explosion: {fileID: 0}
+  explosion: {fileID: 100002, guid: 556d09d7fda29fd4185eed4067d5777b, type: 3}
   whatIsEnemies:
     serializedVersion: 2
     m_Bits: 64
   bounciness: 0
   useGravity: 0
-  maxCollisions: 1
+  maxCollisions: 0
   maxLifetime: 1
   explodeOnTouch: 1
   explosionDamage: 10

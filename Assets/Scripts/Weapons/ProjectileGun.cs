@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using TMPro;
 using System.Collections;
+using UnityEngine.UI;
 
 public class ProjectileGun : MonoBehaviour
 {
@@ -32,15 +33,19 @@ public class ProjectileGun : MonoBehaviour
     [Header("Reference")]
     public Camera fpsCam;
     public Transform attackPoint;
+    private Image crosshair;
+    private Collider gunCollider;
 
     //Graphics
     [Header("Graphics")]
     public GameObject muzzleFlash;
     public TextMeshProUGUI ammoInfo;
-    // DA IMPLEMENTARE??
     public Sprite crosshairSprite;
-    public UnityEngine.UI.Image crosshair;
     private Color crosshairColor;
+
+    [SerializeField] private RotationAnimation reloadAnimation;
+
+    [SerializeField] private RotationAnimation collisionAnimation;
 
     //Sound
     [Header("Sound")]
@@ -55,7 +60,14 @@ public class ProjectileGun : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        crosshair = GameObject.FindGameObjectWithTag("Crosshair").GetComponent<Image>();
         crosshairColor = crosshair.color;
+
+        // TROVARE MODO PER ASSOCIARE CORRETTAMENTE USANDO GetComponent e senza trascinare
+
+        // reloadAnimation = GetComponent<RotationAnimation>();
+        //  collisionAnimation = GetComponent<RotationAnimation>();
+        gunCollider = GetComponent<Collider>();
     }
 
     private void Awake()
@@ -94,7 +106,12 @@ public class ProjectileGun : MonoBehaviour
         if (readyToShoot && shooting && !reloading && bulletsLeft > 0)
         {
             // Se l'arma è a tamburo (cylinder), la ricarica può essere interrotta dal giocatore
-            if (hasCylinder) StopAllCoroutines();
+            if (hasCylinder)
+            {
+                StopAllCoroutines();
+                crosshair.color = crosshairColor;
+            }
+
             //Set bullets shot to 0
             bulletsShot = 0;
 
@@ -140,8 +157,8 @@ public class ProjectileGun : MonoBehaviour
             Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
 
         // Play sound
-        if(shootSound)
-        audioSource.PlayOneShot(shootSound, 1);
+        if (shootSound)
+            audioSource.PlayOneShot(shootSound, 1);
 
         bulletsLeft--;
         bulletsShot++;
@@ -164,15 +181,15 @@ public class ProjectileGun : MonoBehaviour
     private void ResetShot()
     {
         //Allow shooting and invoking again
-        reloading = false;
+        // reloading = false;
         readyToShoot = true;
         allowInvoke = true;
     }
 
     private void Reload()
     {
-
         reloading = true;
+
         // TEST cambio colore crosshair
         // In sovrapposizione con ColorOnHover (TROVARE SOLUZIONE)
         crosshair.color = Color.black;
@@ -186,6 +203,8 @@ public class ProjectileGun : MonoBehaviour
         {
             audioSource.loop = true;
             audioSource.clip = reloadSound;
+            if (reloadAnimation)
+                reloadAnimation.PlayComplete(reloadTime);
             audioSource.Play();
             Invoke(nameof(ReloadFinished), reloadTime); //Invoke ReloadFinished function with your reloadTime as delay
         }
@@ -193,16 +212,21 @@ public class ProjectileGun : MonoBehaviour
 
     IEnumerator CylinderReload()
     {
+
         float t = 0f;
         while (bulletsLeft < magazineSize)
         {
+            if (reloadAnimation)
+                reloadAnimation.PlayComplete(reloadTime);
+            audioSource.Play();
+
             yield return new WaitForSeconds(reloadTime);
             t += Time.deltaTime / reloadTime;
             bulletsLeft++;
             audioSource.clip = reloadSound;
-            audioSource.Play();
+
             // Debug.Log("Bullets left: " + bulletsLeft);
-            // reloading = false;
+            reloading = false;
             ResetShot();
         }
         crosshair.color = crosshairColor;
@@ -212,7 +236,55 @@ public class ProjectileGun : MonoBehaviour
         audioSource.loop = false;
         //Fill magazine
         bulletsLeft = magazineSize;
-        reloading = false;
         crosshair.color = crosshairColor;
+        reloading = false;
+        // Debug.Log("Reload finished! (R = " + reloading + ")");
     }
+
+    // TROVARE SOLUZIONE AL "LOOP" CHE SI VEDE
+  
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!other.CompareTag("Bullet") && !other.CompareTag("Player"))
+        {
+            //  Debug.Log("Test: collisione trigger di " + gameObject.name + " con " + other.name + "[tag = " + other.tag + " ]");
+            // reloadAnimation.Play(0.2f, true);
+            collisionAnimation.Play(1f, true);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (!other.CompareTag("Bullet") && !other.CompareTag("Player"))
+        {
+            // Debug.Log("Test: collisione trigger exit di " + gameObject.name + " con " + other.name + "[tag = " + other.tag + " ]");
+            // reloadAnimation.Play(0.2f, false);
+            collisionAnimation.Play(1f, false);
+        }
+    }
+
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    // Debug.Log("Test: collisione di " + gameObject.name + " con " + collision.gameObject.name);
+
+    //    if (!collision.gameObject.CompareTag("Bullet") && !collision.gameObject.CompareTag("Player") && !isColliding)
+    //    {
+    //        Debug.Log("Test: collisione di " + gameObject.name + " con " + collision.gameObject.name + "[tag = " + collision.gameObject.tag + " ]");
+    //        // reloadAnimation.Play(0.2f, true);
+    //        collisionAnimation.Play(1f, true);
+    //        isColliding = true;
+    //    }
+    //}
+
+    //private void OnCollisionExit(Collision collision)
+    //{
+    //    if (!collision.gameObject.CompareTag("Bullet") && !collision.gameObject.CompareTag("Player") && !isColliding)
+    //    {
+    //        Debug.Log("Test: collisione exit di " + gameObject.name + " con " + collision.gameObject.name + "[tag = " + collision.gameObject.tag + " ]");
+    //        // reloadAnimation.Play(0.2f, true);
+    //        collisionAnimation.Play(1f, false);
+    //        isColliding = true;
+    //    }
+    //}
 }
