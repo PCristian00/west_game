@@ -215,7 +215,7 @@ public class ProjectileGun : MonoBehaviour
             t += Time.deltaTime / reloadTime;
             bulletsLeft++;
             audioSource.clip = reloadSound;
-           
+
             // Debug.Log("Bullets left: " + bulletsLeft);
             reloading = false;
             ResetShot();
@@ -229,6 +229,6 @@ public class ProjectileGun : MonoBehaviour
         bulletsLeft = magazineSize;
         crosshair.color = crosshairColor;
         reloading = false;
-        Debug.Log("Reload finished! (R = " + reloading + ")");
+        // Debug.Log("Reload finished! (R = " + reloading + ")");
     }
 }

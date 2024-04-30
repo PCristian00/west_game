@@ -21,11 +21,13 @@ public class EasyReloadAnimation : MonoBehaviour
     private Quaternion startRotation;
     // private Vector3 startScale;
 
-    private Vector3 targetPosition;
+    // private Vector3 targetPosition;
     private Quaternion targetRotation;
 
     private Transform _transform;
 
+    // TROVARE NOME MIGLIORE
+    public bool backToStart = true;
 
 
     private void Start()
@@ -46,11 +48,13 @@ public class EasyReloadAnimation : MonoBehaviour
     {
         //if(currentCoroutine!=null) StopCoroutine(currentCoroutine);
         StopAllCoroutines();
-        StartCoroutine(Animate(duration));
+        StartCoroutine(Animate(duration, backToStart));
     }
 
-    IEnumerator Animate(float duration)
+    IEnumerator Animate(float duration, bool backToStart)
     {
+        // PRIMO MOVIMENTO
+
         // Vector3 currentStartPosition = forward ? startPosition : targetPosition ;
         // Vector3 currentStartScale = forward ? startScale : targetScale ;
         // Quaternion currentStartRotation = forward ? startRotation : targetRotation ;
@@ -75,22 +79,28 @@ public class EasyReloadAnimation : MonoBehaviour
             _transform.localRotation = Quaternion.Lerp(currentStartRotation, currentTargetRotation, curve.Evaluate(t));
         }
 
-        currentTargetRotation = startRotation;
 
-        currentStartRotation = targetRotation;
-
-        //t = 0f;
-        while (t < 1f)
+        if (backToStart)
         {
-            //Debug.Log("Ritorno a pos iniziale");
-            yield return null;
-            t += Time.deltaTime / duration;
+            // PARTE RITORNO A INIZIO
 
-            //_transform.localPosition = Vector3.Lerp(currentStartPosition, currentTargetPosition, curve.Evaluate(t));
-            //_transform.localScale = Vector3.Lerp(currentStartScale, currentTargetScale, curve.Evaluate(t));
-            _transform.localRotation = Quaternion.Lerp(currentStartRotation, currentTargetRotation, curve.Evaluate(t));
+            currentTargetRotation = startRotation;
+
+            currentStartRotation = targetRotation;
+
+            //t = 0f;
+            while (t < 1f)
+            {
+                //Debug.Log("Ritorno a pos iniziale");
+                yield return null;
+                t += Time.deltaTime / duration;
+
+                //_transform.localPosition = Vector3.Lerp(currentStartPosition, currentTargetPosition, curve.Evaluate(t));
+                //_transform.localScale = Vector3.Lerp(currentStartScale, currentTargetScale, curve.Evaluate(t));
+                _transform.localRotation = Quaternion.Lerp(currentStartRotation, currentTargetRotation, curve.Evaluate(t));
+            }
         }
-    }
 
+    }
     // TROVARE UN MODO PER TORNARE PIù VELOCEMENTE ALL'INIZIO SE IL GIOCATORE SPARA (CYLINDER RELOAD)
 }

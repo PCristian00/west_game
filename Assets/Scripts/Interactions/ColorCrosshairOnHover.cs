@@ -36,7 +36,7 @@ public class ColorCrosshairOnHover : MonoBehaviour, IHover
 
     private void ColorReset()
     {
-        if(crosshair != null)
+        if (crosshair != null)
         crosshair.color = Color.white;
     }
 }

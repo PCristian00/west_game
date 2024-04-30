@@ -989,6 +989,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  backToStart: 1
 --- !u!1 &408264821
 GameObject:
   m_ObjectHideFlags: 0
@@ -1258,6 +1259,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  backToStart: 1
 --- !u!1 &490604700 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6338650637150883797, guid: 37f35f0ebe7bcae49a9e82f7303fb002, type: 3}
@@ -3845,6 +3847,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  backToStart: 1
 --- !u!1001 &1595882847
 PrefabInstance:
   m_ObjectHideFlags: 0
