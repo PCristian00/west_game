@@ -27,7 +27,7 @@ public class ProjectileGun : MonoBehaviour
     public float recoilForce;
 
     //bools
-    public bool shooting, readyToShoot, reloading;
+    public bool shooting, readyToShoot, reloading, isColliding = false;
 
     //Reference
     [Header("Reference")]
@@ -42,9 +42,10 @@ public class ProjectileGun : MonoBehaviour
     public TextMeshProUGUI ammoInfo;
     public Sprite crosshairSprite;
     private Color crosshairColor;
-    private EasyReloadAnimation reloadAnimation;
-    // DUPLICARE Component e modificare parametri per far puntare in alto
-    // private EasyReloadAnimation collisionAnimation;
+
+    [SerializeField] private RotationAnimation reloadAnimation;
+    
+    [SerializeField] private RotationAnimation collisionAnimation;
 
     //Sound
     [Header("Sound")]
@@ -61,8 +62,11 @@ public class ProjectileGun : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         crosshair = GameObject.FindGameObjectWithTag("Crosshair").GetComponent<Image>();
         crosshairColor = crosshair.color;
-        reloadAnimation = GetComponent<EasyReloadAnimation>();
-        // collisionAnimation = GetComponent<EasyReloadAnimation>();
+
+        // TROVARE MODO PER ASSOCIARE CORRETTAMENTE USANDO GetComponent e senza trascinare
+
+        // reloadAnimation = GetComponent<RotationAnimation>();
+        //  collisionAnimation = GetComponent<RotationAnimation>();
         gunCollider = GetComponent<Collider>();
     }
 
@@ -237,15 +241,17 @@ public class ProjectileGun : MonoBehaviour
         // Debug.Log("Reload finished! (R = " + reloading + ")");
     }
 
-    // MODIFICARE DENTRO QUESTE DUE PER NUOVE ANIMAZIONI
+    // TROVARE SOLUZIONE AL "LOOP" CHE SI VEDE
+    // PRIMI TEST CON isColliding FALLIMENTARI
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Bullet") && !other.CompareTag("Player"))
+        if (!other.CompareTag("Bullet") && !other.CompareTag("Player") && !isColliding)
         {
             Debug.Log("Test: collisione trigger di " + gameObject.name + " con " + other.name + "[tag = " + other.tag + " ]");
-            reloadAnimation.Play(0.2f, true);
-            // collisionAnimation.Play(0.2f, true);
+            // reloadAnimation.Play(0.2f, true);
+            collisionAnimation.Play(1f, true);
+            isColliding = true;
         }
     }
 
@@ -256,11 +262,12 @@ public class ProjectileGun : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (!other.CompareTag("Bullet") && !other.CompareTag("Player"))
+        if (!other.CompareTag("Bullet") && !other.CompareTag("Player") && isColliding)
         {
             Debug.Log("Test: collisione trigger exit di " + gameObject.name + " con " + other.name + "[tag = " + other.tag + " ]");
-            reloadAnimation.Play(0.2f, false);
-            // collisionAnimation.Play(0.2f, false);
+            // reloadAnimation.Play(0.2f, false);
+            collisionAnimation.Play(1f, false);
+            isColliding = false;
         }
     }
 }
