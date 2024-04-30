@@ -795,13 +795,14 @@ GameObject:
   - component: {fileID: 382362594}
   - component: {fileID: 382362595}
   - component: {fileID: 382362596}
+  - component: {fileID: 382362597}
   m_Layer: 0
   m_Name: Revolver
   m_TagString: Gun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &382362593
 Transform:
   m_ObjectHideFlags: 0
@@ -989,7 +990,27 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  backToStart: 1
+--- !u!65 &382362597
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 382362592}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.1, y: 0.3, z: 1}
+  m_Center: {x: 0.3, y: 0, z: 0.2}
 --- !u!1 &408264821
 GameObject:
   m_ObjectHideFlags: 0
@@ -1065,6 +1086,7 @@ GameObject:
   - component: {fileID: 488973234}
   - component: {fileID: 488973233}
   - component: {fileID: 488973235}
+  - component: {fileID: 488973236}
   m_Layer: 0
   m_Name: RocketLauncher
   m_TagString: Gun
@@ -1259,7 +1281,27 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  backToStart: 1
+--- !u!65 &488973236
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 488973231}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.1, y: 0.3, z: 1}
+  m_Center: {x: 0.3, y: 0, z: 0.2}
 --- !u!1 &490604700 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6338650637150883797, guid: 37f35f0ebe7bcae49a9e82f7303fb002, type: 3}
@@ -3653,13 +3695,14 @@ GameObject:
   - component: {fileID: 1593348376}
   - component: {fileID: 1593348375}
   - component: {fileID: 1593348377}
+  - component: {fileID: 1593348378}
   m_Layer: 0
   m_Name: Assault
   m_TagString: Gun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1593348374
 Transform:
   m_ObjectHideFlags: 0
@@ -3847,7 +3890,27 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  backToStart: 1
+--- !u!65 &1593348378
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593348373}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.1, y: 0.3, z: 1}
+  m_Center: {x: 0.4, y: 0, z: 1.3}
 --- !u!1001 &1595882847
 PrefabInstance:
   m_ObjectHideFlags: 0

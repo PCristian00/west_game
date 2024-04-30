@@ -34,6 +34,7 @@ public class ProjectileGun : MonoBehaviour
     public Camera fpsCam;
     public Transform attackPoint;
     private Image crosshair;
+    private Collider gunCollider;
 
     //Graphics
     [Header("Graphics")]
@@ -59,6 +60,7 @@ public class ProjectileGun : MonoBehaviour
         crosshair = GameObject.FindGameObjectWithTag("Crosshair").GetComponent<Image>();
         crosshairColor = crosshair.color;
         reloadAnimation = GetComponent<EasyReloadAnimation>();
+        gunCollider = GetComponent<Collider>();
     }
 
     private void Awake()
@@ -195,7 +197,7 @@ public class ProjectileGun : MonoBehaviour
             audioSource.loop = true;
             audioSource.clip = reloadSound;
             if (reloadAnimation)
-                reloadAnimation.Play(reloadTime);
+                reloadAnimation.Play(reloadTime, true);
             audioSource.Play();
             Invoke(nameof(ReloadFinished), reloadTime); //Invoke ReloadFinished function with your reloadTime as delay
         }
@@ -208,7 +210,7 @@ public class ProjectileGun : MonoBehaviour
         while (bulletsLeft < magazineSize)
         {
             if (reloadAnimation)
-                reloadAnimation.Play(reloadTime);
+                reloadAnimation.Play(reloadTime, true);
             audioSource.Play();
 
             yield return new WaitForSeconds(reloadTime);
@@ -230,5 +232,24 @@ public class ProjectileGun : MonoBehaviour
         crosshair.color = crosshairColor;
         reloading = false;
         // Debug.Log("Reload finished! (R = " + reloading + ")");
+    }
+
+    // MODIFICARE DENTRO QUESTE DUE PER NUOVE ANIMAZIONI
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("Test: collisione trigger di " + gameObject.name + " con " + other.name);
+        reloadAnimation.Play(0.2f, false);
+    }
+
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    Debug.Log("Test: collisione di " + gameObject.name + " con " + collision.gameObject.name);
+    //}
+
+    private void OnTriggerExit(Collider other)
+    {
+        Debug.Log("Test: collisione trigger (uscita) di " + gameObject.name + " con " + other.name);
+        reloadAnimation.Play(0.2f, false);
     }
 }

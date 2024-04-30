@@ -26,10 +26,6 @@ public class EasyReloadAnimation : MonoBehaviour
 
     private Transform _transform;
 
-    // TROVARE NOME MIGLIORE
-    public bool backToStart = true;
-
-
     private void Start()
     {
         _transform = GetComponent<Transform>();
@@ -44,7 +40,7 @@ public class EasyReloadAnimation : MonoBehaviour
     }
 
     //private Coroutine currentCoroutine;
-    public void Play(float duration)
+    public void Play(float duration, bool backToStart)
     {
         //if(currentCoroutine!=null) StopCoroutine(currentCoroutine);
         StopAllCoroutines();
