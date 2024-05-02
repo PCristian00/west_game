@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -19,11 +20,40 @@ public class GameManager : MonoBehaviour
     private int enemyCount;
     private bool noEnemies = false;
 
+    // RIMUOVERE GAMEOVER E USARE GAMESTATE
     [Header("States")]
     public bool gameOver = false;
 
     // INSERIRE STATI CON ENUM
 
+    public enum GameState
+    {
+        Waiting,
+        Running,
+        Won,
+        Lost
+    }
+
+    private GameState _currentGameState;
+    public GameState CurrentGameState
+    {
+        get => _currentGameState;
+        protected set
+        {
+            if (_currentGameState == value) return;
+
+            _currentGameState = value;
+            //if(OnCurrentGameStateChanged!=null)
+            //    OnCurrentGameStateChanged(_currentGameState);
+            OnCurrentGameStateChanged?.Invoke(_currentGameState);
+            //  OnInputActiveChanged?.Invoke(IsInputActive);
+            //OnUnityCurrentGameStateChanged?.Invoke(_currentGameState);
+        }
+    }
+
+    //public UnityEvent<GameState> OnUnityCurrentGameStateChanged;
+
+    public event Action<GameState> OnCurrentGameStateChanged;
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +71,8 @@ public class GameManager : MonoBehaviour
         if (healthInfo != null)
             if (gameOver)
             {
+                // VEDERE COME IMPOSTARE MEGLIO
+                CurrentGameState = GameState.Lost;
                 healthInfo.SetText("MORTO!");
             }
             else

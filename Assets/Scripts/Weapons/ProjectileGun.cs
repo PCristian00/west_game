@@ -182,8 +182,12 @@ public class ProjectileGun : MonoBehaviour
     {
         //Allow shooting and invoking again
         // reloading = false;
-        readyToShoot = true;
-        allowInvoke = true;
+        // TEST DI STATO
+        if (GameManager.instance.CurrentGameState != GameManager.GameState.Lost)
+        {
+            readyToShoot = true;
+            allowInvoke = true;
+        }
     }
 
     private void Reload()
@@ -242,7 +246,7 @@ public class ProjectileGun : MonoBehaviour
     }
 
     // TROVARE SOLUZIONE AL "LOOP" CHE SI VEDE
-  
+
 
     private void OnTriggerEnter(Collider other)
     {
