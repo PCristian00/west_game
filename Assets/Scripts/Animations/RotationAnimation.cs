@@ -44,7 +44,7 @@ public class RotationAnimation : MonoBehaviour
 
     //private Coroutine currentCoroutine;
     public void Play(float duration, bool forward)
-    {       
+    {
         StopAllCoroutines();
         StartCoroutine(Animate(duration, forward));
     }

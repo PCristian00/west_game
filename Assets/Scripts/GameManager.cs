@@ -20,12 +20,9 @@ public class GameManager : MonoBehaviour
     private int enemyCount;
     private bool noEnemies = false;
 
-    // RIMUOVERE GAMEOVER E USARE GAMESTATE
+    // FORSE RIMUOVERE GAMEOVER
     [Header("States")]
     public bool gameOver = false;
-
-    // INSERIRE STATI CON ENUM
-
     public enum GameState
     {
         Waiting,
@@ -43,15 +40,10 @@ public class GameManager : MonoBehaviour
             if (_currentGameState == value) return;
 
             _currentGameState = value;
-            //if(OnCurrentGameStateChanged!=null)
-            //    OnCurrentGameStateChanged(_currentGameState);
+
             OnCurrentGameStateChanged?.Invoke(_currentGameState);
-            //  OnInputActiveChanged?.Invoke(IsInputActive);
-            //OnUnityCurrentGameStateChanged?.Invoke(_currentGameState);
         }
     }
-
-    //public UnityEvent<GameState> OnUnityCurrentGameStateChanged;
 
     public event Action<GameState> OnCurrentGameStateChanged;
 
@@ -80,11 +72,9 @@ public class GameManager : MonoBehaviour
                 healthInfo.SetText("Health: " + PlayerManager.health);
             }
 
-        if (!gameOver && noEnemies == false)
+        if (CurrentGameState != GameState.Lost && noEnemies == false)
         {
-
             // Debug.Log("Nemici in gioco: " + enemyCount);
-
             if (enemyCount == 0)
                 noEnemies = true;
             else return;

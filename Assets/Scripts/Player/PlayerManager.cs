@@ -5,7 +5,7 @@ public class PlayerManager : MonoBehaviour
     public int health;
 
     // public bool isDead = false;    
-    
+
     [Header("Sound")]
     // public AudioClip attackSound;
     public AudioClip hitSound;
@@ -27,8 +27,8 @@ public class PlayerManager : MonoBehaviour
         Debug.Log("SEI MORTO");
         GameManager.instance.gameOver = true;
         // TROVARE MODO PER USARE STATI E RIMUOVER GAMEOVER
-       // GameManager.instance.CurrentGameState = GameManager.GameState.Lost;
+        // GameManager.instance.CurrentGameState = GameManager.GameState.Lost;
         // isDead = true;
-        AudioSource.PlayClipAtPoint(deathSound,gameObject.transform.position);
+        AudioSource.PlayClipAtPoint(deathSound, gameObject.transform.position);
     }
 }
