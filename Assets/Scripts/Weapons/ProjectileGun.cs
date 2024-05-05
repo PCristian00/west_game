@@ -27,7 +27,7 @@ public class ProjectileGun : MonoBehaviour
     public float recoilForce;
 
     //bools
-    public bool shooting, readyToShoot, reloading;
+    public bool shooting, readyToShoot, reloading, isColliding = false;
 
     //Reference
     [Header("Reference")]
@@ -103,7 +103,7 @@ public class ProjectileGun : MonoBehaviour
         if (readyToShoot && shooting && !reloading && bulletsLeft <= 0) Reload();
 
         //Shooting
-        if (readyToShoot && shooting && !reloading && bulletsLeft > 0)
+        if (readyToShoot && shooting && !reloading && bulletsLeft > 0 & !isColliding)
         {
             // Se l'arma è a tamburo (cylinder), la ricarica può essere interrotta dal giocatore
             if (hasCylinder)
@@ -255,6 +255,8 @@ public class ProjectileGun : MonoBehaviour
             //  Debug.Log("Test: collisione trigger di " + gameObject.name + " con " + other.name + "[tag = " + other.tag + " ]");
             // reloadAnimation.Play(0.2f, true);
             collisionAnimation.Play(1f, true);
+            isColliding = true;
+
         }
     }
 
@@ -265,6 +267,7 @@ public class ProjectileGun : MonoBehaviour
             // Debug.Log("Test: collisione trigger exit di " + gameObject.name + " con " + other.name + "[tag = " + other.tag + " ]");
             // reloadAnimation.Play(0.2f, false);
             collisionAnimation.Play(1f, false);
+            isColliding = false;
         }
     }
 
