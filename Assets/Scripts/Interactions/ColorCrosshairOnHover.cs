@@ -5,38 +5,38 @@ public class ColorCrosshairOnHover : MonoBehaviour, IHover
 {
 
     // public Color color;
-    private Image crosshair;
+  //  private Image crosshair;
     // TROVARE MODO PER COLORE ORIGINALE MIRINO
     // private Color crosshairColor;
 
     // TROVARE MODO PER RELOAD (Vedi ProjectileGun)
 
-    private void Start()
-    {
-        crosshair = GameObject.FindGameObjectWithTag("Crosshair").GetComponent<Image>();
-        // crosshairColor = crosshair.color;
-    }
+    //private void Start()
+    //{
+    //   // crosshair = GameObject.FindGameObjectWithTag("Crosshair").GetComponent<Image>();
+    //    // crosshairColor = crosshair.color;
+    //}
     public void HoverEnter()
     {
         //Debug.Log("NEL MIRINO!");
-        crosshair.color = Color.red;
+        CrosshairManager.Instance.ChangeColor(Color.red);
     }
 
     public void HoverExit()
     {
-        ColorReset();
+        CrosshairManager.Instance.ResetColor();
         //Debug.Log("FUORI DA MIRINO!");
         //crosshair.color = crosshairColor;
     }
 
     private void OnDestroy()
     {
-        ColorReset();
+        HoverExit();
     }
 
-    private void ColorReset()
-    {
-        if (crosshair != null)
-            crosshair.color = Color.white;
-    }
+    //private void ColorReset()
+    //{
+    //    if (crosshair != null)
+    //        crosshair.color = Color.white;
+    //}
 }
