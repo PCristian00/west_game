@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using TMPro;
 using System.Collections;
-using UnityEngine.UI;
 
 public class ProjectileGun : MonoBehaviour
 {
@@ -33,7 +32,6 @@ public class ProjectileGun : MonoBehaviour
     [Header("Reference")]
     public Camera fpsCam;
     public Transform attackPoint;
-    // private Image crosshair;
     private Collider gunCollider;
 
     //Graphics
@@ -41,7 +39,6 @@ public class ProjectileGun : MonoBehaviour
     public GameObject muzzleFlash;
     public TextMeshProUGUI ammoInfo;
     public Sprite crosshairSprite;
-    // private Color crosshairColor;
 
     [SerializeField] private RotationAnimation reloadAnimation;
 
@@ -60,16 +57,13 @@ public class ProjectileGun : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
-
-        //crosshair = GameObject.FindGameObjectWithTag("Crosshair").GetComponent<Image>();
-        //crosshairColor = crosshair.color;
-
+        gunCollider = GetComponent<Collider>();
 
         // TROVARE MODO PER ASSOCIARE CORRETTAMENTE USANDO GetComponent e senza trascinare
 
         // reloadAnimation = GetComponent<RotationAnimation>();
         //  collisionAnimation = GetComponent<RotationAnimation>();
-        gunCollider = GetComponent<Collider>();
+
     }
 
     private void Awake()
@@ -111,7 +105,6 @@ public class ProjectileGun : MonoBehaviour
             if (hasCylinder)
             {
                 StopAllCoroutines();
-                CrosshairManager.Instance.ResetColor();
             }
 
             //Set bullets shot to 0
@@ -196,10 +189,9 @@ public class ProjectileGun : MonoBehaviour
     {
         reloading = true;
 
-        // TEST cambio colore crosshair
+        
         // In sovrapposizione con ColorOnHover (TROVARE SOLUZIONE)
         CrosshairManager.Instance.ChangeColor(Color.black);
-        // crosshair.color = Color.black;
 
         if (hasCylinder)
         {
@@ -219,7 +211,6 @@ public class ProjectileGun : MonoBehaviour
 
     IEnumerator CylinderReload()
     {
-
         float t = 0f;
         while (bulletsLeft < magazineSize)
         {
@@ -249,8 +240,6 @@ public class ProjectileGun : MonoBehaviour
     }
 
     // TROVARE SOLUZIONE AL "LOOP" CHE SI VEDE
-
-
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Bullet") && !other.CompareTag("Player"))
