@@ -227,14 +227,14 @@ public class ProjectileGun : MonoBehaviour
             reloading = false;
             ResetShot();
         }
-        CrosshairManager.Instance.ResetColor();
+        CrosshairManager.Instance.ChangeColor(CrosshairManager.Instance.OldColor);
     }
     private void ReloadFinished()
     {
         audioSource.loop = false;
         //Fill magazine
         bulletsLeft = magazineSize;
-        CrosshairManager.Instance.ResetColor();
+        CrosshairManager.Instance.ChangeColor(CrosshairManager.Instance.OldColor);
         reloading = false;
         // Debug.Log("Reload finished! (R = " + reloading + ")");
     }
