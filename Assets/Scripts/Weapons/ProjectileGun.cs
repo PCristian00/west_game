@@ -33,7 +33,7 @@ public class ProjectileGun : MonoBehaviour
     [Header("Reference")]
     public Camera fpsCam;
     public Transform attackPoint;
-    private Image crosshair;
+    // private Image crosshair;
     private Collider gunCollider;
 
     //Graphics
@@ -41,7 +41,7 @@ public class ProjectileGun : MonoBehaviour
     public GameObject muzzleFlash;
     public TextMeshProUGUI ammoInfo;
     public Sprite crosshairSprite;
-    private Color crosshairColor;
+    // private Color crosshairColor;
 
     [SerializeField] private RotationAnimation reloadAnimation;
 
@@ -60,8 +60,10 @@ public class ProjectileGun : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        crosshair = GameObject.FindGameObjectWithTag("Crosshair").GetComponent<Image>();
-        crosshairColor = crosshair.color;
+
+        //crosshair = GameObject.FindGameObjectWithTag("Crosshair").GetComponent<Image>();
+        //crosshairColor = crosshair.color;
+
 
         // TROVARE MODO PER ASSOCIARE CORRETTAMENTE USANDO GetComponent e senza trascinare
 
@@ -86,9 +88,9 @@ public class ProjectileGun : MonoBehaviour
             ammoInfo.SetText(bulletsLeft / bulletsPerTap + " / " + magazineSize / bulletsPerTap);
         else if (reloading) ammoInfo.text = "Reloading...";
 
-        if (crosshair && crosshairSprite)
+        if (crosshairSprite)
         {
-            crosshair.sprite = crosshairSprite;
+            CrosshairManager.Instance.ChangeSprite(crosshairSprite);
         }
     }
     private void MyInput()
@@ -109,7 +111,7 @@ public class ProjectileGun : MonoBehaviour
             if (hasCylinder)
             {
                 StopAllCoroutines();
-                crosshair.color = crosshairColor;
+                CrosshairManager.Instance.ResetColor();
             }
 
             //Set bullets shot to 0
@@ -196,7 +198,8 @@ public class ProjectileGun : MonoBehaviour
 
         // TEST cambio colore crosshair
         // In sovrapposizione con ColorOnHover (TROVARE SOLUZIONE)
-        crosshair.color = Color.black;
+        CrosshairManager.Instance.ChangeColor(Color.black);
+        // crosshair.color = Color.black;
 
         if (hasCylinder)
         {
@@ -233,14 +236,14 @@ public class ProjectileGun : MonoBehaviour
             reloading = false;
             ResetShot();
         }
-        crosshair.color = crosshairColor;
+        CrosshairManager.Instance.ResetColor();
     }
     private void ReloadFinished()
     {
         audioSource.loop = false;
         //Fill magazine
         bulletsLeft = magazineSize;
-        crosshair.color = crosshairColor;
+        CrosshairManager.Instance.ResetColor();
         reloading = false;
         // Debug.Log("Reload finished! (R = " + reloading + ")");
     }
@@ -256,6 +259,7 @@ public class ProjectileGun : MonoBehaviour
             // reloadAnimation.Play(0.2f, true);
             collisionAnimation.Play(1f, true);
             isColliding = true;
+            CrosshairManager.Instance.ChangeColor(Color.blue);
 
         }
     }
@@ -268,6 +272,7 @@ public class ProjectileGun : MonoBehaviour
             // reloadAnimation.Play(0.2f, false);
             collisionAnimation.Play(1f, false);
             isColliding = false;
+            CrosshairManager.Instance.ResetColor();
         }
     }
 

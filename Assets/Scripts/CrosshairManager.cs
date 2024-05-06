@@ -61,6 +61,11 @@ public class CrosshairManager : MonoBehaviour
         crosshair.color = startColor;
     }
 
+    public void ChangeSprite(Sprite sprite)
+    {
+        crosshair.sprite = sprite;
+    }
+
 
     //// Update is called once per frame
     //void Update()
