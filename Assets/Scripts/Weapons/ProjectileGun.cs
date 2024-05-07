@@ -189,7 +189,7 @@ public class ProjectileGun : MonoBehaviour
     {
         reloading = true;
 
-        
+
         // In sovrapposizione con ColorOnHover (TROVARE SOLUZIONE)
         CrosshairManager.Instance.ChangeColor(Color.black);
 
@@ -227,14 +227,14 @@ public class ProjectileGun : MonoBehaviour
             reloading = false;
             ResetShot();
         }
-        CrosshairManager.Instance.ChangeColor(CrosshairManager.Instance.OldColor);
+        CrosshairManager.Instance.EnemyOnCrosshair();
     }
     private void ReloadFinished()
     {
         audioSource.loop = false;
         //Fill magazine
         bulletsLeft = magazineSize;
-        CrosshairManager.Instance.ChangeColor(CrosshairManager.Instance.OldColor);
+        CrosshairManager.Instance.EnemyOnCrosshair();
         reloading = false;
         // Debug.Log("Reload finished! (R = " + reloading + ")");
     }
@@ -248,7 +248,7 @@ public class ProjectileGun : MonoBehaviour
             // reloadAnimation.Play(0.2f, true);
             collisionAnimation.Play(1f, true);
             isColliding = true;
-            CrosshairManager.Instance.ChangeColor(Color.blue);
+            CrosshairManager.Instance.ChangeColor(Color.clear);
 
         }
     }
@@ -264,6 +264,9 @@ public class ProjectileGun : MonoBehaviour
             CrosshairManager.Instance.ResetColor();
         }
     }
+
+    // TEST: Rimuovere o rinominare e mettere in CrosshairManager
+    
 
     //private void OnCollisionEnter(Collision collision)
     //{
