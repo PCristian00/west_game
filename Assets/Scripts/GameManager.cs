@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -19,11 +20,32 @@ public class GameManager : MonoBehaviour
     private int enemyCount;
     private bool noEnemies = false;
 
+    // FORSE RIMUOVERE GAMEOVER
     [Header("States")]
     public bool gameOver = false;
+    public enum GameState
+    {
+        Waiting,
+        Running,
+        Won,
+        Lost
+    }
 
-    // INSERIRE STATI CON ENUM
+    private GameState _currentGameState;
+    public GameState CurrentGameState
+    {
+        get => _currentGameState;
+        protected set
+        {
+            if (_currentGameState == value) return;
 
+            _currentGameState = value;
+
+            OnCurrentGameStateChanged?.Invoke(_currentGameState);
+        }
+    }
+
+    public event Action<GameState> OnCurrentGameStateChanged;
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +63,8 @@ public class GameManager : MonoBehaviour
         if (healthInfo != null)
             if (gameOver)
             {
+                // VEDERE COME IMPOSTARE MEGLIO
+                CurrentGameState = GameState.Lost;
                 healthInfo.SetText("MORTO!");
             }
             else
@@ -48,11 +72,9 @@ public class GameManager : MonoBehaviour
                 healthInfo.SetText("Health: " + PlayerManager.health);
             }
 
-        if (!gameOver && noEnemies == false)
+        if (CurrentGameState != GameState.Lost && noEnemies == false)
         {
-
             // Debug.Log("Nemici in gioco: " + enemyCount);
-
             if (enemyCount == 0)
                 noEnemies = true;
             else return;

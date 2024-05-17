@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using TMPro;
 using System.Collections;
-using UnityEngine.UI;
 
 public class ProjectileGun : MonoBehaviour
 {
@@ -27,13 +26,12 @@ public class ProjectileGun : MonoBehaviour
     public float recoilForce;
 
     //bools
-    public bool shooting, readyToShoot, reloading;
+    public bool shooting, readyToShoot, reloading, isColliding = false;
 
     //Reference
     [Header("Reference")]
     public Camera fpsCam;
     public Transform attackPoint;
-    private Image crosshair;
     private Collider gunCollider;
 
     //Graphics
@@ -41,7 +39,6 @@ public class ProjectileGun : MonoBehaviour
     public GameObject muzzleFlash;
     public TextMeshProUGUI ammoInfo;
     public Sprite crosshairSprite;
-    private Color crosshairColor;
 
     [SerializeField] private RotationAnimation reloadAnimation;
 
@@ -60,14 +57,13 @@ public class ProjectileGun : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        crosshair = GameObject.FindGameObjectWithTag("Crosshair").GetComponent<Image>();
-        crosshairColor = crosshair.color;
+        gunCollider = GetComponent<Collider>();
 
         // TROVARE MODO PER ASSOCIARE CORRETTAMENTE USANDO GetComponent e senza trascinare
 
         // reloadAnimation = GetComponent<RotationAnimation>();
         //  collisionAnimation = GetComponent<RotationAnimation>();
-        gunCollider = GetComponent<Collider>();
+
     }
 
     private void Awake()
@@ -86,9 +82,9 @@ public class ProjectileGun : MonoBehaviour
             ammoInfo.SetText(bulletsLeft / bulletsPerTap + " / " + magazineSize / bulletsPerTap);
         else if (reloading) ammoInfo.text = "Reloading...";
 
-        if (crosshair && crosshairSprite)
+        if (crosshairSprite)
         {
-            crosshair.sprite = crosshairSprite;
+            CrosshairManager.Instance.ChangeSprite(crosshairSprite);
         }
     }
     private void MyInput()
@@ -103,13 +99,12 @@ public class ProjectileGun : MonoBehaviour
         if (readyToShoot && shooting && !reloading && bulletsLeft <= 0) Reload();
 
         //Shooting
-        if (readyToShoot && shooting && !reloading && bulletsLeft > 0)
+        if (readyToShoot && shooting && !reloading && bulletsLeft > 0 & !isColliding)
         {
             // Se l'arma è a tamburo (cylinder), la ricarica può essere interrotta dal giocatore
             if (hasCylinder)
             {
                 StopAllCoroutines();
-                crosshair.color = crosshairColor;
             }
 
             //Set bullets shot to 0
@@ -182,17 +177,21 @@ public class ProjectileGun : MonoBehaviour
     {
         //Allow shooting and invoking again
         // reloading = false;
-        readyToShoot = true;
-        allowInvoke = true;
+        // TEST DI STATO
+        if (GameManager.instance.CurrentGameState != GameManager.GameState.Lost)
+        {
+            readyToShoot = true;
+            allowInvoke = true;
+        }
     }
 
     private void Reload()
     {
         reloading = true;
 
-        // TEST cambio colore crosshair
+
         // In sovrapposizione con ColorOnHover (TROVARE SOLUZIONE)
-        crosshair.color = Color.black;
+        CrosshairManager.Instance.ChangeColor(Color.black);
 
         if (hasCylinder)
         {
@@ -212,7 +211,6 @@ public class ProjectileGun : MonoBehaviour
 
     IEnumerator CylinderReload()
     {
-
         float t = 0f;
         while (bulletsLeft < magazineSize)
         {
@@ -229,21 +227,19 @@ public class ProjectileGun : MonoBehaviour
             reloading = false;
             ResetShot();
         }
-        crosshair.color = crosshairColor;
+        CrosshairManager.Instance.EnemyOnCrosshair();
     }
     private void ReloadFinished()
     {
         audioSource.loop = false;
         //Fill magazine
         bulletsLeft = magazineSize;
-        crosshair.color = crosshairColor;
+        CrosshairManager.Instance.EnemyOnCrosshair();
         reloading = false;
         // Debug.Log("Reload finished! (R = " + reloading + ")");
     }
 
     // TROVARE SOLUZIONE AL "LOOP" CHE SI VEDE
-  
-
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Bullet") && !other.CompareTag("Player"))
@@ -251,6 +247,9 @@ public class ProjectileGun : MonoBehaviour
             //  Debug.Log("Test: collisione trigger di " + gameObject.name + " con " + other.name + "[tag = " + other.tag + " ]");
             // reloadAnimation.Play(0.2f, true);
             collisionAnimation.Play(1f, true);
+            isColliding = true;
+            CrosshairManager.Instance.ChangeColor(Color.clear);
+
         }
     }
 
@@ -261,8 +260,13 @@ public class ProjectileGun : MonoBehaviour
             // Debug.Log("Test: collisione trigger exit di " + gameObject.name + " con " + other.name + "[tag = " + other.tag + " ]");
             // reloadAnimation.Play(0.2f, false);
             collisionAnimation.Play(1f, false);
+            isColliding = false;
+            CrosshairManager.Instance.ResetColor();
         }
     }
+
+    // TEST: Rimuovere o rinominare e mettere in CrosshairManager
+    
 
     //private void OnCollisionEnter(Collision collision)
     //{

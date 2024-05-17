@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 // RINOMINARE IN RotateAnimation O SIMILI
@@ -44,7 +43,7 @@ public class RotationAnimation : MonoBehaviour
 
     //private Coroutine currentCoroutine;
     public void Play(float duration, bool forward)
-    {       
+    {
         StopAllCoroutines();
         StartCoroutine(Animate(duration, forward));
     }
