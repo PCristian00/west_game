@@ -5513,7 +5513,7 @@ Transform:
   m_GameObject: {fileID: 1774779853}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 18, y: 3, z: 35}
+  m_LocalPosition: {x: 18, y: 3, z: 65.26}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7468,22 +7468,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5031995962872018576, guid: e3e6eba3aaa82554d8c84047e4cfce2c, type: 3}
-      propertyPath: color.b
-      value: 0.8962264
-      objectReference: {fileID: 0}
-    - target: {fileID: 5031995962872018576, guid: e3e6eba3aaa82554d8c84047e4cfce2c, type: 3}
-      propertyPath: color.g
-      value: 0.21560161
-      objectReference: {fileID: 0}
-    - target: {fileID: 5031995962872018576, guid: e3e6eba3aaa82554d8c84047e4cfce2c, type: 3}
-      propertyPath: color.r
-      value: 0.2381161
-      objectReference: {fileID: 0}
-    - target: {fileID: 5031995962872018576, guid: e3e6eba3aaa82554d8c84047e4cfce2c, type: 3}
-      propertyPath: crosshair
-      value: 
-      objectReference: {fileID: 1801492410}
     - target: {fileID: 7067134833345967684, guid: e3e6eba3aaa82554d8c84047e4cfce2c, type: 3}
       propertyPath: m_Name
       value: Enemy
@@ -7528,32 +7512,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8447471667515042588, guid: e3e6eba3aaa82554d8c84047e4cfce2c, type: 3}
-      propertyPath: icon
-      value: 
-      objectReference: {fileID: 1679698929264017356}
-    - target: {fileID: 8447471667515042588, guid: e3e6eba3aaa82554d8c84047e4cfce2c, type: 3}
-      propertyPath: canChase
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8447471667515042588, guid: e3e6eba3aaa82554d8c84047e4cfce2c, type: 3}
-      propertyPath: canPatrol
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8447471667515042588, guid: e3e6eba3aaa82554d8c84047e4cfce2c, type: 3}
-      propertyPath: timeBetweenAttacks
-      value: 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3e6eba3aaa82554d8c84047e4cfce2c, type: 3}
---- !u!1 &1679698929264017356 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6735172774812297241, guid: e3e6eba3aaa82554d8c84047e4cfce2c, type: 3}
-  m_PrefabInstance: {fileID: 1679698929264017355}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4016033084767430183
 PrefabInstance:
   m_ObjectHideFlags: 0

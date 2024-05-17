@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
     public bool canPatrol = true;
     public bool canChase = true;
 
+
     // ESEMPI DI STATS IMPLEMENTABILI
     // public float damage;
     // public bool canJump, canDodge;
@@ -32,6 +33,7 @@ public class Enemy : MonoBehaviour
     public GameObject projectile;
 
     [Header("States")]
+    [Tooltip("Se impostato a zero, il nemico trova sempre il giocatore.")]
     public float sightRange;
     public float attackRange;
     public bool playerInSightRange, playerInAttackRange;
@@ -67,7 +69,13 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
         //Check for sight and attack range
-        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+
+        // Se il sightRange è impostato a 0, viene percepito come infinito.
+        // Il nemico sa sempre dove è il giocatore.
+        if (sightRange == 0)
+            playerInSightRange = true;
+        else playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
         if (!playerInSightRange && !playerInAttackRange & canPatrol) Patroling();
