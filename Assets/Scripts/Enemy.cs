@@ -8,10 +8,13 @@ public class Enemy : MonoBehaviour
     public Transform player;
     public LayerMask whatIsGround, whatIsPlayer;
     private Rigidbody rb;
-  
+
 
     [Header("Stats")]
     public float health;
+    public bool canPatrol = true;
+    public bool canChase = true;
+
     // ESEMPI DI STATS IMPLEMENTABILI
     // public float damage;
     // public bool canJump, canDodge;
@@ -49,14 +52,16 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        rb=GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
         icon.SetActive(false);
     }
 
     private void Awake()
     {
         player = GameObject.Find("PlayerObj").transform;
-        agent = GetComponent<NavMeshAgent>();
+        if (canPatrol || canChase)
+            agent = GetComponent<NavMeshAgent>();
+        else Debug.Log("Nemico immobile");
     }
 
     private void Update()
@@ -65,8 +70,8 @@ public class Enemy : MonoBehaviour
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-        if (!playerInSightRange && !playerInAttackRange) Patroling();
-        if (playerInSightRange && !playerInAttackRange) ChasePlayer();
+        if (!playerInSightRange && !playerInAttackRange & canPatrol) Patroling();
+        if (playerInSightRange && !playerInAttackRange & canChase) ChasePlayer();
         if (playerInAttackRange && playerInSightRange) AttackPlayer();
     }
 
@@ -105,7 +110,8 @@ public class Enemy : MonoBehaviour
     private void AttackPlayer()
     {
         //Make sure enemy doesn't move
-        agent.SetDestination(transform.position);
+        if (canChase || canPatrol)
+            agent.SetDestination(transform.position);
 
         transform.LookAt(player);
 
@@ -143,7 +149,7 @@ public class Enemy : MonoBehaviour
     }
     private void DestroyEnemy()
     {
-        
+
         Debug.Log("NEMICO " + gameObject.name + " DISTRUTTO");
         GameManager.instance.EnemyKilled();
         Destroy(gameObject);
