@@ -78,6 +78,9 @@ public class Enemy : MonoBehaviour
 
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
+        if(playerInSightRange) icon.SetActive(true);
+        else icon.SetActive(false);
+
         if (!playerInSightRange && !playerInAttackRange & canPatrol) Patroling();
         if (playerInSightRange && !playerInAttackRange & canChase) ChasePlayer();
         if (playerInAttackRange && playerInSightRange) AttackPlayer();
@@ -85,7 +88,7 @@ public class Enemy : MonoBehaviour
 
     private void Patroling()
     {
-        icon.SetActive(false);
+       // icon.SetActive(false);
         if (!walkPointSet) SearchWalkPoint();
 
         if (walkPointSet)
@@ -111,7 +114,7 @@ public class Enemy : MonoBehaviour
 
     private void ChasePlayer()
     {
-        icon.SetActive(true);
+       // icon.SetActive(true);
         agent.SetDestination(player.position);
     }
 
@@ -120,6 +123,10 @@ public class Enemy : MonoBehaviour
         //Make sure enemy doesn't move
         if (canChase || canPatrol)
             agent.SetDestination(transform.position);
+
+        //// DEBUG: Imposta l'icona ad Attiva in Attack per i nemici che non vanno in Chase
+        //if (!canChase)
+        //    icon.SetActive(true);
 
         transform.LookAt(player);
 
@@ -151,6 +158,9 @@ public class Enemy : MonoBehaviour
             AudioSource.PlayClipAtPoint(deathSound, gameObject.transform.position);
             Instantiate(deathEffect, transform.position, Quaternion.identity);
             //rb.AddExplosionForce(3, transform.position, 3);
+
+            Destroy(icon);
+
             Invoke(nameof(DestroyEnemy), 0.5f);
         }
         else AudioSource.PlayClipAtPoint(hitSound, gameObject.transform.position);
