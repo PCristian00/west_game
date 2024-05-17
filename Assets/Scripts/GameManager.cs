@@ -52,8 +52,7 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
         PlayerManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
-
-        // ATTENZIONE: Le scatole di test (Cube) attualmente hanno il tag Enemy
+                
         enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
     }
 
