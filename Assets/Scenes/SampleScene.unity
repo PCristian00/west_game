@@ -1023,7 +1023,6 @@ GameObject:
   - component: {fileID: 382362594}
   - component: {fileID: 382362595}
   - component: {fileID: 382362596}
-  - component: {fileID: 382362597}
   - component: {fileID: 382362598}
   - component: {fileID: 382362599}
   m_Layer: 0
@@ -1223,27 +1222,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!65 &382362597
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 382362592}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Size: {x: 0.2, y: 0.7, z: 1}
-  m_Center: {x: 0.3, y: -0.1, z: 0.35}
 --- !u!114 &382362598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1535,7 +1513,6 @@ GameObject:
   - component: {fileID: 488973234}
   - component: {fileID: 488973233}
   - component: {fileID: 488973235}
-  - component: {fileID: 488973236}
   - component: {fileID: 488973237}
   - component: {fileID: 488973238}
   m_Layer: 0
@@ -1735,27 +1712,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!65 &488973236
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 488973231}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Size: {x: 0.1, y: 0.3, z: 1}
-  m_Center: {x: 0.3, y: 0, z: 0.2}
 --- !u!114 &488973237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4935,7 +4891,6 @@ GameObject:
   - component: {fileID: 1593348376}
   - component: {fileID: 1593348375}
   - component: {fileID: 1593348377}
-  - component: {fileID: 1593348378}
   - component: {fileID: 1593348379}
   - component: {fileID: 1593348380}
   m_Layer: 0
@@ -5135,27 +5090,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!65 &1593348378
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1593348373}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Size: {x: 0.1, y: 1.04, z: 1.85}
-  m_Center: {x: 0.4, y: 0, z: 0.8}
 --- !u!114 &1593348379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7532,12 +7466,12 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1383287325}
+  - {fileID: 932383837}
   - {fileID: 1369951579}
   - {fileID: 159701642}
   - {fileID: 303864295}
   - {fileID: 705507995}
   - {fileID: 1291136115}
-  - {fileID: 932383837}
   - {fileID: 1774779854}
   - {fileID: 611801265}
   - {fileID: 1679698929264017355}
