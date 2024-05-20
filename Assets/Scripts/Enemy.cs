@@ -159,7 +159,7 @@ public class Enemy : MonoBehaviour
             Instantiate(deathEffect, transform.position, Quaternion.identity);
             //rb.AddExplosionForce(3, transform.position, 3);
 
-            Destroy(icon);
+            
 
             Invoke(nameof(DestroyEnemy), 0.5f);
         }
@@ -167,7 +167,7 @@ public class Enemy : MonoBehaviour
     }
     private void DestroyEnemy()
     {
-
+        Destroy(icon);
         Debug.Log("NEMICO " + gameObject.name + " DISTRUTTO");
         GameManager.instance.EnemyKilled();
         Destroy(gameObject);
