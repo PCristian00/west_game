@@ -8,10 +8,14 @@ public class Enemy : MonoBehaviour
     public Transform player;
     public LayerMask whatIsGround, whatIsPlayer;
     private Rigidbody rb;
-  
+
 
     [Header("Stats")]
     public float health;
+    public bool canPatrol = true;
+    public bool canChase = true;
+
+
     // ESEMPI DI STATS IMPLEMENTABILI
     // public float damage;
     // public bool canJump, canDodge;
@@ -29,6 +33,7 @@ public class Enemy : MonoBehaviour
     public GameObject projectile;
 
     [Header("States")]
+    [Tooltip("Se impostato a zero, il nemico trova sempre il giocatore.")]
     public float sightRange;
     public float attackRange;
     public bool playerInSightRange, playerInAttackRange;
@@ -49,30 +54,41 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        rb=GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
         icon.SetActive(false);
     }
 
     private void Awake()
     {
         player = GameObject.Find("PlayerObj").transform;
-        agent = GetComponent<NavMeshAgent>();
+        if (canPatrol || canChase)
+            agent = GetComponent<NavMeshAgent>();
+        else Debug.Log("Nemico immobile");
     }
 
     private void Update()
     {
         //Check for sight and attack range
-        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+
+        // Se il sightRange è impostato a 0, viene percepito come infinito.
+        // Il nemico sa sempre dove è il giocatore.
+        if (sightRange == 0)
+            playerInSightRange = true;
+        else playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-        if (!playerInSightRange && !playerInAttackRange) Patroling();
-        if (playerInSightRange && !playerInAttackRange) ChasePlayer();
+        if(playerInSightRange) icon.SetActive(true);
+        else icon.SetActive(false);
+
+        if (!playerInSightRange && !playerInAttackRange & canPatrol) Patroling();
+        if (playerInSightRange && !playerInAttackRange & canChase) ChasePlayer();
         if (playerInAttackRange && playerInSightRange) AttackPlayer();
     }
 
     private void Patroling()
     {
-        icon.SetActive(false);
+       // icon.SetActive(false);
         if (!walkPointSet) SearchWalkPoint();
 
         if (walkPointSet)
@@ -98,14 +114,19 @@ public class Enemy : MonoBehaviour
 
     private void ChasePlayer()
     {
-        icon.SetActive(true);
+       // icon.SetActive(true);
         agent.SetDestination(player.position);
     }
 
     private void AttackPlayer()
     {
         //Make sure enemy doesn't move
-        agent.SetDestination(transform.position);
+        if (canChase || canPatrol)
+            agent.SetDestination(transform.position);
+
+        //// DEBUG: Imposta l'icona ad Attiva in Attack per i nemici che non vanno in Chase
+        //if (!canChase)
+        //    icon.SetActive(true);
 
         transform.LookAt(player);
 
@@ -137,13 +158,16 @@ public class Enemy : MonoBehaviour
             AudioSource.PlayClipAtPoint(deathSound, gameObject.transform.position);
             Instantiate(deathEffect, transform.position, Quaternion.identity);
             //rb.AddExplosionForce(3, transform.position, 3);
+
+            
+
             Invoke(nameof(DestroyEnemy), 0.5f);
         }
         else AudioSource.PlayClipAtPoint(hitSound, gameObject.transform.position);
     }
     private void DestroyEnemy()
     {
-        
+        Destroy(icon);
         Debug.Log("NEMICO " + gameObject.name + " DISTRUTTO");
         GameManager.instance.EnemyKilled();
         Destroy(gameObject);

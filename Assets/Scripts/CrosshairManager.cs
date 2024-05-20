@@ -19,26 +19,37 @@ public class CrosshairManager : MonoBehaviour
     {
         Instance = this;
         crosshair = GameObject.FindGameObjectWithTag("Crosshair").GetComponent<Image>();
-        startColor = crosshair.color;
+        if (crosshair)
+            startColor = crosshair.color;
     }
 
     public void ChangeColor(Color newColor)
     {
-        oldColor = crosshair.color;
-        crosshair.color = newColor;
-        currentColor = newColor;
+        if (crosshair)
+        {
+            oldColor = crosshair.color;
+            crosshair.color = newColor;
+            currentColor = newColor;
+        }
+
     }
 
     public void ResetColor()
     {
-        oldColor = currentColor;
-        crosshair.color = startColor;
-        currentColor = startColor;
+        
+        if (crosshair)
+        {
+            oldColor = currentColor;
+            crosshair.color = startColor;
+            currentColor = startColor;
+        }
+            
     }
 
     public void ChangeSprite(Sprite sprite)
     {
-        crosshair.sprite = sprite;
+        if (crosshair)
+            crosshair.sprite = sprite;
     }
 
     public void EnemyOnCrosshair()

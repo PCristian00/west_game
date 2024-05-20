@@ -2,12 +2,10 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    public int health;
-
-    // public bool isDead = false;    
+    public int health; 
 
     [Header("Sound")]
-    // public AudioClip attackSound;
+ 
     public AudioClip hitSound;
     public AudioClip deathSound;
 

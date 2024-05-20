@@ -47,17 +47,14 @@ public class GameManager : MonoBehaviour
 
     public event Action<GameState> OnCurrentGameStateChanged;
 
-    // Start is called before the first frame update
     void Start()
     {
         instance = this;
         PlayerManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
-
-        // ATTENZIONE: Le scatole di test (Cube) attualmente hanno il tag Enemy
+                
         enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (healthInfo != null)
