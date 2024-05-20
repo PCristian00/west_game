@@ -5,10 +5,10 @@ using System.Collections;
 public class ProjectileGun : MonoBehaviour
 {
     [Header("Bullet stats")]
-    //bullet
+    // Proiettile da sparare
     public GameObject bullet;
 
-    //bullet force
+    // Forza del proiettile (usare upward per spari a parabola)
     public float shootForce, upwardForce;
 
     [Header("Gun stats")]
@@ -49,8 +49,7 @@ public class ProjectileGun : MonoBehaviour
     public AudioClip shootSound;
     public AudioClip reloadSound;
     private AudioSource audioSource;
-
-    //bug fixing :D
+        
     [Header("Debug")]
     public bool allowInvoke = true;
 
@@ -58,38 +57,36 @@ public class ProjectileGun : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         gunCollider = GetComponent<Collider>();
-
-        // TROVARE MODO PER ASSOCIARE CORRETTAMENTE USANDO GetComponent e senza trascinare
-
-        // reloadAnimation = GetComponent<RotationAnimation>();
-        //  collisionAnimation = GetComponent<RotationAnimation>();
-
     }
 
     private void Awake()
     {
-        //make sure magazine is full
+        // Riempie caricatore all'avvio
         bulletsLeft = magazineSize;
         readyToShoot = true;
     }
 
-    private void Update()
-    {
-        MyInput();
-
-        ////Set ammo display, if it exists :D
-        if (ammoInfo != null && !reloading)
-            ammoInfo.SetText(bulletsLeft / bulletsPerTap + " / " + magazineSize / bulletsPerTap);
-        else if (reloading) ammoInfo.text = "Reloading...";
-
+    public void OnEnable()
+    {        
         if (crosshairSprite)
         {
             CrosshairManager.Instance.ChangeSprite(crosshairSprite);
         }
     }
+
+
+    private void Update()
+    {
+        MyInput();
+
+        if (ammoInfo != null && !reloading)
+            ammoInfo.SetText(bulletsLeft / bulletsPerTap + " / " + magazineSize / bulletsPerTap);
+        else if (reloading) ammoInfo.text = "Reloading...";             
+    }
+
     private void MyInput()
     {
-        //Check if allowed to hold down button and take corresponding input
+        // Check if allowed to hold down button and take corresponding input
         if (allowButtonHold) shooting = Input.GetKey(KeyCode.Mouse0);
         else shooting = Input.GetKeyDown(KeyCode.Mouse0);
 
@@ -176,8 +173,6 @@ public class ProjectileGun : MonoBehaviour
     private void ResetShot()
     {
         //Allow shooting and invoking again
-        // reloading = false;
-        // TEST DI STATO
         if (GameManager.instance.CurrentGameState != GameManager.GameState.Lost)
         {
             readyToShoot = true;
@@ -188,9 +183,7 @@ public class ProjectileGun : MonoBehaviour
     private void Reload()
     {
         reloading = true;
-
-
-        // In sovrapposizione con ColorOnHover (TROVARE SOLUZIONE)
+       
         CrosshairManager.Instance.ChangeColor(Color.black);
 
         if (hasCylinder)
@@ -239,13 +232,13 @@ public class ProjectileGun : MonoBehaviour
         // Debug.Log("Reload finished! (R = " + reloading + ")");
     }
 
-    // TROVARE SOLUZIONE AL "LOOP" CHE SI VEDE
+   
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Bullet") && !other.CompareTag("Player"))
         {
             //  Debug.Log("Test: collisione trigger di " + gameObject.name + " con " + other.name + "[tag = " + other.tag + " ]");
-            // reloadAnimation.Play(0.2f, true);
+          
             collisionAnimation.Play(1f, true);
             isColliding = true;
             CrosshairManager.Instance.ChangeColor(Color.clear);
@@ -258,37 +251,10 @@ public class ProjectileGun : MonoBehaviour
         if (!other.CompareTag("Bullet") && !other.CompareTag("Player"))
         {
             // Debug.Log("Test: collisione trigger exit di " + gameObject.name + " con " + other.name + "[tag = " + other.tag + " ]");
-            // reloadAnimation.Play(0.2f, false);
+            
             collisionAnimation.Play(1f, false);
             isColliding = false;
             CrosshairManager.Instance.ResetColor();
         }
     }
-
-    // TEST: Rimuovere o rinominare e mettere in CrosshairManager
-    
-
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    // Debug.Log("Test: collisione di " + gameObject.name + " con " + collision.gameObject.name);
-
-    //    if (!collision.gameObject.CompareTag("Bullet") && !collision.gameObject.CompareTag("Player") && !isColliding)
-    //    {
-    //        Debug.Log("Test: collisione di " + gameObject.name + " con " + collision.gameObject.name + "[tag = " + collision.gameObject.tag + " ]");
-    //        // reloadAnimation.Play(0.2f, true);
-    //        collisionAnimation.Play(1f, true);
-    //        isColliding = true;
-    //    }
-    //}
-
-    //private void OnCollisionExit(Collision collision)
-    //{
-    //    if (!collision.gameObject.CompareTag("Bullet") && !collision.gameObject.CompareTag("Player") && !isColliding)
-    //    {
-    //        Debug.Log("Test: collisione exit di " + gameObject.name + " con " + collision.gameObject.name + "[tag = " + collision.gameObject.tag + " ]");
-    //        // reloadAnimation.Play(0.2f, true);
-    //        collisionAnimation.Play(1f, false);
-    //        isColliding = true;
-    //    }
-    //}
-}
+  }
