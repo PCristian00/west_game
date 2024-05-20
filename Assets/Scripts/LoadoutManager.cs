@@ -1,8 +1,6 @@
 using System;
 using UnityEngine;
 
-// FORSE COPIARE IN GAME MANAGER
-
 public class LoadoutManager : MonoBehaviour
 {
     public static LoadoutManager Instance;
@@ -42,8 +40,6 @@ public class LoadoutManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // FORSE FARE CON ROTELLA MOUSE
-
         // L'arma viene cambiata solo se non sta ricaricando
         if (!_currentWeapon.GetComponent<ProjectileGun>().reloading)
         {
