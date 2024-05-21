@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    public static GameManager Instance;
 
     [Header("References")]
     public PlayerManager PlayerManager;
@@ -49,10 +49,12 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        instance = this;
+        Instance = this;
         PlayerManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
                 
         enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
+
+      //  if (CrosshairManager.Instance) Debug.Log("GM: CH manager loaded");
 
        // Time.timeScale = 0;
     }

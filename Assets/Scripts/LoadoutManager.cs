@@ -112,8 +112,14 @@ public class LoadoutManager : MonoBehaviour
         foreach (var weapon in weapons)
         {
             // Debug.Log("Arma caricata: " + weapon.name + ";");
-
-            weapon.SetActive(true);
+            //try
+            //{
+                weapon.SetActive(true);
+            //} catch (Exception e)
+            //{
+            //    Debug.Log(e);
+            //}
+            
 
             //  weapon.GetComponent<ProjectileGun>().Hide(false);
         }

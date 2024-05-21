@@ -44,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.instance.CurrentGameState != GameManager.GameState.Lost)
+        if (GameManager.Instance.CurrentGameState != GameManager.GameState.Lost)
         {
             // ground check
             grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);

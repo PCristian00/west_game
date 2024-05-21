@@ -55,12 +55,19 @@ public class ProjectileGun : MonoBehaviour
     public bool allowInvoke = true;
     private Vector3 scale;
 
+   // CrosshairManager chm = null;
+
     private void Start()
     {
         // gameObject.SetActive(false);
         audioSource = GetComponent<AudioSource>();
         gunCollider = GetComponent<Collider>();
         gunCollider.enabled = false;
+
+
+      //  if (CrosshairManager.Instance) Debug.Log("PG: CH manager loaded");
+
+       
         //  scale = gameObject.transform.localScale;
         //  gameObject.transform.localScale = Vector3.zero;
 
@@ -87,21 +94,27 @@ public class ProjectileGun : MonoBehaviour
 
     public void OnEnable()
     {
-        // Debug.Log(gameObject.name + " attivato");
-        if (crosshairSprite)
+        try
         {
-            //try
-            //{
+            // Debug.Log(gameObject.name + " attivato");
+            if (crosshairSprite)
+            {
+                //try
+                //{
                 CrosshairManager.Instance.ChangeSprite(crosshairSprite);
-            //} catch (NullReferenceException)
-            //{
-            //    Debug.Log("Crosshair Manager ancora in caricamento...");
-            //}
-        }
+                //} catch (NullReferenceException)
+                //{
+                //    Debug.Log("Crosshair Manager ancora in caricamento...");
+                //}
+            }
 
-        // gameObject.transform.localScale = scale;
-        gunCollider.enabled = true;
-        Hide(true);
+            // gameObject.transform.localScale = scale;
+            gunCollider.enabled = true;
+            Hide(true);
+        } catch (Exception e)
+        {
+            Debug.Log(e.ToString());
+        }
     }
 
     public void Hide(bool reset)
@@ -253,7 +266,7 @@ public class ProjectileGun : MonoBehaviour
     private void ResetShot()
     {
         // Se il gioco non è concluso
-        if (GameManager.instance.CurrentGameState != GameManager.GameState.Lost)
+        if (GameManager.Instance.CurrentGameState != GameManager.GameState.Lost)
         {
             readyToShoot = true;
             allowInvoke = true;
