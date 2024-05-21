@@ -63,10 +63,10 @@ MonoBehaviour:
   hasCylinder: 1
   playerRb: {fileID: 0}
   recoilForce: 3
+  changeSpeed: 0.2
   shooting: 0
   readyToShoot: 0
   reloading: 0
-  isColliding: 0
   isHidden: 0
   fpsCam: {fileID: 0}
   attackPoint: {fileID: 2990531006381886728}

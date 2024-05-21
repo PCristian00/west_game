@@ -6989,7 +6989,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.7294118}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -7244,10 +7244,6 @@ PrefabInstance:
     - target: {fileID: 22373365584697324, guid: bf37a98693d0cbc49b1e7b9a3fc2286d, type: 3}
       propertyPath: m_Name
       value: Revolver
-      objectReference: {fileID: 0}
-    - target: {fileID: 22373365584697324, guid: bf37a98693d0cbc49b1e7b9a3fc2286d, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4967150151942412217, guid: bf37a98693d0cbc49b1e7b9a3fc2286d, type: 3}
       propertyPath: fpsCam

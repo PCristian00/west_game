@@ -26,6 +26,8 @@ public class ProjectileGun : MonoBehaviour
     public Rigidbody playerRb;
     public float recoilForce;
 
+    public float changeSpeed = 0.5f;
+
     //bools
     public bool shooting, readyToShoot, reloading, isHidden = false;
 
@@ -122,16 +124,17 @@ public class ProjectileGun : MonoBehaviour
 
     public void Hide(bool show)
     {
+        Debug.Log(gameObject.name + " change speed = " + changeSpeed);
         if (!show)
         {
-            collisionAnimation.Play(0.5f, true);
+            collisionAnimation.Play(changeSpeed, true);
             isHidden = true;
             CrosshairManager.Instance.ChangeColor(Color.clear);
         }
 
         else
         {
-            collisionAnimation.Play(0.5f, false);
+            collisionAnimation.Play(changeSpeed, false);
             isHidden = false;
             CrosshairManager.Instance.ResetColor();
             // OnEnable();
