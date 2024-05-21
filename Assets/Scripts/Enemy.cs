@@ -63,7 +63,7 @@ public class Enemy : MonoBehaviour
         player = GameObject.Find("PlayerObj").transform;
         if (canPatrol || canChase)
             agent = GetComponent<NavMeshAgent>();
-        else Debug.Log("Nemico immobile");
+        // else Debug.Log("Nemico immobile");
     }
 
     private void Update()
