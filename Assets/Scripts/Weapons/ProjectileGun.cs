@@ -99,6 +99,7 @@ public class ProjectileGun : MonoBehaviour
             // Debug.Log(gameObject.name + " attivato");
             if (crosshairSprite)
             {
+              //  Debug.Log(crosshairSprite);
                 //try
                 //{
                 CrosshairManager.Instance.ChangeSprite(crosshairSprite);
@@ -111,15 +112,15 @@ public class ProjectileGun : MonoBehaviour
             // gameObject.transform.localScale = scale;
             gunCollider.enabled = true;
             Hide(true);
-        } catch (Exception e)
+        } catch (NullReferenceException)
         {
-            Debug.Log(e.ToString());
+            Debug.Log("Crosshair Manager ancora in caricamento...");
         }
     }
 
-    public void Hide(bool reset)
+    public void Hide(bool show)
     {
-        if (!reset)
+        if (!show)
         {
             collisionAnimation.Play(0.5f, true);
             isHidden = true;

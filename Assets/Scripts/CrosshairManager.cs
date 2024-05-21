@@ -18,7 +18,7 @@ public class CrosshairManager : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("CrosshairManager avviato");
+       // Debug.Log("CrosshairManager avviato");
         Instance = this;
         crosshair = GameObject.FindGameObjectWithTag("Crosshair").GetComponent<Image>();
         if (crosshair)
