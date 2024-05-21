@@ -139,7 +139,7 @@ public class LoadoutManager : MonoBehaviour
             ChangeWeapon();
         }
 
-        weapons[0].SetActive(true);
+       // weapons[0].SetActive(true);
 
         if (loadingTest)
             loadingTest.SetActive(false);

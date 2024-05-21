@@ -27,7 +27,7 @@ public class ProjectileGun : MonoBehaviour
     public float recoilForce;
 
     //bools
-    public bool shooting, readyToShoot, reloading, isColliding = false, isHidden = false;
+    public bool shooting, readyToShoot, reloading, isHidden = false;
 
     //Reference
     [Header("Reference")]
@@ -63,6 +63,8 @@ public class ProjectileGun : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         gunCollider = GetComponent<Collider>();
         gunCollider.enabled = false;
+
+       // gameObject.SetActive(false);
 
 
       //  if (CrosshairManager.Instance) Debug.Log("PG: CH manager loaded");
@@ -114,7 +116,7 @@ public class ProjectileGun : MonoBehaviour
             Hide(true);
         } catch (NullReferenceException)
         {
-            Debug.Log("Crosshair Manager ancora in caricamento...");
+            Debug.Log(gameObject.name+": Riferimento a Crosshair Manager non trovato");
         }
     }
 
@@ -169,7 +171,7 @@ public class ProjectileGun : MonoBehaviour
         if (allowButtonHold) shooting = Input.GetKey(KeyCode.Mouse0);
         else shooting = Input.GetKeyDown(KeyCode.Mouse0);
 
-        if (!reloading && !isColliding)
+        if (!reloading)
         {
             // Ricarica
             if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !isHidden) Reload();
@@ -343,25 +345,29 @@ public class ProjectileGun : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Bullet") && !other.CompareTag("Player") && !isHidden)
+        if (!other.CompareTag("Bullet") && !other.CompareTag("Player"))
         {
             //  Debug.Log("Test: collisione trigger di " + gameObject.name + " con " + other.name + "[tag = " + other.tag + " ]");
 
-            collisionAnimation.Play(1f, true);
-            isColliding = true;
-            CrosshairManager.Instance.ChangeColor(Color.clear);
+            Hide(false);
+
+            //collisionAnimation.Play(1f, true);
+            //isColliding = true;
+            //CrosshairManager.Instance.ChangeColor(Color.clear);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (!other.CompareTag("Bullet") && !other.CompareTag("Player") && !isHidden)
+        if (!other.CompareTag("Bullet") && !other.CompareTag("Player"))
         {
             // Debug.Log("Test: collisione trigger exit di " + gameObject.name + " con " + other.name + "[tag = " + other.tag + " ]");
 
-            collisionAnimation.Play(1f, false);
-            isColliding = false;
-            CrosshairManager.Instance.ResetColor();
+            Hide(true);
+
+            //collisionAnimation.Play(1f, false);
+            //isColliding = false;
+            //CrosshairManager.Instance.ResetColor();
         }
     }
 }
