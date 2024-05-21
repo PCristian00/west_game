@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using TMPro;
 using System.Collections;
+using System;
 
 public class ProjectileGun : MonoBehaviour
 {
@@ -60,8 +61,8 @@ public class ProjectileGun : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         gunCollider = GetComponent<Collider>();
         gunCollider.enabled = false;
-      //  scale = gameObject.transform.localScale;
-      //  gameObject.transform.localScale = Vector3.zero;
+        //  scale = gameObject.transform.localScale;
+        //  gameObject.transform.localScale = Vector3.zero;
 
         // Invoke(nameof(OnEnable), 1);
 
@@ -89,10 +90,16 @@ public class ProjectileGun : MonoBehaviour
         // Debug.Log(gameObject.name + " attivato");
         if (crosshairSprite)
         {
-            CrosshairManager.Instance.ChangeSprite(crosshairSprite);
+            //try
+            //{
+                CrosshairManager.Instance.ChangeSprite(crosshairSprite);
+            //} catch (NullReferenceException)
+            //{
+            //    Debug.Log("Crosshair Manager ancora in caricamento...");
+            //}
         }
 
-       // gameObject.transform.localScale = scale;
+        // gameObject.transform.localScale = scale;
         gunCollider.enabled = true;
         Hide(true);
     }
@@ -126,10 +133,10 @@ public class ProjectileGun : MonoBehaviour
         // Capire priorità di esecuzione meglio OPPURE riprovare in seguito quando si ha un menù e si possono nascondere caricamenti.
 
 
-        if (crosshairSprite)
-        {
-            CrosshairManager.Instance.ChangeSprite(crosshairSprite);
-        }
+        //if (crosshairSprite)
+        //{
+        //    CrosshairManager.Instance.ChangeSprite(crosshairSprite);
+        //}
 
 
         MyInput();
@@ -201,8 +208,8 @@ public class ProjectileGun : MonoBehaviour
         Vector3 directionWithoutSpread = targetPoint - attackPoint.position;
 
         //Calcola dispersione proiettile (se presente)
-        float x = Random.Range(-spread, spread);
-        float y = Random.Range(-spread, spread);
+        float x = UnityEngine.Random.Range(-spread, spread);
+        float y = UnityEngine.Random.Range(-spread, spread);
 
         // Aggiunge dispersione alla direzione precedentemente calcolata
         Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x, y, 0);

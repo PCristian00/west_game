@@ -15,6 +15,8 @@ public class LoadoutManager : MonoBehaviour
 
     private bool next;
 
+    public GameObject loadingTest;
+
     public GameObject CurrentWeapon
     {
         get => _currentWeapon;
@@ -95,14 +97,45 @@ public class LoadoutManager : MonoBehaviour
             CurrentWeapon = weapons[current];
         }
 
+        // Debug.Log("cambio arma completato");
+
     }
 
+
+    // Funzioni per caricamento: risolvono parzialmente il problema del crosshair e delle animazioni non caricate in tempo.
+    // Potrebbe essere rimosso dalla versione finale del gioco se ottimizzato correttamente.
     private void LoadOutInfo()
     {
-        Debug.Log("Armi su giocatore: " + weapons.Length);
+        CrosshairManager.Instance.ResetColor();
+
+        //  Debug.Log("Armi su giocatore: " + weapons.Length);
         foreach (var weapon in weapons)
         {
-            Debug.Log("Arma: " + weapon.name + ";");
+            // Debug.Log("Arma caricata: " + weapon.name + ";");
+
+            weapon.SetActive(true);
+
+            //  weapon.GetComponent<ProjectileGun>().Hide(false);
         }
+
+        // LoadComplete();
+
+        Invoke(nameof(LoadComplete), 1.5f);
+
+    }
+
+    private void LoadComplete()
+    {
+        for (int i = 0; i < weapons.Length; i++)
+        {
+
+            // Invoke(nameof(ChangeWeapon), 0.5f);
+            ChangeWeapon();
+        }
+
+        weapons[0].SetActive(true);
+
+        if (loadingTest)
+            loadingTest.SetActive(false);
     }
 }

@@ -53,6 +53,8 @@ public class GameManager : MonoBehaviour
         PlayerManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
                 
         enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
+
+       // Time.timeScale = 0;
     }
 
     void Update()
@@ -90,5 +92,14 @@ public class GameManager : MonoBehaviour
     public void EnemyKilled()
     {
         enemyCount--;
+    }
+
+    public void StartGame()
+    {
+        CurrentGameState = GameState.Running;
+
+       Debug.Log(LoadoutManager.Instance.CurrentWeapon.name);
+
+       // Time.timeScale = 1;
     }
 }
