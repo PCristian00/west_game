@@ -11,12 +11,14 @@ public class CrosshairManager : MonoBehaviour
 
     private Color currentColor;
 
+    [SerializeField]
     private Image crosshair;
 
     public Color OldColor { get => oldColor; set => oldColor = value; }
 
     private void Start()
     {
+        Debug.Log("CrosshairManager avviato");
         Instance = this;
         crosshair = GameObject.FindGameObjectWithTag("Crosshair").GetComponent<Image>();
         if (crosshair)
@@ -36,14 +38,14 @@ public class CrosshairManager : MonoBehaviour
 
     public void ResetColor()
     {
-        
+
         if (crosshair)
         {
             oldColor = currentColor;
             crosshair.color = startColor;
             currentColor = startColor;
         }
-            
+
     }
 
     public void ChangeSprite(Sprite sprite)

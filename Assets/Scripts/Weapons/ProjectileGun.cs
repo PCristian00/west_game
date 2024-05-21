@@ -26,7 +26,7 @@ public class ProjectileGun : MonoBehaviour
     public float recoilForce;
 
     //bools
-    public bool shooting, readyToShoot, reloading, isColliding = false;
+    public bool shooting, readyToShoot, reloading, isColliding = false, isHidden = false;
 
     //Reference
     [Header("Reference")]
@@ -49,14 +49,22 @@ public class ProjectileGun : MonoBehaviour
     public AudioClip shootSound;
     public AudioClip reloadSound;
     private AudioSource audioSource;
-        
+
     [Header("Debug")]
     public bool allowInvoke = true;
 
     private void Start()
     {
+        // gameObject.SetActive(false);
         audioSource = GetComponent<AudioSource>();
         gunCollider = GetComponent<Collider>();
+
+        // Invoke(nameof(OnEnable), 1);
+
+        //if (crosshairSprite)
+        //{
+        //    CrosshairManager.Instance.ChangeSprite(crosshairSprite);
+        //}
     }
 
     private void Awake()
@@ -64,14 +72,41 @@ public class ProjectileGun : MonoBehaviour
         // Riempie caricatore all'avvio
         bulletsLeft = magazineSize;
         readyToShoot = true;
+        // Hide(true);
+
+
+        //   Debug.Log(gameObject.name + " avviata");
+
+
     }
 
     public void OnEnable()
-    {        
+    {
+        // Debug.Log(gameObject.name + " attivato");
         if (crosshairSprite)
         {
             CrosshairManager.Instance.ChangeSprite(crosshairSprite);
         }
+    }
+
+    public void Hide(bool reset)
+    {
+        if (!reloading && !isColliding)
+            if (!reset)
+            {
+                collisionAnimation.Play(0.5f, true);
+                isHidden = true;
+                CrosshairManager.Instance.ChangeColor(Color.clear);
+            }
+
+            else
+            {
+                collisionAnimation.Play(0.5f, false);
+                isHidden = false;
+                CrosshairManager.Instance.ResetColor();
+                OnEnable();
+            }
+
     }
 
 
@@ -79,36 +114,51 @@ public class ProjectileGun : MonoBehaviour
     {
         MyInput();
 
-        if (ammoInfo != null && !reloading)
+        if (ammoInfo != null && !reloading && !isHidden)
             ammoInfo.SetText(bulletsLeft / bulletsPerTap + " / " + magazineSize / bulletsPerTap);
-        else if (reloading) ammoInfo.text = "Reloading...";             
+        else if (reloading) ammoInfo.text = "Reloading...";
+        else if (isHidden) ammoInfo.text = gameObject.name + " hidden";
+
     }
 
     // Gestisce gli input dell'arma
     private void MyInput()
-    {        
+    {
         // Controlla se è permessa la pressione continua del grilletto e agisce di conseguenza
         if (allowButtonHold) shooting = Input.GetKey(KeyCode.Mouse0);
         else shooting = Input.GetKeyDown(KeyCode.Mouse0);
 
-        // Ricarica
-        if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !reloading) Reload();
-
-        // Ricarica automatica se caricatore vuoto
-        if (readyToShoot && shooting && !reloading && bulletsLeft <= 0) Reload();
-
-        // Sparo
-        if (readyToShoot && shooting && !reloading && bulletsLeft > 0 & !isColliding)
+        if (!reloading && !isColliding)
         {
-            // Se l'arma è a tamburo (cylinder), la ricarica può essere interrotta dal giocatore
-            if (hasCylinder)
+            // Ricarica
+            if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !isHidden) Reload();
+
+            // Hide test
+            if (Input.GetKeyDown(KeyCode.F))
             {
-                StopAllCoroutines();
+                Hide(isHidden);
             }
 
-            bulletsShot = 0;
+            if (!isHidden && readyToShoot && shooting)
+            {
+                // Debug.Log(gameObject.name+" nascosta = " + isHidden);
+                // Ricarica automatica se caricatore vuoto
+                if (bulletsLeft <= 0) Reload();
 
-            Shoot();
+                // Sparo
+                if (bulletsLeft > 0)
+                {
+                    // Se l'arma è a tamburo (cylinder), la ricarica può essere interrotta dal giocatore
+                    if (hasCylinder)
+                    {
+                        StopAllCoroutines();
+                    }
+
+                    bulletsShot = 0;
+
+                    Shoot();
+                }
+            }
         }
     }
 
@@ -155,7 +205,7 @@ public class ProjectileGun : MonoBehaviour
 
         bulletsLeft--;
         bulletsShot++;
-       
+
 
         // prepara nuovamente allo sparo in base a timeBetweenShooting
         if (allowInvoke)
@@ -187,7 +237,7 @@ public class ProjectileGun : MonoBehaviour
     private void Reload()
     {
         reloading = true;
-       
+
         CrosshairManager.Instance.ChangeColor(Color.black);
 
         if (hasCylinder)
@@ -204,7 +254,7 @@ public class ProjectileGun : MonoBehaviour
 
             if (reloadAnimation)
                 reloadAnimation.PlayComplete(reloadTime);
-            
+
             Invoke(nameof(ReloadFinished), reloadTime);
         }
     }
@@ -246,16 +296,16 @@ public class ProjectileGun : MonoBehaviour
         CrosshairManager.Instance.EnemyOnCrosshair();
         reloading = false;
         // Debug.Log("Reload finished! (R = " + reloading + ")");
-    }       
+    }
 
     //Gestione collisioni dell'arma
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Bullet") && !other.CompareTag("Player"))
+        if (!other.CompareTag("Bullet") && !other.CompareTag("Player") && !isHidden)
         {
             //  Debug.Log("Test: collisione trigger di " + gameObject.name + " con " + other.name + "[tag = " + other.tag + " ]");
-          
+
             collisionAnimation.Play(1f, true);
             isColliding = true;
             CrosshairManager.Instance.ChangeColor(Color.clear);
@@ -264,13 +314,13 @@ public class ProjectileGun : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (!other.CompareTag("Bullet") && !other.CompareTag("Player"))
+        if (!other.CompareTag("Bullet") && !other.CompareTag("Player") && !isHidden)
         {
             // Debug.Log("Test: collisione trigger exit di " + gameObject.name + " con " + other.name + "[tag = " + other.tag + " ]");
-            
+
             collisionAnimation.Play(1f, false);
             isColliding = false;
             CrosshairManager.Instance.ResetColor();
         }
     }
-  }
+}
