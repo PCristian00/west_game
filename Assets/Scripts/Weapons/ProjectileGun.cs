@@ -118,6 +118,20 @@ public class ProjectileGun : MonoBehaviour
 
     private void Update()
     {
+        // RIPROVARE A RIMUOVERE DA UPDATE
+
+        // ChangeSprite dovrebbe essere solo su OnEnable. Richiamarlo ad ogni update è inutile.
+        // Togliere update qui però dà problemi alla prima arma, che inizia con il mirino vuoto generico.
+        // Il problema è che CrosshairManager non viene avviato in tempo.
+        // Capire priorità di esecuzione meglio OPPURE riprovare in seguito quando si ha un menù e si possono nascondere caricamenti.
+
+
+        if (crosshairSprite)
+        {
+            CrosshairManager.Instance.ChangeSprite(crosshairSprite);
+        }
+
+
         MyInput();
 
         if (ammoInfo != null && !reloading && !isHidden)
