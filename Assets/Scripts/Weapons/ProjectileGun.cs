@@ -26,6 +26,7 @@ public class ProjectileGun : MonoBehaviour
     public Rigidbody playerRb;
     public float recoilForce;
 
+    [Tooltip("Tempo (in secondi) necessario per riporre / estrarre arma.")]
     public float changeSpeed = 0.5f;
 
     //bools
@@ -57,30 +58,11 @@ public class ProjectileGun : MonoBehaviour
     public bool allowInvoke = true;
     private Vector3 scale;
 
-   // CrosshairManager chm = null;
-
     private void Start()
     {
-        // gameObject.SetActive(false);
         audioSource = GetComponent<AudioSource>();
         gunCollider = GetComponent<Collider>();
         gunCollider.enabled = false;
-
-       // gameObject.SetActive(false);
-
-
-      //  if (CrosshairManager.Instance) Debug.Log("PG: CH manager loaded");
-
-       
-        //  scale = gameObject.transform.localScale;
-        //  gameObject.transform.localScale = Vector3.zero;
-
-        // Invoke(nameof(OnEnable), 1);
-
-        //if (crosshairSprite)
-        //{
-        //    CrosshairManager.Instance.ChangeSprite(crosshairSprite);
-        //}
     }
 
     private void Awake()
@@ -88,37 +70,22 @@ public class ProjectileGun : MonoBehaviour
         // Riempie caricatore all'avvio
         bulletsLeft = magazineSize;
         readyToShoot = true;
-        // Hide(true);
-
-
-        //   Debug.Log(gameObject.name + " avviata");
-
-
     }
 
     public void OnEnable()
     {
         try
         {
-            // Debug.Log(gameObject.name + " attivato");
             if (crosshairSprite)
             {
-              //  Debug.Log(crosshairSprite);
-                //try
-                //{
                 CrosshairManager.Instance.ChangeSprite(crosshairSprite);
-                //} catch (NullReferenceException)
-                //{
-                //    Debug.Log("Crosshair Manager ancora in caricamento...");
-                //}
             }
-
-            // gameObject.transform.localScale = scale;
             gunCollider.enabled = true;
             Hide(true);
-        } catch (NullReferenceException)
+        }
+        catch (NullReferenceException)
         {
-            Debug.Log(gameObject.name+": Riferimento a Crosshair Manager non trovato");
+            Debug.Log(gameObject.name + ": Riferimento a Crosshair Manager non trovato");
         }
     }
 
@@ -141,23 +108,8 @@ public class ProjectileGun : MonoBehaviour
         }
     }
 
-
     private void Update()
     {
-        // RIPROVARE A RIMUOVERE DA UPDATE
-
-        // ChangeSprite dovrebbe essere solo su OnEnable. Richiamarlo ad ogni update è inutile.
-        // Togliere update qui però dà problemi alla prima arma, che inizia con il mirino vuoto generico.
-        // Il problema è che CrosshairManager non viene avviato in tempo.
-        // Capire priorità di esecuzione meglio OPPURE riprovare in seguito quando si ha un menù e si possono nascondere caricamenti.
-
-
-        //if (crosshairSprite)
-        //{
-        //    CrosshairManager.Instance.ChangeSprite(crosshairSprite);
-        //}
-
-
         MyInput();
 
         if (ammoInfo != null && !reloading && !isHidden)
@@ -187,7 +139,6 @@ public class ProjectileGun : MonoBehaviour
 
             if (!isHidden && readyToShoot && shooting)
             {
-                // Debug.Log(gameObject.name+" nascosta = " + isHidden);
                 // Ricarica automatica se caricatore vuoto
                 if (bulletsLeft <= 0) Reload();
 
@@ -353,10 +304,6 @@ public class ProjectileGun : MonoBehaviour
             //  Debug.Log("Test: collisione trigger di " + gameObject.name + " con " + other.name + "[tag = " + other.tag + " ]");
 
             Hide(false);
-
-            //collisionAnimation.Play(1f, true);
-            //isColliding = true;
-            //CrosshairManager.Instance.ChangeColor(Color.clear);
         }
     }
 
@@ -367,10 +314,6 @@ public class ProjectileGun : MonoBehaviour
             // Debug.Log("Test: collisione trigger exit di " + gameObject.name + " con " + other.name + "[tag = " + other.tag + " ]");
 
             Hide(true);
-
-            //collisionAnimation.Play(1f, false);
-            //isColliding = false;
-            //CrosshairManager.Instance.ResetColor();
         }
     }
 }
