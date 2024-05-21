@@ -13,6 +13,8 @@ public class LoadoutManager : MonoBehaviour
 
     public event Action<GameObject> OnWeaponChanged;
 
+    private bool next;
+
     public GameObject CurrentWeapon
     {
         get => _currentWeapon;
@@ -45,34 +47,54 @@ public class LoadoutManager : MonoBehaviour
         {
             if (Input.GetButtonDown("NextWeapon") || Input.GetAxis("Mouse ScrollWheel") > 0f)
             {
+                _currentWeapon.GetComponent<ProjectileGun>().Hide(false);
+                next = true;
+                Invoke(nameof(ChangeWeapon), 0.5f);
+                // ChangeWeapon(true);
 
-                weapons[current].SetActive(false);
-                current++;
-                // Debug.Log(current);
-                if (current >= weapons.Length)
-                {
-                    current = 0;
-                }
-                // Debug.Log("AUM// Arma " + current + ": " + weapons[current].gameObject.name);
-                weapons[current].SetActive(true);
-                CurrentWeapon = weapons[current];
             }
             else if (Input.GetButtonDown("PrevWeapon") || Input.GetAxis("Mouse ScrollWheel") < 0f)
             {
-                weapons[current].SetActive(false);
-                current--;
-                //  Debug.Log(current);
-                if (current < 0)
-                {
-                    //  Debug.Log(current);
-                    current = weapons.Length - 1;
-                }
-                //  Debug.Log("DEC// Arma " + current+": " + weapons[current].gameObject.name);
-                weapons[current].SetActive(true);
-                CurrentWeapon = weapons[current];
+                _currentWeapon.GetComponent<ProjectileGun>().Hide(false);
+                next = false;
+                Invoke(nameof(ChangeWeapon), 0.5f);
+                // ChangeWeapon(false);
             }
         }
         // else Debug.Log("IMPOSSIBILE CAMBIARE. RICARICA");
+    }
+
+    private void ChangeWeapon()
+    {
+        if (next)
+        {
+            weapons[current].SetActive(false);
+            current++;
+            // Debug.Log(current);
+            if (current >= weapons.Length)
+            {
+                current = 0;
+            }
+            // Debug.Log("AUM// Arma " + current + ": " + weapons[current].gameObject.name);
+            weapons[current].SetActive(true);
+            CurrentWeapon = weapons[current];
+        }
+
+        else
+        {
+            weapons[current].SetActive(false);
+            current--;
+            //  Debug.Log(current);
+            if (current < 0)
+            {
+                //  Debug.Log(current);
+                current = weapons.Length - 1;
+            }
+            //  Debug.Log("DEC// Arma " + current+": " + weapons[current].gameObject.name);
+            weapons[current].SetActive(true);
+            CurrentWeapon = weapons[current];
+        }
+
     }
 
     private void LoadOutInfo()

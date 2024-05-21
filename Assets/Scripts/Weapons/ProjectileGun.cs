@@ -52,12 +52,16 @@ public class ProjectileGun : MonoBehaviour
 
     [Header("Debug")]
     public bool allowInvoke = true;
+    private Vector3 scale;
 
     private void Start()
     {
         // gameObject.SetActive(false);
         audioSource = GetComponent<AudioSource>();
         gunCollider = GetComponent<Collider>();
+        gunCollider.enabled = false;
+      //  scale = gameObject.transform.localScale;
+      //  gameObject.transform.localScale = Vector3.zero;
 
         // Invoke(nameof(OnEnable), 1);
 
@@ -87,26 +91,28 @@ public class ProjectileGun : MonoBehaviour
         {
             CrosshairManager.Instance.ChangeSprite(crosshairSprite);
         }
+
+       // gameObject.transform.localScale = scale;
+        gunCollider.enabled = true;
+        Hide(true);
     }
 
     public void Hide(bool reset)
     {
-        if (!reloading && !isColliding)
-            if (!reset)
-            {
-                collisionAnimation.Play(0.5f, true);
-                isHidden = true;
-                CrosshairManager.Instance.ChangeColor(Color.clear);
-            }
+        if (!reset)
+        {
+            collisionAnimation.Play(0.5f, true);
+            isHidden = true;
+            CrosshairManager.Instance.ChangeColor(Color.clear);
+        }
 
-            else
-            {
-                collisionAnimation.Play(0.5f, false);
-                isHidden = false;
-                CrosshairManager.Instance.ResetColor();
-                OnEnable();
-            }
-
+        else
+        {
+            collisionAnimation.Play(0.5f, false);
+            isHidden = false;
+            CrosshairManager.Instance.ResetColor();
+            // OnEnable();
+        }
     }
 
 
