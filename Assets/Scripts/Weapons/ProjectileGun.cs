@@ -91,7 +91,8 @@ public class ProjectileGun : MonoBehaviour
 
     public void Hide(bool show)
     {
-        Debug.Log(gameObject.name + " change speed = " + changeSpeed);
+       // Debug.Log(gameObject.name + " change speed = " + changeSpeed);
+
         if (!show)
         {
             collisionAnimation.Play(changeSpeed, true);
