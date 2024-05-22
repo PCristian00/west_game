@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+
+    public static PlayerMovement instance;
+
+
     [Header("Movement")]
     public float moveSpeed;
     public float groundDrag;
@@ -36,6 +40,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        instance = this;
+
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
