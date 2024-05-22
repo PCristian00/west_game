@@ -29,10 +29,13 @@ public class PlayerManager : MonoBehaviour
 
         if (other.CompareTag("Powerup"))
         {
-            Debug.Log("Preso power-up " + other.name);
-            IPowerup powerup = other.GetComponent<IPowerup>();
-            powerup.Activate();
+            // Attiva ogni power-up contenuto nell'oggetto in collisione
+            foreach (var powerup in other.GetComponents<IPowerup>())
+            {
+                powerup.Activate();
+            }
 
+            Debug.Log("Preso power-up " + other.name);
             Destroy(other.gameObject);
         }
     }

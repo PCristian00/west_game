@@ -2528,9 +2528,10 @@ GameObject:
   - component: {fileID: 839642382}
   - component: {fileID: 839642381}
   - component: {fileID: 839642380}
+  - component: {fileID: 839642384}
+  - component: {fileID: 839642385}
   - component: {fileID: 839642379}
   - component: {fileID: 839642383}
-  - component: {fileID: 839642384}
   m_Layer: 0
   m_Name: PowerupTest
   m_TagString: Powerup
@@ -2661,6 +2662,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f6f84724b6139bd47bc5c8407214b37a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &839642385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 839642378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a1c69475256b424da1562f189bd5f69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &839721222 stripped
