@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class CrosshairManager : MonoBehaviour
 {
-    public static CrosshairManager Instance;
+    public static CrosshairManager instance;
 
     private Color startColor;
 
@@ -19,7 +19,7 @@ public class CrosshairManager : MonoBehaviour
     private void Start()
     {
        // Debug.Log("CrosshairManager avviato");
-        Instance = this;
+        instance = this;
         crosshair = GameObject.FindGameObjectWithTag("Crosshair").GetComponent<Image>();
         if (crosshair)
             startColor = crosshair.color;
@@ -59,9 +59,9 @@ public class CrosshairManager : MonoBehaviour
         if (OldColor == Color.red)
         {
             Debug.Log("Puntavo un nemico...");
-            CrosshairManager.Instance.ChangeColor(OldColor);
+            CrosshairManager.instance.ChangeColor(OldColor);
         }
         else
-            CrosshairManager.Instance.ResetColor();
+            CrosshairManager.instance.ResetColor();
     }
 }

@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
+    public static GameManager instance;
 
     [Header("References")]
-    public PlayerManager PlayerManager;
+   // public PlayerManager PlayerManager;
 
     public TextMeshProUGUI healthInfo;
 
@@ -49,12 +49,12 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        Instance = this;
-        PlayerManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
+        instance = this;
+        PlayerManager.instance = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
                 
         enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
 
-      //  if (CrosshairManager.Instance) Debug.Log("GM: CH manager loaded");
+      //  if (CrosshairManager.instance) Debug.Log("GM: CH manager loaded");
 
        // Time.timeScale = 0;
     }
@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                healthInfo.SetText("Health: " + PlayerManager.health);
+                healthInfo.SetText("Health: " + PlayerManager.instance.health);
             }
 
         if (CurrentGameState != GameState.Lost && noEnemies == false)
@@ -100,7 +100,7 @@ public class GameManager : MonoBehaviour
     {
         CurrentGameState = GameState.Running;
 
-       Debug.Log(LoadoutManager.Instance.CurrentWeapon.name);
+       Debug.Log(LoadoutManager.instance.CurrentWeapon.name);
 
        // Time.timeScale = 1;
     }

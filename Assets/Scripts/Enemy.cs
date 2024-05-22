@@ -169,7 +169,7 @@ public class Enemy : MonoBehaviour
     {
         Destroy(icon);
         Debug.Log("NEMICO " + gameObject.name + " DISTRUTTO");
-        GameManager.Instance.EnemyKilled();
+        GameManager.instance.EnemyKilled();
         Destroy(gameObject);
     }
 

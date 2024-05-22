@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class LoadoutManager : MonoBehaviour
 {
-    public static LoadoutManager Instance;
+    public static LoadoutManager instance;
 
     public GameObject[] weapons;
 
@@ -37,7 +37,7 @@ public class LoadoutManager : MonoBehaviour
 
     private void Start()
     {
-        Instance = this;
+        instance = this;
         CurrentWeapon = weapons[current];
         LoadOutInfo();
     }
@@ -106,7 +106,7 @@ public class LoadoutManager : MonoBehaviour
     // Potrebbe essere rimosso dalla versione finale del gioco se ottimizzato correttamente.
     private void LoadOutInfo()
     {
-        CrosshairManager.Instance.ResetColor();
+        CrosshairManager.instance.ResetColor();
 
         //  Debug.Log("Armi su giocatore: " + weapons.Length);
         foreach (var weapon in weapons)

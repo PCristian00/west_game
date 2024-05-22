@@ -2530,6 +2530,7 @@ GameObject:
   - component: {fileID: 839642380}
   - component: {fileID: 839642379}
   - component: {fileID: 839642383}
+  - component: {fileID: 839642384}
   m_Layer: 0
   m_Name: PowerupTest
   m_TagString: Powerup
@@ -2650,6 +2651,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &839642384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 839642378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6f84724b6139bd47bc5c8407214b37a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &839721222 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -1935356804029805437, guid: 37f35f0ebe7bcae49a9e82f7303fb002, type: 3}
@@ -4088,7 +4101,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6036d9b4c068d4642aec648a90eb95e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerManager: {fileID: 0}
   healthInfo: {fileID: 1840845687}
   enemy: {fileID: 7067134833345967684, guid: e3e6eba3aaa82554d8c84047e4cfce2c, type: 3}
   enemySpawn: {fileID: 1774779853}

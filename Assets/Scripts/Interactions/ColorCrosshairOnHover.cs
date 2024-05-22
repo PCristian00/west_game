@@ -5,11 +5,11 @@ public class ColorCrosshairOnHover : MonoBehaviour, IHover
     public void HoverEnter()
     {
         //Debug.Log("NEL MIRINO!");
-        CrosshairManager.Instance.ChangeColor(Color.red);
+        CrosshairManager.instance.ChangeColor(Color.red);
     }
     public void HoverExit()
     {
-        CrosshairManager.Instance.ResetColor();
+        CrosshairManager.instance.ResetColor();
     }
 
     private void OnDestroy()

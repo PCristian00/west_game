@@ -78,7 +78,7 @@ public class ProjectileGun : MonoBehaviour
         {
             if (crosshairSprite)
             {
-                CrosshairManager.Instance.ChangeSprite(crosshairSprite);
+                CrosshairManager.instance.ChangeSprite(crosshairSprite);
             }
             gunCollider.enabled = true;
             Hide(true);
@@ -97,14 +97,14 @@ public class ProjectileGun : MonoBehaviour
         {
             collisionAnimation.Play(changeSpeed, true);
             isHidden = true;
-            CrosshairManager.Instance.ChangeColor(Color.clear);
+            CrosshairManager.instance.ChangeColor(Color.clear);
         }
 
         else
         {
             collisionAnimation.Play(changeSpeed, false);
             isHidden = false;
-            CrosshairManager.Instance.ResetColor();
+            CrosshairManager.instance.ResetColor();
             // OnEnable();
         }
     }
@@ -224,7 +224,7 @@ public class ProjectileGun : MonoBehaviour
     private void ResetShot()
     {
         // Se il gioco non è concluso
-        if (GameManager.Instance.CurrentGameState != GameManager.GameState.Lost)
+        if (GameManager.instance.CurrentGameState != GameManager.GameState.Lost)
         {
             readyToShoot = true;
             allowInvoke = true;
@@ -236,7 +236,7 @@ public class ProjectileGun : MonoBehaviour
     {
         reloading = true;
 
-        CrosshairManager.Instance.ChangeColor(Color.black);
+        CrosshairManager.instance.ChangeColor(Color.black);
 
         if (hasCylinder)
         {
@@ -280,7 +280,7 @@ public class ProjectileGun : MonoBehaviour
         }
 
         // Controlla se il mirino era puntato su un nemico
-        CrosshairManager.Instance.EnemyOnCrosshair();
+        CrosshairManager.instance.EnemyOnCrosshair();
     }
 
     // Segnala che la ricarica è completa
@@ -291,7 +291,7 @@ public class ProjectileGun : MonoBehaviour
         bulletsLeft = magazineSize;
 
         // Controlla se il mirino era puntato su un nemico
-        CrosshairManager.Instance.EnemyOnCrosshair();
+        CrosshairManager.instance.EnemyOnCrosshair();
         reloading = false;
         // Debug.Log("Reload finished! (R = " + reloading + ")");
     }
