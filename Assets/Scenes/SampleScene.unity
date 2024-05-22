@@ -2530,6 +2530,7 @@ GameObject:
   - component: {fileID: 839642380}
   - component: {fileID: 839642384}
   - component: {fileID: 839642385}
+  - component: {fileID: 839642386}
   - component: {fileID: 839642379}
   - component: {fileID: 839642383}
   m_Layer: 0
@@ -2674,6 +2675,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a1c69475256b424da1562f189bd5f69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &839642386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 839642378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73b04956ede222c4ba3d21eac74efa7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &839721222 stripped
@@ -4118,7 +4131,6 @@ MonoBehaviour:
   enemy: {fileID: 7067134833345967684, guid: e3e6eba3aaa82554d8c84047e4cfce2c, type: 3}
   enemySpawn: {fileID: 1774779853}
   enemySpawnRate: 5
-  gameOver: 0
 --- !u!4 &1393299244 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 37f35f0ebe7bcae49a9e82f7303fb002, type: 3}
