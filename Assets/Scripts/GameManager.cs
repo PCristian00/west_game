@@ -7,12 +7,9 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     [Header("References")]
-   // public PlayerManager PlayerManager;
 
     public TextMeshProUGUI healthInfo;
-
     public GameObject enemy;
-
     public GameObject enemySpawn;
 
     public int enemySpawnRate = 5;
@@ -20,9 +17,7 @@ public class GameManager : MonoBehaviour
     private int enemyCount;
     private bool noEnemies = false;
 
-    // FORSE RIMUOVERE GAMEOVER
-    [Header("States")]
-    public bool gameOver = false;
+
     public enum GameState
     {
         Waiting,
@@ -50,21 +45,15 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         instance = this;
-        PlayerManager.instance = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
-                
+
         enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
-
-      //  if (CrosshairManager.instance) Debug.Log("GM: CH manager loaded");
-
-       // Time.timeScale = 0;
     }
 
     void Update()
     {
         if (healthInfo != null)
-            if (gameOver)
+            if (PlayerManager.instance.health <= 0)
             {
-                // VEDERE COME IMPOSTARE MEGLIO
                 CurrentGameState = GameState.Lost;
                 healthInfo.SetText("MORTO!");
             }
@@ -100,8 +89,8 @@ public class GameManager : MonoBehaviour
     {
         CurrentGameState = GameState.Running;
 
-       Debug.Log(LoadoutManager.instance.CurrentWeapon.name);
+        Debug.Log(LoadoutManager.instance.CurrentWeapon.name);
 
-       // Time.timeScale = 1;
+        // Time.timeScale = 1;
     }
 }

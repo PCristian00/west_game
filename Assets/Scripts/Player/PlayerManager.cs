@@ -43,10 +43,7 @@ public class PlayerManager : MonoBehaviour
     private void Death()
     {
         Debug.Log("SEI MORTO");
-        GameManager.instance.gameOver = true;
-        // TROVARE MODO PER USARE STATI E RIMUOVER GAMEOVER
-        // GameManager.instance.CurrentGameState = GameManager.GameState.Lost;
-        // isDead = true;
+        
         AudioSource.PlayClipAtPoint(deathSound, gameObject.transform.position);
     }
 }
