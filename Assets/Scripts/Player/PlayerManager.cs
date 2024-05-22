@@ -2,12 +2,20 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
+    public static PlayerManager instance;
+
     public int health;
+
 
     [Header("Sound")]
 
     public AudioClip hitSound;
     public AudioClip deathSound;
+
+    public void Start()
+    {
+        instance = this;
+    }
 
     public void OnTriggerEnter(Collider other)
     {
@@ -32,9 +40,9 @@ public class PlayerManager : MonoBehaviour
     private void Death()
     {
         Debug.Log("SEI MORTO");
-        GameManager.Instance.gameOver = true;
+        GameManager.instance.gameOver = true;
         // TROVARE MODO PER USARE STATI E RIMUOVER GAMEOVER
-        // GameManager.Instance.CurrentGameState = GameManager.GameState.Lost;
+        // GameManager.instance.CurrentGameState = GameManager.GameState.Lost;
         // isDead = true;
         AudioSource.PlayClipAtPoint(deathSound, gameObject.transform.position);
     }
