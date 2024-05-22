@@ -9,6 +9,7 @@ TagManager:
   - Bullet
   - Crosshair
   - Gun
+  - Powerup
   layers:
   - Default
   - TransparentFX

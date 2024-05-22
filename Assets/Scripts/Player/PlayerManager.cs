@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    public int health; 
+    public int health;
 
     [Header("Sound")]
- 
+
     public AudioClip hitSound;
     public AudioClip deathSound;
 
@@ -17,6 +17,15 @@ public class PlayerManager : MonoBehaviour
             health--;
             if (health <= 0) Death();
             else AudioSource.PlayClipAtPoint(hitSound, gameObject.transform.position);
+        }
+
+        if (other.CompareTag("Powerup"))
+        {
+            Debug.Log("Preso power-up " + other.name);
+            IPowerup powerup = other.GetComponent<IPowerup>();
+            powerup.Activate();
+
+            Destroy(other.gameObject);
         }
     }
 
