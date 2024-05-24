@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpCooldown;
     public float airMultiplier;
     bool readyToJump;
-   // public int jumpLimit = 1;
+    // public int jumpLimit = 1;
     private bool readyToDoubleJump = false;
     public bool doubleJumpActive = false;
 
@@ -40,7 +40,15 @@ public class PlayerMovement : MonoBehaviour
     Vector3 moveDirection;
 
     Rigidbody rb;
-   
+
+    
+    // Migliorare nomenclatura / struttura
+    // mettere boolean che non fa attivare se ancora attiva
+
+    public GameObject activeSkill;
+
+    private IPowerup skill;
+
 
     private void Start()
     {
@@ -50,6 +58,11 @@ public class PlayerMovement : MonoBehaviour
         rb.freezeRotation = true;
 
         readyToJump = true;
+
+        skill = activeSkill.GetComponent<IPowerup>();
+        Debug.Log(skill);
+
+        
     }
 
     private void Update()
@@ -66,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
             if (grounded)
             {
                 rb.drag = groundDrag;
-                
+
             }
             else
                 rb.drag = 0;
@@ -85,7 +98,7 @@ public class PlayerMovement : MonoBehaviour
 
         // when to jump
         if (Input.GetKey(jumpKey) && readyToJump && grounded)
-        {            
+        {
             readyToJump = false;
             Jump();
 
@@ -99,11 +112,17 @@ public class PlayerMovement : MonoBehaviour
         // Doppio salto
         if (Input.GetKeyDown(jumpKey) && readyToDoubleJump && !grounded)
         {
-           // Debug.Log("Doppio salto = " + readyToDoubleJump);
-           
+            // Debug.Log("Doppio salto = " + readyToDoubleJump);
+
             Jump();
 
-            readyToDoubleJump = false;           
+            readyToDoubleJump = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Debug.Log("SKILL ATTIVATA");
+            skill.Activate();
         }
     }
 
@@ -147,10 +166,10 @@ public class PlayerMovement : MonoBehaviour
         // play jump sound
         AudioSource.PlayClipAtPoint(jumpSound, gameObject.transform.position);
 
-      //  Debug.Log("SALTATO");
+        //  Debug.Log("SALTATO");
     }
     private void ResetJump()
     {
-        readyToJump = true;       
+        readyToJump = true;
     }
 }

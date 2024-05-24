@@ -9,5 +9,10 @@ public class SuperjumpPU : MonoBehaviour, IPowerup
        // PlayerMovement.instance.jumpForce *= 1.5f;
         PlayerMovement.instance.doubleJumpActive = true;
         Debug.Log("Doppio salto attivato");        
-    }    
+    }
+
+    public void Deactivate()
+    {
+        throw new System.NotImplementedException();
+    }
 }
