@@ -259,26 +259,17 @@ public class ProjectileGun : MonoBehaviour
 
     // Gestisce la ricarica delle armi a tamburo, che può essere interrotta anche se incompleta da uno sparo
     IEnumerator CylinderReload()
-    {
-        // RIMUOVERE t
-        // INUTILE?
-
-        float t = 0f;
+    {        
         while (bulletsLeft < magazineSize)
         {
             if (reloadAnimation)
                 reloadAnimation.PlayComplete(reloadTime);
             audioSource.Play();
 
-            yield return new WaitForSeconds(reloadTime);
-
-            // RIMUOVERE t?
-            t += Time.deltaTime / reloadTime;
+            yield return new WaitForSeconds(reloadTime);                      
             
             bulletsLeft++;
-            audioSource.clip = reloadSound;
-
-            // Debug.Log("Bullets left: " + bulletsLeft);
+            audioSource.clip = reloadSound;           
 
             // Caricato almeno un proiettile, si può sparare per interrompere la ricarica
             reloading = false;
