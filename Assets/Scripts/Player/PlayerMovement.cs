@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -52,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
     private IPowerup skill;
     public float skillCooldown;
     private bool skillReady = true;
+    public Slider skillBar;
 
 
 
@@ -144,17 +146,36 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator Cooldown(float time)
     {
-       // float t = 0f;
-        yield return new WaitForSeconds(time);
+        skillBar.gameObject.SetActive(true);
+
+        float t = 0f;
 
 
-        // Inserire qui ripristino icona, messaggio etc...
-        // Provare barra di caricamento 
-        // Vedi le Animation
+        //yield return new WaitForSeconds(time);       
 
-        //t += Time.deltaTime / time;
-        
 
+        while (t < 1f)
+        {
+            yield return null;
+            t += Time.deltaTime / time;
+
+            // float tvalue = Mathf.Clamp01(t / .9f);
+
+            // TEST: Se il power up è finito (cooldown diviso 2 attualmente) la barra cambia colore fino a fine
+            //if (t <= 0.5f)
+            //{
+                
+                
+            //}
+
+           // skillBar.value = tvalue;
+            skillBar.value = t;
+            // Inserire qui ripristino icona, messaggio etc...
+            // Provare barra di caricamento 
+
+        }
+
+        skillBar.gameObject.SetActive(false);
 
         Debug.Log("Skill PRONTA");
         skillReady = true;
