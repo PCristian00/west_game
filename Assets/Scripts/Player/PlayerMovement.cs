@@ -144,6 +144,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    // Metter in SkillMANAGER???
     private IEnumerator Cooldown(float time)
     {
         skillBar.gameObject.SetActive(true);
@@ -162,10 +163,10 @@ public class PlayerMovement : MonoBehaviour
             // float tvalue = Mathf.Clamp01(t / .9f);
 
             // TEST: Se il power up è finito (cooldown diviso 2 attualmente) la barra cambia colore fino a fine
-            //if (t <= 0.5f)
+            //if (t >= 0.5f)
             //{
-                
-                
+            //    skillBar.value = t;
+
             //}
 
            // skillBar.value = tvalue;
