@@ -15,6 +15,9 @@ public class PlayerMovement : MonoBehaviour
     public float jumpCooldown;
     public float airMultiplier;
     bool readyToJump;
+   // public int jumpLimit = 1;
+    private bool readyToDoubleJump = false;
+    public bool doubleJumpActive = false;
 
     // FORSE NON IMPLEMENTATE
     [HideInInspector] public float walkSpeed;
@@ -26,17 +29,18 @@ public class PlayerMovement : MonoBehaviour
     [Header("Ground Check")]
     public float playerHeight;
     public LayerMask whatIsGround;
-    bool grounded;
+    private bool grounded;
 
     [Header("Sound")]
     public AudioClip jumpSound;
-   
+
     float horizontalInput;
     float verticalInput;
 
     Vector3 moveDirection;
 
     Rigidbody rb;
+   
 
     private void Start()
     {
@@ -60,7 +64,10 @@ public class PlayerMovement : MonoBehaviour
 
             // handle drag
             if (grounded)
+            {
                 rb.drag = groundDrag;
+                
+            }
             else
                 rb.drag = 0;
         }
@@ -78,12 +85,25 @@ public class PlayerMovement : MonoBehaviour
 
         // when to jump
         if (Input.GetKey(jumpKey) && readyToJump && grounded)
-        {
+        {            
             readyToJump = false;
-
             Jump();
 
+            if (doubleJumpActive)
+                readyToDoubleJump = true;
+
+
             Invoke(nameof(ResetJump), jumpCooldown);
+        }
+
+        // Doppio salto
+        if (Input.GetKeyDown(jumpKey) && readyToDoubleJump && !grounded)
+        {
+           // Debug.Log("Doppio salto = " + readyToDoubleJump);
+           
+            Jump();
+
+            readyToDoubleJump = false;           
         }
     }
 
@@ -98,7 +118,7 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(10f * moveSpeed * moveDirection.normalized, ForceMode.Force);
             // IMPLEMENTARE SUONO PASSI??
         }
-            
+
 
         // in air (FORSE RIMUOVERE - FA FARE SCHIVATE IN ARIA)
         else if (!grounded)
@@ -126,9 +146,11 @@ public class PlayerMovement : MonoBehaviour
 
         // play jump sound
         AudioSource.PlayClipAtPoint(jumpSound, gameObject.transform.position);
+
+      //  Debug.Log("SALTATO");
     }
     private void ResetJump()
     {
-        readyToJump = true;
+        readyToJump = true;       
     }
 }
