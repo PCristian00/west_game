@@ -3,31 +3,38 @@ using UnityEngine;
 
 public class SuperspeedPU : MonoBehaviour, IPowerup
 {
-    public void Activate()
+
+
+    public void Activate(float wait)
     {
         PlayerMovement.instance.moveSpeed *= 2;
         PlayerMovement.instance.airMultiplier *= 2;
 
         Debug.Log("Velocita' di movimento e 'volo' duplicate");
-        Deactivate();
+        Deactivate(wait);
+        
+        // Debug.Log("Tempo passato: "+TimerDeactivate(wait));
         //Invoke(nameof(Deactivate), 10f);
     }
 
-    public void Deactivate()
+    public void Deactivate(float wait)
     {
         Debug.Log("AAAAA");
-
         StopAllCoroutines();
-        StartCoroutine(TimerDeactivate());
+        StartCoroutine(TimerDeactivate(wait));
+        // Debug.Log("passati "+wait+" sec");
+
+
+
 
 
     }
 
-    IEnumerator TimerDeactivate()
+    IEnumerator TimerDeactivate(float wait)
     {
-        float t = 0f;
+        // float t = 0f;
 
-        float wait = 5f;
+        //wait = 5f;
 
 
         yield return new WaitForSeconds(wait);

@@ -260,6 +260,9 @@ public class ProjectileGun : MonoBehaviour
     // Gestisce la ricarica delle armi a tamburo, che può essere interrotta anche se incompleta da uno sparo
     IEnumerator CylinderReload()
     {
+        // RIMUOVERE t
+        // INUTILE?
+
         float t = 0f;
         while (bulletsLeft < magazineSize)
         {
@@ -268,7 +271,10 @@ public class ProjectileGun : MonoBehaviour
             audioSource.Play();
 
             yield return new WaitForSeconds(reloadTime);
+
+            // RIMUOVERE t?
             t += Time.deltaTime / reloadTime;
+            
             bulletsLeft++;
             audioSource.clip = reloadSound;
 

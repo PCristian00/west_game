@@ -32,7 +32,8 @@ public class PlayerManager : MonoBehaviour
             // Attiva ogni power-up contenuto nell'oggetto in collisione
             foreach (var powerup in other.GetComponents<IPowerup>())
             {
-                powerup.Activate();
+                // COOL-DOWN GENERICO: MODIFICARE IN QUALCHE MODO
+                powerup.Activate(5f);
             }
 
             Debug.Log("Preso power-up " + other.name);

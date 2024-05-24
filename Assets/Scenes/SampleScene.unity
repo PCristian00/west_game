@@ -587,7 +587,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   jumpSound: {fileID: 8300000, guid: 92a217430f2e4ee4a90c4337eeba9e95, type: 3}
-  activeSkill: {fileID: 0}
+  activeSkill: {fileID: 1514084588}
+  skillCooldown: 10
 --- !u!54 &303864297
 Rigidbody:
   m_ObjectHideFlags: 0

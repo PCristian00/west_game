@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -41,13 +42,18 @@ public class PlayerMovement : MonoBehaviour
 
     Rigidbody rb;
 
-    
+
     // Migliorare nomenclatura / struttura
     // mettere boolean che non fa attivare se ancora attiva
+    // CREARE SKILL MANAGER? (static instance???)
 
+    [Header("Skills")]
     public GameObject activeSkill;
-
     private IPowerup skill;
+    public float skillCooldown;
+    private bool skillReady = true;
+
+
 
 
     private void Start()
@@ -62,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
         skill = activeSkill.GetComponent<IPowerup>();
         Debug.Log(skill);
 
-        
+
     }
 
     private void Update()
@@ -119,11 +125,39 @@ public class PlayerMovement : MonoBehaviour
             readyToDoubleJump = false;
         }
 
+        // Skill attiva
         if (Input.GetKeyDown(KeyCode.P))
         {
-            Debug.Log("SKILL ATTIVATA");
-            skill.Activate();
+            if (skillReady)
+            {
+                Debug.Log("SKILL ATTIVATA");
+                // Qui va passato quanto tempo rimane attivata la skill.
+                // DOVREBBE ESSERE MINORE DI skillCooldown
+                skill.Activate(skillCooldown / 2);
+                skillReady = false;
+
+                StartCoroutine(Cooldown(skillCooldown));
+            }
+            else Debug.Log("Non puoi attivare la skill. Aspetta fine cooldown.");
         }
+    }
+
+    private IEnumerator Cooldown(float time)
+    {
+       // float t = 0f;
+        yield return new WaitForSeconds(time);
+
+
+        // Inserire qui ripristino icona, messaggio etc...
+        // Provare barra di caricamento 
+        // Vedi le Animation
+
+        //t += Time.deltaTime / time;
+        
+
+
+        Debug.Log("Skill PRONTA");
+        skillReady = true;
     }
 
     private void MovePlayer()
