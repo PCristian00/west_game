@@ -1,6 +1,4 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -44,20 +42,6 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody rb;
 
 
-    // Migliorare nomenclatura / struttura
-    // mettere boolean che non fa attivare se ancora attiva
-    // CREARE SKILL MANAGER? (static instance???)
-
-    [Header("Skills")]
-    public GameObject activeSkill;
-    private IPowerup skill;
-    public float skillCooldown;
-    private bool skillReady = true;
-    public Slider skillBar;
-
-
-
-
     private void Start()
     {
         instance = this;
@@ -66,11 +50,6 @@ public class PlayerMovement : MonoBehaviour
         rb.freezeRotation = true;
 
         readyToJump = true;
-
-        skill = activeSkill.GetComponent<IPowerup>();
-        Debug.Log(skill);
-
-
     }
 
     private void Update()
@@ -130,56 +109,17 @@ public class PlayerMovement : MonoBehaviour
         // Skill attiva
         if (Input.GetKeyDown(KeyCode.P))
         {
-            if (skillReady)
+            if (SkillManager.instance.skillReady)
             {
-                Debug.Log("SKILL ATTIVATA");
-                // Qui va passato quanto tempo rimane attivata la skill.
-                // DOVREBBE ESSERE MINORE DI skillCooldown
-                skill.Activate(skillCooldown / 2);
-                skillReady = false;
+                //  Debug.Log("SKILL ATTIVATA");               
 
-                StartCoroutine(Cooldown(skillCooldown));
+                SkillManager.instance.skill.Activate(SkillManager.instance.skillCooldown / 2);
+                SkillManager.instance.skillReady = false;
+                StartCoroutine(SkillManager.instance.Cooldown(SkillManager.instance.skillCooldown));
             }
+
             else Debug.Log("Non puoi attivare la skill. Aspetta fine cooldown.");
         }
-    }
-
-    // Metter in SkillMANAGER???
-    private IEnumerator Cooldown(float time)
-    {
-        skillBar.gameObject.SetActive(true);
-
-        float t = 0f;
-
-
-        //yield return new WaitForSeconds(time);       
-
-
-        while (t < 1f)
-        {
-            yield return null;
-            t += Time.deltaTime / time;
-
-            // float tvalue = Mathf.Clamp01(t / .9f);
-
-            // TEST: Se il power up è finito (cooldown diviso 2 attualmente) la barra cambia colore fino a fine
-            //if (t >= 0.5f)
-            //{
-            //    skillBar.value = t;
-
-            //}
-
-           // skillBar.value = tvalue;
-            skillBar.value = t;
-            // Inserire qui ripristino icona, messaggio etc...
-            // Provare barra di caricamento 
-
-        }
-
-        skillBar.gameObject.SetActive(false);
-
-        Debug.Log("Skill PRONTA");
-        skillReady = true;
     }
 
     private void MovePlayer()

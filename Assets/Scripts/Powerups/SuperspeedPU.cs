@@ -19,7 +19,7 @@ public class SuperspeedPU : MonoBehaviour, IPowerup
 
     public void Deactivate(float wait)
     {
-        Debug.Log("AAAAA");
+       
         StopAllCoroutines();
         StartCoroutine(TimerDeactivate(wait));
         // Debug.Log("passati "+wait+" sec");
