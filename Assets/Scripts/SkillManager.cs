@@ -37,6 +37,7 @@ public class SkillManager : MonoBehaviour
 
             skillText.text = CurrentSkill.name;
             skillIcon.sprite = CurrentSkill.GetComponent<Image>().sprite;
+            skillIcon.color = Color.white;
 
 
             // Debug.Log("New current skill: " + _currentSkill.name);
@@ -139,6 +140,12 @@ public class SkillManager : MonoBehaviour
         while (t < 1f)
         {
             yield return null;
+
+            
+
+            if (t <= 0.5f) skillIcon.color = Color.green;
+            else skillIcon.color = new Color(t, t, t, t);
+
             t += Time.deltaTime / time;
 
             if (t >= 0.5f) skillBar.gameObject.SetActive(true);
@@ -154,5 +161,6 @@ public class SkillManager : MonoBehaviour
 
         // Debug.Log("Skill PRONTA");
         skillReady = true;
+        skillIcon.color = Color.white;
     }
 }
