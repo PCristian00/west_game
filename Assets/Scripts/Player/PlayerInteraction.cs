@@ -8,7 +8,7 @@ public class PlayerInteraction : MonoBehaviour
     private GameObject lastHitGameObject;
     private void Start()
     {
-        OnWeaponChanged(LoadoutManager.instance.CurrentWeapon);
+       // OnWeaponChanged(LoadoutManager.instance.CurrentWeapon);
     }
 
     private void Update()

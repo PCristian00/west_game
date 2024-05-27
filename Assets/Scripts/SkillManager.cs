@@ -17,7 +17,7 @@ public class SkillManager : MonoBehaviour
     private GameObject _currentSkill;
 
     public event Action<GameObject> OnSkillChanged;
-      
+
 
     public GameObject CurrentSkill
     {
@@ -32,21 +32,28 @@ public class SkillManager : MonoBehaviour
             }
 
             _currentSkill = value;
+
             skill = CurrentSkill.GetComponent<IPowerup>();
+
             skillText.text = CurrentSkill.name;
-            Debug.Log("New current skill: " + _currentSkill.name);
+            skillIcon.sprite = CurrentSkill.GetComponent<Image>().sprite;
+
+
+            // Debug.Log("New current skill: " + _currentSkill.name);
+
             OnSkillChanged?.Invoke(_currentSkill);
         }
     }
 
 
     [Header("Skills")]
-   // public GameObject activeSkill;
+    // public GameObject activeSkill;
     public IPowerup skill;
     public float skillCooldown = 10f;
     public bool skillReady = true;
     public Slider skillBar;
     public TextMeshProUGUI skillText;
+    public Image skillIcon;
 
     public static SkillManager instance;
 
@@ -55,11 +62,11 @@ public class SkillManager : MonoBehaviour
     void Start()
     {
         instance = this;
-       // skill = activeSkill.GetComponent<IPowerup>();
+        // skill = activeSkill.GetComponent<IPowerup>();
 
         CurrentSkill = skills[current];
 
-       // skill = CurrentSkill.GetComponent<IPowerup>();
+        // skill = CurrentSkill.GetComponent<IPowerup>();
     }
 
 
@@ -78,8 +85,8 @@ public class SkillManager : MonoBehaviour
                 ChangeSkill(false);
             }
         }
-        
-       
+
+
     }
 
     private void ChangeSkill(bool next)
@@ -121,7 +128,7 @@ public class SkillManager : MonoBehaviour
 
     public IEnumerator Cooldown(float time)
     {
-       // skillBar.gameObject.SetActive(true);
+        // skillBar.gameObject.SetActive(true);
 
         float t = 0f;
 
@@ -135,7 +142,7 @@ public class SkillManager : MonoBehaviour
             t += Time.deltaTime / time;
 
             if (t >= 0.5f) skillBar.gameObject.SetActive(true);
-            
+
             skillBar.value = t;
 
             // Inserire qui ripristino icona, messaggio etc...
@@ -145,7 +152,7 @@ public class SkillManager : MonoBehaviour
 
         skillBar.gameObject.SetActive(false);
 
-       // Debug.Log("Skill PRONTA");
+        // Debug.Log("Skill PRONTA");
         skillReady = true;
     }
 }
