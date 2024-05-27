@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,6 +33,7 @@ public class SkillManager : MonoBehaviour
 
             _currentSkill = value;
             skill = CurrentSkill.GetComponent<IPowerup>();
+            skillText.text = CurrentSkill.name;
             Debug.Log("New current skill: " + _currentSkill.name);
             OnSkillChanged?.Invoke(_currentSkill);
         }
@@ -44,6 +46,7 @@ public class SkillManager : MonoBehaviour
     public float skillCooldown = 10f;
     public bool skillReady = true;
     public Slider skillBar;
+    public TextMeshProUGUI skillText;
 
     public static SkillManager instance;
 

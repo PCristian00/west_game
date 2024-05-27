@@ -78,8 +78,12 @@ public class Enemy : MonoBehaviour
 
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-        if(playerInSightRange) icon.SetActive(true);
+        if (playerInSightRange) icon.SetActive(true);
         else icon.SetActive(false);
+
+        // La velocita' del nemico dipende da GameManager
+        if(agent != null)
+        agent.speed *= GameManager.instance.enemySpeed;
 
         if (!playerInSightRange && !playerInAttackRange & canPatrol) Patroling();
         if (playerInSightRange && !playerInAttackRange & canChase) ChasePlayer();
@@ -88,7 +92,7 @@ public class Enemy : MonoBehaviour
 
     private void Patroling()
     {
-       // icon.SetActive(false);
+        // icon.SetActive(false);
         if (!walkPointSet) SearchWalkPoint();
 
         if (walkPointSet)
@@ -114,7 +118,7 @@ public class Enemy : MonoBehaviour
 
     private void ChasePlayer()
     {
-       // icon.SetActive(true);
+        // icon.SetActive(true);
         agent.SetDestination(player.position);
     }
 
@@ -135,12 +139,16 @@ public class Enemy : MonoBehaviour
             ///Attack code here
             Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
             AudioSource.PlayClipAtPoint(attackSound, gameObject.transform.position);
-            rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
-            rb.AddForce(transform.up * 8f, ForceMode.Impulse);
+
+            // La velocita' del proiettile e' influenzata da GameManager
+            rb.AddForce(32f * GameManager.instance.enemySpeed * transform.forward, ForceMode.Impulse);
+            rb.AddForce(8f * GameManager.instance.enemySpeed * transform.up, ForceMode.Impulse);
+            
             ///End of attack code
 
             alreadyAttacked = true;
-            Invoke(nameof(ResetAttack), timeBetweenAttacks);
+            // La velocita' di attacco viene condizionata dal GameManager
+            Invoke(nameof(ResetAttack), timeBetweenAttacks * GameManager.instance.enemySpeed);
         }
     }
     private void ResetAttack()
@@ -159,7 +167,7 @@ public class Enemy : MonoBehaviour
             Instantiate(deathEffect, transform.position, Quaternion.identity);
             //rb.AddExplosionForce(3, transform.position, 3);
 
-            
+
 
             Invoke(nameof(DestroyEnemy), 0.5f);
         }
