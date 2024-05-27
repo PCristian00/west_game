@@ -6,6 +6,8 @@ public class PlayerManager : MonoBehaviour
 
     public int health;
 
+    public bool invincible = false;
+
 
     [Header("Sound")]
 
@@ -19,13 +21,15 @@ public class PlayerManager : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Bullet"))
+        if (other.CompareTag("Bullet") && !invincible)
         {
             Destroy(other.gameObject);
             health--;
             if (health <= 0) Death();
             else AudioSource.PlayClipAtPoint(hitSound, gameObject.transform.position);
         }
+
+        // FORSE RIMUOVERE: I power-up non sono raccolti ma equipaggiati
 
         if (other.CompareTag("Powerup"))
         {

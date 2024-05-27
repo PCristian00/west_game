@@ -701,6 +701,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 5
+  invincible: 0
   hitSound: {fileID: 8300000, guid: d3269f2fda0939e4493bd5063a5f334a, type: 3}
   deathSound: {fileID: 8300000, guid: 9e426a726b0217b40a785599e460be74, type: 3}
 --- !u!114 &303864300
@@ -1187,7 +1188,7 @@ MonoBehaviour:
   skills:
   - {fileID: 1514084588}
   - {fileID: 1520443787}
-  activeSkill: {fileID: 1514084588}
+  - {fileID: 1572552414}
   skillCooldown: 10
   skillReady: 1
   skillBar: {fileID: 777320348}
@@ -1206,6 +1207,7 @@ Transform:
   m_Children:
   - {fileID: 1514084590}
   - {fileID: 1520443788}
+  - {fileID: 1572552415}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &528184508 stripped
@@ -5029,6 +5031,50 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b25726c7867ba0439c8f2cf7adf6830, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1572552414
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1572552415}
+  - component: {fileID: 1572552416}
+  m_Layer: 0
+  m_Name: ShieldSkill
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1572552415
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1572552414}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 514412586}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1572552416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1572552414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fff0576228f1af241b03d81f7a487c79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1577445404 stripped
