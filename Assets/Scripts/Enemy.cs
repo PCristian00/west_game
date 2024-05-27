@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
 
     [Header("Stats")]
     public float health;
+    public float walkSpeed = 4f;
     public bool canPatrol = true;
     public bool canChase = true;
 
@@ -63,6 +64,7 @@ public class Enemy : MonoBehaviour
         player = GameObject.Find("PlayerObj").transform;
         if (canPatrol || canChase)
             agent = GetComponent<NavMeshAgent>();
+        // Debug.Log("Speed = " + agent.walkSpeed);
         // else Debug.Log("Nemico immobile");
     }
 
@@ -82,8 +84,14 @@ public class Enemy : MonoBehaviour
         else icon.SetActive(false);
 
         // La velocita' del nemico dipende da GameManager
-        if(agent != null)
-        agent.speed *= GameManager.instance.enemySpeed;
+
+        if (agent != null)
+            if (GameManager.instance.slowMode)
+            {
+                agent.speed = walkSpeed * GameManager.instance.slowMultiplier;
+            }
+            else agent.speed = walkSpeed;
+
 
         if (!playerInSightRange && !playerInAttackRange & canPatrol) Patroling();
         if (playerInSightRange && !playerInAttackRange & canChase) ChasePlayer();
@@ -140,15 +148,27 @@ public class Enemy : MonoBehaviour
             Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
             AudioSource.PlayClipAtPoint(attackSound, gameObject.transform.position);
 
+            float multiplier;
             // La velocita' del proiettile e' influenzata da GameManager
-            rb.AddForce(32f * GameManager.instance.enemySpeed * transform.forward, ForceMode.Impulse);
-            rb.AddForce(8f * GameManager.instance.enemySpeed * transform.up, ForceMode.Impulse);
-            
+            if (GameManager.instance.slowMode)
+                multiplier = GameManager.instance.slowMultiplier;
+            else multiplier = 1f;
+
+            rb.AddForce(32f * multiplier * transform.forward, ForceMode.Impulse);
+            rb.AddForce(8f * multiplier * transform.up, ForceMode.Impulse);
+
+
+
+            rb.AddForce(32f * multiplier * transform.forward, ForceMode.Impulse);
+            rb.AddForce(8f * multiplier * transform.up, ForceMode.Impulse);
+
+
+
             ///End of attack code
 
             alreadyAttacked = true;
             // La velocita' di attacco viene condizionata dal GameManager
-            Invoke(nameof(ResetAttack), timeBetweenAttacks * GameManager.instance.enemySpeed);
+            Invoke(nameof(ResetAttack), timeBetweenAttacks / multiplier);
         }
     }
     private void ResetAttack()
@@ -176,7 +196,7 @@ public class Enemy : MonoBehaviour
     private void DestroyEnemy()
     {
         Destroy(icon);
-        Debug.Log("NEMICO " + gameObject.name + " DISTRUTTO");
+        // Debug.Log("NEMICO " + gameObject.name + " DISTRUTTO");
         GameManager.instance.EnemyKilled();
         Destroy(gameObject);
     }

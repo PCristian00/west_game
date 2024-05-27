@@ -5,10 +5,10 @@ public class SlowMoPU : MonoBehaviour, IPowerup
 {
     public void Activate(float wait)
     {
-        GameManager.instance.enemySpeed *= 0.5f;
+        GameManager.instance.slowMode = true;
 
 
-        Debug.Log("Velocita' di gioco dimezzata a " + GameManager.instance.enemySpeed);
+        Debug.Log("Velocita' di gioco dimezzata a " + GameManager.instance.slowMultiplier);
         Deactivate(wait);
     }
 
@@ -21,8 +21,8 @@ public class SlowMoPU : MonoBehaviour, IPowerup
     IEnumerator TimerDeactivate(float wait)
     {
         yield return new WaitForSeconds(wait);
-        GameManager.instance.enemySpeed /= 0.5f;
+        GameManager.instance.slowMode = false;
 
-        Debug.Log("Velocita' di gioco resettata a " + GameManager.instance.enemySpeed);
+        Debug.Log("Velocita' di gioco resettata.");
     }
 }

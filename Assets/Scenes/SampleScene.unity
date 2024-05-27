@@ -1190,7 +1190,7 @@ MonoBehaviour:
   - {fileID: 1520443787}
   - {fileID: 1533319307}
   - {fileID: 1572552414}
-  skillCooldown: 10
+  skillCooldown: 15
   skillReady: 1
   skillBar: {fileID: 777320348}
   skillText: {fileID: 1238617318}
@@ -4575,7 +4575,8 @@ MonoBehaviour:
   healthInfo: {fileID: 1840845687}
   enemy: {fileID: 7067134833345967684, guid: e3e6eba3aaa82554d8c84047e4cfce2c, type: 3}
   enemySpawn: {fileID: 1774779853}
-  enemySpeed: 1
+  slowMode: 0
+  slowMultiplier: 0.5
   enemySpawnRate: 5
 --- !u!4 &1393299244 stripped
 Transform:

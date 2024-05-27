@@ -12,7 +12,8 @@ public class GameManager : MonoBehaviour
     public GameObject enemy;
     public GameObject enemySpawn;
 
-    public float enemySpeed = 1.0f;
+    public bool slowMode = false;
+    public float slowMultiplier = 0.5f;
 
     public int enemySpawnRate = 5;
 
