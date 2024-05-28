@@ -8,12 +8,12 @@ public class PlayerInteraction : MonoBehaviour
     private GameObject lastHitGameObject;
     private void Start()
     {
-        OnWeaponChanged(LoadoutManager.Instance.CurrentWeapon);
+       // OnWeaponChanged(LoadoutManager.instance.CurrentWeapon);
     }
 
     private void Update()
     {
-        LoadoutManager.Instance.OnWeaponChanged += OnWeaponChanged;
+        LoadoutManager.instance.OnWeaponChanged += OnWeaponChanged;
 
         Ray ray = _camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
 

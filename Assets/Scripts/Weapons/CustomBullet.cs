@@ -92,10 +92,12 @@ public class CustomBullet : MonoBehaviour
     private void Setup()
     {
         //Create a new Physic material
-        physics_mat = new PhysicMaterial();
-        physics_mat.bounciness = bounciness;
-        physics_mat.frictionCombine = PhysicMaterialCombine.Minimum;
-        physics_mat.bounceCombine = PhysicMaterialCombine.Maximum;
+        physics_mat = new PhysicMaterial
+        {
+            bounciness = bounciness,
+            frictionCombine = PhysicMaterialCombine.Minimum,
+            bounceCombine = PhysicMaterialCombine.Maximum
+        };
         //Assign material to collider
         GetComponent<SphereCollider>().material = physics_mat;
 

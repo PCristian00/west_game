@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class LoadoutManager : MonoBehaviour
 {
-    public static LoadoutManager Instance;
+    public static LoadoutManager instance;
 
     public GameObject[] weapons;
 
@@ -12,6 +12,10 @@ public class LoadoutManager : MonoBehaviour
     private GameObject _currentWeapon;
 
     public event Action<GameObject> OnWeaponChanged;
+
+    private bool next;
+
+    public GameObject loadingTest;
 
     public GameObject CurrentWeapon
     {
@@ -33,7 +37,7 @@ public class LoadoutManager : MonoBehaviour
 
     private void Start()
     {
-        Instance = this;
+        instance = this;
         CurrentWeapon = weapons[current];
         LoadOutInfo();
     }
@@ -45,42 +49,99 @@ public class LoadoutManager : MonoBehaviour
         {
             if (Input.GetButtonDown("NextWeapon") || Input.GetAxis("Mouse ScrollWheel") > 0f)
             {
+                _currentWeapon.GetComponent<ProjectileGun>().Hide(false);
+                next = true;
+                Invoke(nameof(ChangeWeapon), 0.5f);
+                // ChangeWeapon(true);
 
-                weapons[current].SetActive(false);
-                current++;
-                // Debug.Log(current);
-                if (current >= weapons.Length)
-                {
-                    current = 0;
-                }
-                // Debug.Log("AUM// Arma " + current + ": " + weapons[current].gameObject.name);
-                weapons[current].SetActive(true);
-                CurrentWeapon = weapons[current];
             }
             else if (Input.GetButtonDown("PrevWeapon") || Input.GetAxis("Mouse ScrollWheel") < 0f)
             {
-                weapons[current].SetActive(false);
-                current--;
-                //  Debug.Log(current);
-                if (current < 0)
-                {
-                    //  Debug.Log(current);
-                    current = weapons.Length - 1;
-                }
-                //  Debug.Log("DEC// Arma " + current+": " + weapons[current].gameObject.name);
-                weapons[current].SetActive(true);
-                CurrentWeapon = weapons[current];
+                _currentWeapon.GetComponent<ProjectileGun>().Hide(false);
+                next = false;
+                Invoke(nameof(ChangeWeapon), 0.5f);
+                // ChangeWeapon(false);
             }
         }
         // else Debug.Log("IMPOSSIBILE CAMBIARE. RICARICA");
     }
 
+    private void ChangeWeapon()
+    {
+        if (next)
+        {
+            weapons[current].SetActive(false);
+            current++;
+            // Debug.Log(current);
+            if (current >= weapons.Length)
+            {
+                current = 0;
+            }
+            // Debug.Log("AUM// Arma " + current + ": " + weapons[current].gameObject.name);
+            weapons[current].SetActive(true);
+            CurrentWeapon = weapons[current];
+        }
+
+        else
+        {
+            weapons[current].SetActive(false);
+            current--;
+            //  Debug.Log(current);
+            if (current < 0)
+            {
+                //  Debug.Log(current);
+                current = weapons.Length - 1;
+            }
+            //  Debug.Log("DEC// Arma " + current+": " + weapons[current].gameObject.name);
+            weapons[current].SetActive(true);
+            CurrentWeapon = weapons[current];
+        }
+
+        // Debug.Log("cambio arma completato");
+
+    }
+
+
+    // Funzioni per caricamento: risolvono parzialmente il problema del crosshair e delle animazioni non caricate in tempo.
+    // Potrebbe essere rimosso dalla versione finale del gioco se ottimizzato correttamente.
     private void LoadOutInfo()
     {
-        Debug.Log("Armi su giocatore: " + weapons.Length);
+        CrosshairManager.instance.ResetColor();
+
+        //  Debug.Log("Armi su giocatore: " + weapons.Length);
         foreach (var weapon in weapons)
         {
-            Debug.Log("Arma: " + weapon.name + ";");
+            // Debug.Log("Arma caricata: " + weapon.name + ";");
+            //try
+            //{
+                weapon.SetActive(true);
+            //} catch (Exception e)
+            //{
+            //    Debug.Log(e);
+            //}
+            
+
+            //  weapon.GetComponent<ProjectileGun>().Hide(false);
         }
+
+        // LoadComplete();
+
+        Invoke(nameof(LoadComplete), 1.5f);
+
+    }
+
+    private void LoadComplete()
+    {
+        for (int i = 0; i < weapons.Length; i++)
+        {
+
+            // Invoke(nameof(ChangeWeapon), 0.5f);
+            ChangeWeapon();
+        }
+
+       // weapons[0].SetActive(true);
+
+        if (loadingTest)
+            loadingTest.SetActive(false);
     }
 }

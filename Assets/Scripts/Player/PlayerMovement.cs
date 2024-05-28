@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+
+    public static PlayerMovement instance;
+
+
     [Header("Movement")]
     public float moveSpeed;
     public float groundDrag;
@@ -11,6 +15,9 @@ public class PlayerMovement : MonoBehaviour
     public float jumpCooldown;
     public float airMultiplier;
     bool readyToJump;
+    // public int jumpLimit = 1;
+    private bool readyToDoubleJump = false;
+    public bool doubleJumpActive = false;
 
     // FORSE NON IMPLEMENTATE
     [HideInInspector] public float walkSpeed;
@@ -22,11 +29,11 @@ public class PlayerMovement : MonoBehaviour
     [Header("Ground Check")]
     public float playerHeight;
     public LayerMask whatIsGround;
-    bool grounded;
+    private bool grounded;
 
     [Header("Sound")]
     public AudioClip jumpSound;
-   
+
     float horizontalInput;
     float verticalInput;
 
@@ -34,8 +41,11 @@ public class PlayerMovement : MonoBehaviour
 
     Rigidbody rb;
 
+
     private void Start()
     {
+        instance = this;
+
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
@@ -44,17 +54,23 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        // ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
+        if (GameManager.instance.CurrentGameState != GameManager.GameState.Lost)
+        {
+            // ground check
+            grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
 
-        MyInput();
-        SpeedControl();
+            MyInput();
+            SpeedControl();
 
-        // handle drag
-        if (grounded)
-            rb.drag = groundDrag;
-        else
-            rb.drag = 0;
+            // handle drag
+            if (grounded)
+            {
+                rb.drag = groundDrag;
+
+            }
+            else
+                rb.drag = 0;
+        }
     }
 
     private void FixedUpdate()
@@ -71,10 +87,38 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(jumpKey) && readyToJump && grounded)
         {
             readyToJump = false;
+            Jump();
+
+            if (doubleJumpActive)
+                readyToDoubleJump = true;
+
+
+            Invoke(nameof(ResetJump), jumpCooldown);
+        }
+
+        // Doppio salto
+        if (Input.GetKeyDown(jumpKey) && readyToDoubleJump && !grounded)
+        {
+            // Debug.Log("Doppio salto = " + readyToDoubleJump);
 
             Jump();
 
-            Invoke(nameof(ResetJump), jumpCooldown);
+            readyToDoubleJump = false;
+        }
+
+        // Skill attiva
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            if (SkillManager.instance.skillReady)
+            {
+                //  Debug.Log("SKILL ATTIVATA");               
+
+                SkillManager.instance.skill.Activate(SkillManager.instance.skillCooldown / 2);
+                SkillManager.instance.skillReady = false;
+                StartCoroutine(SkillManager.instance.Cooldown(SkillManager.instance.skillCooldown));
+            }
+
+            else Debug.Log("Non puoi attivare la skill. Aspetta fine cooldown.");
         }
     }
 
@@ -89,7 +133,7 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(10f * moveSpeed * moveDirection.normalized, ForceMode.Force);
             // IMPLEMENTARE SUONO PASSI??
         }
-            
+
 
         // in air (FORSE RIMUOVERE - FA FARE SCHIVATE IN ARIA)
         else if (!grounded)
@@ -117,6 +161,8 @@ public class PlayerMovement : MonoBehaviour
 
         // play jump sound
         AudioSource.PlayClipAtPoint(jumpSound, gameObject.transform.position);
+
+        //  Debug.Log("SALTATO");
     }
     private void ResetJump()
     {

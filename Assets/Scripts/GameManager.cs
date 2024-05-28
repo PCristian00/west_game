@@ -7,22 +7,20 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     [Header("References")]
-    public PlayerManager PlayerManager;
 
     public TextMeshProUGUI healthInfo;
-
     public GameObject enemy;
-
     public GameObject enemySpawn;
+
+    public bool slowMode = false;
+    public float slowMultiplier = 0.5f;
 
     public int enemySpawnRate = 5;
 
     private int enemyCount;
     private bool noEnemies = false;
 
-    // FORSE RIMUOVERE GAMEOVER
-    [Header("States")]
-    public bool gameOver = false;
+
     public enum GameState
     {
         Waiting,
@@ -50,23 +48,21 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         instance = this;
-        PlayerManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
-                
+
         enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
     }
 
     void Update()
     {
         if (healthInfo != null)
-            if (gameOver)
+            if (PlayerManager.instance.health <= 0)
             {
-                // VEDERE COME IMPOSTARE MEGLIO
                 CurrentGameState = GameState.Lost;
                 healthInfo.SetText("MORTO!");
             }
             else
             {
-                healthInfo.SetText("Health: " + PlayerManager.health);
+                healthInfo.SetText("Health: " + PlayerManager.instance.health);
             }
 
         if (CurrentGameState != GameState.Lost && noEnemies == false)
@@ -90,5 +86,14 @@ public class GameManager : MonoBehaviour
     public void EnemyKilled()
     {
         enemyCount--;
+    }
+
+    public void StartGame()
+    {
+        CurrentGameState = GameState.Running;
+
+        Debug.Log(LoadoutManager.instance.CurrentWeapon.name);
+
+        // Time.timeScale = 1;
     }
 }
