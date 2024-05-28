@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     public Transform player;
     public LayerMask whatIsGround, whatIsPlayer;
     private Rigidbody rb;
+    public GameObject coinPrefab;
 
 
     [Header("Stats")]
@@ -199,6 +200,8 @@ public class Enemy : MonoBehaviour
         // Debug.Log("NEMICO " + gameObject.name + " DISTRUTTO");
         GameManager.instance.EnemyKilled();
         Destroy(gameObject);
+        if(coinPrefab)
+        Instantiate(coinPrefab, transform.position, coinPrefab.transform.rotation);
     }
 
     private void OnDrawGizmosSelected()
