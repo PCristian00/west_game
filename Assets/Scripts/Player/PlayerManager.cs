@@ -8,7 +8,7 @@ public class PlayerManager : MonoBehaviour
 
     public bool invincible = false;
 
-    public int wallet = 0;
+    // public int wallet = 0;
 
 
     [Header("Sound")]
@@ -51,7 +51,8 @@ public class PlayerManager : MonoBehaviour
             Coin coin = other.GetComponent<Coin>();
             Debug.Log("Presa moneta da " + coin.value);
 
-            wallet += coin.value;
+            WalletManager.instance.wallet += coin.value;
+
 
             Destroy(other.gameObject);
         }
