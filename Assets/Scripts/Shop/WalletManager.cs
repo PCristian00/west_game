@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -7,9 +5,10 @@ public class WalletManager : MonoBehaviour
 {
     public static WalletManager instance;
     public int wallet = 0;
+    public GameObject[] coins;
 
     public TextMeshProUGUI walletInfo;
-    // Start is called before the first frame update
+       
     void Start()
     {
         instance = this;
@@ -20,5 +19,11 @@ public class WalletManager : MonoBehaviour
     void Update()
     {
         walletInfo.text = wallet.ToString();
+    }
+
+    // Restituisce una moneta a caso tra i vari tipi (valori) disponibili
+    public GameObject DropCoin()
+    {
+        return coins[Random.Range(0, coins.Length)];
     }
 }

@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
     public Transform player;
     public LayerMask whatIsGround, whatIsPlayer;
     private Rigidbody rb;
-    public GameObject coinPrefab;
+    // public GameObject[] coinPrefabs;
 
 
     [Header("Stats")]
@@ -200,9 +200,22 @@ public class Enemy : MonoBehaviour
         // Debug.Log("NEMICO " + gameObject.name + " DISTRUTTO");
         GameManager.instance.EnemyKilled();
         Destroy(gameObject);
-        if(coinPrefab)
-        Instantiate(coinPrefab, transform.position, coinPrefab.transform.rotation);
+
+
+        GameObject coin = WalletManager.instance.DropCoin();
+        // Rilascio casuale della moneta
+
+        int dropChance = Random.Range(0, 5);
+        Debug.Log("Drop = " + dropChance);
+        if (dropChance >= 3)
+        {
+            Instantiate(coin, transform.position, coin.transform.rotation);
+            Debug.Log("Moneta caduta - " + coin.name);
+        }
+
     }
+
+
 
     private void OnDrawGizmosSelected()
     {

@@ -1458,6 +1458,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallet: 0
+  coins:
+  - {fileID: 1290909961078176413, guid: 43515925e08abab4d863124bcdedb933, type: 3}
+  - {fileID: 1290909961078176413, guid: 2cf688f39bf25244a8e43a9cf46ab637, type: 3}
   walletInfo: {fileID: 0}
 --- !u!1 &574255659 stripped
 GameObject:
@@ -9170,6 +9173,10 @@ PrefabInstance:
     - target: {fileID: 7067134833345967684, guid: e3e6eba3aaa82554d8c84047e4cfce2c, type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 7067134833345967684, guid: e3e6eba3aaa82554d8c84047e4cfce2c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7289603088849615082, guid: e3e6eba3aaa82554d8c84047e4cfce2c, type: 3}
       propertyPath: m_LocalPosition.x

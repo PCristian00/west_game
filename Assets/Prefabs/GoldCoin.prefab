@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2556775734495352126}
   - component: {fileID: 8141558148773208572}
   m_Layer: 0
-  m_Name: Coin
+  m_Name: GoldCoin
   m_TagString: Coin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 803e1b6fe8cfc7643b13f404f31fc4c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: 5
+  value: 10
 --- !u!54 &8141558148773208572
 Rigidbody:
   m_ObjectHideFlags: 0
