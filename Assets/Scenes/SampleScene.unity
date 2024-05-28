@@ -606,8 +606,8 @@ GameObject:
   m_Component:
   - component: {fileID: 303864295}
   - component: {fileID: 303864297}
-  - component: {fileID: 303864296}
   - component: {fileID: 303864298}
+  - component: {fileID: 303864296}
   - component: {fileID: 303864300}
   m_Layer: 8
   m_Name: Player
@@ -700,7 +700,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da0511e004d12994185865179418e913, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  health: 50
   invincible: 0
   hitSound: {fileID: 8300000, guid: d3269f2fda0939e4493bd5063a5f334a, type: 3}
   deathSound: {fileID: 8300000, guid: 9e426a726b0217b40a785599e460be74, type: 3}

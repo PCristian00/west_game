@@ -303,11 +303,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   health: 120
+  walkSpeed: 4
   canPatrol: 0
   canChase: 0
+  shootForce: 32
+  upwardForce: 2
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 20
-  timeBetweenAttacks: 2
+  timeBetweenAttacks: 1
   projectile: {fileID: 5798995143734084270, guid: 70121207edef3ef4dba55bc1feea9ace, type: 3}
   sightRange: 20
   attackRange: 15
