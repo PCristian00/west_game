@@ -10,6 +10,7 @@ TagManager:
   - Crosshair
   - Gun
   - Powerup
+  - Coin
   layers:
   - Default
   - TransparentFX

@@ -15,19 +15,15 @@ public class Enemy : MonoBehaviour
     public float walkSpeed = 4f;
     public bool canPatrol = true;
     public bool canChase = true;
+    public float shootForce = 32f;
+    public float upwardForce = 8f;
 
 
-    // ESEMPI DI STATS IMPLEMENTABILI
-    // public float damage;
-    // public bool canJump, canDodge;
-
-    //Patroling (FORSE DA RIMUOVERE - Deve sapere sempre dove è il giocatore)
     [Header("Patroling")]
     public Vector3 walkPoint;
     bool walkPointSet;
     public float walkPointRange;
 
-    //Attacking
     [Header("Attacking")]
     public float timeBetweenAttacks;
     bool alreadyAttacked;
@@ -133,8 +129,8 @@ public class Enemy : MonoBehaviour
     private void AttackPlayer()
     {
         //Make sure enemy doesn't move
-        if (canChase || canPatrol)
-            agent.SetDestination(transform.position);
+        //if (canChase || canPatrol)
+        //    agent.SetDestination(transform.position);
 
         //// DEBUG: Imposta l'icona ad Attiva in Attack per i nemici che non vanno in Chase
         //if (!canChase)
@@ -154,15 +150,8 @@ public class Enemy : MonoBehaviour
                 multiplier = GameManager.instance.slowMultiplier;
             else multiplier = 1f;
 
-            rb.AddForce(32f * multiplier * transform.forward, ForceMode.Impulse);
-            rb.AddForce(8f * multiplier * transform.up, ForceMode.Impulse);
-
-
-
-            rb.AddForce(32f * multiplier * transform.forward, ForceMode.Impulse);
-            rb.AddForce(8f * multiplier * transform.up, ForceMode.Impulse);
-
-
+            rb.AddForce(shootForce * multiplier * transform.forward, ForceMode.Impulse);
+            rb.AddForce(upwardForce * transform.up, ForceMode.Impulse);      
 
             ///End of attack code
 
@@ -199,7 +188,27 @@ public class Enemy : MonoBehaviour
         // Debug.Log("NEMICO " + gameObject.name + " DISTRUTTO");
         GameManager.instance.EnemyKilled();
         Destroy(gameObject);
+
+
+        GameObject coin = WalletManager.instance.DropCoin();
+        // Rilascio casuale della moneta
+
+        if (canPatrol || canChase)
+        {
+
+            int dropChance = Random.Range(0, 5);
+            Debug.Log("Drop = " + dropChance);
+
+            if (dropChance >= 3)
+            {
+                Instantiate(coin, transform.position, coin.transform.rotation);
+                Debug.Log("Moneta caduta - " + coin.name);
+            }
+        }
+        // Se il nemico non può spostarsi, carica direttamente i soldi senza rilasciare monete
+        else WalletManager.instance.wallet += 25;
     }
+
 
     private void OnDrawGizmosSelected()
     {

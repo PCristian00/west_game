@@ -91,7 +91,7 @@ public class ProjectileGun : MonoBehaviour
 
     public void Hide(bool show)
     {
-       // Debug.Log(gameObject.name + " change speed = " + changeSpeed);
+        // Debug.Log(gameObject.name + " change speed = " + changeSpeed);
 
         if (!show)
         {
@@ -259,17 +259,17 @@ public class ProjectileGun : MonoBehaviour
 
     // Gestisce la ricarica delle armi a tamburo, che può essere interrotta anche se incompleta da uno sparo
     IEnumerator CylinderReload()
-    {        
+    {
         while (bulletsLeft < magazineSize)
         {
             if (reloadAnimation)
                 reloadAnimation.PlayComplete(reloadTime);
             audioSource.Play();
 
-            yield return new WaitForSeconds(reloadTime);                      
-            
+            yield return new WaitForSeconds(reloadTime);
+
             bulletsLeft++;
-            audioSource.clip = reloadSound;           
+            audioSource.clip = reloadSound;
 
             // Caricato almeno un proiettile, si può sparare per interrompere la ricarica
             reloading = false;
@@ -297,7 +297,9 @@ public class ProjectileGun : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Bullet") && !other.CompareTag("Player"))
+        // Debug.Log(other.gameObject.layer);
+
+        if (!other.CompareTag("Bullet") && !other.CompareTag("Player") && !other.CompareTag("Coin"))
         {
             //  Debug.Log("Test: collisione trigger di " + gameObject.name + " con " + other.name + "[tag = " + other.tag + " ]");
 
@@ -307,7 +309,7 @@ public class ProjectileGun : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (!other.CompareTag("Bullet") && !other.CompareTag("Player"))
+        if (!other.CompareTag("Bullet") && !other.CompareTag("Player") && !other.CompareTag("Coin"))
         {
             // Debug.Log("Test: collisione trigger exit di " + gameObject.name + " con " + other.name + "[tag = " + other.tag + " ]");
 

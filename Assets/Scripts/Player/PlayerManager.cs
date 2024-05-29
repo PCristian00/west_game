@@ -8,6 +8,8 @@ public class PlayerManager : MonoBehaviour
 
     public bool invincible = false;
 
+    // public int wallet = 0;
+
 
     [Header("Sound")]
 
@@ -43,12 +45,23 @@ public class PlayerManager : MonoBehaviour
             Debug.Log("Preso power-up " + other.name);
             Destroy(other.gameObject);
         }
+
+        if (other.CompareTag("Coin"))
+        {
+            Coin coin = other.GetComponent<Coin>();
+            Debug.Log("Presa moneta da " + coin.value);
+
+            WalletManager.instance.wallet += coin.value;
+
+
+            Destroy(other.gameObject);
+        }
     }
 
     private void Death()
     {
         Debug.Log("SEI MORTO");
-        
+
         AudioSource.PlayClipAtPoint(deathSound, gameObject.transform.position);
     }
 }
