@@ -8,7 +8,7 @@ public class WalletManager : MonoBehaviour
     public GameObject[] coins;
 
     public TextMeshProUGUI walletInfo;
-       
+
     void Start()
     {
         instance = this;
@@ -25,5 +25,16 @@ public class WalletManager : MonoBehaviour
     public GameObject DropCoin()
     {
         return coins[Random.Range(0, coins.Length)];
+    }
+
+    public bool BuyItem(int cost)
+    {
+        if (wallet >= cost)
+        {
+            wallet -= cost;
+
+            return true;
+        }
+        return false;
     }
 }
