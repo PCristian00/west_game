@@ -5,7 +5,8 @@ public class Enemy : MonoBehaviour
 {
     [Header("References")]
     public NavMeshAgent agent;
-    public Transform player;
+    public Transform player;    
+    
     public LayerMask whatIsGround, whatIsPlayer;
     private Rigidbody rb;
 
@@ -15,6 +16,8 @@ public class Enemy : MonoBehaviour
     public float walkSpeed = 4f;
     public bool canPatrol = true;
     public bool canChase = true;
+    [Tooltip("Se impostato a true, il nemico non spara ma raggiunge solo l'obiettivo con tag 'Capture'")]
+    public bool walkOnly = false;
     public float shootForce = 32f;
     public float upwardForce = 8f;
 
@@ -57,7 +60,11 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
-        player = GameObject.Find("PlayerObj").transform;
+        // Se il nemico può solo camminare, il suo obiettivo è raggiungere la capturePoint e non il giocatore
+        if (!walkOnly)
+            player = GameObject.Find("PlayerObj").transform;
+        else player = GameObject.FindGameObjectWithTag("Capture").transform;
+        
         if (canPatrol || canChase)
             agent = GetComponent<NavMeshAgent>();
         // Debug.Log("Speed = " + agent.walkSpeed);
@@ -66,32 +73,33 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        //Check for sight and attack range
-
-        // Se il sightRange è impostato a 0, viene percepito come infinito.
-        // Il nemico sa sempre dove è il giocatore.
-        if (sightRange == 0)
-            playerInSightRange = true;
-        else playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
-
-        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
-
-        if (playerInSightRange) icon.SetActive(true);
-        else icon.SetActive(false);
 
         // La velocita' del nemico dipende da GameManager
-
         if (agent != null)
             if (GameManager.instance.slowMode)
             {
                 agent.speed = walkSpeed * GameManager.instance.slowMultiplier;
             }
-            else agent.speed = walkSpeed;
+            else agent.speed = walkSpeed;        
 
+        //Check for sight and attack range
 
-        if (!playerInSightRange && !playerInAttackRange & canPatrol) Patroling();
-        if (playerInSightRange && !playerInAttackRange & canChase) ChasePlayer();
-        if (playerInAttackRange && playerInSightRange) AttackPlayer();
+        // Se il sightRange è impostato a 0, viene percepito come infinito.
+        // Il nemico sa sempre dove è il giocatore.
+       
+            if (sightRange == 0)
+                playerInSightRange = true;
+            else playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+
+            playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+
+            if (playerInSightRange) icon.SetActive(true);
+            else icon.SetActive(false);
+
+            if (!playerInSightRange && !playerInAttackRange & canPatrol) Patroling();
+            if (playerInSightRange && !playerInAttackRange & canChase) ChasePlayer();
+            if (playerInAttackRange && playerInSightRange && !walkOnly) AttackPlayer();       
+        
     }
 
     private void Patroling()
@@ -118,7 +126,7 @@ public class Enemy : MonoBehaviour
 
         if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround))
             walkPointSet = true;
-    }
+    }    
 
     private void ChasePlayer()
     {
@@ -151,7 +159,7 @@ public class Enemy : MonoBehaviour
             else multiplier = 1f;
 
             rb.AddForce(shootForce * multiplier * transform.forward, ForceMode.Impulse);
-            rb.AddForce(upwardForce * transform.up, ForceMode.Impulse);      
+            rb.AddForce(upwardForce * transform.up, ForceMode.Impulse);
 
             ///End of attack code
 
