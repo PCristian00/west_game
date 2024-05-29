@@ -5,8 +5,8 @@ public class Enemy : MonoBehaviour
 {
     [Header("References")]
     public NavMeshAgent agent;
-    public Transform player;    
-    
+    public Transform player;
+
     public LayerMask whatIsGround, whatIsPlayer;
     private Rigidbody rb;
 
@@ -64,7 +64,7 @@ public class Enemy : MonoBehaviour
         if (!walkOnly)
             player = GameObject.Find("PlayerObj").transform;
         else player = GameObject.FindGameObjectWithTag("Capture").transform;
-        
+
         if (canPatrol || canChase)
             agent = GetComponent<NavMeshAgent>();
         // Debug.Log("Speed = " + agent.walkSpeed);
@@ -80,26 +80,26 @@ public class Enemy : MonoBehaviour
             {
                 agent.speed = walkSpeed * GameManager.instance.slowMultiplier;
             }
-            else agent.speed = walkSpeed;        
+            else agent.speed = walkSpeed;
 
         //Check for sight and attack range
 
         // Se il sightRange è impostato a 0, viene percepito come infinito.
         // Il nemico sa sempre dove è il giocatore.
-       
-            if (sightRange == 0)
-                playerInSightRange = true;
-            else playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
 
-            playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+        if (sightRange == 0)
+            playerInSightRange = true;
+        else playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
 
-            if (playerInSightRange) icon.SetActive(true);
-            else icon.SetActive(false);
+        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-            if (!playerInSightRange && !playerInAttackRange & canPatrol) Patroling();
-            if (playerInSightRange && !playerInAttackRange & canChase) ChasePlayer();
-            if (playerInAttackRange && playerInSightRange && !walkOnly) AttackPlayer();       
-        
+        if (playerInSightRange) icon.SetActive(true);
+        else icon.SetActive(false);
+
+        if (!playerInSightRange && !playerInAttackRange & canPatrol) Patroling();
+        if (playerInSightRange && !playerInAttackRange & canChase) ChasePlayer();
+        if (playerInAttackRange && playerInSightRange) AttackPlayer();
+
     }
 
     private void Patroling()
@@ -126,7 +126,7 @@ public class Enemy : MonoBehaviour
 
         if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround))
             walkPointSet = true;
-    }    
+    }
 
     private void ChasePlayer()
     {
@@ -136,36 +136,40 @@ public class Enemy : MonoBehaviour
 
     private void AttackPlayer()
     {
-        //Make sure enemy doesn't move
-        //if (canChase || canPatrol)
-        //    agent.SetDestination(transform.position);
-
-        //// DEBUG: Imposta l'icona ad Attiva in Attack per i nemici che non vanno in Chase
-        //if (!canChase)
-        //    icon.SetActive(true);
-
-        transform.LookAt(player);
-
-        if (!alreadyAttacked && canAttack)
+        if (walkOnly) agent.SetDestination(transform.position);
+        else
         {
-            ///Attack code here
-            Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-            AudioSource.PlayClipAtPoint(attackSound, gameObject.transform.position);
+            //Make sure enemy doesn't move
+            //if (canChase || canPatrol)
+            //    agent.SetDestination(transform.position);
 
-            float multiplier;
-            // La velocita' del proiettile e' influenzata da GameManager
-            if (GameManager.instance.slowMode)
-                multiplier = GameManager.instance.slowMultiplier;
-            else multiplier = 1f;
+            //// DEBUG: Imposta l'icona ad Attiva in Attack per i nemici che non vanno in Chase
+            //if (!canChase)
+            //    icon.SetActive(true);
 
-            rb.AddForce(shootForce * multiplier * transform.forward, ForceMode.Impulse);
-            rb.AddForce(upwardForce * transform.up, ForceMode.Impulse);
+            transform.LookAt(player);
 
-            ///End of attack code
+            if (!alreadyAttacked && canAttack)
+            {
+                ///Attack code here
+                Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+                AudioSource.PlayClipAtPoint(attackSound, gameObject.transform.position);
 
-            alreadyAttacked = true;
-            // La velocita' di attacco viene condizionata dal GameManager
-            Invoke(nameof(ResetAttack), timeBetweenAttacks / multiplier);
+                float multiplier;
+                // La velocita' del proiettile e' influenzata da GameManager
+                if (GameManager.instance.slowMode)
+                    multiplier = GameManager.instance.slowMultiplier;
+                else multiplier = 1f;
+
+                rb.AddForce(shootForce * multiplier * transform.forward, ForceMode.Impulse);
+                rb.AddForce(upwardForce * transform.up, ForceMode.Impulse);
+
+                ///End of attack code
+
+                alreadyAttacked = true;
+                // La velocita' di attacco viene condizionata dal GameManager
+                Invoke(nameof(ResetAttack), timeBetweenAttacks / multiplier);
+            }
         }
     }
     private void ResetAttack()
