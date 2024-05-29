@@ -193,16 +193,21 @@ public class Enemy : MonoBehaviour
         GameObject coin = WalletManager.instance.DropCoin();
         // Rilascio casuale della moneta
 
-        int dropChance = Random.Range(0, 5);
-        Debug.Log("Drop = " + dropChance);
-
-        if (dropChance >= 3)
+        if (canPatrol || canChase)
         {
-            Instantiate(coin, transform.position, coin.transform.rotation);
-            Debug.Log("Moneta caduta - " + coin.name);
-        }
-    }
 
+            int dropChance = Random.Range(0, 5);
+            Debug.Log("Drop = " + dropChance);
+
+            if (dropChance >= 3)
+            {
+                Instantiate(coin, transform.position, coin.transform.rotation);
+                Debug.Log("Moneta caduta - " + coin.name);
+            }
+        }
+        // Se il nemico non può spostarsi, carica direttamente i soldi senza rilasciare monete
+        else WalletManager.instance.wallet += 25;
+    }
 
 
     private void OnDrawGizmosSelected()
