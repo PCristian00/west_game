@@ -308,10 +308,10 @@ MonoBehaviour:
     m_Bits: 64
   bounciness: 0
   useGravity: 0
-  maxCollisions: 0
+  maxCollisions: 1
   maxLifetime: 1
   explodeOnTouch: 1
   explosionDamage: 100
-  explosionRange: 1
+  explosionRange: 0.1
   explosionForce: 1
   explosionSound: {fileID: 0}

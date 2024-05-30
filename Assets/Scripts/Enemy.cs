@@ -180,14 +180,16 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
-        Debug.Log("OUCH! " + gameObject.name + " ha subito " + damage + " danni!!! (vita rimasta = " + health + ")");
+
+        // Debug.Log("OUCH! " + gameObject.name + " ha subito " + damage + " danni!!! (vita rimasta = " + health + ")");
 
         if (health <= 0 && canAttack)
         {
             canAttack = false;
             AudioSource.PlayClipAtPoint(deathSound, gameObject.transform.position);
             Instantiate(deathEffect, transform.position, Quaternion.identity);
-            //rb.AddExplosionForce(3, transform.position, 3);
+
+            // rb.AddExplosionForce(3, transform.position, 3);
 
 
 
@@ -210,12 +212,12 @@ public class Enemy : MonoBehaviour
         {
 
             int dropChance = Random.Range(0, 5);
-            Debug.Log("Drop = " + dropChance);
+            //  Debug.Log("Drop = " + dropChance);
 
             if (dropChance >= 3)
             {
                 Instantiate(coin, transform.position, coin.transform.rotation);
-                Debug.Log("Moneta caduta - " + coin.name);
+                // Debug.Log("Moneta caduta - " + coin.name);
             }
         }
         // Se il nemico non può spostarsi, carica direttamente i soldi senza rilasciare monete

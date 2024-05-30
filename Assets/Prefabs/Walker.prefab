@@ -58,7 +58,7 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 256
-  health: 1
+  health: 10
   walkSpeed: 4
   canPatrol: 0
   canChase: 1
@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 8148594495049918399}
   - component: {fileID: 8884431484796457249}
   - component: {fileID: 5161842337288753557}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: EnemyObj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -259,7 +259,7 @@ GameObject:
   - component: {fileID: 986249593630218738}
   - component: {fileID: 4903887999704970293}
   - component: {fileID: 1408946086699016906}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
