@@ -180,7 +180,8 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
-        // Debug.Log("OUCH! " + gameObject.name + " ha subito " + damage + " danni!!!");
+        Debug.Log("OUCH! " + gameObject.name + " ha subito " + damage + " danni!!! (vita rimasta = " + health + ")");
+
         if (health <= 0 && canAttack)
         {
             canAttack = false;

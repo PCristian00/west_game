@@ -30,6 +30,8 @@ public class CustomBullet : MonoBehaviour
     private void Start()
     {
         Setup();
+
+        Debug.Log("Creato "+name);
     }
 
     private void Update()
@@ -71,6 +73,8 @@ public class CustomBullet : MonoBehaviour
 
         //Add a little delay, just to make sure everything works fine
         Invoke(nameof(Delay), 0.05f);
+
+        Debug.Log("Esploso " + name);
     }
     private void Delay()
     {
