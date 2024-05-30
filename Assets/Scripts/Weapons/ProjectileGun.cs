@@ -19,6 +19,10 @@ public class ProjectileGun : MonoBehaviour
     public bool allowButtonHold;
     [Tooltip("Se attivato, il tempo di ricarica dipende  dai proiettili sparati.")]
     public bool hasCylinder;
+    [Tooltip("Se attivato, permette di mirare con mirino.")]
+    public bool hasScope = false;
+    public bool activeScope = false;
+    public float zoomRate = 40f;
 
     int bulletsLeft, bulletsShot;
 
@@ -133,28 +137,57 @@ public class ProjectileGun : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !isHidden) Reload();
 
             // Hide test
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.F) && !activeScope)
             {
                 Hide(isHidden);
             }
 
-            if (!isHidden && readyToShoot && shooting)
+            if (!isHidden)
             {
-                // Ricarica automatica se caricatore vuoto
-                if (bulletsLeft <= 0) Reload();
 
-                // Sparo
-                if (bulletsLeft > 0)
+                // Mirino
+                if (hasScope && Input.GetKeyDown(KeyCode.Mouse1))
                 {
-                    // Se l'arma è a tamburo (cylinder), la ricarica può essere interrotta dal giocatore
-                    if (hasCylinder)
+                    // DA FARE
+
+                    // Mettere forse in funzione separata                    
+
+                    // Nascondere mesh fucile
+
+                    Debug.Log("Implementa mirino");
+                    if (!activeScope)
                     {
-                        StopAllCoroutines();
+                        fpsCam.fieldOfView -= zoomRate;
+                        
+                        activeScope = true;
+                        gunCollider.enabled = false;
                     }
+                    else
+                    {
+                        fpsCam.fieldOfView += zoomRate;
+                        activeScope = false;
+                        gunCollider.enabled = true;
+                    }
+                }
 
-                    bulletsShot = 0;
+                if (readyToShoot && shooting)
+                {
+                    // Ricarica automatica se caricatore vuoto
+                    if (bulletsLeft <= 0) Reload();
 
-                    Shoot();
+                    // Sparo
+                    if (bulletsLeft > 0)
+                    {
+                        // Se l'arma è a tamburo (cylinder), la ricarica può essere interrotta dal giocatore
+                        if (hasCylinder)
+                        {
+                            StopAllCoroutines();
+                        }
+
+                        bulletsShot = 0;
+
+                        Shoot();
+                    }
                 }
             }
         }
