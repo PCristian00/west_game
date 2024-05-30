@@ -41,6 +41,7 @@ public class ProjectileGun : MonoBehaviour
     public Camera fpsCam;
     public Transform attackPoint;
     private Collider gunCollider;
+    private GameObject gunMesh;
 
     //Graphics
     [Header("Graphics")]
@@ -67,6 +68,9 @@ public class ProjectileGun : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         gunCollider = GetComponent<Collider>();
         gunCollider.enabled = false;
+
+       gunMesh = GetComponentInChildren<MeshRenderer>().gameObject;
+       // gunMesh = GetComponentInChildren<Mes>
     }
 
     private void Awake()
@@ -154,18 +158,21 @@ public class ProjectileGun : MonoBehaviour
 
                     // Nascondere mesh fucile
 
-                    Debug.Log("Implementa mirino");
+                    // Debug.Log("Implementa mirino");
+
                     if (!activeScope)
                     {
                         fpsCam.fieldOfView -= zoomRate;
-                        
+
                         activeScope = true;
+                        gunMesh.SetActive(false);
                         gunCollider.enabled = false;
                     }
                     else
                     {
                         fpsCam.fieldOfView += zoomRate;
                         activeScope = false;
+                        gunMesh.SetActive(true);
                         gunCollider.enabled = true;
                     }
                 }

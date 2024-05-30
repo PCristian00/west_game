@@ -20,7 +20,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8479098471599158265
 Transform:
   m_ObjectHideFlags: 0
@@ -61,6 +61,9 @@ MonoBehaviour:
   bulletsPerTap: 1
   allowButtonHold: 0
   hasCylinder: 1
+  hasScope: 0
+  activeScope: 0
+  zoomRate: 30
   playerRb: {fileID: 0}
   recoilForce: 3
   changeSpeed: 0.2

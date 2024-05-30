@@ -75,7 +75,7 @@ MonoBehaviour:
   attackPoint: {fileID: 8197731569894833863}
   muzzleFlash: {fileID: 100014, guid: a57a6829db3568c4d9bdc37e9e63c017, type: 3}
   ammoInfo: {fileID: 0}
-  crosshairSprite: {fileID: 21300000, guid: aaf9082de97fc454d982a7f81acae66c, type: 3}
+  crosshairSprite: {fileID: 21300000, guid: e81c1b06f224c284fb7b35c2bac9542f, type: 3}
   reloadAnimation: {fileID: 7106818921974646198}
   collisionAnimation: {fileID: 7830497240214600067}
   shootSound: {fileID: 8300000, guid: 03f9161cedca06d4cad5a5047b3d5c9f, type: 3}
