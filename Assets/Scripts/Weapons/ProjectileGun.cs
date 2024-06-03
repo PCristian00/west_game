@@ -69,8 +69,8 @@ public class ProjectileGun : MonoBehaviour
         gunCollider = GetComponent<Collider>();
         gunCollider.enabled = false;
 
-       gunMesh = GetComponentInChildren<MeshRenderer>().gameObject;
-       // gunMesh = GetComponentInChildren<Mes>
+        gunMesh = GetComponentInChildren<MeshRenderer>().gameObject;
+        // gunMesh = GetComponentInChildren<Mes>
     }
 
     private void Awake()
@@ -152,29 +152,7 @@ public class ProjectileGun : MonoBehaviour
                 // Mirino
                 if (hasScope && Input.GetKeyDown(KeyCode.Mouse1))
                 {
-                    // DA FARE
-
-                    // Mettere forse in funzione separata                    
-
-                    // Nascondere mesh fucile
-
-                    // Debug.Log("Implementa mirino");
-
-                    if (!activeScope)
-                    {
-                        fpsCam.fieldOfView -= zoomRate;
-
-                        activeScope = true;
-                        gunMesh.SetActive(false);
-                        gunCollider.enabled = false;
-                    }
-                    else
-                    {
-                        fpsCam.fieldOfView += zoomRate;
-                        activeScope = false;
-                        gunMesh.SetActive(true);
-                        gunCollider.enabled = true;
-                    }
+                    Aim();
                 }
 
                 if (readyToShoot && shooting)
@@ -197,6 +175,25 @@ public class ProjectileGun : MonoBehaviour
                     }
                 }
             }
+        }
+    }
+
+    private void Aim()
+    {
+        if (!activeScope)
+        {
+            fpsCam.fieldOfView -= zoomRate;
+
+            activeScope = true;
+            gunMesh.SetActive(false);
+            gunCollider.enabled = false;
+        }
+        else
+        {
+            fpsCam.fieldOfView += zoomRate;
+            activeScope = false;
+            gunMesh.SetActive(true);
+            gunCollider.enabled = true;
         }
     }
 
