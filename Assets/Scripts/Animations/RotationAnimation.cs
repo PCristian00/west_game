@@ -18,7 +18,7 @@ public class RotationAnimation : MonoBehaviour
 
     private Transform _transform;
 
-    public bool looping = false;
+    // public bool looping = false;
 
 
 

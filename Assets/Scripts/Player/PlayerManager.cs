@@ -25,8 +25,9 @@ public class PlayerManager : MonoBehaviour
     {
         if (other.CompareTag("Bullet") && !invincible)
         {
+            EnemyBullet bullet = other.GetComponent<EnemyBullet>();
             Destroy(other.gameObject);
-            health--;
+            health-=bullet.damage;
             if (health <= 0) Death();
             else AudioSource.PlayClipAtPoint(hitSound, gameObject.transform.position);
         }

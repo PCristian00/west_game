@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8667654056180697538}
   - component: {fileID: 674726745914196068}
   - component: {fileID: 4565561989357452672}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: TurretSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 252068996455544440}
   - component: {fileID: 3148917541785156124}
   - component: {fileID: 7971982130559839448}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: TurretObj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -306,6 +306,7 @@ MonoBehaviour:
   walkSpeed: 4
   canPatrol: 0
   canChase: 0
+  walkOnly: 0
   shootForce: 32
   upwardForce: 2
   walkPoint: {x: 0, y: 0, z: 0}

@@ -114,7 +114,7 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.93333334, g: 0.28627446, b: 0.85805655, a: 1}
+      key0: {r: 0.28627446, g: 0.3033774, b: 0.93333334, a: 1}
       key1: {r: 0.37254906, g: 0.78431374, b: 0.43228632, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: 5632919807749576438}
   - component: {fileID: 5436956990890810431}
   m_Layer: 7
-  m_Name: NormalBullet
+  m_Name: HeavyBullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -219,7 +219,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fb6973c44bd758b4cbdbd4004402ac84, type: 2}
+  - {fileID: 2100000, guid: 9f619966db55ade4a9ed9dd6b0bf07eb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -311,7 +311,7 @@ MonoBehaviour:
   maxCollisions: 1
   maxLifetime: 1
   explodeOnTouch: 1
-  explosionDamage: 10
+  explosionDamage: 100
   explosionRange: 0.1
   explosionForce: 1
   explosionSound: {fileID: 0}

@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
     [Header("References")]
     public NavMeshAgent agent;
     public Transform player;
+
     public LayerMask whatIsGround, whatIsPlayer;
     private Rigidbody rb;
 
@@ -15,6 +16,10 @@ public class Enemy : MonoBehaviour
     public float walkSpeed = 4f;
     public bool canPatrol = true;
     public bool canChase = true;
+    [Tooltip("Se impostato a true, il nemico non spara ma raggiunge solo l'obiettivo con tag 'Capture'")]
+    public bool walkOnly = false;
+    [Tooltip("Danno causato dal nemico al raggiungimento del Capture Point")]
+    public int captureDamage = 1;
     public float shootForce = 32f;
     public float upwardForce = 8f;
 
@@ -57,7 +62,11 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
-        player = GameObject.Find("PlayerObj").transform;
+        // Se il nemico può solo camminare, il suo obiettivo è raggiungere la capturePoint e non il giocatore
+        if (!walkOnly)
+            player = GameObject.Find("PlayerObj").transform;
+        else player = GameObject.FindGameObjectWithTag("Capture").transform;
+
         if (canPatrol || canChase)
             agent = GetComponent<NavMeshAgent>();
         // Debug.Log("Speed = " + agent.walkSpeed);
@@ -66,10 +75,20 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
+
+        // La velocita' del nemico dipende da GameManager
+        if (agent != null)
+            if (GameManager.instance.slowMode)
+            {
+                agent.speed = walkSpeed * GameManager.instance.slowMultiplier;
+            }
+            else agent.speed = walkSpeed;
+
         //Check for sight and attack range
 
         // Se il sightRange è impostato a 0, viene percepito come infinito.
         // Il nemico sa sempre dove è il giocatore.
+
         if (sightRange == 0)
             playerInSightRange = true;
         else playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
@@ -79,19 +98,10 @@ public class Enemy : MonoBehaviour
         if (playerInSightRange) icon.SetActive(true);
         else icon.SetActive(false);
 
-        // La velocita' del nemico dipende da GameManager
-
-        if (agent != null)
-            if (GameManager.instance.slowMode)
-            {
-                agent.speed = walkSpeed * GameManager.instance.slowMultiplier;
-            }
-            else agent.speed = walkSpeed;
-
-
         if (!playerInSightRange && !playerInAttackRange & canPatrol) Patroling();
         if (playerInSightRange && !playerInAttackRange & canChase) ChasePlayer();
         if (playerInAttackRange && playerInSightRange) AttackPlayer();
+
     }
 
     private void Patroling()
@@ -128,36 +138,40 @@ public class Enemy : MonoBehaviour
 
     private void AttackPlayer()
     {
-        //Make sure enemy doesn't move
-        //if (canChase || canPatrol)
-        //    agent.SetDestination(transform.position);
-
-        //// DEBUG: Imposta l'icona ad Attiva in Attack per i nemici che non vanno in Chase
-        //if (!canChase)
-        //    icon.SetActive(true);
-
-        transform.LookAt(player);
-
-        if (!alreadyAttacked && canAttack)
+        if (walkOnly) agent.SetDestination(transform.position);
+        else
         {
-            ///Attack code here
-            Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-            AudioSource.PlayClipAtPoint(attackSound, gameObject.transform.position);
+            //Make sure enemy doesn't move
+            //if (canChase || canPatrol)
+            //    agent.SetDestination(transform.position);
 
-            float multiplier;
-            // La velocita' del proiettile e' influenzata da GameManager
-            if (GameManager.instance.slowMode)
-                multiplier = GameManager.instance.slowMultiplier;
-            else multiplier = 1f;
+            //// DEBUG: Imposta l'icona ad Attiva in Attack per i nemici che non vanno in Chase
+            //if (!canChase)
+            //    icon.SetActive(true);
 
-            rb.AddForce(shootForce * multiplier * transform.forward, ForceMode.Impulse);
-            rb.AddForce(upwardForce * transform.up, ForceMode.Impulse);      
+            transform.LookAt(player);
 
-            ///End of attack code
+            if (!alreadyAttacked && canAttack)
+            {
+                ///Attack code here
+                Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+                AudioSource.PlayClipAtPoint(attackSound, gameObject.transform.position);
 
-            alreadyAttacked = true;
-            // La velocita' di attacco viene condizionata dal GameManager
-            Invoke(nameof(ResetAttack), timeBetweenAttacks / multiplier);
+                float multiplier;
+                // La velocita' del proiettile e' influenzata da GameManager
+                if (GameManager.instance.slowMode)
+                    multiplier = GameManager.instance.slowMultiplier;
+                else multiplier = 1f;
+
+                rb.AddForce(shootForce * multiplier * transform.forward, ForceMode.Impulse);
+                rb.AddForce(upwardForce * transform.up, ForceMode.Impulse);
+
+                ///End of attack code
+
+                alreadyAttacked = true;
+                // La velocita' di attacco viene condizionata dal GameManager
+                Invoke(nameof(ResetAttack), timeBetweenAttacks / multiplier);
+            }
         }
     }
     private void ResetAttack()
@@ -168,13 +182,16 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
-        // Debug.Log("OUCH! " + gameObject.name + " ha subito " + damage + " danni!!!");
+
+        // Debug.Log("OUCH! " + gameObject.name + " ha subito " + captureDamage + " danni!!! (vita rimasta = " + health + ")");
+
         if (health <= 0 && canAttack)
         {
             canAttack = false;
             AudioSource.PlayClipAtPoint(deathSound, gameObject.transform.position);
             Instantiate(deathEffect, transform.position, Quaternion.identity);
-            //rb.AddExplosionForce(3, transform.position, 3);
+
+            // rb.AddExplosionForce(3, transform.position, 3);
 
 
 
@@ -197,12 +214,12 @@ public class Enemy : MonoBehaviour
         {
 
             int dropChance = Random.Range(0, 5);
-            Debug.Log("Drop = " + dropChance);
+            //  Debug.Log("Drop = " + dropChance);
 
             if (dropChance >= 3)
             {
                 Instantiate(coin, transform.position, coin.transform.rotation);
-                Debug.Log("Moneta caduta - " + coin.name);
+                // Debug.Log("Moneta caduta - " + coin.name);
             }
         }
         // Se il nemico non può spostarsi, carica direttamente i soldi senza rilasciare monete

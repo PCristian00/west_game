@@ -12,8 +12,10 @@ public class CustomBullet : MonoBehaviour
     public float bounciness;
     public bool useGravity;
     //Lifetime
-    public int maxCollisions;
-    public float maxLifetime;
+    [Tooltip("1 come valore minimo")]
+    public int maxCollisions = 1;
+    [Tooltip("1 come valore minimo")]
+    public float maxLifetime = 1;
     public bool explodeOnTouch = true;
 
     [Header("Damage")]
@@ -30,6 +32,8 @@ public class CustomBullet : MonoBehaviour
     private void Start()
     {
         Setup();
+
+        //  Debug.Log("Creato " + name);
     }
 
     private void Update()
@@ -47,20 +51,25 @@ public class CustomBullet : MonoBehaviour
         //Instantiate explosion
         if (explosion != null) Instantiate(explosion, transform.position, Quaternion.identity);
 
-        if(explosionSound)
-        AudioSource.PlayClipAtPoint(explosionSound, transform.position);
+        if (explosionSound)
+            AudioSource.PlayClipAtPoint(explosionSound, transform.position);
 
         //Check for enemies 
-        Collider[] enemies = Physics.OverlapSphere(transform.position, explosionRange, whatIsEnemies);
+        Collider[] enemies = Physics.OverlapSphere(transform.position, explosionRange, whatIsEnemies);        
+
         for (int i = 0; i < enemies.Length; i++)
         {
             //Get component of enemy and call Take Damage
 
+
             // Debug.Log("Il nemico si chiama "+enemies[i].name);
             if (enemies[i].GetComponent<Enemy>())
             {
+               // Debug.Log(enemies[i].name + " sta per subire danno");
                 enemies[i].GetComponent<Enemy>().TakeDamage(explosionDamage);
             }
+
+
             // else Debug.Log("AI not found");
             // enemies[i].GetComponent<EnemyAi>().TakeDamage(explosionDamage);
 
@@ -71,6 +80,8 @@ public class CustomBullet : MonoBehaviour
 
         //Add a little delay, just to make sure everything works fine
         Invoke(nameof(Delay), 0.05f);
+
+        //  Debug.Log("Esploso " + name);
     }
     private void Delay()
     {

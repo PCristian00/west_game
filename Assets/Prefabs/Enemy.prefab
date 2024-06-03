@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1823320765472558556}
   - component: {fileID: 8086156596850927470}
   - component: {fileID: 6135783914227786403}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: EnemyObj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 6771620847886146446}
   - component: {fileID: 2202981842304060600}
   - component: {fileID: 6721718875981945336}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -246,10 +246,11 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 256
-  health: 120
+  health: 50
   walkSpeed: 4
   canPatrol: 0
   canChase: 1
+  walkOnly: 0
   shootForce: 32
   upwardForce: 0
   walkPoint: {x: 0, y: 0, z: 0}
