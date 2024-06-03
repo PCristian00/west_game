@@ -18,6 +18,8 @@ public class Enemy : MonoBehaviour
     public bool canChase = true;
     [Tooltip("Se impostato a true, il nemico non spara ma raggiunge solo l'obiettivo con tag 'Capture'")]
     public bool walkOnly = false;
+    [Tooltip("Danno causato dal nemico al raggiungimento del Capture Point")]
+    public int captureDamage = 1;
     public float shootForce = 32f;
     public float upwardForce = 8f;
 
@@ -181,7 +183,7 @@ public class Enemy : MonoBehaviour
     {
         health -= damage;
 
-        // Debug.Log("OUCH! " + gameObject.name + " ha subito " + damage + " danni!!! (vita rimasta = " + health + ")");
+        // Debug.Log("OUCH! " + gameObject.name + " ha subito " + captureDamage + " danni!!! (vita rimasta = " + health + ")");
 
         if (health <= 0 && canAttack)
         {

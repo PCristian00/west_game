@@ -6,10 +6,12 @@ public class CapturePoint : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
+            Enemy enemy = other.GetComponent<Enemy>();
             Debug.Log("Raggiunto da " + other.name);
             // Debug.Log("Colliso " + collision.gameObject.name);
             Destroy(other.gameObject);
-            PlayerManager.instance.health += 100;
+            PlayerManager.instance.health -= enemy.captureDamage;
+            Debug.Log(enemy.name + " ha fatto " + enemy.captureDamage + " punti danno");
         }
         else Debug.Log("NON ERA UN ENEMY");
     }

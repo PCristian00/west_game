@@ -3,6 +3,7 @@ using UnityEngine;
 public class EnemyBullet : MonoBehaviour
 {
     public float maxLifetime = 10f;
+    public int damage = 1;
 
     // Update is called once per frame
     void Update()
