@@ -13,6 +13,6 @@ public class CapturePoint : MonoBehaviour
             PlayerManager.instance.health -= enemy.captureDamage;
             Debug.Log(enemy.name + " ha fatto " + enemy.captureDamage + " punti danno");
         }
-        else Debug.Log("NON ERA UN ENEMY");
+       // else Debug.Log("NON ERA UN ENEMY");
     }
 }

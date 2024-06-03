@@ -8312,8 +8312,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1593348374}
   - {fileID: 382362593}
+  - {fileID: 1593348374}
   - {fileID: 4093814051254920244}
   - {fileID: 488973232}
   m_Father: {fileID: 963194228}
@@ -9322,7 +9322,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2049149127
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9356,7 +9356,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.83137256}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -9614,7 +9614,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 22373365584697324, guid: bf37a98693d0cbc49b1e7b9a3fc2286d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4967150151942412217, guid: bf37a98693d0cbc49b1e7b9a3fc2286d, type: 3}
       propertyPath: fpsCam
@@ -9767,10 +9767,6 @@ PrefabInstance:
     - target: {fileID: 4019694772348678290, guid: 177a584f7a93c784281fc9a6e9864cb6, type: 3}
       propertyPath: m_Name
       value: Sniper
-      objectReference: {fileID: 0}
-    - target: {fileID: 4019694772348678290, guid: 177a584f7a93c784281fc9a6e9864cb6, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6934855649155063821, guid: 177a584f7a93c784281fc9a6e9864cb6, type: 3}
       propertyPath: fpsCam

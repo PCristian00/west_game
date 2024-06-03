@@ -40,8 +40,9 @@ public class ProjectileGun : MonoBehaviour
     [Header("Reference")]
     public Camera fpsCam;
     public Transform attackPoint;
-    private Collider gunCollider;
     private GameObject gunMesh;
+    private Collider gunCollider;
+    
 
     //Graphics
     [Header("Graphics")]
@@ -66,11 +67,14 @@ public class ProjectileGun : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        gunCollider = GetComponent<Collider>();
-        gunCollider.enabled = false;
+        
 
         gunMesh = GetComponentInChildren<MeshRenderer>().gameObject;
-        // gunMesh = GetComponentInChildren<Mes>
+
+        gunCollider = gunMesh.GetComponent<Collider>();
+      //  Debug.Log("Collider di " + name + " = " + gunCollider.name);
+        gunCollider.enabled = false;
+        
     }
 
     private void Awake()

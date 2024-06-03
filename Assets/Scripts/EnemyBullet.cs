@@ -11,7 +11,7 @@ public class EnemyBullet : MonoBehaviour
         maxLifetime -= Time.deltaTime;
         if (maxLifetime <= 0)
         {
-            Debug.Log("Tempo EnemyBullet scaduto");
+           // Debug.Log("Tempo EnemyBullet scaduto");
             Destroy(gameObject);
         }
     }
