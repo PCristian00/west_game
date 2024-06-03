@@ -216,7 +216,7 @@ public class Enemy : MonoBehaviour
             int dropChance = Random.Range(0, 5);
             //  Debug.Log("Drop = " + dropChance);
 
-            if (dropChance >= 3)
+            if (dropChance >= 2)
             {
                 Instantiate(coin, transform.position, coin.transform.rotation);
                 // Debug.Log("Moneta caduta - " + coin.name);

@@ -42,7 +42,7 @@ public class ProjectileGun : MonoBehaviour
     public Transform attackPoint;
     private GameObject gunMesh;
     private Collider gunCollider;
-    
+
 
     //Graphics
     [Header("Graphics")]
@@ -67,14 +67,14 @@ public class ProjectileGun : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        
+
 
         gunMesh = GetComponentInChildren<MeshRenderer>().gameObject;
 
         gunCollider = gunMesh.GetComponent<Collider>();
-      //  Debug.Log("Collider di " + name + " = " + gunCollider.name);
+        //  Debug.Log("Collider di " + name + " = " + gunCollider.name);
         gunCollider.enabled = false;
-        
+
     }
 
     private void Awake()
@@ -340,7 +340,7 @@ public class ProjectileGun : MonoBehaviour
     {
         // Debug.Log(other.gameObject.layer);
 
-        if (!other.CompareTag("Bullet") && !other.CompareTag("Player") && !other.CompareTag("Coin"))
+        if (!other.CompareTag("Bullet") && !other.CompareTag("Player") && !other.CompareTag("Coin") && !other.CompareTag("Powerup"))
         {
             //  Debug.Log("Test: collisione trigger di " + gameObject.name + " con " + other.name + "[tag = " + other.tag + " ]");
 
@@ -350,7 +350,7 @@ public class ProjectileGun : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (!other.CompareTag("Bullet") && !other.CompareTag("Player") && !other.CompareTag("Coin"))
+        if (!other.CompareTag("Bullet") && !other.CompareTag("Player") && !other.CompareTag("Coin") && !other.CompareTag("Powerup"))
         {
             // Debug.Log("Test: collisione trigger exit di " + gameObject.name + " con " + other.name + "[tag = " + other.tag + " ]");
 

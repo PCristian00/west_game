@@ -96,7 +96,7 @@ public class WFX_Demo : MonoBehaviour
 		GUILayout.Label("Click on the ground to spawn the selected effect");
 		GUILayout.FlexibleSpace();
 		
-		if(GUILayout.Button(rotateCam ? "Pause Camera" : "Rotate Camera", GUILayout.Width(110)))
+		if(GUILayout.Button(rotateCam ? "Pause Camera" : "RotationOnSelf Camera", GUILayout.Width(110)))
 		{
 			rotateCam = !rotateCam;
 		}
