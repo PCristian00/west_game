@@ -6,6 +6,8 @@ public class Enemy : MonoBehaviour
     [Header("References")]
     public NavMeshAgent agent;
     public Transform player;
+    public Transform attackPoint;
+
 
     public LayerMask whatIsGround, whatIsPlayer;
     private Rigidbody rb;
@@ -58,6 +60,9 @@ public class Enemy : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         icon.SetActive(false);
+
+        // Rimuovere transform e inserire il punto in cui la mesh ha l'arma
+        attackPoint = transform;
     }
 
     private void Awake()
@@ -154,7 +159,11 @@ public class Enemy : MonoBehaviour
             if (!alreadyAttacked && canAttack)
             {
                 ///Attack code here
-                Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+                
+                // Cambiare transform.position in Punto attacco della mesh (Dove ha il cannone)
+                // Vedi attack point di projectile gun
+
+                Rigidbody rb = Instantiate(projectile, attackPoint.position, Quaternion.identity).GetComponent<Rigidbody>();
                 AudioSource.PlayClipAtPoint(attackSound, gameObject.transform.position);
 
                 float multiplier;
@@ -216,9 +225,9 @@ public class Enemy : MonoBehaviour
             int dropChance = Random.Range(0, 5);
             //  Debug.Log("Drop = " + dropChance);
 
-            if (dropChance >= 3)
+            if (dropChance >= 2)
             {
-                Instantiate(coin, transform.position, coin.transform.rotation);
+                Instantiate(coin, attackPoint.position, coin.transform.rotation);
                 // Debug.Log("Moneta caduta - " + coin.name);
             }
         }

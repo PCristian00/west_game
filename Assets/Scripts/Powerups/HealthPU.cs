@@ -1,11 +1,12 @@
 using UnityEngine;
 
 public class HealthPU : MonoBehaviour, IPowerup
-{  
+{
+    public int value = 10;
     public void Activate(float wait)
     {
-        PlayerManager.instance.health += 10;
-        Debug.Log("Vita aumentata di 10");
+        PlayerManager.instance.health += value;
+        Debug.Log("Vita aumentata di " + value);
     }
 
     public void Deactivate(float wait)

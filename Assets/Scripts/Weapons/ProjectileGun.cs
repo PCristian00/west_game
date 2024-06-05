@@ -42,7 +42,7 @@ public class ProjectileGun : MonoBehaviour
     public Transform attackPoint;
     private GameObject gunMesh;
     private Collider gunCollider;
-    
+
 
     //Graphics
     [Header("Graphics")]
@@ -67,14 +67,14 @@ public class ProjectileGun : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        
-
         gunMesh = GetComponentInChildren<MeshRenderer>().gameObject;
 
+      //  gunMesh.SetActive(false);
+
         gunCollider = gunMesh.GetComponent<Collider>();
-      //  Debug.Log("Collider di " + name + " = " + gunCollider.name);
+        //  Debug.Log("Collider di " + name + " = " + gunCollider.name);
         gunCollider.enabled = false;
-        
+
     }
 
     private void Awake()
@@ -86,6 +86,9 @@ public class ProjectileGun : MonoBehaviour
 
     public void OnEnable()
     {
+
+     //   gunMesh.SetActive(true);
+
         try
         {
             if (crosshairSprite)
@@ -110,6 +113,8 @@ public class ProjectileGun : MonoBehaviour
             collisionAnimation.Play(changeSpeed, true);
             isHidden = true;
             CrosshairManager.instance.ChangeColor(Color.clear);
+
+          //  gunMesh.SetActive(false);
         }
 
         else
@@ -117,6 +122,8 @@ public class ProjectileGun : MonoBehaviour
             collisionAnimation.Play(changeSpeed, false);
             isHidden = false;
             CrosshairManager.instance.ResetColor();
+
+           // gunMesh.SetActive(true);
             // OnEnable();
         }
     }
@@ -340,7 +347,7 @@ public class ProjectileGun : MonoBehaviour
     {
         // Debug.Log(other.gameObject.layer);
 
-        if (!other.CompareTag("Bullet") && !other.CompareTag("Player") && !other.CompareTag("Coin"))
+        if (!other.CompareTag("Bullet") && !other.CompareTag("Player") && !other.CompareTag("Coin") && !other.CompareTag("Powerup"))
         {
             //  Debug.Log("Test: collisione trigger di " + gameObject.name + " con " + other.name + "[tag = " + other.tag + " ]");
 
@@ -350,7 +357,7 @@ public class ProjectileGun : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (!other.CompareTag("Bullet") && !other.CompareTag("Player") && !other.CompareTag("Coin"))
+        if (!other.CompareTag("Bullet") && !other.CompareTag("Player") && !other.CompareTag("Coin") && !other.CompareTag("Powerup"))
         {
             // Debug.Log("Test: collisione trigger exit di " + gameObject.name + " con " + other.name + "[tag = " + other.tag + " ]");
 
