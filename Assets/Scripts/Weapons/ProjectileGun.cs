@@ -67,9 +67,9 @@ public class ProjectileGun : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
-
-
         gunMesh = GetComponentInChildren<MeshRenderer>().gameObject;
+
+      //  gunMesh.SetActive(false);
 
         gunCollider = gunMesh.GetComponent<Collider>();
         //  Debug.Log("Collider di " + name + " = " + gunCollider.name);
@@ -86,6 +86,9 @@ public class ProjectileGun : MonoBehaviour
 
     public void OnEnable()
     {
+
+     //   gunMesh.SetActive(true);
+
         try
         {
             if (crosshairSprite)
@@ -110,6 +113,8 @@ public class ProjectileGun : MonoBehaviour
             collisionAnimation.Play(changeSpeed, true);
             isHidden = true;
             CrosshairManager.instance.ChangeColor(Color.clear);
+
+          //  gunMesh.SetActive(false);
         }
 
         else
@@ -117,6 +122,8 @@ public class ProjectileGun : MonoBehaviour
             collisionAnimation.Play(changeSpeed, false);
             isHidden = false;
             CrosshairManager.instance.ResetColor();
+
+           // gunMesh.SetActive(true);
             // OnEnable();
         }
     }
