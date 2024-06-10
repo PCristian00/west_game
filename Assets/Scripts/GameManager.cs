@@ -1,6 +1,8 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -45,6 +47,17 @@ public class GameManager : MonoBehaviour
 
     public event Action<GameState> OnCurrentGameStateChanged;
 
+    public bool IsInputActive
+    {
+        get => CurrentGameState == GameState.Running && inputBlockedCounter <= 0;
+    }
+
+    public UnityEvent<bool> OnInputActiveChanged;
+
+    private int inputBlockedCounter = 0;
+
+    public string LevelName => SceneManager.GetActiveScene().name;
+
     void Start()
     {
         instance = this;
@@ -74,6 +87,19 @@ public class GameManager : MonoBehaviour
 
             Invoke(nameof(SpawnEnemy), enemySpawnRate);
         }
+    }
+
+    public void RequestInputBlock()
+    {
+        inputBlockedCounter++;
+        OnInputActiveChanged?.Invoke(IsInputActive);
+    }
+
+    public void RequestInputUnblock()
+    {
+        inputBlockedCounter--;
+        if (inputBlockedCounter < 0) inputBlockedCounter = 0;
+        OnInputActiveChanged?.Invoke(IsInputActive);
     }
 
     private void SpawnEnemy()

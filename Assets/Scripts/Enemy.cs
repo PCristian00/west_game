@@ -7,6 +7,8 @@ public class Enemy : MonoBehaviour
     public NavMeshAgent agent;
     public Transform player;
     public Transform attackPoint;
+    private GameObject enemyMesh;
+    private Collider enemyCollider;
 
 
     public LayerMask whatIsGround, whatIsPlayer;
@@ -63,6 +65,12 @@ public class Enemy : MonoBehaviour
 
         // Rimuovere transform e inserire il punto in cui la mesh ha l'arma
         attackPoint = transform;
+
+        // enemyMesh = GetComponentInChildren<MeshRenderer>().gameObject;
+
+        //  gunMesh.SetActive(false);
+
+       // enemyCollider = enemyMesh.GetComponent<Collider>();
     }
 
     private void Awake()
