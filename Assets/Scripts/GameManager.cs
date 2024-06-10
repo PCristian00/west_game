@@ -91,12 +91,14 @@ public class GameManager : MonoBehaviour
 
     public void RequestInputBlock()
     {
+        Debug.Log("Request Input Block");
         inputBlockedCounter++;
         OnInputActiveChanged?.Invoke(IsInputActive);
     }
 
     public void RequestInputUnblock()
     {
+        Debug.Log("Request Input Unblock");
         inputBlockedCounter--;
         if (inputBlockedCounter < 0) inputBlockedCounter = 0;
         OnInputActiveChanged?.Invoke(IsInputActive);
