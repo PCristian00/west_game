@@ -1145,6 +1145,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7140470253472477429, guid: 9fca569613299774685e6ff2bf635059, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1623657992}
+    - targetCorrespondingSourceObject: {fileID: 7140470253472477429, guid: 9fca569613299774685e6ff2bf635059, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1623657997}
+    - targetCorrespondingSourceObject: {fileID: 7140470253472477429, guid: 9fca569613299774685e6ff2bf635059, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1623657998}
   m_SourcePrefab: {fileID: 100100000, guid: 9fca569613299774685e6ff2bf635059, type: 3}
 --- !u!1 &1123661653 stripped
 GameObject:
@@ -1378,6 +1384,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tooltip: Impostazioni suono
+--- !u!114 &1623657997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1623657987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 297e9fd5a5a03714aac3437c3bbb541b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlightColor: {r: 0.084905684, g: 0.084905684, b: 0.084905684, a: 0.5372549}
+--- !u!114 &1623657998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1623657987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba11d6f0696755b46842dd8c34dc8ef2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  title: Sono un pianoforte
+  description: Inserire un nuovo tipo di manager con pulsanti e menu
 --- !u!1001 &2077803392
 PrefabInstance:
   m_ObjectHideFlags: 0
