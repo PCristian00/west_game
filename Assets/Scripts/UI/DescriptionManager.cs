@@ -18,11 +18,12 @@ public class DescriptionManager : MonoBehaviour
 
     private void Start()
     {
-        HideDescription();
+       HideDescription();
     }
 
     public void ShowDescription(string title, string description)
     {
+        Debug.Log("Mostrando descrizione");
         gameObject.SetActive(true);
         titleText.text = title;
         descriptionText.text = description;
@@ -31,6 +32,7 @@ public class DescriptionManager : MonoBehaviour
 
     public void HideDescription()
     {
+        Debug.Log("Provando a nascondere...");
         gameObject.SetActive(false);
         GameManager.instance.RequestInputUnblock();
     }

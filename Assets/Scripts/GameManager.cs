@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
             _currentGameState = value;
 
             OnCurrentGameStateChanged?.Invoke(_currentGameState);
+            OnInputActiveChanged?.Invoke(IsInputActive);
         }
     }
 
@@ -61,6 +62,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         instance = this;
+        CurrentGameState = GameState.Running;
 
         enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
     }
