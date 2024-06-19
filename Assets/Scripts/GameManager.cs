@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour
                 healthInfo.SetText("Health: " + PlayerManager.instance.health);
             }
 
-        if (CurrentGameState != GameState.Lost && noEnemies == false)
+        if (CurrentGameState != GameState.Lost && noEnemies == false && enemySpawn)
         {
             // Debug.Log("Nemici in gioco: " + enemyCount);
             if (enemyCount == 0)

@@ -6,14 +6,15 @@ public class PlayerInteraction : MonoBehaviour
     public float raycastDistance = 5f;
 
     private GameObject lastHitGameObject;
-    private void Start()
-    {
-       // OnWeaponChanged(LoadoutManager.instance.CurrentWeapon);
-    }
+
+    public bool hasWeapons = true;
 
     private void Update()
     {
-        LoadoutManager.instance.OnWeaponChanged += OnWeaponChanged;
+        if (hasWeapons)
+        {
+            LoadoutManager.instance.OnWeaponChanged += OnWeaponChanged;            
+        }
 
         Ray ray = _camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
 
