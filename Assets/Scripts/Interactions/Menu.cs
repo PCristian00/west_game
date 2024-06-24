@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Menu : MonoBehaviour
 {
+    public void Start()
+    {
+      //  gameObject.SetActive(false);
+    }
+
     // Start is called before the first frame update
     private void OnEnable()
     {

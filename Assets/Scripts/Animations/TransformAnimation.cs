@@ -9,7 +9,7 @@ public class TransformAnimation : MonoBehaviour
     [SerializeField] private Vector3 translation = Vector3.zero;
     [SerializeField] private Vector3 rotationAxis = Vector3.right;
     [SerializeField] private float rotationDegrees = 0f;
-    [SerializeField] private Vector3 targetScale = Vector3.one;
+    [SerializeField] private Vector3 targetScale = Vector3.zero;
     [SerializeField] private float duration = 1f;
 
     [SerializeField] private AnimationCurve curve = AnimationCurve.EaseInOut(0,0,1,1);
@@ -31,6 +31,8 @@ public class TransformAnimation : MonoBehaviour
         startPosition = _transform.localPosition;
         startRotation = _transform.localRotation;
         startScale = _transform.localScale;
+
+        if (targetScale == Vector3.zero) targetScale = startScale; 
 
         targetPosition = startPosition + translation;
         targetRotation = startRotation * Quaternion.AngleAxis(rotationDegrees, rotationAxis);
