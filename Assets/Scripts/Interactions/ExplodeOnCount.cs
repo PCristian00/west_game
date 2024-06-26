@@ -7,13 +7,21 @@ public class ExplodeOnCount : MonoBehaviour
 
     public GameObject explosion;
     public AudioClip explosionSound;
+    private AudioSource audioSource;
+
+    private bool exploded = false;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     // Update is called once per frame
     void Update()
     {
         if (countOnActivate)
         {
-            if (countOnActivate.GetCount() >= countLimit)
+            if (countOnActivate.GetCount() >= countLimit && !exploded)
             {              
                 Explode();
             }
@@ -27,8 +35,18 @@ public class ExplodeOnCount : MonoBehaviour
         if (explosion != null) Instantiate(explosion, transform.position, Quaternion.identity);
 
         if (explosionSound)
-            AudioSource.PlayClipAtPoint(explosionSound, transform.position);
+        {
+           // Debug.Log("SUONO ESPLOSIONE");
+            audioSource.PlayOneShot(explosionSound);
+        }
 
+        exploded = true;
+        Invoke(nameof(DestroyObject), 1f);
+        
+    }
+
+    private void DestroyObject()
+    {
         Destroy(gameObject);
     }
 }

@@ -9,6 +9,7 @@ public class AudioManager : MonoBehaviour
     public AudioSource SFXSource;
 
     [Header("Audio Clip")]
+    // MIGLIORARE SISTEMA PER BG MUSIC
     public AudioClip background_1;
     public AudioClip background_2;
     public AudioClip pulsante_seleziona;
@@ -19,6 +20,8 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
+       // if(AudioVolume.instance) AudioVolume.instance.LoadVolume();
+
         if (instance == null)
         {
             instance = this;
@@ -62,6 +65,7 @@ public class AudioManager : MonoBehaviour
         AudioClip newClip;
 
         // Controlla il nome della scena e imposta la traccia audio di conseguenza
+        // MIGLIORARE SISTEMA
         if (sceneName == "Saloon")
         {
             newClip = background_2;

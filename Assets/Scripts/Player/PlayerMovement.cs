@@ -33,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Sound")]
     public AudioClip jumpSound;
+    private AudioSource audioSource;
 
     float horizontalInput;
     float verticalInput;
@@ -46,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
     {
         instance = this;
 
+        audioSource = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
@@ -160,7 +162,8 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
 
         // play jump sound
-        AudioSource.PlayClipAtPoint(jumpSound, gameObject.transform.position);
+        // AudioSource.PlayClipAtPoint(jumpSound, gameObject.transform.position);
+        audioSource.PlayOneShot(jumpSound);
 
         //  Debug.Log("SALTATO");
     }
