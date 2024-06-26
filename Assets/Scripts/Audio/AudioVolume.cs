@@ -58,4 +58,14 @@ public class AudioVolume : MonoBehaviour
         SetMusicVolume();
         SetSFXVolume();
     }
+
+    public void DefaultVolume()
+    {
+        masterSlider.value = 1f;
+        musicSlider.value = 1f;
+        SFXSlider.value = 1f;
+        SetMasterVolume();
+        SetMusicVolume();
+        SetSFXVolume();
+    }
 }
