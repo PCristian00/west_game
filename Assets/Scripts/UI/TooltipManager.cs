@@ -34,6 +34,7 @@ public class TooltipManager : MonoBehaviour
 
     public void HideTooltip()
     {
+        if(tooltipPanel)
         tooltipPanel.SetActive(false);
     }
     
