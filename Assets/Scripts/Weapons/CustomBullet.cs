@@ -23,8 +23,9 @@ public class CustomBullet : MonoBehaviour
     public float explosionRange;
     public float explosionForce;
 
-    [Header("Sound")]
-    public AudioClip explosionSound;
+    //[Header("Sound")]
+    //public AudioClip explosionSound;
+    //private AudioSource audioSource;
 
     int collisions;
     PhysicMaterial physics_mat;
@@ -32,7 +33,7 @@ public class CustomBullet : MonoBehaviour
     private void Start()
     {
         Setup();
-
+        // audioSource = GetComponent<AudioSource>();
         //  Debug.Log("Creato " + name);
     }
 
@@ -48,14 +49,22 @@ public class CustomBullet : MonoBehaviour
 
     private void Explode()
     {
+        // Debug.Log("EXPLOSIONE!!!11!! di " + gameObject.name);
+        
         //Instantiate explosion
+
         if (explosion != null) Instantiate(explosion, transform.position, Quaternion.identity);
 
-        if (explosionSound)
-            AudioSource.PlayClipAtPoint(explosionSound, transform.position);
+        //if (explosionSound)
+        //    audioSource.PlayOneShot(explosionSound);
+
+
+        // gameObject.SetActive(false);
+        // gameObject.transform.localScale = Vector3.zero;
+        // AudioSource.PlayClipAtPoint(explosionSound, transform.position);
 
         //Check for enemies 
-        Collider[] enemies = Physics.OverlapSphere(transform.position, explosionRange, whatIsEnemies);        
+        Collider[] enemies = Physics.OverlapSphere(transform.position, explosionRange, whatIsEnemies);
 
         for (int i = 0; i < enemies.Length; i++)
         {
@@ -65,7 +74,7 @@ public class CustomBullet : MonoBehaviour
             // Debug.Log("Il nemico si chiama "+enemies[i].name);
             if (enemies[i].GetComponent<Enemy>())
             {
-               // Debug.Log(enemies[i].name + " sta per subire danno");
+                // Debug.Log(enemies[i].name + " sta per subire danno");
                 enemies[i].GetComponent<Enemy>().TakeDamage(explosionDamage);
             }
 

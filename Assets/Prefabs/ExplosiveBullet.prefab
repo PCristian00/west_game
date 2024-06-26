@@ -302,7 +302,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 5632919807749576438}
-  explosion: {fileID: 100010, guid: d609d5ebc845aca409f72e9c6a56dc60, type: 3}
+  explosion: {fileID: 810518179949174838, guid: a2d037ae71b642e4e9f903eef3afea80, type: 3}
   whatIsEnemies:
     serializedVersion: 2
     m_Bits: 64
@@ -314,4 +314,3 @@ MonoBehaviour:
   explosionDamage: 30
   explosionRange: 10
   explosionForce: 30
-  explosionSound: {fileID: 8300000, guid: 07d86f38d24ec394398898718fd5e4fb, type: 3}

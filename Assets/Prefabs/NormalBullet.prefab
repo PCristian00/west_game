@@ -314,4 +314,3 @@ MonoBehaviour:
   explosionDamage: 10
   explosionRange: 0.1
   explosionForce: 1
-  explosionSound: {fileID: 0}
