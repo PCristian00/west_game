@@ -296,6 +296,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 0}
   player: {fileID: 0}
+  attackPoint: {fileID: 0}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
@@ -307,6 +308,7 @@ MonoBehaviour:
   canPatrol: 0
   canChase: 0
   walkOnly: 0
+  captureDamage: 1
   shootForce: 32
   upwardForce: 2
   walkPoint: {x: 0, y: 0, z: 0}
@@ -322,7 +324,7 @@ MonoBehaviour:
   deathSound: {fileID: 8300000, guid: 9d130f1bc996ab5408ab8a00d0b693b9, type: 3}
   attackEffect: {fileID: 0}
   hitEffect: {fileID: 0}
-  deathEffect: {fileID: 100008, guid: 1ae4db7b36e51124b89d2b32303a7a0b, type: 3}
+  deathEffect: {fileID: 5517220841568471734, guid: 8dca52d7c8265254eb32596149630449, type: 3}
   icon: {fileID: 1538109366388778940}
 --- !u!1 &6969817567471725020
 GameObject:
