@@ -49,20 +49,15 @@ public class CustomBullet : MonoBehaviour
 
     private void Explode()
     {
-        // Debug.Log("EXPLOSIONE!!!11!! di " + gameObject.name);
-        
         //Instantiate explosion
 
-        if (explosion != null) Instantiate(explosion, transform.position, Quaternion.identity);
-
-        //if (explosionSound)
-        //    audioSource.PlayOneShot(explosionSound);
-
-
-        // gameObject.SetActive(false);
-        // gameObject.transform.localScale = Vector3.zero;
-        // AudioSource.PlayClipAtPoint(explosionSound, transform.position);
-
+        // Solo per la prima esplosione, istanzia effetto visivo e sonoro
+        if (explosion != null)
+        {
+            Instantiate(explosion, transform.position, Quaternion.identity);
+            explosion = null;
+        }
+       
         //Check for enemies 
         Collider[] enemies = Physics.OverlapSphere(transform.position, explosionRange, whatIsEnemies);
 
@@ -76,11 +71,7 @@ public class CustomBullet : MonoBehaviour
             {
                 // Debug.Log(enemies[i].name + " sta per subire danno");
                 enemies[i].GetComponent<Enemy>().TakeDamage(explosionDamage);
-            }
-
-
-            // else Debug.Log("AI not found");
-            // enemies[i].GetComponent<EnemyAi>().TakeDamage(explosionDamage);
+            }            
 
             //Add explosion force (if enemy has a rigidbody)
             if (enemies[i].GetComponent<Rigidbody>())
