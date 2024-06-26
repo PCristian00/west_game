@@ -6813,7 +6813,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 786377232}
   SFXSource: {fileID: 740681634}
-  background_1: {fileID: 8300000, guid: e8a89df111026cc429c96d98877d3f14, type: 3}
+  background_1: {fileID: 8300000, guid: 86a5374bcb2899e4e869d7fc266de397, type: 3}
   background_2: {fileID: 8300000, guid: e8a89df111026cc429c96d98877d3f14, type: 3}
   pulsante_seleziona: {fileID: 0}
   pulsante_conferma: {fileID: 0}
