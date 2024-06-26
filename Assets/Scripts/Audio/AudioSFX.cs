@@ -12,7 +12,7 @@ public class AudioSFX : MonoBehaviour, IPointerEnterHandler, IPointerClickHandle
      *      * 1 = pulsante di conferma
      *      * 2 = pulsante di annullamento
      */
-    [Header("---------- Value ----------")]
+    [Header("Value")]
     public int valore_audio = 1;
 
     [Header("Debug")]
