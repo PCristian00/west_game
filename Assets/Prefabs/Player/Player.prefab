@@ -220,6 +220,8 @@ MonoBehaviour:
   invincible: 0
   hitSound: {fileID: 8300000, guid: d3269f2fda0939e4493bd5063a5f334a, type: 3}
   deathSound: {fileID: 8300000, guid: 9e426a726b0217b40a785599e460be74, type: 3}
+  PUPickup: {fileID: 8300000, guid: c7ad5fc9ee31df54c98d8f0c29051280, type: 3}
+  CoinPickup: {fileID: 8300000, guid: 5ed6b25811906814096905104354c20a, type: 3}
 --- !u!114 &6557309845406260051
 MonoBehaviour:
   m_ObjectHideFlags: 0
