@@ -15,10 +15,12 @@ public class PlayerManager : MonoBehaviour
 
     public AudioClip hitSound;
     public AudioClip deathSound;
+    private AudioSource audioSource;
 
     public void Start()
     {
         instance = this;
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void OnTriggerEnter(Collider other)
@@ -29,7 +31,7 @@ public class PlayerManager : MonoBehaviour
             Destroy(other.gameObject);
             health-=bullet.damage;
             if (health <= 0) Death();
-            else AudioSource.PlayClipAtPoint(hitSound, gameObject.transform.position);
+            else audioSource.PlayOneShot(hitSound);
         }
 
         // FORSE RIMUOVERE: I power-up non sono raccolti ma equipaggiati
@@ -63,6 +65,6 @@ public class PlayerManager : MonoBehaviour
     {
         Debug.Log("SEI MORTO");
 
-        AudioSource.PlayClipAtPoint(deathSound, gameObject.transform.position);
+        audioSource.PlayOneShot(deathSound);
     }
 }
