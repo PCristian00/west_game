@@ -49,6 +49,7 @@ public class Enemy : MonoBehaviour
     public AudioClip attackSound;
     public AudioClip hitSound;
     public AudioClip deathSound;
+    private AudioSource audioSource;
     // AGGIUNGERE SUONI DI:
     // Movimento, Rilevamento giocatore (SOLO SE ANCORA PATTUGLIA)
 
@@ -61,6 +62,7 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
         icon.SetActive(false);
 
         // Rimuovere transform e inserire il punto in cui la mesh ha l'arma
@@ -74,7 +76,7 @@ public class Enemy : MonoBehaviour
     }
 
     private void Awake()
-    {
+    {      
         // Se il nemico può solo camminare, il suo obiettivo è raggiungere la capturePoint e non il giocatore
         if (!walkOnly)
             player = GameObject.Find("PlayerObj").transform;
@@ -172,7 +174,9 @@ public class Enemy : MonoBehaviour
                 // Vedi attack point di projectile gun
 
                 Rigidbody rb = Instantiate(projectile, attackPoint.position, Quaternion.identity).GetComponent<Rigidbody>();
-                AudioSource.PlayClipAtPoint(attackSound, gameObject.transform.position);
+
+                audioSource.PlayOneShot(attackSound);
+                // AudioSource.PlayClipAtPoint(attackSound, gameObject.transform.position);
 
                 float multiplier;
                 // La velocita' del proiettile e' influenzata da GameManager
@@ -205,7 +209,8 @@ public class Enemy : MonoBehaviour
         if (health <= 0 && canAttack)
         {
             canAttack = false;
-            AudioSource.PlayClipAtPoint(deathSound, gameObject.transform.position);
+            // AudioSource.PlayClipAtPoint(deathSound, gameObject.transform.position);
+            audioSource.PlayOneShot(deathSound);
             Instantiate(deathEffect, transform.position, Quaternion.identity);
 
             // rb.AddExplosionForce(3, transform.position, 3);
@@ -214,7 +219,7 @@ public class Enemy : MonoBehaviour
 
             Invoke(nameof(DestroyEnemy), 0.5f);
         }
-        else AudioSource.PlayClipAtPoint(hitSound, gameObject.transform.position);
+        else audioSource.PlayOneShot(hitSound);
     }
     private void DestroyEnemy()
     {
