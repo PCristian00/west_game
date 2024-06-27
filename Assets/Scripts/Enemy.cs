@@ -63,9 +63,12 @@ public class Enemy : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
+
+        if(icon)
         icon.SetActive(false);
 
         // Rimuovere transform e inserire il punto in cui la mesh ha l'arma
+       if(!attackPoint)
         attackPoint = transform;
 
         // enemyMesh = GetComponentInChildren<MeshRenderer>().gameObject;
@@ -110,8 +113,11 @@ public class Enemy : MonoBehaviour
 
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-        if (playerInSightRange) icon.SetActive(true);
-        else icon.SetActive(false);
+        if (icon)
+        {
+            if (playerInSightRange) icon.SetActive(true);
+            else icon.SetActive(false);
+        }
 
         if (!playerInSightRange && !playerInAttackRange & canPatrol) Patroling();
         if (playerInSightRange && !playerInAttackRange & canChase) ChasePlayer();
@@ -175,6 +181,7 @@ public class Enemy : MonoBehaviour
 
                 Rigidbody rb = Instantiate(projectile, attackPoint.position, Quaternion.identity).GetComponent<Rigidbody>();
 
+                if(attackSound)
                 audioSource.PlayOneShot(attackSound);
                 // AudioSource.PlayClipAtPoint(attackSound, gameObject.transform.position);
 
