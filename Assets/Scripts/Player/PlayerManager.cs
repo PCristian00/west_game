@@ -5,7 +5,7 @@ public class PlayerManager : MonoBehaviour
     public static PlayerManager instance;
 
     public int health;
-    public int maxHealth = 100;
+    public int maxHealth = 50;
 
     public bool invincible = false;
 

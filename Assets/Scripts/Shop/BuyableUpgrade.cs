@@ -52,7 +52,7 @@ public class BuyableUpgrade : MonoBehaviour
         switch (id)
         {
             case type.Health:
-                PlayerManager.instance.maxHealth = 200;
+                PlayerManager.instance.maxHealth += 50;
                 break;
 
             case type.Damage:

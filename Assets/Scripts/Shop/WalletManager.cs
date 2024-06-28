@@ -9,10 +9,12 @@ public class WalletManager : MonoBehaviour
 
     public TextMeshProUGUI walletInfo;
 
+    private readonly string saveKey = "wallet";
+
     void Start()
     {        
         instance = this;
-        LoadWallet();
+        wallet = SaveManager.LoadInt(saveKey);
         walletInfo = GetComponent<TextMeshProUGUI>();
     }
 
@@ -44,24 +46,8 @@ public class WalletManager : MonoBehaviour
         if(!CanBuy(cost)) return false;
 
         wallet-=cost;
-        UpdateWallet();
+        SaveManager.UpdateInt(saveKey, wallet);
 
         return true;
-    }
-   
-    public void LoadWallet()
-    {
-        if(PlayerPrefs.HasKey("wallet"))
-        wallet = PlayerPrefs.GetInt("wallet");
-        else
-        {
-            // wallet = 0;
-            PlayerPrefs.SetInt("wallet",wallet);
-        }
-    }
-
-    public void UpdateWallet()
-    {
-        PlayerPrefs.SetInt("wallet", wallet);
     }
 }
