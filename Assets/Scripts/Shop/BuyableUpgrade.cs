@@ -7,14 +7,14 @@ public class BuyableUpgrade : MonoBehaviour
 
    // public int id;
 
-    public enum type
+    public enum UpgradeType
     {
         Damage,
         Health,
         Coin
     }
 
-    public type id;
+    public UpgradeType id;
 
     public Button button;
 
@@ -51,15 +51,16 @@ public class BuyableUpgrade : MonoBehaviour
 
         switch (id)
         {
-            case type.Health:
-                PlayerManager.instance.maxHealth += 50;
+            case UpgradeType.Health:
+                // PlayerManager.instance.maxHealth += 50;
+                SaveManager.UpdateInt(PlayerManager.instance.healthKey, 100);
                 break;
 
-            case type.Damage:
+            case UpgradeType.Damage:
                 PlayerManager.instance.damageMultiplier += 1;
                 break;
 
-            case type.Coin:
+            case UpgradeType.Coin:
                 PlayerManager.instance.coinMultiplier += 1;
                 break;
         }

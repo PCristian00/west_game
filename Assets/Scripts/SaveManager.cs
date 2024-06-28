@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public static class SaveManager
-{
-    
-
+{   
     public static int LoadInt(string key)
     {
         if (PlayerPrefs.HasKey(key))
@@ -18,8 +14,30 @@ public static class SaveManager
         }
     }
 
+    public static float LoadFloat(string key)
+    {
+        if (PlayerPrefs.HasKey(key))
+            return PlayerPrefs.GetFloat(key);
+        else
+        {
+            // wallet = 0;
+            UpdateFloat(key, 1);
+            return 1;
+        }
+    }
+
     public static void UpdateInt(string key, int value)
     {
         PlayerPrefs.SetInt(key, value);
+    }
+
+    public static void UpdateFloat(string key, float value)
+    {
+        PlayerPrefs.SetFloat(key, value);
+    }
+
+    public static void ResetAll()
+    {
+        PlayerPrefs.DeleteAll();
     }
 }

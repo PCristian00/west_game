@@ -12,6 +12,16 @@ public class PlayerManager : MonoBehaviour
     public float damageMultiplier = 1f;
     public float coinMultiplier = 1f;
 
+    [Header("Upgrades")]
+    public int healthLevel = 0;
+    public int damageLevel = 0;
+    public int coinLevel = 0;
+    public readonly string healthKey = "health_level";
+    public readonly string damageKey = "dmg_level";
+    public readonly string coinKey = "coin_level";
+
+
+
     // public int wallet = 0;
 
 
@@ -26,10 +36,15 @@ public class PlayerManager : MonoBehaviour
     public void Start()
     {
         instance = this;
-        audioSource = GetComponent<AudioSource>();
+
+        LoadUpgrades();
+        if (maxHealth == 0) maxHealth = 50;
+
         health = maxHealth;
 
-        DebugUpgrade();
+        audioSource = GetComponent<AudioSource>();       
+
+        // DebugUpgrade();
     }
 
     public void OnTriggerEnter(Collider other)
@@ -73,7 +88,7 @@ public class PlayerManager : MonoBehaviour
                 Destroy(other.gameObject);
             }
 
-            
+
         }
     }
 
@@ -86,11 +101,17 @@ public class PlayerManager : MonoBehaviour
 
     public void LoadUpgrades()
     {
+        Debug.Log("Caricamento upgrades");
+        maxHealth = SaveManager.LoadInt(healthKey);
+        Debug.Log(maxHealth);
+        damageMultiplier = SaveManager.LoadFloat(damageKey);
+        coinMultiplier = SaveManager.LoadFloat(coinKey);
 
+        Debug.Log("CARICATI: "+DebugUpgrade());
     }
 
-    public void DebugUpgrade()
+    public string DebugUpgrade()
     {
-        Debug.Log($"HLT: {maxHealth} / DMG: {damageMultiplier} / COIN: {coinMultiplier}");
+        return ($"HLT: {maxHealth} / DMG: {damageMultiplier} / COIN: {coinMultiplier}");
     }
 }
