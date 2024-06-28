@@ -5,8 +5,12 @@ public class PlayerManager : MonoBehaviour
     public static PlayerManager instance;
 
     public int health;
+    public int maxHealth = 100;
 
     public bool invincible = false;
+
+    public float damageMultiplier = 1f;
+    public float coinMultiplier = 1f;
 
     // public int wallet = 0;
 
@@ -23,6 +27,9 @@ public class PlayerManager : MonoBehaviour
     {
         instance = this;
         audioSource = GetComponent<AudioSource>();
+        health = maxHealth;
+
+        DebugUpgrade();
     }
 
     public void OnTriggerEnter(Collider other)
@@ -75,5 +82,15 @@ public class PlayerManager : MonoBehaviour
         Debug.Log("SEI MORTO");
 
         audioSource.PlayOneShot(deathSound);
+    }
+
+    public void LoadUpgrades()
+    {
+
+    }
+
+    public void DebugUpgrade()
+    {
+        Debug.Log($"HLT: {maxHealth} / DMG: {damageMultiplier} / COIN: {coinMultiplier}");
     }
 }

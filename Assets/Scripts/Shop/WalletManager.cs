@@ -10,8 +10,9 @@ public class WalletManager : MonoBehaviour
     public TextMeshProUGUI walletInfo;
 
     void Start()
-    {
+    {        
         instance = this;
+        LoadWallet();
         walletInfo = GetComponent<TextMeshProUGUI>();
     }
 
@@ -27,14 +28,40 @@ public class WalletManager : MonoBehaviour
         return coins[Random.Range(0, coins.Length)];
     }
 
-    public bool BuyItem(int cost)
+    public bool CanBuy(int cost)
     {
         if (wallet >= cost)
         {
-            wallet -= cost;
+            // wallet -= cost;
 
             return true;
         }
         return false;
+    }
+
+    public bool Buy(int cost)
+    {
+        if(!CanBuy(cost)) return false;
+
+        wallet-=cost;
+        UpdateWallet();
+
+        return true;
+    }
+   
+    public void LoadWallet()
+    {
+        if(PlayerPrefs.HasKey("wallet"))
+        wallet = PlayerPrefs.GetInt("wallet");
+        else
+        {
+            // wallet = 0;
+            PlayerPrefs.SetInt("wallet",wallet);
+        }
+    }
+
+    public void UpdateWallet()
+    {
+        PlayerPrefs.SetInt("wallet", wallet);
     }
 }

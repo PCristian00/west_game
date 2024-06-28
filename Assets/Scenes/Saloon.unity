@@ -4048,7 +4048,7 @@ GameObject:
   - component: {fileID: 606660815}
   - component: {fileID: 606660814}
   m_Layer: 5
-  m_Name: GameObject (5)
+  m_Name: Multipunti
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6222,7 +6222,7 @@ GameObject:
   - component: {fileID: 911389458}
   - component: {fileID: 911389457}
   m_Layer: 5
-  m_Name: GameObject (3)
+  m_Name: Danni
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6915,8 +6915,9 @@ GameObject:
   - component: {fileID: 976921102}
   - component: {fileID: 976921101}
   - component: {fileID: 976921100}
+  - component: {fileID: 976921103}
   m_Layer: 5
-  m_Name: Button
+  m_Name: MPUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6985,7 +6986,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 976921101}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 976921103}
+        m_TargetAssemblyTypeName: BuyableUpgrade, Assembly-CSharp
+        m_MethodName: PriceCheck
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &976921101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7024,6 +7037,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 976921098}
   m_CullTransparentMesh: 1
+--- !u!114 &976921103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 976921098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 087b564b8d274bd4d9ec152fce6ebdcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: 0
+  id: 2
+  button: {fileID: 0}
 --- !u!1 &994027914
 GameObject:
   m_ObjectHideFlags: 0
@@ -7111,8 +7139,9 @@ GameObject:
   - component: {fileID: 1029921652}
   - component: {fileID: 1029921651}
   - component: {fileID: 1029921650}
+  - component: {fileID: 1029921653}
   m_Layer: 5
-  m_Name: Button
+  m_Name: HeUP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7181,7 +7210,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1029921651}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1029921653}
+        m_TargetAssemblyTypeName: BuyableUpgrade, Assembly-CSharp
+        m_MethodName: PriceCheck
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1029921651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7220,6 +7261,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1029921648}
   m_CullTransparentMesh: 1
+--- !u!114 &1029921653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1029921648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 087b564b8d274bd4d9ec152fce6ebdcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: -2
+  id: 1
+  button: {fileID: 0}
 --- !u!1 &1084677572
 GameObject:
   m_ObjectHideFlags: 0
@@ -10203,7 +10259,7 @@ GameObject:
   - component: {fileID: 1434412508}
   - component: {fileID: 1434412507}
   m_Layer: 5
-  m_Name: GameObject (4)
+  m_Name: Salute
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10598,9 +10654,10 @@ GameObject:
   - component: {fileID: 1507026216}
   - component: {fileID: 1507026219}
   - component: {fileID: 1507026218}
+  - component: {fileID: 1507026220}
   - component: {fileID: 1507026217}
   m_Layer: 5
-  m_Name: Button
+  m_Name: DMGUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10651,7 +10708,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0, g: 0, b: 0, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -10669,7 +10726,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1507026218}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1507026220}
+        m_TargetAssemblyTypeName: BuyableItem, Assembly-CSharp
+        m_MethodName: PriceCheck
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1507026218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10708,6 +10777,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1507026215}
   m_CullTransparentMesh: 1
+--- !u!114 &1507026220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1507026215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 087b564b8d274bd4d9ec152fce6ebdcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: 3
+  id: 0
+  button: {fileID: 0}
 --- !u!1 &1521700930
 GameObject:
   m_ObjectHideFlags: 0

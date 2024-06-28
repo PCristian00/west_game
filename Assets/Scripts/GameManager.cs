@@ -87,6 +87,7 @@ public class GameManager : MonoBehaviour
                 noEnemies = true;
             else return;
 
+            if(enemy)
             Invoke(nameof(SpawnEnemy), enemySpawnRate);
         }
     }
