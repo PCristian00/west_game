@@ -26,16 +26,19 @@ public static class SaveManager
         }
     }
 
+    // Superflua
     public static void UpdateInt(string key, int value)
     {
         PlayerPrefs.SetInt(key, value);
     }
 
+    // Superflua
     public static void UpdateFloat(string key, float value)
     {
         PlayerPrefs.SetFloat(key, value);
     }
 
+    // Superflua
     public static void ResetAll()
     {
         PlayerPrefs.DeleteAll();

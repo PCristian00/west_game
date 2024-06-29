@@ -16,7 +16,7 @@ public class BuyableUpgrade : MonoBehaviour
     public int upgradeLimit = 2;
     public UpgradeType id;
 
-    public Button button;
+    public UnityEngine.UI.Button button;
     private TextMeshProUGUI buttonText;
     public TextMeshProUGUI text;
     private string startText;
@@ -26,11 +26,12 @@ public class BuyableUpgrade : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        button = GetComponent<Button>();
+        
+
+        button = GetComponent<UnityEngine.UI.Button>();
         buttonText = GetComponentInChildren<TextMeshProUGUI>();
         startButtonText = buttonText.text;
 
-        // VERIFICA E FINISCI
         if (text)
         {
             startText = text.text;
@@ -38,6 +39,8 @@ public class BuyableUpgrade : MonoBehaviour
         }
 
         buttonText.text = startButtonText + $" [{cost}]";
+
+        LoadUpgrade();
     }
 
     // AGGIUNGERE QUI FUNZIONI PER SCURIRE ICONA O ALTRO
@@ -106,7 +109,36 @@ public class BuyableUpgrade : MonoBehaviour
                 break;
         }
 
+        SaveUpgrade();
+
         if (!WalletManager.instance.CanBuy(cost) || upgradeCounter >= upgradeLimit)
             BlockUpgrade();
+    }
+
+    public void SaveUpgrade()
+    {
+        string key = id.ToString() + "_upgrade_level";
+        PlayerPrefs.SetInt(key, upgradeCounter);
+
+        Debug.Log("Salvato in Prefs upgrade a " + id.ToString());
+    }
+
+    public void LoadUpgrade()
+    {
+        string key = id.ToString() + "_upgrade_level";
+
+        if (PlayerPrefs.HasKey(key))
+        {
+            upgradeCounter = PlayerPrefs.GetInt(key);
+
+            cost += 10 * upgradeCounter;
+
+            if (text) text.text = startText + $"\n{upgradeCounter}/{upgradeLimit}";
+            buttonText.text = startButtonText + $" [{cost}]";
+
+            if (!WalletManager.instance.CanBuy(cost) || upgradeCounter >= upgradeLimit)
+                BlockUpgrade();
+        }
+        else Debug.Log("Non ci sono upgrade precedenti per " + id.ToString());
     }
 }
