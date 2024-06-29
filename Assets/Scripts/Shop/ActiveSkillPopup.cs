@@ -11,9 +11,12 @@ public class ActiveSkillPopup : MonoBehaviour
     public int cost = 50;
 
     public UnityEngine.UI.Button buyButton;
+    public UnityEngine.UI.Button equipButton;
     private TextMeshProUGUI buyButtonText;
-    
-    private readonly string startButtonText = "Compra";
+    private TextMeshProUGUI equipButtonText;
+
+    private readonly string startBuyButtonText = "Compra";
+    private readonly string startEquipButtonText = "Equipaggia";
 
     private static readonly string[] skillKeys = { "superspeed", "double_jump", "shield", "slowmo" };
 
@@ -23,18 +26,36 @@ public class ActiveSkillPopup : MonoBehaviour
     // (DA IMPLEMENTARE) Valore 2: skill equipaggiata
     public static int[] state = { 0, 0, 0, 0 };
 
+    public void SetupBuyButton()
+    {
+        buyButtonText = buyButton.GetComponentInChildren<TextMeshProUGUI>();
+        // startBuyButtonText = buyButtonText.text;
+        buyButtonText.text = startBuyButtonText + $" [{cost}]";
+        buyButton.interactable = true;
+        buyButton.gameObject.SetActive(true);
+
+        equipButton.gameObject.SetActive(false);
+    }
+
+    public void SetupEquipButton()
+    {
+        equipButtonText = equipButton.GetComponentInChildren<TextMeshProUGUI>();
+        // startBuyButtonText = buyButtonText.text;
+        equipButtonText.text = startEquipButtonText;
+        equipButton.interactable = true;
+        equipButton.gameObject.SetActive(true);
+    }
+
     public void Setup(int id)
     {
-        LoadSkillState();
+        LoadSkillStates();
 
         gameObject.SetActive(true);
 
-        buyButton.interactable = true;
+        SetupBuyButton();
 
 
-        buyButtonText = buyButton.GetComponentInChildren<TextMeshProUGUI>();
-        // startButtonText = buyButtonText.text;
-        buyButtonText.text = startButtonText + $" [{cost}]";
+
 
         skillID = id;
 
@@ -82,12 +103,41 @@ public class ActiveSkillPopup : MonoBehaviour
         else Debug.Log("NESSUN WALLET");
     }
 
+    public void EquipCheck()
+    {
+        if (state[skillID] == 2) BlockEquip();
+
+        state[skillID] = 2;
+
+        for (int i = 0; i < state.Length; i++)
+            if (state[i] == 2 && i != skillID) state[i] = 1;
+
+        SaveSkillStates();
+
+        BlockEquip();
+    }
+
+    public void BlockEquip()
+    {
+
+
+        equipButtonText.text = "EQUIPAGGIATO";
+        equipButton.interactable = false;
+
+    }
     // PER NON USARE LOADOUT, INSERIRE QUI QUALCHE FUNZIONE CHE EQUIPAGGIA SENZA SPENDERE DENARO?
     public void BlockBuy()
     {
         // Debug.Log("Già comprato");
         buyButton.interactable = false;
-        if (state[skillID] == 1) buyButtonText.text = "COMPRATO";
+
+        if (state[skillID] == 1)
+        {
+            buyButton.gameObject.SetActive(false);
+            buyButtonText.text = "COMPRATO";
+
+            SetupEquipButton();
+        }
     }
 
     public void Buy()
@@ -112,11 +162,19 @@ public class ActiveSkillPopup : MonoBehaviour
         PlayerPrefs.SetInt(skillKeys[skillID], state[skillID]);
     }
 
-    public void LoadSkillState()
+    public void LoadSkillStates()
     {
         for (int i = 0; i < skillKeys.Length; i++)
         {
             state[i] = SaveManager.LoadInt(skillKeys[i]);
+        }
+    }
+
+    public void SaveSkillStates()
+    {
+        for (int i = 0; i < skillKeys.Length; i++)
+        {
+            PlayerPrefs.SetInt(skillKeys[i], state[i]);
         }
     }
 }
