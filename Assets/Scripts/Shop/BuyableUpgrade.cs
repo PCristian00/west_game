@@ -2,19 +2,18 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum UpgradeType
+{
+    Damage,
+    Health,
+    Coin
+}
+
 public class BuyableUpgrade : MonoBehaviour
 {
     public int cost;
     public int upgradeCounter = 0;
     public int upgradeLimit = 2;
-
-    public enum UpgradeType
-    {
-        Damage,
-        Health,
-        Coin
-    }
-
     public UpgradeType id;
 
     public Button button;
@@ -29,36 +28,29 @@ public class BuyableUpgrade : MonoBehaviour
         buttonText.text = standardText + $" [{cost}]";
     }
 
-    // Update is called once per frame
-    void Update()
+    // AGGIUNGERE QUI FUNZIONI PER SCURIRE ICONA O ALTRO
+    public void StopUpgrade()
     {
+        button.interactable = false;
 
+        if (upgradeCounter >= upgradeLimit) buttonText.text = "MAX";
     }
-
 
     public void PriceCheck()
     {
-        Debug.Log("CLICC");
         if (upgradeCounter < upgradeLimit)
             if (WalletManager.instance)
                 if (!WalletManager.instance.CanBuy(cost))
-                {
-                    button.interactable = false;
-                }
+                    StopUpgrade();
                 else
                 {
                     Upgrade();
                     if (!WalletManager.instance.CanBuy(cost))
-                    {
-                        button.interactable = false;
-                    }
+                        StopUpgrade();
                 }
             else Debug.Log("NESSUN WALLET");
         else
-        {
-            buttonText.text = "MAX";
-            button.interactable = false;
-        }
+            StopUpgrade();
     }
 
     public void Upgrade()
