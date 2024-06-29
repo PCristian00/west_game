@@ -810,8 +810,8 @@ MonoBehaviour:
   skills:
   - {fileID: 1514084588}
   - {fileID: 1520443787}
-  - {fileID: 1533319307}
   - {fileID: 1572552414}
+  - {fileID: 1533319307}
   skillCooldown: 15
   skillReady: 1
   skillBar: {fileID: 777320348}
@@ -832,8 +832,8 @@ Transform:
   m_Children:
   - {fileID: 1514084590}
   - {fileID: 1520443788}
-  - {fileID: 1533319308}
   - {fileID: 1572552415}
+  - {fileID: 1533319308}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &605555254
