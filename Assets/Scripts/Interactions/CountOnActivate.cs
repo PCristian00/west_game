@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CountOnActivate : MonoBehaviour, IActivate
 {
-    public static int count = 0;
+    public int count = 0;
 
     public void Activate()
     {

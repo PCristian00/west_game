@@ -40,9 +40,7 @@ public class ExplodeOnCount : MonoBehaviour
         //    audioSource.PlayOneShot(explosionSound);
         //}
 
-        exploded = true;
-
-        ActivateCheat();
+        exploded = true;       
         
         Invoke(nameof(DestroyObject), 0.005f);
         
@@ -50,12 +48,19 @@ public class ExplodeOnCount : MonoBehaviour
 
     private void DestroyObject()
     {
+       ActivateCheat();
         Destroy(gameObject);
     }
 
     private void ActivateCheat()
     {
-        WalletManager.instance.wallet += 5000;
-        SaveManager.UpdateFloat(WalletManager.instance.saveKey, WalletManager.instance.wallet);
+        if (WalletManager.instance)
+        {
+            Debug.Log("CHEAT ATTIVATO");
+
+            WalletManager.instance.wallet += 5000;
+            SaveManager.UpdateFloat(WalletManager.instance.saveKey, WalletManager.instance.wallet);
+        }
+        else Debug.Log("Nessun WALLET");
     }
 }
