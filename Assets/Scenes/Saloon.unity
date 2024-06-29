@@ -548,27 +548,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1631624095459252459, guid: de8317b3b0dd9364a9857146e77d96eb, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1631624095459252459, guid: de8317b3b0dd9364a9857146e77d96eb, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1631624095459252459, guid: de8317b3b0dd9364a9857146e77d96eb, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 71.56354
       objectReference: {fileID: 0}
     - target: {fileID: 1631624095459252459, guid: de8317b3b0dd9364a9857146e77d96eb, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 1631624095459252459, guid: de8317b3b0dd9364a9857146e77d96eb, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 35.78177
       objectReference: {fileID: 0}
     - target: {fileID: 1631624095459252459, guid: de8317b3b0dd9364a9857146e77d96eb, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -25
       objectReference: {fileID: 0}
     - target: {fileID: 1658671309076780581, guid: de8317b3b0dd9364a9857146e77d96eb, type: 3}
       propertyPath: m_IgnoreReversedGraphics
@@ -722,6 +722,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 5492886898363505670, guid: de8317b3b0dd9364a9857146e77d96eb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6216926432793906429, guid: de8317b3b0dd9364a9857146e77d96eb, type: 3}
       propertyPath: m_SizeDelta.y
       value: 253.88
@@ -732,27 +736,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6851995080739459675, guid: de8317b3b0dd9364a9857146e77d96eb, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6851995080739459675, guid: de8317b3b0dd9364a9857146e77d96eb, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6851995080739459675, guid: de8317b3b0dd9364a9857146e77d96eb, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 118.436455
       objectReference: {fileID: 0}
     - target: {fileID: 6851995080739459675, guid: de8317b3b0dd9364a9857146e77d96eb, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 6851995080739459675, guid: de8317b3b0dd9364a9857146e77d96eb, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 6851995080739459675, guid: de8317b3b0dd9364a9857146e77d96eb, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 7393070483216784701, guid: de8317b3b0dd9364a9857146e77d96eb, type: 3}
       propertyPath: m_AnchorMax.y
@@ -7049,7 +7053,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 087b564b8d274bd4d9ec152fce6ebdcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 0
+  cost: 5
+  upgradeCounter: 0
+  upgradeLimit: 2
   id: 2
   button: {fileID: 0}
 --- !u!1 &994027914
@@ -7138,8 +7144,8 @@ GameObject:
   - component: {fileID: 1029921649}
   - component: {fileID: 1029921652}
   - component: {fileID: 1029921651}
-  - component: {fileID: 1029921650}
   - component: {fileID: 1029921653}
+  - component: {fileID: 1029921650}
   m_Layer: 5
   m_Name: HeUP
   m_TagString: Untagged
@@ -7273,7 +7279,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 087b564b8d274bd4d9ec152fce6ebdcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: -2
+  cost: 5
+  upgradeCounter: 0
+  upgradeLimit: 2
   id: 1
   button: {fileID: 0}
 --- !u!1 &1084677572
@@ -10789,7 +10797,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 087b564b8d274bd4d9ec152fce6ebdcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 3
+  cost: 5
+  upgradeCounter: 0
+  upgradeLimit: 2
   id: 0
   button: {fileID: 0}
 --- !u!1 &1521700930

@@ -4,6 +4,8 @@ using UnityEngine.UI;
 public class BuyableUpgrade : MonoBehaviour
 {
     public int cost;
+    public int upgradeCounter = 0;
+    public int upgradeLimit = 2;
 
     // public int id;
 
@@ -34,20 +36,32 @@ public class BuyableUpgrade : MonoBehaviour
     public void PriceCheck()
     {
         Debug.Log("CLICC");
-
-        if (WalletManager.instance)
-            if (!WalletManager.instance.CanBuy(cost))
-            {
-                button.enabled = false;
-                Debug.Log("NON SI COMPRA");
-            }
-            else Upgrade();
-        else Debug.Log("NESSUN WALLET");
+        if (upgradeCounter < upgradeLimit)
+            if (WalletManager.instance)
+                if (!WalletManager.instance.CanBuy(cost))
+                {
+                    button.interactable = false;
+                }
+                else
+                {
+                    Upgrade();
+                    if (!WalletManager.instance.CanBuy(cost))
+                    {
+                        button.interactable = false;
+                    }
+                }
+            else Debug.Log("NESSUN WALLET");
+        else button.interactable = false;
     }
 
     public void Upgrade()
     {
         WalletManager.instance.Buy(cost);
+
+        cost += 10;
+        upgradeCounter++;
+
+        Debug.Log("counter " + upgradeCounter + " e nuovo costo a " + cost);
 
         int value = 50;
         float multiplier = 0.25f;
@@ -75,8 +89,5 @@ public class BuyableUpgrade : MonoBehaviour
                 SaveManager.UpdateFloat(PlayerManager.instance.coinKey, upgradedCoin);
                 break;
         }
-
-        // Attivare quando upgrade max raggiunto
-        // button.enabled = false;
     }
 }

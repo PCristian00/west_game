@@ -9,7 +9,7 @@ public class WalletManager : MonoBehaviour
 
     public TextMeshProUGUI walletInfo;
 
-    private readonly string saveKey = "wallet";
+    public readonly string saveKey = "wallet";
 
     void Start()
     {
