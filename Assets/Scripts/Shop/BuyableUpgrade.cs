@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,8 +7,6 @@ public class BuyableUpgrade : MonoBehaviour
     public int cost;
     public int upgradeCounter = 0;
     public int upgradeLimit = 2;
-
-    // public int id;
 
     public enum UpgradeType
     {
@@ -19,11 +18,15 @@ public class BuyableUpgrade : MonoBehaviour
     public UpgradeType id;
 
     public Button button;
+    private TextMeshProUGUI buttonText;
+    private readonly string standardText = "Potenzia";
 
     // Start is called before the first frame update
     void Start()
     {
         button = GetComponent<Button>();
+        buttonText = GetComponentInChildren<TextMeshProUGUI>();
+        buttonText.text = standardText + $" [{cost}]";
     }
 
     // Update is called once per frame
@@ -51,7 +54,11 @@ public class BuyableUpgrade : MonoBehaviour
                     }
                 }
             else Debug.Log("NESSUN WALLET");
-        else button.interactable = false;
+        else
+        {
+            buttonText.text = "MAX";
+            button.interactable = false;
+        }
     }
 
     public void Upgrade()
@@ -59,6 +66,7 @@ public class BuyableUpgrade : MonoBehaviour
         WalletManager.instance.Buy(cost);
 
         cost += 10;
+        buttonText.text = standardText + $" [{cost}]";
         upgradeCounter++;
 
         Debug.Log("counter " + upgradeCounter + " e nuovo costo a " + cost);
