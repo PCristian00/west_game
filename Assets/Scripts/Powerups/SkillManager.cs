@@ -34,9 +34,6 @@ public class SkillManager : MonoBehaviour
             skillIcon.sprite = CurrentSkill.GetComponent<Image>().sprite;
             skillIcon.color = Color.white;
 
-
-            // Debug.Log("New current skill: " + _currentSkill.name);
-
             OnSkillChanged?.Invoke(_currentSkill);
         }
     }
@@ -59,12 +56,6 @@ public class SkillManager : MonoBehaviour
     void Start()
     {
         instance = this;
-        // skill = activeSkill.GetComponent<IPowerup>();
-
-        //foreach (var s in ActiveSkillPopup.states)
-        //{
-        //    Debug.Log("State = " + s);
-        //}
 
         for (int i = 0; i < ActiveSkillPopup.states.Length; i++)
         {
@@ -76,13 +67,9 @@ public class SkillManager : MonoBehaviour
             }
         }
 
-        Debug.Log(current);
-
         if (!skillLoaded) NoSkillEquipped();
         else
             CurrentSkill = skills[current];
-
-        // skill = CurrentSkill.GetComponent<IPowerup>();
     }
 
     public void NoSkillEquipped()
@@ -93,62 +80,7 @@ public class SkillManager : MonoBehaviour
         skillReady = false;
     }
 
-    // UPDATE UTILIZZATO SOLO PER TEST
-    //// LE SKILL NON POTRANNO ESSERE CAMBIATE DURANTE LA PARTITA COME LE ARMI
-    //void Update()
-    //{
-    //    //if (skillReady)
-    //    //{
-    //    //    if (Input.GetButtonDown("NextWeapon") || Input.GetAxis("Mouse ScrollWheel") > 0f)
-    //    //    {
-    //    //        ChangeSkill(true);
-    //    //    }
-    //    //    else if (Input.GetButtonDown("PrevWeapon") || Input.GetAxis("Mouse ScrollWheel") < 0f)
-    //    //    {
-    //    //        ChangeSkill(false);
-    //    //    }
-    //    //}
-
-
-    //}
-
-    //private void ChangeSkill(bool next)
-    //{
-
-    //    if (next)
-    //    {
-    //        skills[current].SetActive(false);
-    //        current++;
-    //        // Debug.Log(current);
-    //        if (current >= skills.Length)
-    //        {
-    //            current = 0;
-    //        }
-    //        // Debug.Log("AUM// SKILL " + current + ": " + skills[current].gameObject.name);
-    //        skills[current].SetActive(true);
-    //        CurrentSkill = skills[current];
-    //    }
-
-    //    else
-    //    {
-    //        skills[current].SetActive(false);
-    //        current--;
-    //        //  Debug.Log(current);
-    //        if (current < 0)
-    //        {
-    //            //  Debug.Log(current);
-    //            current = skills.Length - 1;
-    //        }
-    //        //  Debug.Log("DEC// SKILL " + current+": " + skills[current].gameObject.name);
-    //        skills[current].SetActive(true);
-    //        CurrentSkill = skills[current];
-    //    }
-
-    //    // Debug.Log("cambio skill completato");
-
-    //}
-
-
+    
     public IEnumerator Cooldown(float time)
     {
         // skillBar.gameObject.SetActive(true);

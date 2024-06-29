@@ -29,7 +29,6 @@ public class ActiveSkillPopup : MonoBehaviour
     public void SetupBuyButton()
     {
         buyButtonText = buyButton.GetComponentInChildren<TextMeshProUGUI>();
-        // startBuyButtonText = buyButtonText.text;
         buyButtonText.text = startBuyButtonText + $" [{cost}]";
         buyButton.interactable = true;
         buyButton.gameObject.SetActive(true);
@@ -40,7 +39,6 @@ public class ActiveSkillPopup : MonoBehaviour
     public void SetupEquipButton()
     {
         equipButtonText = equipButton.GetComponentInChildren<TextMeshProUGUI>();
-        // startBuyButtonText = buyButtonText.text;
         equipButtonText.text = startEquipButtonText;
         equipButton.interactable = true;
         equipButton.gameObject.SetActive(true);
@@ -60,29 +58,27 @@ public class ActiveSkillPopup : MonoBehaviour
 
         if (states[skillID] >= 1) BlockBuy();
 
-        // Debug.Log("Setup, skill id " + skillID);
-
         switch (id)
         {
             case 0:
                 skillName.text = "Super Velocità";
                 skillDesc.text = "Aumenta la velocità di spostamento";
-                // skillKey = "superspeed";
+                
                 break;
             case 1:
                 skillName.text = "Doppio Salto";
                 skillDesc.text = "Permette di eseguire il doppio salto";
-                // skillKey = "double_jump";
+                
                 break;
             case 2:
                 skillName.text = "Scudo";
                 skillDesc.text = "Attiva uno scudo che ti rende invulnerabile";
-                // skillKey = "shield";
+                
                 break;
             case 3:
                 skillName.text = "Slow Motion";
                 skillDesc.text = "Rallenta i nemici";
-                // skillKey = "slowmo";
+                
                 break;
         }
     }
@@ -104,7 +100,6 @@ public class ActiveSkillPopup : MonoBehaviour
 
     public void Buy()
     {
-        // Debug.Log("COMPRATO");
         states[skillID] = 1;
 
         WalletManager.instance.Buy(cost);
