@@ -2,5 +2,5 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    public int value = 5;
+    public float value = 5;
 }

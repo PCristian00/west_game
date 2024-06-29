@@ -7,13 +7,13 @@ public class AudioSFX : MonoBehaviour, IPointerEnterHandler, IPointerClickHandle
 {
     AudioManager audioManager;
     /*
-     * Con il valore_audio si decide quale sfx far suonare a seconda del valore.
-     * I suoni associati al valore_audio sono rispettivamente:
+     * Con il audioValue si decide quale sfx far suonare a seconda del valore.
+     * I suoni associati al audioValue sono rispettivamente:
      *      * 1 = pulsante di conferma
      *      * 2 = pulsante di annullamento
      */
     [Header("Value")]
-    public int valore_audio = 1;
+    public int audioValue = 1;
 
     [Header("Debug")]
     public bool hasAudio = false;
@@ -42,7 +42,7 @@ public class AudioSFX : MonoBehaviour, IPointerEnterHandler, IPointerClickHandle
     public void OnPointerClick(PointerEventData eventData)
     {
         if (hasAudio)
-            switch (valore_audio)
+            switch (audioValue)
             {
                 case 1:
                     audioManager.PlaySFX(audioManager.pulsante_conferma);

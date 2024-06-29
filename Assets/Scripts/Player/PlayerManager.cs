@@ -80,9 +80,9 @@ public class PlayerManager : MonoBehaviour
             if (other.CompareTag("Coin"))
             {
                 Coin coin = other.GetComponent<Coin>();
-                Debug.Log("Presa moneta da " + coin.value);
+                Debug.Log("Presa moneta da " + coin.value * coinMultiplier);
 
-                WalletManager.instance.wallet += coin.value;
+                WalletManager.instance.wallet += coin.value * coinMultiplier;
 
                 audioSource.PlayOneShot(CoinPickup);
                 Destroy(other.gameObject);
@@ -112,6 +112,6 @@ public class PlayerManager : MonoBehaviour
 
     public string DebugUpgrade()
     {
-        return ($"HLT: {maxHealth} / DMG: {damageMultiplier} / COIN: {coinMultiplier}");
+        return $"HLT: {maxHealth} / DMG: {damageMultiplier} / COIN: {coinMultiplier}";
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 public class WalletManager : MonoBehaviour
 {
     public static WalletManager instance;
-    public int wallet = 0;
+    public float wallet = 0;
     public GameObject[] coins;
 
     public TextMeshProUGUI walletInfo;
@@ -12,9 +12,9 @@ public class WalletManager : MonoBehaviour
     private readonly string saveKey = "wallet";
 
     void Start()
-    {        
+    {
         instance = this;
-        wallet = SaveManager.LoadInt(saveKey);
+        wallet = SaveManager.LoadFloat(saveKey, wallet);
         walletInfo = GetComponent<TextMeshProUGUI>();
     }
 
@@ -30,7 +30,7 @@ public class WalletManager : MonoBehaviour
         return coins[Random.Range(0, coins.Length)];
     }
 
-    public bool CanBuy(int cost)
+    public bool CanBuy(float cost)
     {
         if (wallet >= cost)
         {
@@ -41,12 +41,12 @@ public class WalletManager : MonoBehaviour
         return false;
     }
 
-    public bool Buy(int cost)
+    public bool Buy(float cost)
     {
-        if(!CanBuy(cost)) return false;
+        if (!CanBuy(cost)) return false;
 
-        wallet-=cost;
-        SaveManager.UpdateInt(saveKey, wallet);
+        wallet -= cost;
+        SaveManager.UpdateFloat(saveKey, wallet);
 
         return true;
     }

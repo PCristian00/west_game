@@ -19,7 +19,7 @@ public class CustomBullet : MonoBehaviour
     public bool explodeOnTouch = true;
 
     [Header("Damage")]
-    public int explosionDamage;
+    public float explosionDamage;
     public float explosionRange;
     public float explosionForce;
 
@@ -32,6 +32,8 @@ public class CustomBullet : MonoBehaviour
 
     private void Start()
     {
+        explosionDamage *= PlayerManager.instance.damageMultiplier;
+
         Setup();
         // audioSource = GetComponent<AudioSource>();
         //  Debug.Log("Creato " + name);

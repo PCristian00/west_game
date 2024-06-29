@@ -207,11 +207,11 @@ public class Enemy : MonoBehaviour
         alreadyAttacked = false;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         health -= damage;
 
-        // Debug.Log("OUCH! " + gameObject.name + " ha subito " + captureDamage + " danni!!! (vita rimasta = " + health + ")");
+        Debug.Log("OUCH! " + gameObject.name + " ha subito " + damage + " danni!!! (vita rimasta = " + health + ")");
 
         if (health <= 0 && canAttack)
         {
@@ -252,7 +252,7 @@ public class Enemy : MonoBehaviour
             }
         }
         // Se il nemico non può spostarsi, carica direttamente i soldi senza rilasciare monete
-        else WalletManager.instance.wallet += 25;
+        else WalletManager.instance.wallet += 25 * PlayerManager.instance.coinMultiplier;
     }
 
 

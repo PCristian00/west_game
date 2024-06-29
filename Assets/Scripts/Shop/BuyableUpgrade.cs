@@ -49,25 +49,30 @@ public class BuyableUpgrade : MonoBehaviour
     {
         WalletManager.instance.Buy(cost);
 
-
-        float multiplier = 0.2f;
+        int value = 50;
+        float multiplier = 0.25f;
 
         switch (id)
         {
             case UpgradeType.Health:
                 int upgradedHealth = SaveManager.LoadInt(PlayerManager.instance.healthKey);
-                upgradedHealth += 50;
+                upgradedHealth += value;
                 Debug.Log("Salvataggio di " + upgradedHealth + " in Prefs (VITA MAX)");
                 SaveManager.UpdateInt(PlayerManager.instance.healthKey, upgradedHealth);
                 break;
 
             case UpgradeType.Damage:
-                multiplier *= PlayerManager.instance.damageMultiplier;
-                SaveManager.UpdateFloat(PlayerManager.instance.healthKey, multiplier);
+                float upgradedDamage = SaveManager.LoadFloat(PlayerManager.instance.damageKey);
+                upgradedDamage += multiplier;
+                Debug.Log("Salvataggio di " + upgradedDamage + " in Prefs (MULTIP. DANNI)");
+                SaveManager.UpdateFloat(PlayerManager.instance.damageKey, upgradedDamage);
                 break;
 
             case UpgradeType.Coin:
-                PlayerManager.instance.coinMultiplier += 1;
+                float upgradedCoin = SaveManager.LoadFloat(PlayerManager.instance.coinKey);
+                upgradedCoin += multiplier;
+                Debug.Log("Salvataggio di " + upgradedCoin + " in Prefs (MULTIP. MONETE)");
+                SaveManager.UpdateFloat(PlayerManager.instance.coinKey, upgradedCoin);
                 break;
         }
 
