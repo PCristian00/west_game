@@ -7,31 +7,21 @@ public class ActiveSkillPopup : MonoBehaviour
     public TextMeshProUGUI skillDesc;
 
     public int skillID;
-    private string skillKey;
 
     public int cost = 50;
 
     public UnityEngine.UI.Button buyButton;
     private TextMeshProUGUI buyButtonText;
-    // public TextMeshProUGUI text;
-    // private string startText;
-    private string startButtonText = "Compra";
+    
+    private readonly string startButtonText = "Compra";
 
-    private static string[] skillKeys = { "superspeed", "double_jump", "shield", "slowmo" };
+    private static readonly string[] skillKeys = { "superspeed", "double_jump", "shield", "slowmo" };
 
     // Ogni indice punta ad una skill diversa.
     // Valore 0: skill non acquistata
     // Valore 1: skill acquistata
     // (DA IMPLEMENTARE) Valore 2: skill equipaggiata
     public static int[] state = { 0, 0, 0, 0 };
-
-    public void Start()
-    {
-
-
-
-
-    }
 
     public void Setup(int id)
     {
@@ -79,10 +69,6 @@ public class ActiveSkillPopup : MonoBehaviour
 
     public void BuyCheck()
     {
-
-        // Debug.Log(" Comprando skill id =" + skillID);
-
-        //  if (state[skillID] == 1) BlockBuy();
         if (WalletManager.instance)
             if (!WalletManager.instance.CanBuy(cost))
             {
