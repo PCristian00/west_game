@@ -101,13 +101,13 @@ public class PlayerManager : MonoBehaviour
 
     public void LoadUpgrades()
     {
-        Debug.Log("Caricamento upgrades");
+       // Debug.Log("Caricamento upgrades");
         maxHealth = SaveManager.LoadInt(healthKey, maxHealth);
-        Debug.Log(maxHealth);
+        // Debug.Log(maxHealth);
         damageMultiplier = SaveManager.LoadFloat(damageKey);
         coinMultiplier = SaveManager.LoadFloat(coinKey);
 
-        Debug.Log("CARICATI: " + DebugUpgrade());
+       // Debug.Log("CARICATI: " + DebugUpgrade());
     }
 
     public string DebugUpgrade()

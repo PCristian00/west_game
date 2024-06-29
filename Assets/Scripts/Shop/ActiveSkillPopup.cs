@@ -60,7 +60,7 @@ public class ActiveSkillPopup : MonoBehaviour
 
         if (states[skillID] >= 1) BlockBuy();
 
-        Debug.Log("Setup, skill id " + skillID);
+        // Debug.Log("Setup, skill id " + skillID);
 
         switch (id)
         {

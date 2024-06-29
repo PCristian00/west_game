@@ -26,7 +26,7 @@ public class BuyableUpgrade : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
 
         button = GetComponent<UnityEngine.UI.Button>();
         buttonText = GetComponentInChildren<TextMeshProUGUI>();
@@ -90,21 +90,21 @@ public class BuyableUpgrade : MonoBehaviour
             case UpgradeType.Health:
                 int upgradedHealth = SaveManager.LoadInt(PlayerManager.instance.healthKey);
                 upgradedHealth += value;
-                Debug.Log("Salvataggio di " + upgradedHealth + " in Prefs (VITA MAX)");
+                // Debug.Log("Salvataggio di " + upgradedHealth + " in Prefs (VITA MAX)");
                 SaveManager.UpdateInt(PlayerManager.instance.healthKey, upgradedHealth);
                 break;
 
             case UpgradeType.Damage:
                 float upgradedDamage = SaveManager.LoadFloat(PlayerManager.instance.damageKey);
                 upgradedDamage += multiplier;
-                Debug.Log("Salvataggio di " + upgradedDamage + " in Prefs (MULTIP. DANNI)");
+                // Debug.Log("Salvataggio di " + upgradedDamage + " in Prefs (MULTIP. DANNI)");
                 SaveManager.UpdateFloat(PlayerManager.instance.damageKey, upgradedDamage);
                 break;
 
             case UpgradeType.Coin:
                 float upgradedCoin = SaveManager.LoadFloat(PlayerManager.instance.coinKey);
                 upgradedCoin += multiplier;
-                Debug.Log("Salvataggio di " + upgradedCoin + " in Prefs (MULTIP. MONETE)");
+                // Debug.Log("Salvataggio di " + upgradedCoin + " in Prefs (MULTIP. MONETE)");
                 SaveManager.UpdateFloat(PlayerManager.instance.coinKey, upgradedCoin);
                 break;
         }
@@ -120,7 +120,7 @@ public class BuyableUpgrade : MonoBehaviour
         string key = id.ToString() + "_upgrade_level";
         PlayerPrefs.SetInt(key, upgradeCounter);
 
-        Debug.Log("Salvato in Prefs upgrade a " + id.ToString());
+       // Debug.Log("Salvato in Prefs upgrade a " + id.ToString());
     }
 
     public void LoadUpgrade()
@@ -139,6 +139,6 @@ public class BuyableUpgrade : MonoBehaviour
             if (!WalletManager.instance.CanBuy(cost) || upgradeCounter >= upgradeLimit)
                 BlockUpgrade();
         }
-        else Debug.Log("Non ci sono upgrade precedenti per " + id.ToString());
+        // else Debug.Log("Non ci sono upgrade precedenti per " + id.ToString());
     }
 }

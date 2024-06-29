@@ -12440,7 +12440,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 946263879}
         m_TargetAssemblyTypeName: ActiveSkillPopup, Assembly-CSharp
-        m_MethodName: BuyCheck
+        m_MethodName: EquipCheck
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
