@@ -20,7 +20,7 @@ public class BuyableUpgrade : MonoBehaviour
     private TextMeshProUGUI buttonText;
     public TextMeshProUGUI text;
     private string startText;
-    private string startButtonText = "Potenzia";
+    private string startButtonText;
     public Image icon;
 
     // Start is called before the first frame update
