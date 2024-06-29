@@ -5,7 +5,7 @@ public class BuyableUpgrade : MonoBehaviour
 {
     public int cost;
 
-   // public int id;
+    // public int id;
 
     public enum UpgradeType
     {
@@ -49,15 +49,21 @@ public class BuyableUpgrade : MonoBehaviour
     {
         WalletManager.instance.Buy(cost);
 
+
+        float multiplier = 0.2f;
+
         switch (id)
         {
             case UpgradeType.Health:
-                // PlayerManager.instance.maxHealth += 50;
-                SaveManager.UpdateInt(PlayerManager.instance.healthKey, 100);
+                int upgradedHealth = SaveManager.LoadInt(PlayerManager.instance.healthKey);
+                upgradedHealth += 50;
+                Debug.Log("Salvataggio di " + upgradedHealth + " in Prefs (VITA MAX)");
+                SaveManager.UpdateInt(PlayerManager.instance.healthKey, upgradedHealth);
                 break;
 
             case UpgradeType.Damage:
-                PlayerManager.instance.damageMultiplier += 1;
+                multiplier *= PlayerManager.instance.damageMultiplier;
+                SaveManager.UpdateFloat(PlayerManager.instance.healthKey, multiplier);
                 break;
 
             case UpgradeType.Coin:
@@ -65,7 +71,7 @@ public class BuyableUpgrade : MonoBehaviour
                 break;
         }
 
-       // Attivare quando upgrade max raggiunto
-       // button.enabled = false;
+        // Attivare quando upgrade max raggiunto
+        // button.enabled = false;
     }
 }

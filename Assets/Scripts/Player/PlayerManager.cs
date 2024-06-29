@@ -38,11 +38,13 @@ public class PlayerManager : MonoBehaviour
         instance = this;
 
         LoadUpgrades();
+        
+        // TEORICAMENTE INUTILE
         if (maxHealth == 0) maxHealth = 50;
 
         health = maxHealth;
 
-        audioSource = GetComponent<AudioSource>();       
+        audioSource = GetComponent<AudioSource>();
 
         // DebugUpgrade();
     }
@@ -59,9 +61,7 @@ public class PlayerManager : MonoBehaviour
         }
 
         else
-        {
-            // FORSE RIMUOVERE: I power-up non sono raccolti ma equipaggiati
-
+        {            
             if (other.CompareTag("Powerup"))
             {
                 // Attiva ogni power-up contenuto nell'oggetto in collisione
@@ -102,12 +102,12 @@ public class PlayerManager : MonoBehaviour
     public void LoadUpgrades()
     {
         Debug.Log("Caricamento upgrades");
-        maxHealth = SaveManager.LoadInt(healthKey);
+        maxHealth = SaveManager.LoadInt(healthKey, maxHealth);
         Debug.Log(maxHealth);
         damageMultiplier = SaveManager.LoadFloat(damageKey);
         coinMultiplier = SaveManager.LoadFloat(coinKey);
 
-        Debug.Log("CARICATI: "+DebugUpgrade());
+        Debug.Log("CARICATI: " + DebugUpgrade());
     }
 
     public string DebugUpgrade()

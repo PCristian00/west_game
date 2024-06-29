@@ -2,27 +2,27 @@ using UnityEngine;
 
 public static class SaveManager
 {   
-    public static int LoadInt(string key)
+    public static int LoadInt(string key, int startValue = 0)
     {
         if (PlayerPrefs.HasKey(key))
             return PlayerPrefs.GetInt(key);
         else
         {
             // wallet = 0;
-            UpdateInt(key, 0);
-            return 0;
+            UpdateInt(key, startValue);
+            return startValue;
         }
     }
 
-    public static float LoadFloat(string key)
+    public static float LoadFloat(string key, float startValue = 1f)
     {
         if (PlayerPrefs.HasKey(key))
             return PlayerPrefs.GetFloat(key);
         else
         {
             // wallet = 0;
-            UpdateFloat(key, 1);
-            return 1;
+            UpdateFloat(key, startValue);
+            return startValue;
         }
     }
 
