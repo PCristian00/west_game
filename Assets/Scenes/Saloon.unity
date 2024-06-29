@@ -3475,8 +3475,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 24
+  m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3839,8 +3839,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 24
+  m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -4800,8 +4800,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 24
+  m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6918,8 +6918,8 @@ GameObject:
   - component: {fileID: 976921099}
   - component: {fileID: 976921102}
   - component: {fileID: 976921101}
-  - component: {fileID: 976921100}
   - component: {fileID: 976921103}
+  - component: {fileID: 976921100}
   m_Layer: 5
   m_Name: MPUp
   m_TagString: Untagged
@@ -6993,7 +6993,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 976921103}
         m_TargetAssemblyTypeName: BuyableUpgrade, Assembly-CSharp
-        m_MethodName: PriceCheck
+        m_MethodName: UpgradeCheck
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7058,6 +7058,8 @@ MonoBehaviour:
   upgradeLimit: 2
   id: 2
   button: {fileID: 0}
+  text: {fileID: 506458620}
+  icon: {fileID: 1265445211}
 --- !u!1 &994027914
 GameObject:
   m_ObjectHideFlags: 0
@@ -7219,7 +7221,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1029921653}
         m_TargetAssemblyTypeName: BuyableUpgrade, Assembly-CSharp
-        m_MethodName: PriceCheck
+        m_MethodName: UpgradeCheck
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7284,6 +7286,8 @@ MonoBehaviour:
   upgradeLimit: 2
   id: 1
   button: {fileID: 0}
+  text: {fileID: 535206502}
+  icon: {fileID: 1927284784}
 --- !u!1 &1084677572
 GameObject:
   m_ObjectHideFlags: 0
@@ -10736,8 +10740,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1507026220}
-        m_TargetAssemblyTypeName: BuyableItem, Assembly-CSharp
-        m_MethodName: PriceCheck
+        m_TargetAssemblyTypeName: BuyableUpgrade, Assembly-CSharp
+        m_MethodName: UpgradeCheck
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10802,6 +10806,8 @@ MonoBehaviour:
   upgradeLimit: 2
   id: 0
   button: {fileID: 0}
+  text: {fileID: 721463117}
+  icon: {fileID: 1961495274}
 --- !u!1 &1521700930
 GameObject:
   m_ObjectHideFlags: 0

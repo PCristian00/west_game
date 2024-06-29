@@ -18,48 +18,64 @@ public class BuyableUpgrade : MonoBehaviour
 
     public Button button;
     private TextMeshProUGUI buttonText;
-    private readonly string standardText = "Potenzia";
+    public TextMeshProUGUI text;
+    private string startText;
+    private string startButtonText = "Potenzia";
+    public Image icon;
 
     // Start is called before the first frame update
     void Start()
     {
         button = GetComponent<Button>();
         buttonText = GetComponentInChildren<TextMeshProUGUI>();
-        buttonText.text = standardText + $" [{cost}]";
+        startButtonText = buttonText.text;
+
+        // VERIFICA E FINISCI
+        if (text)
+        {
+            startText = text.text;
+            text.text = startText + $"\n{upgradeCounter}/{upgradeLimit}";
+        }
+
+        buttonText.text = startButtonText + $" [{cost}]";
     }
 
     // AGGIUNGERE QUI FUNZIONI PER SCURIRE ICONA O ALTRO
-    public void StopUpgrade()
+    public void BlockUpgrade()
     {
         button.interactable = false;
 
         if (upgradeCounter >= upgradeLimit) buttonText.text = "MAX";
+
+        // IMPOSTARE COLORE DIVERSO
+        if (icon) icon.color = Color.red;
     }
 
-    public void PriceCheck()
+    public void UpgradeCheck()
     {
         if (upgradeCounter < upgradeLimit)
             if (WalletManager.instance)
                 if (!WalletManager.instance.CanBuy(cost))
-                    StopUpgrade();
+                    BlockUpgrade();
                 else
                 {
                     Upgrade();
-                    if (!WalletManager.instance.CanBuy(cost))
-                        StopUpgrade();
                 }
             else Debug.Log("NESSUN WALLET");
         else
-            StopUpgrade();
+            BlockUpgrade();
     }
 
     public void Upgrade()
     {
         WalletManager.instance.Buy(cost);
 
-        cost += 10;
-        buttonText.text = standardText + $" [{cost}]";
         upgradeCounter++;
+        cost += 10;
+
+        if (text) text.text = startText + $"\n{upgradeCounter}/{upgradeLimit}";
+        buttonText.text = startButtonText + $" [{cost}]";
+
 
         Debug.Log("counter " + upgradeCounter + " e nuovo costo a " + cost);
 
@@ -89,5 +105,8 @@ public class BuyableUpgrade : MonoBehaviour
                 SaveManager.UpdateFloat(PlayerManager.instance.coinKey, upgradedCoin);
                 break;
         }
+
+        if (!WalletManager.instance.CanBuy(cost) || upgradeCounter >= upgradeLimit)
+            BlockUpgrade();
     }
 }
