@@ -3283,6 +3283,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3547693090536040950, guid: de8317b3b0dd9364a9857146e77d96eb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4643575117908102980, guid: de8317b3b0dd9364a9857146e77d96eb, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -3691,6 +3695,10 @@ PrefabInstance:
       propertyPath: loadingTest
       value: 
       objectReference: {fileID: 2049149126}
+    - target: {fileID: 5854150610713407954, guid: 3b901ff6852a58c438fc39eb5468dc33, type: 3}
+      propertyPath: m_Name
+      value: Revolver [E]
+      objectReference: {fileID: 0}
     - target: {fileID: 6262972911530174338, guid: 3b901ff6852a58c438fc39eb5468dc33, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3729,6 +3737,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6262972911530174338, guid: 3b901ff6852a58c438fc39eb5468dc33, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7317634652391228825, guid: 3b901ff6852a58c438fc39eb5468dc33, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

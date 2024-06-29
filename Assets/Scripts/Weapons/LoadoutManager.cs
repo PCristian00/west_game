@@ -40,6 +40,20 @@ public class LoadoutManager : MonoBehaviour
         instance = this;
         CurrentWeapon = weapons[current];
         LoadOutInfo();
+
+        //GunPopup.states
+
+        for (int i = 0; i < GunPopup.states.Length; i++)
+        {
+            if (GunPopup.states[i] == 2)
+            {
+                current = i;
+                weapons[i].name += " [E]";
+            }
+        }
+
+        // RemoveUnequipped();
+        // Debug.Log(weapons.Length);
     }
     // Update is called once per frame
     void Update()
@@ -68,31 +82,49 @@ public class LoadoutManager : MonoBehaviour
 
     private void ChangeWeapon()
     {
+        Debug.Log("Changing weapon..");
+
         if (next)
         {
             weapons[current].SetActive(false);
-            current++;
-            // Debug.Log(current);
-            if (current >= weapons.Length)
+
+            Debug.Log("N");
+
+            do
             {
-                current = 0;
-            }
-            // Debug.Log("AUM// Arma " + current + ": " + weapons[current].gameObject.name);
+                Debug.Log("N Provando " + weapons[current].name);
+
+                current++;
+                // Debug.Log(current);
+                if (current >= weapons.Length)
+                {
+                    current = 0;
+                }
+                // Debug.Log("AUM// Arma " + current + ": " + weapons[current].gameObject.name);
+            } while (!weapons[current].name.Contains("E"));
+
             weapons[current].SetActive(true);
             CurrentWeapon = weapons[current];
         }
 
         else
         {
+            Debug.Log("!N");
             weapons[current].SetActive(false);
-            current--;
-            //  Debug.Log(current);
-            if (current < 0)
+
+            do
             {
+                Debug.Log("!N Provando " + weapons[current].name);
+
+                current--;
                 //  Debug.Log(current);
-                current = weapons.Length - 1;
-            }
-            //  Debug.Log("DEC// Arma " + current+": " + weapons[current].gameObject.name);
+                if (current < 0)
+                {
+                    //  Debug.Log(current);
+                    current = weapons.Length - 1;
+                }
+                //  Debug.Log("DEC// Arma " + current+": " + weapons[current].gameObject.name);
+            } while (!weapons[current].name.Contains("E"));
             weapons[current].SetActive(true);
             CurrentWeapon = weapons[current];
         }
@@ -114,12 +146,12 @@ public class LoadoutManager : MonoBehaviour
             // Debug.Log("Arma caricata: " + weapon.name + ";");
             //try
             //{
-                weapon.SetActive(true);
+            weapon.SetActive(true);
             //} catch (Exception e)
             //{
             //    Debug.Log(e);
             //}
-            
+
 
             //  weapon.GetComponent<ProjectileGun>().Hide(false);
         }
@@ -132,16 +164,41 @@ public class LoadoutManager : MonoBehaviour
 
     private void LoadComplete()
     {
-        for (int i = 0; i < weapons.Length; i++)
-        {
 
-            // Invoke(nameof(ChangeWeapon), 0.5f);
-            ChangeWeapon();
+        foreach (var weapon in weapons)
+        {
+            // Debug.Log("Arma caricata: " + weapon.name + ";");
+            //try
+            //{
+            weapon.SetActive(false);
+            //} catch (Exception e)
+            //{
+            //    Debug.Log(e);
+            //}
+
+
+            //  weapon.GetComponent<ProjectileGun>().Hide(false);
         }
 
-       // weapons[0].SetActive(true);
+        ChangeWeapon();
+        //for (int i = 0; i < weapons.Length; i++)
+        //{
+
+        //    // Invoke(nameof(ChangeWeapon), 0.5f);
+        //    ChangeWeapon();
+        //}
+
+        // weapons[0].SetActive(true);
 
         if (loadingTest)
             loadingTest.SetActive(false);
+    }
+
+    private void RemoveUnequipped()
+    {
+        //for (int i = 0; i < weapons.Length; i++)
+        //{
+        //    if (!weapons[i].name.Contains("[E]")) Destroy(weapons[i]);
+        //}
     }
 }

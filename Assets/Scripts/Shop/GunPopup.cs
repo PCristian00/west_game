@@ -123,8 +123,10 @@ public class GunPopup : MonoBehaviour
 
         states[gunID] = 2;
 
-        for (int i = 0; i < states.Length; i++)
-            if (states[i] == 2 && i != gunID) states[i] = 1;
+        // PARTE CHE PERMETTE DI EQUIPAGGIARE SOLO 1
+
+        //for (int i = 0; i < states.Length; i++)
+        //    if (states[i] == 2 && i != gunID) states[i] = 1;
 
         SaveGunStates();
         BlockEquip();
