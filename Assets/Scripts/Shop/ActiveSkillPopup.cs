@@ -7,6 +7,7 @@ public class ActiveSkillPopup : MonoBehaviour
     public TextMeshProUGUI skillDesc;
 
     public int skillID;
+    private string skillKey;
 
     public int cost = 50;
 
@@ -16,10 +17,13 @@ public class ActiveSkillPopup : MonoBehaviour
     // private string startText;
     private string startButtonText = "Compra";
 
-    public static int[] bought =
-    {
-        0, 0, 0, 0
-    };
+    private static string[] skillKeys = { "superspeed", "double_jump", "shield", "slowmo" };
+
+    // Ogni indice punta ad una skill diversa.
+    // Valore 0: skill non acquistata
+    // Valore 1: skill acquistata
+    // (DA IMPLEMENTARE) Valore 2: skill equipaggiata
+    public static int[] state = { 0, 0, 0, 0 };
 
     public void Start()
     {
@@ -31,12 +35,12 @@ public class ActiveSkillPopup : MonoBehaviour
 
     public void Setup(int id)
     {
-
+        LoadSkillState();
 
         gameObject.SetActive(true);
 
         buyButton.interactable = true;
-        
+
 
         buyButtonText = buyButton.GetComponentInChildren<TextMeshProUGUI>();
         // startButtonText = buyButtonText.text;
@@ -44,7 +48,7 @@ public class ActiveSkillPopup : MonoBehaviour
 
         skillID = id;
 
-        if (bought[skillID] == 1) BlockBuy();
+        if (state[skillID] == 1) BlockBuy();
 
         Debug.Log("Setup, skill id " + skillID);
 
@@ -53,18 +57,22 @@ public class ActiveSkillPopup : MonoBehaviour
             case 0:
                 skillName.text = "Super Velocità";
                 skillDesc.text = "Aumenta la velocità di spostamento";
+                // skillKey = "superspeed";
                 break;
             case 1:
                 skillName.text = "Doppio Salto";
                 skillDesc.text = "Permette di eseguire il doppio salto";
+                // skillKey = "double_jump";
                 break;
             case 2:
                 skillName.text = "Scudo";
                 skillDesc.text = "Attiva uno scudo che ti rende invulnerabile";
+                // skillKey = "shield";
                 break;
             case 3:
                 skillName.text = "Slow Motion";
                 skillDesc.text = "Rallenta i nemici";
+                // skillKey = "slowmo";
                 break;
         }
     }
@@ -72,10 +80,10 @@ public class ActiveSkillPopup : MonoBehaviour
     public void BuyCheck()
     {
 
-        Debug.Log(" Comprando skill id =" + skillID);
+        // Debug.Log(" Comprando skill id =" + skillID);
 
-        if (bought[skillID] == 1) BlockBuy();
-        else if (WalletManager.instance)
+        //  if (state[skillID] == 1) BlockBuy();
+        if (WalletManager.instance)
             if (!WalletManager.instance.CanBuy(cost))
             {
                 BlockBuy();
@@ -91,19 +99,38 @@ public class ActiveSkillPopup : MonoBehaviour
     // PER NON USARE LOADOUT, INSERIRE QUI QUALCHE FUNZIONE CHE EQUIPAGGIA SENZA SPENDERE DENARO?
     public void BlockBuy()
     {
-        Debug.Log("Già comprato");
+        // Debug.Log("Già comprato");
         buyButton.interactable = false;
-        if (bought[skillID] == 1) buyButtonText.text = "COMPRATO";
+        if (state[skillID] == 1) buyButtonText.text = "COMPRATO";
     }
 
     public void Buy()
     {
-        Debug.Log("COMPRATO");
-        bought[skillID] = 1;
-        
+        // Debug.Log("COMPRATO");
+        state[skillID] = 1;
+
         WalletManager.instance.Buy(cost);
 
         BlockBuy();
 
+        SaveSkillState();
+
+    }
+
+    // AGGIUNGERE FUNZIONE DI EQUIPAGGIAMENTO
+    // La funzione di equipaggiamento imposta state[SkillID] a 2
+    // Deve impostare anche tutti gli altri state a 1 se ve ne sono alcuni a 2
+
+    public void SaveSkillState()
+    {
+        PlayerPrefs.SetInt(skillKeys[skillID], state[skillID]);
+    }
+
+    public void LoadSkillState()
+    {
+        for (int i = 0; i < skillKeys.Length; i++)
+        {
+            state[i] = SaveManager.LoadInt(skillKeys[i]);
+        }
     }
 }
