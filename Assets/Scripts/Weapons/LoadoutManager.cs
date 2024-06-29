@@ -7,6 +7,9 @@ public class LoadoutManager : MonoBehaviour
 
     public GameObject[] weapons;
 
+    // PARTE DA 1 perché REVOLVER sempre attivo
+    private int activeWeaponsCounter = 1;
+
     private int current = 0;
 
     private GameObject _currentWeapon;
@@ -49,6 +52,7 @@ public class LoadoutManager : MonoBehaviour
             {
                 current = i;
                 weapons[i].name += " [E]";
+                activeWeaponsCounter++;
             }
         }
 
@@ -59,7 +63,7 @@ public class LoadoutManager : MonoBehaviour
     void Update()
     {
         // L'arma viene cambiata solo se non sta ricaricando
-        if (!_currentWeapon.GetComponent<ProjectileGun>().reloading)
+        if (!_currentWeapon.GetComponent<ProjectileGun>().reloading && activeWeaponsCounter > 1)
         {
             if (Input.GetButtonDown("NextWeapon") || Input.GetAxis("Mouse ScrollWheel") > 0f)
             {
