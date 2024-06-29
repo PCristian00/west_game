@@ -2004,6 +2004,36 @@ RectTransform:
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &309976870 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7701539063448268674, guid: 9fca569613299774685e6ff2bf635059, type: 3}
+  m_PrefabInstance: {fileID: 1123661652}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &309976875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 309976870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db7fed265b030a74db4f9ea2ba7f9a55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltip: CANCELLA DATI!!!
+--- !u!114 &309976876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 309976870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51087eda914cc394bb73417307fb012d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &341061307
 GameObject:
   m_ObjectHideFlags: 0
@@ -6679,6 +6709,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: {fileID: 58595657}
   skillDesc: {fileID: 2032641236}
+  skillID: 0
   cost: 50
   buyButton: {fileID: 1178307350}
 --- !u!1 &954856282
@@ -8147,6 +8178,10 @@ PrefabInstance:
       propertyPath: m_Quality
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7701539063448268674, guid: 9fca569613299774685e6ff2bf635059, type: 3}
+      propertyPath: m_Name
+      value: PortaStaff (INT)
+      objectReference: {fileID: 0}
     - target: {fileID: 7854092041662470409, guid: 9fca569613299774685e6ff2bf635059, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.030978
@@ -8380,6 +8415,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4446831448467822076, guid: 9fca569613299774685e6ff2bf635059, type: 3}
       insertIndex: -1
       addedObject: {fileID: 533422363}
+    - targetCorrespondingSourceObject: {fileID: 7701539063448268674, guid: 9fca569613299774685e6ff2bf635059, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 309976876}
+    - targetCorrespondingSourceObject: {fileID: 7701539063448268674, guid: 9fca569613299774685e6ff2bf635059, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 309976875}
     - targetCorrespondingSourceObject: {fileID: 7140470253472477429, guid: 9fca569613299774685e6ff2bf635059, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1623657992}
@@ -8807,10 +8848,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 946263874}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 946263879}
+        m_TargetAssemblyTypeName: ActiveSkillPopup, Assembly-CSharp
+        m_MethodName: BuyCheck
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
