@@ -23,8 +23,8 @@ public class ActiveSkillPopup : MonoBehaviour
     // Ogni indice punta ad una skill diversa.
     // Valore 0: skill non acquistata
     // Valore 1: skill acquistata
-    // (DA IMPLEMENTARE) Valore 2: skill equipaggiata
-    public static int[] state = { 0, 0, 0, 0 };
+    // Valore 2: skill equipaggiata (SOLO UNA PER ARRAY)
+    public static int[] states = { 0, 0, 0, 0 };
 
     public void SetupBuyButton()
     {
@@ -44,6 +44,8 @@ public class ActiveSkillPopup : MonoBehaviour
         equipButtonText.text = startEquipButtonText;
         equipButton.interactable = true;
         equipButton.gameObject.SetActive(true);
+
+        if (states[skillID] == 2) BlockEquip();
     }
 
     public void Setup(int id)
@@ -54,12 +56,9 @@ public class ActiveSkillPopup : MonoBehaviour
 
         SetupBuyButton();
 
-
-
-
         skillID = id;
 
-        if (state[skillID] == 1) BlockBuy();
+        if (states[skillID] >= 1) BlockBuy();
 
         Debug.Log("Setup, skill id " + skillID);
 
@@ -103,35 +102,22 @@ public class ActiveSkillPopup : MonoBehaviour
         else Debug.Log("NESSUN WALLET");
     }
 
-    public void EquipCheck()
+    public void Buy()
     {
-        if (state[skillID] == 2) BlockEquip();
+        // Debug.Log("COMPRATO");
+        states[skillID] = 1;
 
-        state[skillID] = 2;
+        WalletManager.instance.Buy(cost);
 
-        for (int i = 0; i < state.Length; i++)
-            if (state[i] == 2 && i != skillID) state[i] = 1;
-
-        SaveSkillStates();
-
-        BlockEquip();
+        BlockBuy();
+        SaveSkillState();
     }
 
-    public void BlockEquip()
-    {
-
-
-        equipButtonText.text = "EQUIPAGGIATO";
-        equipButton.interactable = false;
-
-    }
-    // PER NON USARE LOADOUT, INSERIRE QUI QUALCHE FUNZIONE CHE EQUIPAGGIA SENZA SPENDERE DENARO?
     public void BlockBuy()
     {
-        // Debug.Log("Già comprato");
         buyButton.interactable = false;
 
-        if (state[skillID] == 1)
+        if (states[skillID] >= 1)
         {
             buyButton.gameObject.SetActive(false);
             buyButtonText.text = "COMPRATO";
@@ -140,33 +126,36 @@ public class ActiveSkillPopup : MonoBehaviour
         }
     }
 
-    public void Buy()
+    public void EquipCheck()
     {
-        // Debug.Log("COMPRATO");
-        state[skillID] = 1;
+        if (states[skillID] == 2) BlockEquip();
 
-        WalletManager.instance.Buy(cost);
+        states[skillID] = 2;
 
-        BlockBuy();
+        for (int i = 0; i < states.Length; i++)
+            if (states[i] == 2 && i != skillID) states[i] = 1;
 
-        SaveSkillState();
+        SaveSkillStates();
+        BlockEquip();
+    }
+
+    public void BlockEquip()
+    {
+        equipButtonText.text = "EQUIPAGGIATO";
+        equipButton.interactable = false;
 
     }
 
-    // AGGIUNGERE FUNZIONE DI EQUIPAGGIAMENTO
-    // La funzione di equipaggiamento imposta state[SkillID] a 2
-    // Deve impostare anche tutti gli altri state a 1 se ve ne sono alcuni a 2
-
     public void SaveSkillState()
     {
-        PlayerPrefs.SetInt(skillKeys[skillID], state[skillID]);
+        PlayerPrefs.SetInt(skillKeys[skillID], states[skillID]);
     }
 
     public void LoadSkillStates()
     {
         for (int i = 0; i < skillKeys.Length; i++)
         {
-            state[i] = SaveManager.LoadInt(skillKeys[i]);
+            states[i] = SaveManager.LoadInt(skillKeys[i]);
         }
     }
 
@@ -174,7 +163,7 @@ public class ActiveSkillPopup : MonoBehaviour
     {
         for (int i = 0; i < skillKeys.Length; i++)
         {
-            PlayerPrefs.SetInt(skillKeys[i], state[i]);
+            PlayerPrefs.SetInt(skillKeys[i], states[i]);
         }
     }
 }
