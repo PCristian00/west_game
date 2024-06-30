@@ -53,8 +53,11 @@ public class LoadoutManager : MonoBehaviour
                 current = i;
                 weapons[i].name += " [E]";
                 activeWeaponsCounter++;
-            }
+            }            
         }
+
+        // Se non sono state comprate altre armi o il revolver potenziato, carica il revolver classico
+        if (activeWeaponsCounter == 1 || !weapons[0].name.Contains("[E]")) weapons[3].name += " [E]";
 
         // RemoveUnequipped();
         // Debug.Log(weapons.Length);
