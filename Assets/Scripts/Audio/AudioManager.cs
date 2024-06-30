@@ -12,6 +12,7 @@ public class AudioManager : MonoBehaviour
     // MIGLIORARE SISTEMA PER BG MUSIC
     public AudioClip background_1;
     public AudioClip background_2;
+    public AudioClip background_3;
     public AudioClip pulsante_seleziona;
     public AudioClip pulsante_conferma;
     public AudioClip pulsante_annulla;
@@ -20,7 +21,7 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
-       // if(AudioVolume.instance) AudioVolume.instance.LoadVolume();
+        // if(AudioVolume.instance) AudioVolume.instance.LoadVolume();
 
         if (instance == null)
         {
@@ -70,10 +71,11 @@ public class AudioManager : MonoBehaviour
         {
             newClip = background_2;
         }
-        else
+        else if (sceneName == "Menù")
         {
-            newClip = background_1;
+            newClip = background_3;
         }
+        else newClip = background_1;
 
         // Cambia la traccia solo se è diversa da quella attuale
         if (musicSource.clip != newClip)
