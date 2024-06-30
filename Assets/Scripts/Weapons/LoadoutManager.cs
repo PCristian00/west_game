@@ -97,17 +97,16 @@ public class LoadoutManager : MonoBehaviour
 
     private void ChangeWeapon()
     {
-        Debug.Log("Changing weapon..");
 
         if (next)
         {
             weapons[current].SetActive(false);
 
-            Debug.Log("N");
+           // Debug.Log("N");
 
             do
             {
-                Debug.Log("N Provando " + weapons[current].name);
+               // Debug.Log("N Provando " + weapons[current].name);
 
                 current++;
                 // Debug.Log(current);
@@ -124,12 +123,12 @@ public class LoadoutManager : MonoBehaviour
 
         else
         {
-            Debug.Log("!N");
+           // Debug.Log("!N");
             weapons[current].SetActive(false);
 
             do
             {
-                Debug.Log("!N Provando " + weapons[current].name);
+               // Debug.Log("!N Provando " + weapons[current].name);
 
                 current--;
                 //  Debug.Log(current);
@@ -207,13 +206,5 @@ public class LoadoutManager : MonoBehaviour
 
         if (loadingTest)
             loadingTest.SetActive(false);
-    }
-
-    private void RemoveUnequipped()
-    {
-        //for (int i = 0; i < weapons.Length; i++)
-        //{
-        //    if (!weapons[i].name.Contains("[E]")) Destroy(weapons[i]);
-        //}
     }
 }
