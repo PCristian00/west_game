@@ -132,4 +132,11 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("DebugScene");
     }
+
+    public void ClearAllData()
+    {
+        PlayerPrefs.DeleteAll();
+        // Cambiare in caricamento scena menù principale
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 }
