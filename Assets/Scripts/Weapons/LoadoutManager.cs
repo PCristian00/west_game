@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LoadoutManager : MonoBehaviour
 {
@@ -44,20 +45,27 @@ public class LoadoutManager : MonoBehaviour
         CurrentWeapon = weapons[current];
         LoadOutInfo();
 
-        //GunPopup.states
-
-        for (int i = 0; i < GunPopup.states.Length; i++)
+        // AGGIUNGERe CECCHINO solo in livello Bonus
+        // Cambiare nome scena in IF con quello corretto
+        if (SceneManager.GetActiveScene().name.Equals("Sniper"))
+            weapons[4].name += "[E]";
+        else
         {
-            if (GunPopup.states[i] == 2)
+            for (int i = 0; i < GunPopup.states.Length; i++)
             {
-                current = i;
-                weapons[i].name += " [E]";
-                activeWeaponsCounter++;
-            }            
+                if (GunPopup.states[i] == 2)
+                {
+                    current = i;
+                    weapons[i].name += " [E]";
+                    activeWeaponsCounter++;
+                }
+            }
+
+            // Se non sono state comprate altre armi o il revolver potenziato, carica il revolver classico
+            if (activeWeaponsCounter == 1 || !weapons[0].name.Contains("[E]")) weapons[3].name += " [E]";
+
         }
 
-        // Se non sono state comprate altre armi o il revolver potenziato, carica il revolver classico
-        if (activeWeaponsCounter == 1 || !weapons[0].name.Contains("[E]")) weapons[3].name += " [E]";
 
         // RemoveUnequipped();
         // Debug.Log(weapons.Length);
