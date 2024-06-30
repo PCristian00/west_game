@@ -107,6 +107,9 @@ public class PlayerManager : MonoBehaviour
         damageMultiplier = SaveManager.LoadFloat(damageKey);
         coinMultiplier = SaveManager.LoadFloat(coinKey);
 
+        GunPopup.LoadGunStates();
+        ActiveSkillPopup.LoadSkillStates();
+
        // Debug.Log("CARICATI: " + DebugUpgrade());
     }
 

@@ -144,7 +144,7 @@ public class GunPopup : MonoBehaviour
         PlayerPrefs.SetInt(gunKeys[gunID], states[gunID]);
     }
 
-    public void LoadGunStates()
+    public static void LoadGunStates()
     {
         for (int i = 0; i < gunKeys.Length; i++)
         {

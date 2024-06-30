@@ -146,7 +146,7 @@ public class ActiveSkillPopup : MonoBehaviour
         PlayerPrefs.SetInt(skillKeys[skillID], states[skillID]);
     }
 
-    public void LoadSkillStates()
+    public static void LoadSkillStates()
     {
         for (int i = 0; i < skillKeys.Length; i++)
         {
