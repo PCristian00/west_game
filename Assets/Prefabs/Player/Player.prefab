@@ -217,7 +217,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 50
+  maxHealth: 50
   invincible: 0
+  damageMultiplier: 1
+  coinMultiplier: 1
+  healthLevel: 0
+  damageLevel: 0
+  coinLevel: 0
   hitSound: {fileID: 8300000, guid: d3269f2fda0939e4493bd5063a5f334a, type: 3}
   deathSound: {fileID: 8300000, guid: 9e426a726b0217b40a785599e460be74, type: 3}
   PUPickup: {fileID: 8300000, guid: c7ad5fc9ee31df54c98d8f0c29051280, type: 3}
@@ -234,21 +240,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 164b19665957c754abb0f3beba9d0c70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
+  moveSpeed: 7
   groundDrag: 5
   orientation: {fileID: 888674069841470712}
   jumpForce: 10
   jumpCooldown: 0.25
   airMultiplier: 0.4
   doubleJumpActive: 0
-  walkSpeed: 0
-  sprintSpeed: 0
   jumpKey: 32
   playerHeight: 3
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
   jumpSound: {fileID: 8300000, guid: 92a217430f2e4ee4a90c4337eeba9e95, type: 3}
+  footSteps:
+  - {fileID: 8300000, guid: cc66e016f8612c04c8195685627c0920, type: 3}
+  - {fileID: 8300000, guid: e7bd8a0b5d9a00746b4e80136fda783c, type: 3}
+  - {fileID: 8300000, guid: db2cf90c09762ec42b694aadc6e4f1a8, type: 3}
+  - {fileID: 8300000, guid: 86ad6f64d0d394a4dab1cc7c9fe2a29f, type: 3}
+  - {fileID: 8300000, guid: db315b4eccd622245bbb00e659fc4613, type: 3}
+  - {fileID: 8300000, guid: 6cc1bce7a553fd14281b07116bde139f, type: 3}
+  - {fileID: 8300000, guid: 492b6b9bfc2a91442b473281c9c2c1c8, type: 3}
+  - {fileID: 8300000, guid: e9097c062993124499221e2376da6cb0, type: 3}
+  - {fileID: 8300000, guid: 30ccdb5d5e91da747a2dc31b522e1cc4, type: 3}
+  - {fileID: 8300000, guid: d34d9d99cc311d145b81b85d0984b68d, type: 3}
+  - {fileID: 8300000, guid: d5c798598456afc45be92b5f53dab33c, type: 3}
 --- !u!114 &5427681536831620559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,8 +278,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camera: {fileID: 0}
-  raycastDistance: 10
-  hasWeapons: 1
+  raycastDistance: 5
+  hasWeapons: 0
 --- !u!82 &4368195954557856234
 AudioSource:
   m_ObjectHideFlags: 0
