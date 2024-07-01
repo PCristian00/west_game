@@ -31,6 +31,7 @@ public class PlayerManager : MonoBehaviour
     public AudioClip deathSound;
     public AudioClip PUPickup;
     public AudioClip CoinPickup;
+   // public AudioClip[] footsteps;
     private AudioSource audioSource;
 
     public void Start()

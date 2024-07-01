@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce;
     public float jumpCooldown;
     public float airMultiplier;
+    private bool isWalking = false;
     bool readyToJump;
     // public int jumpLimit = 1;
     private bool readyToDoubleJump = false;
@@ -33,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Sound")]
     public AudioClip jumpSound;
+    public AudioClip[] footSteps;
     private AudioSource audioSource;
 
     float horizontalInput;
@@ -78,6 +80,8 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         MovePlayer();
+
+
     }
 
     private void MyInput()
@@ -133,13 +137,56 @@ public class PlayerMovement : MonoBehaviour
         if (grounded)
         {
             rb.AddForce(10f * moveSpeed * moveDirection.normalized, ForceMode.Force);
-            // IMPLEMENTARE SUONO PASSI??
+
+
+            // WHILE FA GIUSTAMENTE CRASHARE TUTTO, RIMETTERE SOLO DOPO?
+            if (!moveDirection.Equals(Vector3.zero))
+            {
+                isWalking = true;
+                StepSound();
+            }
+            else
+
+                isWalking = false;
         }
 
 
         // in air (FORSE RIMUOVERE - FA FARE SCHIVATE IN ARIA)
         else if (!grounded)
             rb.AddForce(10f * airMultiplier * moveSpeed * moveDirection.normalized, ForceMode.Force);
+    }
+
+    private void StepSound()
+    {
+        int index = Random.Range(0, footSteps.Length - 1);
+
+        // Debug.Log("SUONO PASSI");
+        if (footSteps.Length > 0)
+            if (isWalking)
+            {
+                Debug.Log("passo " + index);
+                if (!audioSource.isPlaying)
+                    audioSource.PlayOneShot(footSteps[index]);
+                Debug.Log("carico prossimo");
+                Invoke(nameof(NextStep), footSteps[index].length+0.05f);
+            }
+            else Debug.Log("fermo");
+        else Debug.Log("Nessun passo (audioClip) caricato");
+    }
+
+    private void NextStep()
+    {
+        int index = Random.Range(0, footSteps.Length - 1);
+
+        // Debug.Log("SUONO PASSI");
+        if (footSteps.Length > 0)
+            if (isWalking)
+            {
+                Debug.Log("Next passo " + index);
+                if (!audioSource.isPlaying)
+                    audioSource.PlayOneShot(footSteps[index]);
+                else Debug.Log("Next passo scartato" + index);
+            }
     }
 
     private void SpeedControl()
