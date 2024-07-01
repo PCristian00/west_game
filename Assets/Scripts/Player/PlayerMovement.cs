@@ -30,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     public AudioClip jumpSound;
     public AudioClip[] footSteps;
     private AudioSource audioSource;
+    private float originalPitch;
 
     float horizontalInput;
     float verticalInput;
@@ -43,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
         instance = this;
 
         audioSource = GetComponent<AudioSource>();
+        originalPitch = audioSource.pitch;
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
@@ -134,7 +136,11 @@ public class PlayerMovement : MonoBehaviour
                 StepSound();
             }
             else
+            {
                 isWalking = false;
+                audioSource.pitch = originalPitch;
+            }
+
         }
 
         // in air
@@ -148,13 +154,21 @@ public class PlayerMovement : MonoBehaviour
 
         int index = Random.Range(0, footSteps.Length - 1);
 
+        float stepRate = 10 - moveSpeed;
+
+        audioSource.pitch = stepRate;
+
+
         if (isWalking)
         {
             if (!audioSource.isPlaying)
                 audioSource.PlayOneShot(footSteps[index]);
+            else return;
 
-            Invoke(nameof(StepSound), footSteps[index].length + 0.05f);
+            Invoke(nameof(StepSound), footSteps[index].length / stepRate);
         }
+        else
+            return;
     }
 
     private void SpeedControl()
