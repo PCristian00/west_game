@@ -5,7 +5,6 @@ public class PlayerMovement : MonoBehaviour
 
     public static PlayerMovement instance;
 
-
     [Header("Movement")]
     public float moveSpeed;
     public float groundDrag;
@@ -15,14 +14,9 @@ public class PlayerMovement : MonoBehaviour
     public float jumpCooldown;
     public float airMultiplier;
     private bool isWalking = false;
-    bool readyToJump;
-    // public int jumpLimit = 1;
+    private bool readyToJump;
     private bool readyToDoubleJump = false;
     public bool doubleJumpActive = false;
-
-    // FORSE NON IMPLEMENTATE
-    [HideInInspector] public float walkSpeed;
-    [HideInInspector] public float sprintSpeed;
 
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
@@ -43,7 +37,6 @@ public class PlayerMovement : MonoBehaviour
     Vector3 moveDirection;
 
     Rigidbody rb;
-
 
     private void Start()
     {
@@ -70,7 +63,6 @@ public class PlayerMovement : MonoBehaviour
             if (grounded)
             {
                 rb.drag = groundDrag;
-
             }
             else
                 rb.drag = 0;
@@ -80,8 +72,6 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         MovePlayer();
-
-
     }
 
     private void MyInput()
@@ -138,55 +128,33 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.AddForce(10f * moveSpeed * moveDirection.normalized, ForceMode.Force);
 
-
-            // WHILE FA GIUSTAMENTE CRASHARE TUTTO, RIMETTERE SOLO DOPO?
             if (!moveDirection.Equals(Vector3.zero))
             {
                 isWalking = true;
                 StepSound();
             }
             else
-
                 isWalking = false;
         }
 
-
-        // in air (FORSE RIMUOVERE - FA FARE SCHIVATE IN ARIA)
+        // in air
         else if (!grounded)
             rb.AddForce(10f * airMultiplier * moveSpeed * moveDirection.normalized, ForceMode.Force);
     }
 
     private void StepSound()
     {
+        if (footSteps.Length == 0) return;
+
         int index = Random.Range(0, footSteps.Length - 1);
 
-        // Debug.Log("SUONO PASSI");
-        if (footSteps.Length > 0)
-            if (isWalking)
-            {
-                Debug.Log("passo " + index);
-                if (!audioSource.isPlaying)
-                    audioSource.PlayOneShot(footSteps[index]);
-                Debug.Log("carico prossimo");
-                Invoke(nameof(NextStep), footSteps[index].length+0.05f);
-            }
-            else Debug.Log("fermo");
-        else Debug.Log("Nessun passo (audioClip) caricato");
-    }
+        if (isWalking)
+        {
+            if (!audioSource.isPlaying)
+                audioSource.PlayOneShot(footSteps[index]);
 
-    private void NextStep()
-    {
-        int index = Random.Range(0, footSteps.Length - 1);
-
-        // Debug.Log("SUONO PASSI");
-        if (footSteps.Length > 0)
-            if (isWalking)
-            {
-                Debug.Log("Next passo " + index);
-                if (!audioSource.isPlaying)
-                    audioSource.PlayOneShot(footSteps[index]);
-                else Debug.Log("Next passo scartato" + index);
-            }
+            Invoke(nameof(StepSound), footSteps[index].length + 0.05f);
+        }
     }
 
     private void SpeedControl()
