@@ -14,7 +14,7 @@ public class BuyOnExamine : MonoBehaviour, IExamine
     public void Examine()
     {
         if (!bought)
-            if (WalletManager.instance.BuyItem(cost))
+            if (WalletManager.instance.CanBuy(cost))
             {
                 ApplyEffect();
 

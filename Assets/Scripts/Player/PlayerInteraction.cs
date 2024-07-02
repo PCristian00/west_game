@@ -6,14 +6,30 @@ public class PlayerInteraction : MonoBehaviour
     public float raycastDistance = 5f;
 
     private GameObject lastHitGameObject;
-    private void Start()
-    {
-       // OnWeaponChanged(LoadoutManager.instance.CurrentWeapon);
+
+    public bool hasWeapons = true;
+
+
+    private void SetCursorLocked(bool locked)
+    {       
+        Cursor.visible = !locked;
+        Cursor.lockState = locked ? CursorLockMode.Locked : CursorLockMode.None;
     }
 
     private void Update()
     {
-        LoadoutManager.instance.OnWeaponChanged += OnWeaponChanged;
+        if (hasWeapons)
+        {
+            LoadoutManager.instance.OnWeaponChanged += OnWeaponChanged;
+        }
+
+        SetCursorLocked(GameManager.instance.IsInputActive);
+
+        if (!GameManager.instance.IsInputActive) return;
+
+       // SetCursorLocked(false);
+
+        // Debug.Log("Input attivo");        
 
         Ray ray = _camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
 

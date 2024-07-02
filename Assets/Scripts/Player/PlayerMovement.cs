@@ -5,7 +5,6 @@ public class PlayerMovement : MonoBehaviour
 
     public static PlayerMovement instance;
 
-
     [Header("Movement")]
     public float moveSpeed;
     public float groundDrag;
@@ -14,14 +13,11 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce;
     public float jumpCooldown;
     public float airMultiplier;
-    bool readyToJump;
-    // public int jumpLimit = 1;
+    private bool isWalking = false;
+    private bool readyToJump;
     private bool readyToDoubleJump = false;
     public bool doubleJumpActive = false;
-
-    // FORSE NON IMPLEMENTATE
-    [HideInInspector] public float walkSpeed;
-    [HideInInspector] public float sprintSpeed;
+    public bool canMove = true;
 
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
@@ -33,6 +29,9 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Sound")]
     public AudioClip jumpSound;
+    public AudioClip[] footSteps;
+    private AudioSource audioSource;
+    private float originalPitch;
 
     float horizontalInput;
     float verticalInput;
@@ -41,11 +40,12 @@ public class PlayerMovement : MonoBehaviour
 
     Rigidbody rb;
 
-
     private void Start()
     {
         instance = this;
 
+        audioSource = GetComponent<AudioSource>();
+        originalPitch = audioSource.pitch;
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
@@ -66,7 +66,6 @@ public class PlayerMovement : MonoBehaviour
             if (grounded)
             {
                 rb.drag = groundDrag;
-
             }
             else
                 rb.drag = 0;
@@ -75,7 +74,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        MovePlayer();
+        if (canMove)
+            MovePlayer();
     }
 
     private void MyInput()
@@ -131,13 +131,46 @@ public class PlayerMovement : MonoBehaviour
         if (grounded)
         {
             rb.AddForce(10f * moveSpeed * moveDirection.normalized, ForceMode.Force);
-            // IMPLEMENTARE SUONO PASSI??
+
+            if (!moveDirection.Equals(Vector3.zero))
+            {
+                isWalking = true;
+                StepSound();
+            }
+            else
+            {
+                isWalking = false;
+                audioSource.pitch = originalPitch;
+            }
+
         }
 
-
-        // in air (FORSE RIMUOVERE - FA FARE SCHIVATE IN ARIA)
+        // in air
         else if (!grounded)
             rb.AddForce(10f * airMultiplier * moveSpeed * moveDirection.normalized, ForceMode.Force);
+    }
+
+    private void StepSound()
+    {
+        if (footSteps.Length == 0) return;
+
+        int index = Random.Range(0, footSteps.Length - 1);
+
+        float stepRate = 10 - moveSpeed;
+
+        audioSource.pitch = stepRate;
+
+
+        if (isWalking)
+        {
+            if (!audioSource.isPlaying)
+                audioSource.PlayOneShot(footSteps[index]);
+            else return;
+
+            Invoke(nameof(StepSound), footSteps[index].length / stepRate);
+        }
+        else
+            return;
     }
 
     private void SpeedControl()
@@ -160,7 +193,8 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
 
         // play jump sound
-        AudioSource.PlayClipAtPoint(jumpSound, gameObject.transform.position);
+        // AudioSource.PlayClipAtPoint(jumpSound, gameObject.transform.position);
+        audioSource.PlayOneShot(jumpSound);
 
         //  Debug.Log("SALTATO");
     }

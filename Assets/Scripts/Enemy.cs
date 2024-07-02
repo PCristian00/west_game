@@ -7,6 +7,8 @@ public class Enemy : MonoBehaviour
     public NavMeshAgent agent;
     public Transform player;
     public Transform attackPoint;
+    private GameObject enemyMesh;
+    private Collider enemyCollider;
 
 
     public LayerMask whatIsGround, whatIsPlayer;
@@ -47,6 +49,7 @@ public class Enemy : MonoBehaviour
     public AudioClip attackSound;
     public AudioClip hitSound;
     public AudioClip deathSound;
+    private AudioSource audioSource;
     // AGGIUNGERE SUONI DI:
     // Movimento, Rilevamento giocatore (SOLO SE ANCORA PATTUGLIA)
 
@@ -59,14 +62,24 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
+
+        if(icon)
         icon.SetActive(false);
 
         // Rimuovere transform e inserire il punto in cui la mesh ha l'arma
+       if(!attackPoint)
         attackPoint = transform;
+
+        // enemyMesh = GetComponentInChildren<MeshRenderer>().gameObject;
+
+        //  gunMesh.SetActive(false);
+
+       // enemyCollider = enemyMesh.GetComponent<Collider>();
     }
 
     private void Awake()
-    {
+    {      
         // Se il nemico può solo camminare, il suo obiettivo è raggiungere la capturePoint e non il giocatore
         if (!walkOnly)
             player = GameObject.Find("PlayerObj").transform;
@@ -100,8 +113,11 @@ public class Enemy : MonoBehaviour
 
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-        if (playerInSightRange) icon.SetActive(true);
-        else icon.SetActive(false);
+        if (icon)
+        {
+            if (playerInSightRange) icon.SetActive(true);
+            else icon.SetActive(false);
+        }
 
         if (!playerInSightRange && !playerInAttackRange & canPatrol) Patroling();
         if (playerInSightRange && !playerInAttackRange & canChase) ChasePlayer();
@@ -164,7 +180,10 @@ public class Enemy : MonoBehaviour
                 // Vedi attack point di projectile gun
 
                 Rigidbody rb = Instantiate(projectile, attackPoint.position, Quaternion.identity).GetComponent<Rigidbody>();
-                AudioSource.PlayClipAtPoint(attackSound, gameObject.transform.position);
+
+                if(attackSound)
+                audioSource.PlayOneShot(attackSound);
+                // AudioSource.PlayClipAtPoint(attackSound, gameObject.transform.position);
 
                 float multiplier;
                 // La velocita' del proiettile e' influenzata da GameManager
@@ -188,16 +207,17 @@ public class Enemy : MonoBehaviour
         alreadyAttacked = false;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         health -= damage;
 
-        // Debug.Log("OUCH! " + gameObject.name + " ha subito " + captureDamage + " danni!!! (vita rimasta = " + health + ")");
+        Debug.Log("OUCH! " + gameObject.name + " ha subito " + damage + " danni!!! (vita rimasta = " + health + ")");
 
         if (health <= 0 && canAttack)
         {
             canAttack = false;
-            AudioSource.PlayClipAtPoint(deathSound, gameObject.transform.position);
+            // AudioSource.PlayClipAtPoint(deathSound, gameObject.transform.position);
+            audioSource.PlayOneShot(deathSound);
             Instantiate(deathEffect, transform.position, Quaternion.identity);
 
             // rb.AddExplosionForce(3, transform.position, 3);
@@ -206,7 +226,7 @@ public class Enemy : MonoBehaviour
 
             Invoke(nameof(DestroyEnemy), 0.5f);
         }
-        else AudioSource.PlayClipAtPoint(hitSound, gameObject.transform.position);
+        else audioSource.PlayOneShot(hitSound);
     }
     private void DestroyEnemy()
     {
@@ -232,7 +252,7 @@ public class Enemy : MonoBehaviour
             }
         }
         // Se il nemico non può spostarsi, carica direttamente i soldi senza rilasciare monete
-        else WalletManager.instance.wallet += 25;
+        else WalletManager.instance.wallet += 25 * PlayerManager.instance.coinMultiplier;
     }
 
 

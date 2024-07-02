@@ -49,38 +49,42 @@ public class RotationAnimation : MonoBehaviour
 
     IEnumerator Animate(float duration, bool forward)
     {
-        Quaternion currentStartRotation = _transform.localRotation;
-        Quaternion currentTargetRotation = targetRotation;
-
-        float t = 0f;
-
-        if (forward)
+        if (_transform != null)
         {
-            t = 0f;
-            while (t < 0.5f)
+            Quaternion currentStartRotation = _transform.localRotation;
+            Quaternion currentTargetRotation = targetRotation;
+
+            float t = 0f;
+
+            if (forward)
             {
-                yield return null;
-                t += Time.deltaTime / duration;
-                _transform.localRotation = Quaternion.Lerp(currentStartRotation, currentTargetRotation, curve.Evaluate(t));
+                t = 0f;
+                while (t < 0.5f)
+                {
+                    yield return null;
+                    t += Time.deltaTime / duration;
+                    _transform.localRotation = Quaternion.Lerp(currentStartRotation, currentTargetRotation, curve.Evaluate(t));
+                }
+            }
+
+            if (!forward)
+            {
+                // PARTE RITORNO A INIZIO
+
+                currentTargetRotation = startRotation;
+
+                currentStartRotation = targetRotation;
+
+
+                while (t < 1f)
+                {
+                    yield return null;
+                    t += Time.deltaTime / duration;
+                    _transform.localRotation = Quaternion.Lerp(currentStartRotation, currentTargetRotation, curve.Evaluate(t));
+                }
             }
         }
-
-        if (!forward)
-        {
-            // PARTE RITORNO A INIZIO
-
-            currentTargetRotation = startRotation;
-
-            currentStartRotation = targetRotation;
-
-
-            while (t < 1f)
-            {
-                yield return null;
-                t += Time.deltaTime / duration;
-                _transform.localRotation = Quaternion.Lerp(currentStartRotation, currentTargetRotation, curve.Evaluate(t));
-            }
-        }
+        else Debug.Log("Errore durante animazione di " + gameObject.name+" : l'oggetto non ha Transform.");
     }
 
     IEnumerator AnimateComplete(float duration)

@@ -12,6 +12,7 @@ TagManager:
   - Powerup
   - Coin
   - Capture
+  - Audio
   layers:
   - Default
   - TransparentFX

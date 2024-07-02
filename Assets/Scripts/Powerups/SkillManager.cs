@@ -6,13 +6,9 @@ using UnityEngine.UI;
 
 public class SkillManager : MonoBehaviour
 {
-
-    // VEDERE SE METTERE ANCHE COOLDOWN QUI
-    // INSERIRE FORSE STATI PER LE VARIE SKILL; COPIA LOADOUT MANAGER
-
     public GameObject[] skills;
 
-    private int current = 0;
+    private int current;
 
     private GameObject _currentSkill;
 
@@ -27,7 +23,6 @@ public class SkillManager : MonoBehaviour
         {
             if (_currentSkill == value)
             {
-                // Debug.Log("Current skill: " + _currentSkill.name);
                 return;
             }
 
@@ -39,9 +34,6 @@ public class SkillManager : MonoBehaviour
             skillIcon.sprite = CurrentSkill.GetComponent<Image>().sprite;
             skillIcon.color = Color.white;
 
-
-            // Debug.Log("New current skill: " + _currentSkill.name);
-
             OnSkillChanged?.Invoke(_currentSkill);
         }
     }
@@ -51,6 +43,7 @@ public class SkillManager : MonoBehaviour
     // public GameObject activeSkill;
     public IPowerup skill;
     public float skillCooldown = 10f;
+    private bool skillLoaded = false;
     public bool skillReady = true;
     public Slider skillBar;
     public TextMeshProUGUI skillText;
@@ -63,70 +56,31 @@ public class SkillManager : MonoBehaviour
     void Start()
     {
         instance = this;
-        // skill = activeSkill.GetComponent<IPowerup>();
 
-        CurrentSkill = skills[current];
-
-        // skill = CurrentSkill.GetComponent<IPowerup>();
-    }
-
-
-    // UPDATE UTILIZZATO SOLO PER TEST
-    // LE SKILL NON POTRANNO ESSERE CAMBIATE DURANTE LA PARTITA COME LE ARMI
-    void Update()
-    {
-        if (skillReady)
+        for (int i = 0; i < ActiveSkillPopup.states.Length; i++)
         {
-            if (Input.GetButtonDown("NextWeapon") || Input.GetAxis("Mouse ScrollWheel") > 0f)
+            if (ActiveSkillPopup.states[i] == 2)
             {
-                ChangeSkill(true);
-            }
-            else if (Input.GetButtonDown("PrevWeapon") || Input.GetAxis("Mouse ScrollWheel") < 0f)
-            {
-                ChangeSkill(false);
+                current = i;
+                skillLoaded = true;
+                break;
             }
         }
 
-
-    }
-
-    private void ChangeSkill(bool next)
-    {
-
-        if (next)
-        {
-            skills[current].SetActive(false);
-            current++;
-            // Debug.Log(current);
-            if (current >= skills.Length)
-            {
-                current = 0;
-            }
-            // Debug.Log("AUM// SKILL " + current + ": " + skills[current].gameObject.name);
-            skills[current].SetActive(true);
-            CurrentSkill = skills[current];
-        }
-
+        if (!skillLoaded) NoSkillEquipped();
         else
-        {
-            skills[current].SetActive(false);
-            current--;
-            //  Debug.Log(current);
-            if (current < 0)
-            {
-                //  Debug.Log(current);
-                current = skills.Length - 1;
-            }
-            //  Debug.Log("DEC// SKILL " + current+": " + skills[current].gameObject.name);
-            skills[current].SetActive(true);
             CurrentSkill = skills[current];
-        }
-
-        // Debug.Log("cambio skill completato");
-
     }
 
+    public void NoSkillEquipped()
+    {
+        CurrentSkill = null;
+        skillIcon.gameObject.SetActive(false);
+        skillText.gameObject.SetActive(false);
+        skillReady = false;
+    }
 
+    
     public IEnumerator Cooldown(float time)
     {
         // skillBar.gameObject.SetActive(true);
@@ -141,7 +95,7 @@ public class SkillManager : MonoBehaviour
         {
             yield return null;
 
-            
+
 
             if (t <= 0.5f) skillIcon.color = Color.green;
             else skillIcon.color = new Color(t, t, t, t);

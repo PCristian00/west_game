@@ -19,20 +19,23 @@ public class CustomBullet : MonoBehaviour
     public bool explodeOnTouch = true;
 
     [Header("Damage")]
-    public int explosionDamage;
+    public float explosionDamage;
     public float explosionRange;
     public float explosionForce;
 
-    [Header("Sound")]
-    public AudioClip explosionSound;
+    //[Header("Sound")]
+    //public AudioClip explosionSound;
+    //private AudioSource audioSource;
 
     int collisions;
     PhysicMaterial physics_mat;
 
     private void Start()
     {
-        Setup();
+        explosionDamage *= PlayerManager.instance.damageMultiplier;
 
+        Setup();
+        // audioSource = GetComponent<AudioSource>();
         //  Debug.Log("Creato " + name);
     }
 
@@ -49,13 +52,16 @@ public class CustomBullet : MonoBehaviour
     private void Explode()
     {
         //Instantiate explosion
-        if (explosion != null) Instantiate(explosion, transform.position, Quaternion.identity);
 
-        if (explosionSound)
-            AudioSource.PlayClipAtPoint(explosionSound, transform.position);
-
+        // Solo per la prima esplosione, istanzia effetto visivo e sonoro
+        if (explosion != null)
+        {
+            Instantiate(explosion, transform.position, Quaternion.identity);
+            explosion = null;
+        }
+       
         //Check for enemies 
-        Collider[] enemies = Physics.OverlapSphere(transform.position, explosionRange, whatIsEnemies);        
+        Collider[] enemies = Physics.OverlapSphere(transform.position, explosionRange, whatIsEnemies);
 
         for (int i = 0; i < enemies.Length; i++)
         {
@@ -65,13 +71,9 @@ public class CustomBullet : MonoBehaviour
             // Debug.Log("Il nemico si chiama "+enemies[i].name);
             if (enemies[i].GetComponent<Enemy>())
             {
-               // Debug.Log(enemies[i].name + " sta per subire danno");
+                // Debug.Log(enemies[i].name + " sta per subire danno");
                 enemies[i].GetComponent<Enemy>().TakeDamage(explosionDamage);
-            }
-
-
-            // else Debug.Log("AI not found");
-            // enemies[i].GetComponent<EnemyAi>().TakeDamage(explosionDamage);
+            }            
 
             //Add explosion force (if enemy has a rigidbody)
             if (enemies[i].GetComponent<Rigidbody>())
