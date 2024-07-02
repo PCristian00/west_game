@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TransformAnimation : MonoBehaviour
@@ -12,7 +10,7 @@ public class TransformAnimation : MonoBehaviour
     [SerializeField] private Vector3 targetScale = Vector3.zero;
     [SerializeField] private float duration = 1f;
 
-    [SerializeField] private AnimationCurve curve = AnimationCurve.EaseInOut(0,0,1,1);
+    [SerializeField] private AnimationCurve curve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
     private Vector3 startPosition;
     private Quaternion startRotation;
@@ -22,9 +20,9 @@ public class TransformAnimation : MonoBehaviour
     private Quaternion targetRotation;
 
     private Transform _transform;
-    
-    
-    
+
+
+
     private void Start()
     {
         _transform = GetComponent<Transform>();
@@ -32,42 +30,35 @@ public class TransformAnimation : MonoBehaviour
         startRotation = _transform.localRotation;
         startScale = _transform.localScale;
 
-        if (targetScale == Vector3.zero) targetScale = startScale; 
+        if (targetScale == Vector3.zero) targetScale = startScale;
 
         targetPosition = startPosition + translation;
         targetRotation = startRotation * Quaternion.AngleAxis(rotationDegrees, rotationAxis);
-        
-        //Play();
     }
 
-    //private Coroutine currentCoroutine;
     public void Play(bool forward = true)
     {
-        //if(currentCoroutine!=null) StopCoroutine(currentCoroutine);
         StopAllCoroutines();
         StartCoroutine(Animate(forward));
     }
 
     IEnumerator Animate(bool forward = true)
     {
-        // Vector3 currentStartPosition = forward ? startPosition : targetPosition ;
-        // Vector3 currentStartScale = forward ? startScale : targetScale ;
-        // Quaternion currentStartRotation = forward ? startRotation : targetRotation ;
 
         Vector3 currentStartPosition = _transform.localPosition;
         Vector3 currentStartScale = _transform.localScale;
         Quaternion currentStartRotation = _transform.localRotation;
-        
-        Vector3 currentTargetPosition= forward ? targetPosition : startPosition ;
-        Vector3 currentTargetScale= forward ? targetScale : startScale ;
-        Quaternion currentTargetRotation= forward ? targetRotation : startRotation ;
-        
+
+        Vector3 currentTargetPosition = forward ? targetPosition : startPosition;
+        Vector3 currentTargetScale = forward ? targetScale : startScale;
+        Quaternion currentTargetRotation = forward ? targetRotation : startRotation;
+
         float t = 0f;
-        while (t<1f)
+        while (t < 1f)
         {
             yield return null;
             t += Time.deltaTime / duration;
-            
+
             _transform.localPosition = Vector3.Lerp(currentStartPosition, currentTargetPosition, curve.Evaluate(t));
             _transform.localScale = Vector3.Lerp(currentStartScale, currentTargetScale, curve.Evaluate(t));
             _transform.localRotation = Quaternion.Lerp(currentStartRotation, currentTargetRotation, curve.Evaluate(t));
