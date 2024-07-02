@@ -1420,6 +1420,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 169278725}
   m_CullTransparentMesh: 1
+--- !u!1 &197693601 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8277663508226384362, guid: 9fca569613299774685e6ff2bf635059, type: 3}
+  m_PrefabInstance: {fileID: 1123661652}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &197693603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 197693601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5605115c761e6e409058dc0d8fc92d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animations: []
 --- !u!1 &201286148
 GameObject:
   m_ObjectHideFlags: 0
@@ -4585,11 +4603,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 533422349}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 28ca772b5d371e5428b79adc2b658056, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doors: {fileID: 197693603}
 --- !u!114 &533422362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4606,7 +4625,7 @@ MonoBehaviour:
   rotationAxis: {x: 0, y: 0, z: 1}
   rotationDegrees: -90
   targetScale: {x: 0, y: 0, z: 0}
-  duration: 2
+  duration: 1
   curve:
     serializedVersion: 2
     m_Curve:
@@ -8678,6 +8697,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28ca772b5d371e5428b79adc2b658056, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doors: {fileID: 197693603}
 --- !u!114 &967215024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8694,7 +8714,7 @@ MonoBehaviour:
   rotationAxis: {x: 0, y: 0, z: 1}
   rotationDegrees: -90
   targetScale: {x: 0, y: 0, z: 0}
-  duration: 2
+  duration: 1
   curve:
     serializedVersion: 2
     m_Curve:
@@ -10354,6 +10374,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1556463530557920426, guid: 9fca569613299774685e6ff2bf635059, type: 3}
       insertIndex: -1
       addedObject: {fileID: 127835028}
+    - targetCorrespondingSourceObject: {fileID: 8277663508226384362, guid: 9fca569613299774685e6ff2bf635059, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 197693603}
     - targetCorrespondingSourceObject: {fileID: 4543378810527763230, guid: 9fca569613299774685e6ff2bf635059, type: 3}
       insertIndex: -1
       addedObject: {fileID: 967215020}
@@ -13922,6 +13945,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 197693603}
+        m_TargetAssemblyTypeName: SaloonDoors, Assembly-CSharp
+        m_MethodName: CloseDoors
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

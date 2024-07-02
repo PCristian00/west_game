@@ -2,16 +2,12 @@ using UnityEngine;
 
 public class OpenOnActivate : MonoBehaviour, IActivate
 {
-    private TransformAnimation _transformAnimation;
+   // private TransformAnimation _transformAnimation;
+
+    public SaloonDoors doors;
 
     public void Activate()
     {
-        _transformAnimation.Play(true);
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        _transformAnimation = GetComponent<TransformAnimation>();
+        doors.OpenDoors();
     }
 }

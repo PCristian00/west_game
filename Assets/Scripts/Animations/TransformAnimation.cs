@@ -41,14 +41,14 @@ public class TransformAnimation : MonoBehaviour
     }
 
     //private Coroutine currentCoroutine;
-    public void Play(bool forward)
+    public void Play(bool forward = true)
     {
         //if(currentCoroutine!=null) StopCoroutine(currentCoroutine);
         StopAllCoroutines();
         StartCoroutine(Animate(forward));
     }
 
-    IEnumerator Animate(bool forward)
+    IEnumerator Animate(bool forward = true)
     {
         // Vector3 currentStartPosition = forward ? startPosition : targetPosition ;
         // Vector3 currentStartScale = forward ? startScale : targetScale ;
