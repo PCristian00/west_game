@@ -48,7 +48,11 @@ public class LoadoutManager : MonoBehaviour
         // AGGIUNGERe CECCHINO solo in livello Bonus
         // Cambiare nome scena in IF con quello corretto
         if (SceneManager.GetActiveScene().name.Equals("Sniper"))
-            weapons[4].name += "[E]";
+        {
+           // weapons[4].name += "[E]";
+            Debug.Log("LIVELLO SNIPER: SOLO ARMA DA CECCHINO");
+        }
+
         else
         {
             for (int i = 0; i < GunPopup.states.Length; i++)
@@ -102,11 +106,11 @@ public class LoadoutManager : MonoBehaviour
         {
             weapons[current].SetActive(false);
 
-           // Debug.Log("N");
+            // Debug.Log("N");
 
             do
             {
-               // Debug.Log("N Provando " + weapons[current].name);
+                // Debug.Log("N Provando " + weapons[current].name);
 
                 current++;
                 // Debug.Log(current);
@@ -123,12 +127,12 @@ public class LoadoutManager : MonoBehaviour
 
         else
         {
-           // Debug.Log("!N");
+            // Debug.Log("!N");
             weapons[current].SetActive(false);
 
             do
             {
-               // Debug.Log("!N Provando " + weapons[current].name);
+                // Debug.Log("!N Provando " + weapons[current].name);
 
                 current--;
                 //  Debug.Log(current);

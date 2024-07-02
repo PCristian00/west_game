@@ -69,6 +69,8 @@ public class ProjectileGun : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         gunMesh = GetComponentInChildren<MeshRenderer>().gameObject;
 
+        ammoInfo = GameObject.FindGameObjectWithTag("Ammo").GetComponent<TextMeshProUGUI>();
+
       //  gunMesh.SetActive(false);
 
         gunCollider = gunMesh.GetComponent<Collider>();
