@@ -1,55 +1,43 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
+
+public enum Sound
+{
+    Confirm,
+    Return
+}
 
 // Gestisce gli effetti sonori della UI (pulsanti)
-public class AudioSFX : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler
+public class AudioSFX : MonoBehaviour, IPointerClickHandler
 {
     AudioManager audioManager;
-    /*
-     * Con il audioValue si decide quale sfx far suonare a seconda del valore.
-     * I suoni associati al audioValue sono rispettivamente:
-     *      * 1 = pulsante di conferma
-     *      * 2 = pulsante di annullamento
-     */
+
     [Header("Value")]
-    public int audioValue = 1;
+    public Sound value;
 
     [Header("Debug")]
     public bool hasAudio = false;
 
-    public Button button;
-
     private void Awake()
     {
-        //  Debug.Log("AUDIO di "+gameObject.name);      
-
-
         if (GameObject.FindGameObjectWithTag("Audio").TryGetComponent<AudioManager>(out audioManager))
         {
-            //    Debug.Log("L'audio manager e' " + audioManager);
             hasAudio = true;
         }
         else Debug.Log("errore audio");
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        if (hasAudio)
-            audioManager.PlaySFX(audioManager.pulsante_seleziona);
-    }
-
     public void OnPointerClick(PointerEventData eventData)
     {
         if (hasAudio)
-            switch (audioValue)
+            switch (value)
             {
-                case 1:
-                    audioManager.PlaySFX(audioManager.pulsante_conferma);
+                case Sound.Confirm:
+                    audioManager.PlaySFX(audioManager.buttonSounds[0]);
                     break;
 
-                case 2:
-                    audioManager.PlaySFX(audioManager.pulsante_annulla);
+                case Sound.Return:
+                    audioManager.PlaySFX(audioManager.buttonSounds[1]);
                     break;
             }
     }

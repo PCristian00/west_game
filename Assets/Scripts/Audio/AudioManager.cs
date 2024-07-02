@@ -9,20 +9,13 @@ public class AudioManager : MonoBehaviour
     public AudioSource SFXSource;
 
     [Header("Audio Clip")]
-    // MIGLIORARE SISTEMA PER BG MUSIC
-    public AudioClip background_1;
-    public AudioClip background_2;
-    public AudioClip background_3;
-    public AudioClip pulsante_seleziona;
-    public AudioClip pulsante_conferma;
-    public AudioClip pulsante_annulla;
+    public AudioClip[] backgroundMusic;
+    public AudioClip[] buttonSounds;
 
     public static AudioManager instance;
 
     private void Awake()
     {
-        // if(AudioVolume.instance) AudioVolume.instance.LoadVolume();
-
         if (instance == null)
         {
             instance = this;
@@ -62,20 +55,12 @@ public class AudioManager : MonoBehaviour
     private void SetMusicForCurrentScene()
     {
         Scene currentScene = SceneManager.GetActiveScene();
-        string sceneName = currentScene.name;
+        //string sceneName = currentScene.name;
+        
         AudioClip newClip;
 
-        // Controlla il nome della scena e imposta la traccia audio di conseguenza
-        // MIGLIORARE SISTEMA
-        if (sceneName == "Saloon")
-        {
-            newClip = background_2;
-        }
-        else if (sceneName == "Menù")
-        {
-            newClip = background_3;
-        }
-        else newClip = background_1;
+
+        newClip = backgroundMusic[currentScene.buildIndex];
 
         // Cambia la traccia solo se è diversa da quella attuale
         if (musicSource.clip != newClip)

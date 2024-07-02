@@ -176,11 +176,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 8692540832707337952}
   SFXSource: {fileID: 2669309322965686772}
-  background_1: {fileID: 8300000, guid: 86a5374bcb2899e4e869d7fc266de397, type: 3}
-  background_2: {fileID: 8300000, guid: e8a89df111026cc429c96d98877d3f14, type: 3}
-  pulsante_seleziona: {fileID: 0}
-  pulsante_conferma: {fileID: 0}
-  pulsante_annulla: {fileID: 0}
+  backgroundMusic:
+  - {fileID: 8300000, guid: f2744c9ee41427b43acc6eefd0d8f1f2, type: 3}
+  - {fileID: 8300000, guid: e8a89df111026cc429c96d98877d3f14, type: 3}
+  - {fileID: 8300000, guid: 86a5374bcb2899e4e869d7fc266de397, type: 3}
+  - {fileID: 8300000, guid: 6f1dfa29f45bb834e84a13714c96c027, type: 3}
+  - {fileID: 8300000, guid: 42b4d2e3fc669334aa6f57fe94a2b5a7, type: 3}
+  - {fileID: 8300000, guid: 77d799467ba728b4398fcffe25aa966e, type: 3}
+  buttonSounds:
+  - {fileID: 8300000, guid: 695e004283698bd4c8dfade14699cd45, type: 3}
+  - {fileID: 8300000, guid: 029774e59f060da498ba2d20e18db320, type: 3}
 --- !u!1 &7376856719127583958
 GameObject:
   m_ObjectHideFlags: 0
