@@ -249,7 +249,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   health: 50
-  walkSpeed: 4
+  walkSpeed: 6
   canPatrol: 0
   canChase: 1
   walkOnly: 0

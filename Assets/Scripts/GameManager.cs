@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI healthInfo;
     public GameObject enemy;
-    public GameObject enemySpawn;
+    public GameObject[] enemySpawn;
 
     public bool slowMode = false;
     public float slowMultiplier = 0.5f;
@@ -80,15 +80,15 @@ public class GameManager : MonoBehaviour
                 healthInfo.SetText("Health: " + PlayerManager.instance.health);
             }
 
-        if (CurrentGameState != GameState.Lost && noEnemies == false && enemySpawn)
+        if (CurrentGameState != GameState.Lost && noEnemies == false && enemySpawn.Length != 0)
         {
             // Debug.Log("Nemici in gioco: " + enemyCount);
             if (enemyCount == 0)
                 noEnemies = true;
             else return;
 
-            if(enemy)
-            Invoke(nameof(SpawnEnemy), enemySpawnRate);
+            if (enemy)
+                Invoke(nameof(SpawnEnemy), enemySpawnRate);
         }
     }
 
@@ -109,7 +109,11 @@ public class GameManager : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        Instantiate(enemy, enemySpawn.transform.position, enemy.transform.rotation);
+        int index = UnityEngine.Random.Range(0, enemySpawn.Length);
+
+        Instantiate(enemy, enemySpawn[index].transform.position, enemy.transform.rotation);
+
+        Debug.Log($"{enemy.name} spawnato da {enemySpawn[index].name}");
         noEnemies = false;
         enemyCount++;
     }
