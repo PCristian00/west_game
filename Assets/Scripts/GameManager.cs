@@ -138,6 +138,11 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Menù");
     }
 
+    public void LoadSceneFromIndex(int index)
+    {
+        SceneManager.LoadScene(index);
+    }
+
     public void ClearAllData()
     {
         PlayerPrefs.DeleteAll();
