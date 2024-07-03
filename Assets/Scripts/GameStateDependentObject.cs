@@ -17,7 +17,7 @@ public class GameStateDependentObject : MonoBehaviour
 
     private void OnGameStateChanged(GameManager.GameState state)
     {
-        Debug.Log("GameStateDependent ON");
+        // Debug.Log("GameStateDependent ON");
         gameObject.SetActive(state == _targetGameState);
     }
 }

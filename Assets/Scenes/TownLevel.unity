@@ -446,7 +446,7 @@ GameObject:
   m_Component:
   - component: {fileID: 376299063}
   m_Layer: 0
-  m_Name: SpawnE
+  m_Name: SpawnE (MountainRight2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -512,7 +512,7 @@ GameObject:
   m_Component:
   - component: {fileID: 505888604}
   m_Layer: 0
-  m_Name: SpawnB
+  m_Name: SpawnB (Bank)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1342,7 +1342,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1203193692}
   m_Layer: 0
-  m_Name: SpawnC
+  m_Name: SpawnC (Sheriff)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1373,7 +1373,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1204011344}
   m_Layer: 0
-  m_Name: SpawnF
+  m_Name: SpawnF (BottomRight)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1404,7 +1404,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1300719520}
   m_Layer: 0
-  m_Name: SpawnD
+  m_Name: SpawnD (MountainRight)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1856,7 +1856,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1724108488}
   m_Layer: 0
-  m_Name: SpawnA
+  m_Name: SpawnA (BottomLeft)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

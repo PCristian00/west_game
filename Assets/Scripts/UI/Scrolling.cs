@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class scrolling : MonoBehaviour
+public class Scrolling : MonoBehaviour
 {
     [SerializeField] private RawImage _img;
     [SerializeField] private float _x, _y;
