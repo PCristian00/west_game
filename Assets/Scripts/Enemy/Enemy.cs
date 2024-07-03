@@ -228,6 +228,7 @@ public class Enemy : MonoBehaviour
 
         Debug.Log("OUCH! " + gameObject.name + " ha subito " + damage + " danni!!! (vita rimasta = " + health + ")");
 
+        if(enemyMesh)
         FlashOnHit();
 
         if (health <= 0 && canAttack)
