@@ -73,7 +73,7 @@ public class Enemy : MonoBehaviour
         if (!attackPoint)
             attackPoint = transform;
 
-       
+
 
         //  gunMesh.SetActive(false);
 
@@ -88,10 +88,10 @@ public class Enemy : MonoBehaviour
         {
             originalMaterial = enemyMesh.material;
             originalColor = originalMaterial.color;
-           // Debug.Log(originalMaterial.ToString());
-           // Debug.Log(originalMaterial.color);
+            // Debug.Log(originalMaterial.ToString());
+            // Debug.Log(originalMaterial.color);
         }
-            
+
         else Debug.Log("NO MESH LOADED");
 
 
@@ -108,36 +108,37 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-
-        // La velocita' del nemico dipende da GameManager
-        if (agent != null)
-            if (GameManager.instance.slowMode)
-            {
-                agent.speed = walkSpeed * GameManager.instance.slowMultiplier;
-            }
-            else agent.speed = walkSpeed;
-
-        //Check for sight and attack range
-
-        // Se il sightRange è impostato a 0, viene percepito come infinito.
-        // Il nemico sa sempre dove è il giocatore.
-
-        if (sightRange == 0)
-            playerInSightRange = true;
-        else playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
-
-        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
-
-        if (icon)
+        if (GameManager.instance.CurrentGameState == GameManager.GameState.Running)
         {
-            if (playerInSightRange) icon.SetActive(true);
-            else icon.SetActive(false);
+            // La velocita' del nemico dipende da GameManager
+            if (agent != null)
+                if (GameManager.instance.slowMode)
+                {
+                    agent.speed = walkSpeed * GameManager.instance.slowMultiplier;
+                }
+                else agent.speed = walkSpeed;
+
+            //Check for sight and attack range
+
+            // Se il sightRange è impostato a 0, viene percepito come infinito.
+            // Il nemico sa sempre dove è il giocatore.
+
+            if (sightRange == 0)
+                playerInSightRange = true;
+            else playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+
+            playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+
+            if (icon)
+            {
+                if (playerInSightRange) icon.SetActive(true);
+                else icon.SetActive(false);
+            }
+
+            if (!playerInSightRange && !playerInAttackRange & canPatrol) Patroling();
+            if (playerInSightRange && !playerInAttackRange & canChase) ChasePlayer();
+            if (playerInAttackRange && playerInSightRange) AttackPlayer();
         }
-
-        if (!playerInSightRange && !playerInAttackRange & canPatrol) Patroling();
-        if (playerInSightRange && !playerInAttackRange & canChase) ChasePlayer();
-        if (playerInAttackRange && playerInSightRange) AttackPlayer();
-
     }
 
     private void Patroling()
@@ -228,8 +229,8 @@ public class Enemy : MonoBehaviour
 
         Debug.Log("OUCH! " + gameObject.name + " ha subito " + damage + " danni!!! (vita rimasta = " + health + ")");
 
-        if(enemyMesh)
-        FlashOnHit();
+        if (enemyMesh)
+            FlashOnHit();
 
         if (health <= 0 && canAttack)
         {
@@ -255,12 +256,11 @@ public class Enemy : MonoBehaviour
         Invoke(nameof(ResetColor), 0.5f);
     }
 
-    // NON FUNZIONA: PROVARE BLU E POI COMMENTO
     private void ResetColor()
     {
         Debug.Log("Resetting flash");
         enemyMesh.material.color = originalColor;
-       // enemyMesh.material.color = Color.blue;
+        // enemyMesh.material.color = Color.blue;
     }
 
     private void DestroyEnemy()
