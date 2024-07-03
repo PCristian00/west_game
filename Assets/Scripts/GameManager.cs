@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
 
         if (enemy)
         {
-            for (int i = 0; i<3; i++)
+            for (int i = 0; i < 3; i++)
             {
                 Invoke(nameof(SpawnEnemy), enemySpawnRate);
             }
@@ -130,6 +130,9 @@ public class GameManager : MonoBehaviour
             Debug.Log("UCCISI 3 NEMICI");
 
             CurrentGameState = GameState.Won;
+            WalletManager.instance.wallet += 100;
+            SaveManager.UpdateFloat(WalletManager.instance.saveKey, WalletManager.instance.wallet);
+
         }
         else if (enemy)
             Invoke(nameof(SpawnEnemy), enemySpawnRate);

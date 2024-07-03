@@ -20,7 +20,7 @@ public class AudioSFX : MonoBehaviour, IPointerClickHandler
 
     private void Awake()
     {
-        if (GameObject.FindGameObjectWithTag("Audio").TryGetComponent<AudioManager>(out audioManager))
+        if (GameObject.FindGameObjectWithTag("Audio").TryGetComponent(out audioManager))
         {
             hasAudio = true;
         }

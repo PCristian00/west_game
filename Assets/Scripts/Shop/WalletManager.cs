@@ -15,12 +15,13 @@ public class WalletManager : MonoBehaviour
     {
         instance = this;
         wallet = SaveManager.LoadFloat(saveKey, wallet);
-        walletInfo = GetComponent<TextMeshProUGUI>();
+        // walletInfo = GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(walletInfo)
         walletInfo.text = wallet.ToString();
     }
 

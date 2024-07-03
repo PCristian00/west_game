@@ -5,7 +5,7 @@ public class PlayerManager : MonoBehaviour
     public static PlayerManager instance;
 
     public int health;
-    public int maxHealth = 50;
+    public int maxHealth = 100;
 
     public bool invincible = false;
 
@@ -31,23 +31,25 @@ public class PlayerManager : MonoBehaviour
     public AudioClip deathSound;
     public AudioClip PUPickup;
     public AudioClip CoinPickup;
-   // public AudioClip[] footsteps;
+    // public AudioClip[] footsteps;
     private AudioSource audioSource;
 
     public void Start()
     {
-        instance = this;
+        
 
         LoadUpgrades();
-        
+
         // TEORICAMENTE INUTILE
-        if (maxHealth == 0) maxHealth = 50;
+        // if (maxHealth == 0) maxHealth = 50;
 
         health = maxHealth;
 
         audioSource = GetComponent<AudioSource>();
 
         // DebugUpgrade();
+
+        instance = this;
     }
 
     public void OnTriggerEnter(Collider other)
@@ -62,7 +64,7 @@ public class PlayerManager : MonoBehaviour
         }
 
         else
-        {            
+        {
             if (other.CompareTag("Powerup"))
             {
                 // Attiva ogni power-up contenuto nell'oggetto in collisione
@@ -83,7 +85,7 @@ public class PlayerManager : MonoBehaviour
                 Coin coin = other.GetComponent<Coin>();
                 Debug.Log("Presa moneta da " + coin.value * coinMultiplier);
 
-                WalletManager.instance.wallet += coin.value * coinMultiplier;
+                WalletManager.instance.wallet += (int)(coin.value * coinMultiplier);
 
                 audioSource.PlayOneShot(CoinPickup);
                 Destroy(other.gameObject);
@@ -102,7 +104,7 @@ public class PlayerManager : MonoBehaviour
 
     public void LoadUpgrades()
     {
-       // Debug.Log("Caricamento upgrades");
+        // Debug.Log("Caricamento upgrades");
         maxHealth = SaveManager.LoadInt(healthKey, maxHealth);
         // Debug.Log(maxHealth);
         damageMultiplier = SaveManager.LoadFloat(damageKey);
@@ -111,7 +113,7 @@ public class PlayerManager : MonoBehaviour
         GunPopup.LoadGunStates();
         ActiveSkillPopup.LoadSkillStates();
 
-       // Debug.Log("CARICATI: " + DebugUpgrade());
+        // Debug.Log("CARICATI: " + DebugUpgrade());
     }
 
     public string DebugUpgrade()
