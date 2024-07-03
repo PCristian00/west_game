@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
 
     private int enemyCount;
     private bool noEnemies = false;
+    private int enemyKilled = 0;
 
 
     public enum GameState
@@ -65,6 +66,14 @@ public class GameManager : MonoBehaviour
         CurrentGameState = GameState.Running;
 
         enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
+
+        if (enemy)
+        {
+            for (int i = 0; i<3; i++)
+            {
+                Invoke(nameof(SpawnEnemy), enemySpawnRate);
+            }
+        }
     }
 
     void Update()
@@ -79,17 +88,6 @@ public class GameManager : MonoBehaviour
             {
                 healthInfo.SetText("Health: " + PlayerManager.instance.health);
             }
-
-        if (CurrentGameState != GameState.Lost && noEnemies == false && enemySpawn.Length != 0)
-        {
-            // Debug.Log("Nemici in gioco: " + enemyCount);
-            if (enemyCount == 0)
-                noEnemies = true;
-            else return;
-
-            if (enemy)
-                Invoke(nameof(SpawnEnemy), enemySpawnRate);
-        }
     }
 
     public void RequestInputBlock()
@@ -109,18 +107,32 @@ public class GameManager : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        int index = UnityEngine.Random.Range(0, enemySpawn.Length);
+        if (CurrentGameState != GameState.Lost && enemySpawn.Length != 0)
+        {
+            int index = UnityEngine.Random.Range(0, enemySpawn.Length);
 
-        Instantiate(enemy, enemySpawn[index].transform.position, enemy.transform.rotation);
+            Instantiate(enemy, enemySpawn[index].transform.position, enemy.transform.rotation);
 
-        Debug.Log($"{enemy.name} spawnato da {enemySpawn[index].name}");
-        noEnemies = false;
-        enemyCount++;
+            Debug.Log($"{enemy.name} spawnato da {enemySpawn[index].name}");
+            noEnemies = false;
+            enemyCount++;
+        }
+        else return;
     }
 
     public void EnemyKilled()
     {
         enemyCount--;
+        enemyKilled++;
+
+        if (enemyKilled >= 5)
+        {
+            Debug.Log("UCCISI 3 NEMICI");
+
+            CurrentGameState = GameState.Won;
+        }
+        else if (enemy)
+            Invoke(nameof(SpawnEnemy), enemySpawnRate);
     }
 
     public void StartGame()
