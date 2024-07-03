@@ -7,8 +7,10 @@ public class Enemy : MonoBehaviour
     public NavMeshAgent agent;
     public Transform player;
     public Transform attackPoint;
-    private GameObject enemyMesh;
+    [SerializeField] private MeshRenderer enemyMesh;
     private Collider enemyCollider;
+    private Material originalMaterial;
+    private Color originalColor;
 
 
     public LayerMask whatIsGround, whatIsPlayer;
@@ -64,22 +66,35 @@ public class Enemy : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
 
-        if(icon)
-        icon.SetActive(false);
+        if (icon)
+            icon.SetActive(false);
 
         // Rimuovere transform e inserire il punto in cui la mesh ha l'arma
-       if(!attackPoint)
-        attackPoint = transform;
+        if (!attackPoint)
+            attackPoint = transform;
 
-        // enemyMesh = GetComponentInChildren<MeshRenderer>().gameObject;
+       
 
         //  gunMesh.SetActive(false);
 
-       // enemyCollider = enemyMesh.GetComponent<Collider>();
+        // enemyCollider = enemyMesh.GetComponent<Collider>();
     }
 
     private void Awake()
-    {      
+    {
+
+        enemyMesh = GetComponentInChildren<MeshRenderer>();
+        if (enemyMesh)
+        {
+            originalMaterial = enemyMesh.material;
+            originalColor = originalMaterial.color;
+           // Debug.Log(originalMaterial.ToString());
+           // Debug.Log(originalMaterial.color);
+        }
+            
+        else Debug.Log("NO MESH LOADED");
+
+
         // Se il nemico può solo camminare, il suo obiettivo è raggiungere la capturePoint e non il giocatore
         if (!walkOnly)
             player = GameObject.Find("PlayerObj").transform;
@@ -175,14 +190,14 @@ public class Enemy : MonoBehaviour
             if (!alreadyAttacked && canAttack)
             {
                 ///Attack code here
-                
+
                 // Cambiare transform.position in Punto attacco della mesh (Dove ha il cannone)
                 // Vedi attack point di projectile gun
 
                 Rigidbody rb = Instantiate(projectile, attackPoint.position, Quaternion.identity).GetComponent<Rigidbody>();
 
-                if(attackSound)
-                audioSource.PlayOneShot(attackSound);
+                if (attackSound)
+                    audioSource.PlayOneShot(attackSound);
                 // AudioSource.PlayClipAtPoint(attackSound, gameObject.transform.position);
 
                 float multiplier;
@@ -213,6 +228,8 @@ public class Enemy : MonoBehaviour
 
         Debug.Log("OUCH! " + gameObject.name + " ha subito " + damage + " danni!!! (vita rimasta = " + health + ")");
 
+        FlashOnHit();
+
         if (health <= 0 && canAttack)
         {
             canAttack = false;
@@ -228,6 +245,23 @@ public class Enemy : MonoBehaviour
         }
         else audioSource.PlayOneShot(hitSound);
     }
+
+    private void FlashOnHit()
+    {
+
+        enemyMesh.material.color = Color.white;
+
+        Invoke(nameof(ResetColor), 0.5f);
+    }
+
+    // NON FUNZIONA: PROVARE BLU E POI COMMENTO
+    private void ResetColor()
+    {
+        Debug.Log("Resetting flash");
+        enemyMesh.material.color = originalColor;
+       // enemyMesh.material.color = Color.blue;
+    }
+
     private void DestroyEnemy()
     {
         Destroy(icon);
