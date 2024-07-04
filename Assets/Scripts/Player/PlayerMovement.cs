@@ -21,6 +21,9 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
+    public KeyCode pauseKey = KeyCode.P;
+    public KeyCode skillKey = KeyCode.G;
+    public bool canPause = true;
 
     [Header("Ground Check")]
     public float playerHeight;
@@ -83,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(pauseKey) && canPause)
         {
             if (GameManager.instance.CurrentGameState == GameManager.GameState.Running) GameManager.instance.PauseGame();
 
@@ -117,7 +120,7 @@ public class PlayerMovement : MonoBehaviour
             }
 
             // Skill attiva
-            if (Input.GetKeyDown(KeyCode.G))
+            if (Input.GetKeyDown(skillKey))
             {
                 if (SkillManager.instance.skillReady)
                 {

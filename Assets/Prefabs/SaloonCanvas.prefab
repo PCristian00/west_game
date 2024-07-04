@@ -4862,6 +4862,7 @@ GameObject:
   - component: {fileID: 3176680794341869661}
   - component: {fileID: 71738301311018965}
   - component: {fileID: 5950966867496520258}
+  - component: {fileID: 7990453060546132454}
   m_Layer: 5
   m_Name: Crosshair
   m_TagString: Crosshair
@@ -4939,6 +4940,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   crosshair: {fileID: 71738301311018965}
+--- !u!114 &7990453060546132454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2547485855138355286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f62716232af39614d97801ebe3d3c546, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetGameState: 1
 --- !u!1 &2588162013351680069
 GameObject:
   m_ObjectHideFlags: 0
@@ -14947,6 +14961,7 @@ GameObject:
   - component: {fileID: 2200517359912911365}
   - component: {fileID: 2649189090713400898}
   - component: {fileID: 8699972816412540269}
+  - component: {fileID: 50537311243027509}
   m_Layer: 5
   m_Name: FPSCounter
   m_TagString: Untagged
@@ -15084,6 +15099,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deltaTime: 0
   fpsInfo: {fileID: 0}
+--- !u!114 &50537311243027509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7423796547071174433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f62716232af39614d97801ebe3d3c546, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetGameState: 1
 --- !u!1 &7429901668768695095
 GameObject:
   m_ObjectHideFlags: 0
