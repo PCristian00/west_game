@@ -8,14 +8,9 @@ public class Enemy : MonoBehaviour
     public Transform player;
     public Transform attackPoint;
     [SerializeField] private SkinnedMeshRenderer enemyMesh;
-    private Collider enemyCollider;
-    private Material originalMaterial;
-    private Color originalColor;
-
 
     public LayerMask whatIsGround, whatIsPlayer;
     private Rigidbody rb;
-
 
     [Header("Stats")]
     public float health;
@@ -28,7 +23,6 @@ public class Enemy : MonoBehaviour
     public int captureDamage = 1;
     public float shootForce = 32f;
     public float upwardForce = 8f;
-
 
     [Header("Patroling")]
     public Vector3 walkPoint;
@@ -52,14 +46,13 @@ public class Enemy : MonoBehaviour
     public AudioClip hitSound;
     public AudioClip deathSound;
     private AudioSource audioSource;
-    // AGGIUNGERE SUONI DI:
-    // Movimento, Rilevamento giocatore (SOLO SE ANCORA PATTUGLIA)
 
     [Header("Graphics")]
     public GameObject attackEffect;
     public GameObject hitEffect;
     public GameObject deathEffect;
     public GameObject icon;
+    public Color flashColor = Color.red;
 
     private void Start()
     {
@@ -69,31 +62,14 @@ public class Enemy : MonoBehaviour
         if (icon)
             icon.SetActive(false);
 
-        // Rimuovere transform e inserire il punto in cui la mesh ha l'arma
+        // Se non è impostato un attackPoint personalizzato, carica quello del gameObject
         if (!attackPoint)
             attackPoint = transform;
-
-
-
-        //  gunMesh.SetActive(false);
-
-        // enemyCollider = enemyMesh.GetComponent<Collider>();
     }
 
     private void Awake()
     {
-
         enemyMesh = GetComponentInChildren<SkinnedMeshRenderer>();
-        if (enemyMesh)
-        {
-            originalMaterial = enemyMesh.material;
-            originalColor = originalMaterial.color;
-            // Debug.Log(originalMaterial.ToString());
-            // Debug.Log(originalMaterial.color);
-        }
-
-        else Debug.Log("NO MESH LOADED");
-
 
         // Se il nemico può solo camminare, il suo obiettivo è raggiungere la capturePoint e non il giocatore
         if (!walkOnly)
@@ -102,8 +78,6 @@ public class Enemy : MonoBehaviour
 
         if (canPatrol || canChase)
             agent = GetComponent<NavMeshAgent>();
-        // Debug.Log("Speed = " + agent.walkSpeed);
-        // else Debug.Log("Nemico immobile");
     }
 
     private void Update()
@@ -143,7 +117,6 @@ public class Enemy : MonoBehaviour
 
     private void Patroling()
     {
-        // icon.SetActive(false);
         if (!walkPointSet) SearchWalkPoint();
 
         if (walkPointSet)
@@ -169,7 +142,6 @@ public class Enemy : MonoBehaviour
 
     private void ChasePlayer()
     {
-        // icon.SetActive(true);
         agent.SetDestination(player.position);
     }
 
@@ -178,30 +150,19 @@ public class Enemy : MonoBehaviour
         if (walkOnly) agent.SetDestination(transform.position);
         else
         {
-            //Make sure enemy doesn't move
-            //if (canChase || canPatrol)
-            //    agent.SetDestination(transform.position);
-
-            //// DEBUG: Imposta l'icona ad Attiva in Attack per i nemici che non vanno in Chase
-            //if (!canChase)
-            //    icon.SetActive(true);
-
             transform.LookAt(player);
 
             if (!alreadyAttacked && canAttack)
             {
                 ///Attack code here
 
-                // Cambiare transform.position in Punto attacco della mesh (Dove ha il cannone)
-                // Vedi attack point di projectile gun
-
                 Rigidbody rb = Instantiate(projectile, attackPoint.position, Quaternion.identity).GetComponent<Rigidbody>();
 
                 if (attackSound)
                     audioSource.PlayOneShot(attackSound);
-                // AudioSource.PlayClipAtPoint(attackSound, gameObject.transform.position);
 
                 float multiplier;
+
                 // La velocita' del proiettile e' influenzata da GameManager
                 if (GameManager.instance.slowMode)
                     multiplier = GameManager.instance.slowMultiplier;
@@ -213,6 +174,7 @@ public class Enemy : MonoBehaviour
                 ///End of attack code
 
                 alreadyAttacked = true;
+
                 // La velocita' di attacco viene condizionata dal GameManager
                 Invoke(nameof(ResetAttack), timeBetweenAttacks / multiplier);
             }
@@ -235,32 +197,33 @@ public class Enemy : MonoBehaviour
         if (health <= 0 && canAttack)
         {
             canAttack = false;
-            // AudioSource.PlayClipAtPoint(deathSound, gameObject.transform.position);
+
             audioSource.PlayOneShot(deathSound);
+
             Instantiate(deathEffect, transform.position, Quaternion.identity);
-
-            // rb.AddExplosionForce(3, transform.position, 3);
-
-
-
             Invoke(nameof(DestroyEnemy), 0.5f);
         }
-        else audioSource.PlayOneShot(hitSound);
+        else if (audioSource && hitSound) audioSource.PlayOneShot(hitSound);
     }
 
     private void FlashOnHit()
     {
+        foreach (var mat in enemyMesh.materials)
+        {
+            mat.color += flashColor;
+        }
 
-        enemyMesh.material.color = Color.white;
+        // enemyMesh.material.color = Color.white;
 
         Invoke(nameof(ResetColor), 0.5f);
     }
 
     private void ResetColor()
     {
-        Debug.Log("Resetting flash");
-        enemyMesh.material.color = originalColor;
-        // enemyMesh.material.color = Color.blue;
+        foreach (var mat in enemyMesh.materials)
+        {
+            mat.color -= flashColor;
+        }
     }
 
     private void DestroyEnemy()
@@ -284,7 +247,7 @@ public class Enemy : MonoBehaviour
             {
                 Vector3 dropPosition = attackPoint.position;
                 if (dropPosition.y >= 3) dropPosition.y = player.position.y;
-                 
+
                 Instantiate(coin, dropPosition, coin.transform.rotation);
                 // Debug.Log("Moneta caduta - " + coin.name);
             }
