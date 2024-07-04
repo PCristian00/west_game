@@ -55,7 +55,7 @@ public class BuyableUpgrade : MonoBehaviour
         if (upgradeCounter >= upgradeLimit) buttonText.text = "MAX";
 
         // PROVA: USATO COLORE DI BUTTON DISABILITATO
-        if (icon) icon.color = button.colors.disabledColor;
+        if (icon && button) icon.color = button.colors.disabledColor;
     }
 
     public void UpgradeCheck(bool approve = true)
@@ -169,12 +169,5 @@ public class BuyableUpgrade : MonoBehaviour
     public void OnEnable()
     {
         UpgradeCheck(false);
-        //if (upgradeCounter < upgradeLimit)
-        //{
-        //    if (WalletManager.instance)
-        //        if (!WalletManager.instance.CanBuy(cost))
-        //            BlockUpgrade();
-        //}
-        //else BlockUpgrade();
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -34,6 +35,8 @@ public class ActiveSkillPopup : MonoBehaviour
         buyButton.gameObject.SetActive(true);
 
         equipButton.gameObject.SetActive(false);
+
+
     }
 
     public void SetupEquipButton()
@@ -44,6 +47,8 @@ public class ActiveSkillPopup : MonoBehaviour
         equipButton.gameObject.SetActive(true);
 
         if (states[skillID] == 2) BlockEquip();
+
+
     }
 
     public void Setup(int id)
@@ -56,6 +61,8 @@ public class ActiveSkillPopup : MonoBehaviour
 
         skillID = id;
 
+        BuyCheck(false);
+
         if (states[skillID] >= 1) BlockBuy();
 
         switch (id)
@@ -63,27 +70,27 @@ public class ActiveSkillPopup : MonoBehaviour
             case 0:
                 skillName.text = "Super Velocità";
                 skillDesc.text = "Aumenta la velocità di spostamento";
-                
+
                 break;
             case 1:
                 skillName.text = "Doppio Salto";
                 skillDesc.text = "Permette di eseguire il doppio salto";
-                
+
                 break;
             case 2:
                 skillName.text = "Scudo";
                 skillDesc.text = "Attiva uno scudo che ti rende invulnerabile";
-                
+
                 break;
             case 3:
                 skillName.text = "Slow Motion";
                 skillDesc.text = "Rallenta i nemici";
-                
+
                 break;
         }
     }
 
-    public void BuyCheck()
+    public void BuyCheck(bool approve = true)
     {
         if (WalletManager.instance)
             if (!WalletManager.instance.CanBuy(cost))
@@ -93,7 +100,8 @@ public class ActiveSkillPopup : MonoBehaviour
             }
             else
             {
-                Buy();
+                if (approve)
+                    Buy();
             }
         else Debug.Log("NESSUN WALLET");
     }
@@ -104,13 +112,19 @@ public class ActiveSkillPopup : MonoBehaviour
 
         WalletManager.instance.Buy(cost);
 
+        // Debug.Log($"{skillKeys[skillID]}: Comprato");
+
         BlockBuy();
         SaveSkillState();
     }
 
     public void BlockBuy()
     {
-        buyButton.interactable = false;
+        if (buyButton)
+            buyButton.interactable = false;
+        else Debug.Log("NO BUYBUTTON");
+
+       // Debug.Log($"{skillKeys[skillID]}: Pulsante non interagibile (BLOCKBUY)");
 
         if (states[skillID] >= 1)
         {
@@ -161,4 +175,17 @@ public class ActiveSkillPopup : MonoBehaviour
             PlayerPrefs.SetInt(skillKeys[i], states[i]);
         }
     }
+
+    //public void OnDisable()
+    //{
+
+    //    Debug.Log($"{skillKeys[skillID]}: POPUP DISABLE");
+    //}
+
+    //public void OnEnable()
+    //{
+
+    //    Debug.Log($"{skillKeys[skillID]}: POPUP ENABLE");
+
+    //}
 }
