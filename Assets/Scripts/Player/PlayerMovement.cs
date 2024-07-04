@@ -83,42 +83,53 @@ public class PlayerMovement : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-        // when to jump
-        if (Input.GetKey(jumpKey) && readyToJump && grounded)
-        {
-            readyToJump = false;
-            Jump();
-
-            if (doubleJumpActive)
-                readyToDoubleJump = true;
-
-
-            Invoke(nameof(ResetJump), jumpCooldown);
-        }
-
-        // Doppio salto
-        if (Input.GetKeyDown(jumpKey) && readyToDoubleJump && !grounded)
-        {
-            // Debug.Log("Doppio salto = " + readyToDoubleJump);
-
-            Jump();
-
-            readyToDoubleJump = false;
-        }
-
-        // Skill attiva
         if (Input.GetKeyDown(KeyCode.P))
         {
-            if (SkillManager.instance.skillReady)
-            {
-                //  Debug.Log("SKILL ATTIVATA");               
+            if (GameManager.instance.CurrentGameState == GameManager.GameState.Running) GameManager.instance.PauseGame();
 
-                SkillManager.instance.skill.Activate(SkillManager.instance.skillCooldown / 2);
-                SkillManager.instance.skillReady = false;
-                StartCoroutine(SkillManager.instance.Cooldown(SkillManager.instance.skillCooldown));
+            // UNPAUSE ANDREBBE GESTITO DA PULSANTE ANCHE SOLO DA BUTTON FORSE
+            else if (GameManager.instance.CurrentGameState == GameManager.GameState.Waiting) GameManager.instance.PauseGame(true);
+        }
+
+        if (GameManager.instance.CurrentGameState == GameManager.GameState.Running)
+        {
+            // when to jump
+            if (Input.GetKey(jumpKey) && readyToJump && grounded)
+            {
+                readyToJump = false;
+                Jump();
+
+                if (doubleJumpActive)
+                    readyToDoubleJump = true;
+
+
+                Invoke(nameof(ResetJump), jumpCooldown);
             }
 
-            else Debug.Log("Non puoi attivare la skill. Aspetta fine cooldown.");
+            // Doppio salto
+            if (Input.GetKeyDown(jumpKey) && readyToDoubleJump && !grounded)
+            {
+                // Debug.Log("Doppio salto = " + readyToDoubleJump);
+
+                Jump();
+
+                readyToDoubleJump = false;
+            }
+
+            // Skill attiva
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                if (SkillManager.instance.skillReady)
+                {
+                    //  Debug.Log("SKILL ATTIVATA");               
+
+                    SkillManager.instance.skill.Activate(SkillManager.instance.skillCooldown / 2);
+                    SkillManager.instance.skillReady = false;
+                    StartCoroutine(SkillManager.instance.Cooldown(SkillManager.instance.skillCooldown));
+                }
+
+                else Debug.Log("Non puoi attivare la skill. Aspetta fine cooldown.");
+            }
         }
     }
 

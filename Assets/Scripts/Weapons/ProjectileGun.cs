@@ -132,6 +132,7 @@ public class ProjectileGun : MonoBehaviour
 
     private void Update()
     {
+        if(GameManager.instance.CurrentGameState == GameManager.GameState.Running)
         MyInput();
 
         if (ammoInfo != null && !reloading && !isHidden)

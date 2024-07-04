@@ -172,4 +172,19 @@ public class GameManager : MonoBehaviour
         // Cambiare in caricamento scena menù principale
         SceneManager.LoadScene(LevelName);
     }
+
+    public void PauseGame(bool unpause = false)
+    {
+        if (!unpause)
+        {
+            CurrentGameState = GameState.Waiting;
+            Time.timeScale = 0f;
+            Debug.Log("PAUSA");
+        }
+        else
+        {
+            CurrentGameState = GameState.Running;
+            Time.timeScale = 1f;
+        }
+    }
 }
