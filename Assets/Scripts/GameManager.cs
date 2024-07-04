@@ -11,17 +11,24 @@ public class GameManager : MonoBehaviour
     [Header("References")]
 
     public TextMeshProUGUI healthInfo;
-    public GameObject enemy;
-    public GameObject[] enemySpawn;
 
+
+    [Header("SlowMo")]
     public bool slowMode = false;
     public float slowMultiplier = 0.5f;
 
+    [Header("LevelInfo")]
     public int enemySpawnRate = 5;
 
+    [Header("Enemies")]
+    public GameObject enemy;
+    public GameObject[] enemySpawn;
     private int enemyCount;
     private bool noEnemies = false;
     private int enemyKilled = 0;
+
+    [Header("Objectives")]
+    public int killGoal = 5;
 
 
     public enum GameState
@@ -78,16 +85,16 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (healthInfo != null)
-            if (PlayerManager.instance.health <= 0)
-            {
-                CurrentGameState = GameState.Lost;
-                healthInfo.SetText("MORTO!");
-            }
-            else
-            {
-                healthInfo.SetText("Health: " + PlayerManager.instance.health);
-            }
+        //  if (healthInfo != null)
+        if (PlayerManager.instance.health <= 0)
+        {
+            CurrentGameState = GameState.Lost;
+            healthInfo.SetText("MORTO!");
+        }
+        //else
+        //{
+        //    healthInfo.SetText("Health: " + PlayerManager.instance.health);
+        //}
     }
 
     public void RequestInputBlock()
@@ -125,7 +132,7 @@ public class GameManager : MonoBehaviour
         enemyCount--;
         enemyKilled++;
 
-        if (enemyKilled >= 5)
+        if (enemyKilled >= killGoal)
         {
             Debug.Log("UCCISI 3 NEMICI");
 
