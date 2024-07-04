@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
     public NavMeshAgent agent;
     public Transform player;
     public Transform attackPoint;
-    [SerializeField] private MeshRenderer enemyMesh;
+    [SerializeField] private SkinnedMeshRenderer enemyMesh;
     private Collider enemyCollider;
     private Material originalMaterial;
     private Color originalColor;
@@ -83,7 +83,7 @@ public class Enemy : MonoBehaviour
     private void Awake()
     {
 
-        enemyMesh = GetComponentInChildren<MeshRenderer>();
+        enemyMesh = GetComponentInChildren<SkinnedMeshRenderer>();
         if (enemyMesh)
         {
             originalMaterial = enemyMesh.material;
