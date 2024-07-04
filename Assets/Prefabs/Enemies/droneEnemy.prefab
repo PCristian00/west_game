@@ -210,7 +210,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   health: 50
-  walkSpeed: 6
+  walkSpeed: 4
   canPatrol: 0
   canChase: 1
   walkOnly: 0
@@ -219,7 +219,7 @@ MonoBehaviour:
   upwardForce: 0
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 20
-  timeBetweenAttacks: 2
+  timeBetweenAttacks: 4
   projectile: {fileID: 5798995143734084270, guid: 70121207edef3ef4dba55bc1feea9ace, type: 3}
   sightRange: 0
   attackRange: 15

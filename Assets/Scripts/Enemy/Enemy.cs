@@ -280,9 +280,12 @@ public class Enemy : MonoBehaviour
             int dropChance = Random.Range(0, 5);
             //  Debug.Log("Drop = " + dropChance);
 
-            if (dropChance >= 2)
+            if (dropChance >= 1)
             {
-                Instantiate(coin, attackPoint.position, coin.transform.rotation);
+                Vector3 dropPosition = attackPoint.position;
+                if (dropPosition.y >= 3) dropPosition.y = player.position.y;
+                 
+                Instantiate(coin, dropPosition, coin.transform.rotation);
                 // Debug.Log("Moneta caduta - " + coin.name);
             }
         }
