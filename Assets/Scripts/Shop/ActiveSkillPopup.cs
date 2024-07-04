@@ -175,17 +175,4 @@ public class ActiveSkillPopup : MonoBehaviour
             PlayerPrefs.SetInt(skillKeys[i], states[i]);
         }
     }
-
-    //public void OnDisable()
-    //{
-
-    //    Debug.Log($"{skillKeys[skillID]}: POPUP DISABLE");
-    //}
-
-    //public void OnEnable()
-    //{
-
-    //    Debug.Log($"{skillKeys[skillID]}: POPUP ENABLE");
-
-    //}
 }
