@@ -8,11 +8,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    [Header("References")]
-
-    public TextMeshProUGUI healthInfo;
-
-
     [Header("SlowMo")]
     public bool slowMode = false;
     public float slowMultiplier = 0.5f;
@@ -70,10 +65,13 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         instance = this;
-        CurrentGameState = GameState.Running;
+
+        PauseGame(true);
 
         enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
 
+
+        // TEST: Il gioco parte con 3 nemici
         if (enemy)
         {
             for (int i = 0; i < 3; i++)
@@ -88,9 +86,9 @@ public class GameManager : MonoBehaviour
         if (PlayerManager.instance.health <= 0)
         {
             CurrentGameState = GameState.Lost;
+
             // AudioManager.BackgroundMusic[5] deve essere Canzone GameOver
             AudioManager.instance.SetMusic(5);
-            healthInfo.SetText("MORTO!");
         }
     }
 
@@ -140,15 +138,6 @@ public class GameManager : MonoBehaviour
         }
         else if (enemy)
             Invoke(nameof(SpawnEnemy), enemySpawnRate);
-    }
-
-    public void StartGame()
-    {
-        CurrentGameState = GameState.Running;
-
-        Debug.Log(LoadoutManager.instance.CurrentWeapon.name);
-
-        // Time.timeScale = 1;
     }
 
     public void LoadDebugLevel()
