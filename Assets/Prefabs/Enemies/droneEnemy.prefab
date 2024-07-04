@@ -41,15 +41,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: f0ac9f97718aefd4d8b490241cec1708, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.858347
+      value: -2.7930217
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f0ac9f97718aefd4d8b490241cec1708, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.5
+      value: 4.6
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f0ac9f97718aefd4d8b490241cec1708, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 13.473341
+      value: 10.551046
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f0ac9f97718aefd4d8b490241cec1708, type: 3}
       propertyPath: m_LocalRotation.w
@@ -127,6 +127,26 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 2223639932434330405, guid: f0ac9f97718aefd4d8b490241cec1708, type: 3}
+      propertyPath: m_Animation
+      value: 
+      objectReference: {fileID: 7400000, guid: 59e0a965dc3049c4b8a1dea910b773a0, type: 2}
+    - target: {fileID: 2223639932434330405, guid: f0ac9f97718aefd4d8b490241cec1708, type: 3}
+      propertyPath: m_AnimatePhysics
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2223639932434330405, guid: f0ac9f97718aefd4d8b490241cec1708, type: 3}
+      propertyPath: m_Animations.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2223639932434330405, guid: f0ac9f97718aefd4d8b490241cec1708, type: 3}
+      propertyPath: m_Animations.Array.data[0]
+      value: 
+      objectReference: {fileID: 7400000, guid: 59e0a965dc3049c4b8a1dea910b773a0, type: 2}
+    - target: {fileID: 2223639932434330405, guid: f0ac9f97718aefd4d8b490241cec1708, type: 3}
+      propertyPath: m_Animations.Array.data[1]
+      value: 
+      objectReference: {fileID: 7400000, guid: 59e0a965dc3049c4b8a1dea910b773a0, type: 2}
     - target: {fileID: 5203432589478999843, guid: f0ac9f97718aefd4d8b490241cec1708, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -232,6 +252,7 @@ MonoBehaviour:
   hitEffect: {fileID: 0}
   deathEffect: {fileID: 5517220841568471734, guid: 8dca52d7c8265254eb32596149630449, type: 3}
   icon: {fileID: 0}
+  flashColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!64 &5636111879474075713
 MeshCollider:
   m_ObjectHideFlags: 0
