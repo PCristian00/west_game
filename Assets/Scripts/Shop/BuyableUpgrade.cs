@@ -63,7 +63,9 @@ public class BuyableUpgrade : MonoBehaviour
         // Debug.Log("Approve = " + approve);
 
         if (upgradeCounter < upgradeLimit)
+        {
             if (WalletManager.instance)
+            {
                 if (!WalletManager.instance.CanBuy(cost))
                     BlockUpgrade();
                 else if (approve == true)
@@ -71,9 +73,11 @@ public class BuyableUpgrade : MonoBehaviour
                     // Debug.Log("APPROVATO " + approve);
                     Upgrade();
                 }
-                else Debug.Log("NESSUN WALLET");
-            else
-                BlockUpgrade();
+            }
+            else Debug.Log($"{id}:NESSUN WALLET");
+        }
+        else
+            BlockUpgrade();
     }
 
     public void Upgrade()
@@ -143,8 +147,13 @@ public class BuyableUpgrade : MonoBehaviour
             if (text) text.text = startText + $"\n{upgradeCounter}/{upgradeLimit}";
             buttonText.text = startButtonText + $" [{cost}]";
 
-            if (!WalletManager.instance.CanBuy(cost) || upgradeCounter >= upgradeLimit)
-                BlockUpgrade();
+            if (WalletManager.instance)
+                if (!WalletManager.instance.CanBuy(cost) || upgradeCounter >= upgradeLimit)
+                {
+                    Debug.Log($"{id}:Il caricamento ha bloccato l'upgrade");
+                    BlockUpgrade();
+                }
+
         }
         // else Debug.Log("Non ci sono upgrade precedenti per " + id.ToString());
     }
