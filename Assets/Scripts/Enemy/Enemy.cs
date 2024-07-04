@@ -213,8 +213,6 @@ public class Enemy : MonoBehaviour
             mat.color += flashColor;
         }
 
-        // enemyMesh.material.color = Color.white;
-
         Invoke(nameof(ResetColor), 0.5f);
     }
 
