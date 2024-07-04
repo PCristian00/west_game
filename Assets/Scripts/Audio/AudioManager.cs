@@ -56,7 +56,7 @@ public class AudioManager : MonoBehaviour
     {
         Scene currentScene = SceneManager.GetActiveScene();
         //string sceneName = currentScene.name;
-        
+
         AudioClip newClip;
 
 
@@ -68,6 +68,17 @@ public class AudioManager : MonoBehaviour
             StartCoroutine(FadeOutAndChangeMusic(newClip));
         }
     }
+
+    public void SetMusic(int index)
+    {
+        AudioClip newClip = backgroundMusic[index];
+
+        if (musicSource.clip != newClip)
+        {
+            StartCoroutine(FadeOutAndChangeMusic(newClip));
+        }
+    }
+
     private IEnumerator FadeOutAndChangeMusic(AudioClip newClip)
     {
         float fadeOutTime = 0.25f;

@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
         get => CurrentGameState == GameState.Running && inputBlockedCounter <= 0;
     }
 
-    public UnityEvent<bool> OnInputActiveChanged;
+    [HideInInspector] public UnityEvent<bool> OnInputActiveChanged;
 
     private int inputBlockedCounter = 0;
 
@@ -85,16 +85,13 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        //  if (healthInfo != null)
         if (PlayerManager.instance.health <= 0)
         {
             CurrentGameState = GameState.Lost;
+            // AudioManager.BackgroundMusic[5] deve essere Canzone GameOver
+            AudioManager.instance.SetMusic(5);
             healthInfo.SetText("MORTO!");
         }
-        //else
-        //{
-        //    healthInfo.SetText("Health: " + PlayerManager.instance.health);
-        //}
     }
 
     public void RequestInputBlock()
@@ -134,7 +131,7 @@ public class GameManager : MonoBehaviour
 
         if (enemyKilled >= killGoal)
         {
-            Debug.Log("UCCISI 3 NEMICI");
+            Debug.Log($"UCCISI {killGoal} NEMICI");
 
             CurrentGameState = GameState.Won;
             WalletManager.instance.wallet += 100;
@@ -173,6 +170,6 @@ public class GameManager : MonoBehaviour
     {
         PlayerPrefs.DeleteAll();
         // Cambiare in caricamento scena menù principale
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(LevelName);
     }
 }
