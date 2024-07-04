@@ -54,8 +54,8 @@ public class BuyableUpgrade : MonoBehaviour
 
         if (upgradeCounter >= upgradeLimit) buttonText.text = "MAX";
 
-        // IMPOSTARE COLORE DIVERSO
-        if (icon) icon.color = Color.red;
+        // PROVA: USATO COLORE DI BUTTON DISABILITATO
+        if (icon) icon.color = button.colors.disabledColor;
     }
 
     public void UpgradeCheck(bool approve = true)
