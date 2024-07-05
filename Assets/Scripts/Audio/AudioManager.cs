@@ -56,18 +56,29 @@ public class AudioManager : MonoBehaviour
     {
         Scene currentScene = SceneManager.GetActiveScene();
         //string sceneName = currentScene.name;
-        
+
         AudioClip newClip;
 
 
         newClip = backgroundMusic[currentScene.buildIndex];
 
         // Cambia la traccia solo se è diversa da quella attuale
+        //if (musicSource.clip != newClip)
+        //{
+        StartCoroutine(FadeOutAndChangeMusic(newClip));
+        //}
+    }
+
+    public void SetMusic(int index)
+    {
+        AudioClip newClip = backgroundMusic[index];
+
         if (musicSource.clip != newClip)
         {
             StartCoroutine(FadeOutAndChangeMusic(newClip));
         }
     }
+
     private IEnumerator FadeOutAndChangeMusic(AudioClip newClip)
     {
         float fadeOutTime = 0.25f;

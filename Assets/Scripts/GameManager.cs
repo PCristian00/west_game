@@ -1,27 +1,34 @@
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    [Header("References")]
-
-    public TextMeshProUGUI healthInfo;
-    public GameObject enemy;
-    public GameObject enemySpawn;
-
+    [Header("SlowMo")]
     public bool slowMode = false;
     public float slowMultiplier = 0.5f;
 
+    [Header("LevelInfo")]
     public int enemySpawnRate = 5;
 
+    [Header("Enemies")]
+    public GameObject enemy;
+    public GameObject[] enemySpawn;
     private int enemyCount;
     private bool noEnemies = false;
+    private int enemyKilled = 0;
 
+    [Header("Objectives")]
+    public int killGoal = 5;
+
+    [Header("References")]
+    public TextMeshProUGUI enemyInfo;
 
     public enum GameState
     {
@@ -53,42 +60,47 @@ public class GameManager : MonoBehaviour
         get => CurrentGameState == GameState.Running && inputBlockedCounter <= 0;
     }
 
-    public UnityEvent<bool> OnInputActiveChanged;
+    [HideInInspector] public UnityEvent<bool> OnInputActiveChanged;
 
     private int inputBlockedCounter = 0;
 
     public string LevelName => SceneManager.GetActiveScene().name;
+    public int LevelIndex => SceneManager.GetActiveScene().buildIndex;
 
     void Start()
     {
         instance = this;
-        CurrentGameState = GameState.Running;
+
+        PauseGame(true);
+
+        // loadingScreen.SetActive(false);
 
         enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
+
+        if (enemyInfo)
+            enemyInfo.text = $"{enemyKilled} / {killGoal} NEMICI SCONFITTI";
+
+
+        // TEST: Il gioco parte con 3 nemici
+        if (enemy)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                Invoke(nameof(SpawnEnemy), enemySpawnRate);
+            }
+        }
     }
 
     void Update()
     {
-        if (healthInfo != null)
-            if (PlayerManager.instance.health <= 0)
-            {
-                CurrentGameState = GameState.Lost;
-                healthInfo.SetText("MORTO!");
-            }
-            else
-            {
-                healthInfo.SetText("Health: " + PlayerManager.instance.health);
-            }
-
-        if (CurrentGameState != GameState.Lost && noEnemies == false && enemySpawn)
+        if (PlayerManager.instance.health <= 0)
         {
-            // Debug.Log("Nemici in gioco: " + enemyCount);
-            if (enemyCount == 0)
-                noEnemies = true;
-            else return;
+            CurrentGameState = GameState.Lost;
 
-            if(enemy)
-            Invoke(nameof(SpawnEnemy), enemySpawnRate);
+            // AudioManager.BackgroundMusic[5] deve essere Canzone GameOver
+
+            // CAUSA PROBLEMI: RISOLVERE
+            AudioManager.instance.SetMusic(5);
         }
     }
 
@@ -109,39 +121,59 @@ public class GameManager : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        Instantiate(enemy, enemySpawn.transform.position, enemy.transform.rotation);
-        noEnemies = false;
-        enemyCount++;
+        if (CurrentGameState != GameState.Lost && enemySpawn.Length != 0)
+        {
+            int index = UnityEngine.Random.Range(0, enemySpawn.Length);
+
+            Instantiate(enemy, enemySpawn[index].transform.position, enemy.transform.rotation);
+
+            Debug.Log($"{enemy.name} spawnato da {enemySpawn[index].name}");
+            noEnemies = false;
+            enemyCount++;
+        }
+        else return;
     }
 
     public void EnemyKilled()
     {
         enemyCount--;
-    }
+        enemyKilled++;
 
-    public void StartGame()
-    {
-        CurrentGameState = GameState.Running;
+        if (enemyInfo)
+            enemyInfo.text = $"{enemyKilled} / {killGoal} NEMICI SCONFITTI";
 
-        Debug.Log(LoadoutManager.instance.CurrentWeapon.name);
+        if (enemyKilled >= killGoal)
+        {
+            Debug.Log($"UCCISI {killGoal} NEMICI");
 
-        // Time.timeScale = 1;
-    }
+            CurrentGameState = GameState.Won;
+            WalletManager.instance.wallet += 100;
+            SaveManager.UpdateFloat(WalletManager.instance.saveKey, WalletManager.instance.wallet);
 
-    public void LoadDebugLevel()
-    {
-        SceneManager.LoadScene("DebugScene");
-    }
-
-    public void LoadMenu()
-    {
-        SceneManager.LoadScene("Menù");
+        }
+        else if (enemy)
+            Invoke(nameof(SpawnEnemy), enemySpawnRate);
     }
 
     public void ClearAllData()
     {
         PlayerPrefs.DeleteAll();
         // Cambiare in caricamento scena menù principale
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        LoadingManager.instance.LoadSceneFromIndex(LevelIndex);
+    }
+
+    public void PauseGame(bool unpause = false)
+    {
+        if (!unpause)
+        {
+            CurrentGameState = GameState.Waiting;
+            Time.timeScale = 0f;
+            Debug.Log("PAUSA");
+        }
+        else
+        {
+            CurrentGameState = GameState.Running;
+            Time.timeScale = 1f;
+        }
     }
 }

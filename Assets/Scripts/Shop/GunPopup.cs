@@ -56,6 +56,8 @@ public class GunPopup : MonoBehaviour
 
         gunID = id;
 
+        BuyCheck(false);
+
         if (states[gunID] >= 1) BlockBuy();
 
         switch (id)
@@ -79,7 +81,7 @@ public class GunPopup : MonoBehaviour
         }
     }
 
-    public void BuyCheck()
+    public void BuyCheck(bool approve = true)
     {
         if (WalletManager.instance)
             if (!WalletManager.instance.CanBuy(cost))
@@ -89,6 +91,7 @@ public class GunPopup : MonoBehaviour
             }
             else
             {
+                if(approve)
                 Buy();
             }
         else Debug.Log("NESSUN WALLET");

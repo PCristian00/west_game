@@ -16,7 +16,7 @@ public class BuyableUpgrade : MonoBehaviour
     public int upgradeLimit = 2;
     public UpgradeType id;
 
-    public UnityEngine.UI.Button button;
+    public Button button;
     private TextMeshProUGUI buttonText;
     public TextMeshProUGUI text;
     private string startText;
@@ -26,45 +26,56 @@ public class BuyableUpgrade : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-
-        button = GetComponent<UnityEngine.UI.Button>();
+        button = GetComponent<Button>();
         buttonText = GetComponentInChildren<TextMeshProUGUI>();
         startButtonText = buttonText.text;
 
         if (text)
-        {
+
             startText = text.text;
+
+        LoadUpgrade();
+
+
+        if (text)
             text.text = startText + $"\n{upgradeCounter}/{upgradeLimit}";
-        }
+
 
         buttonText.text = startButtonText + $" [{cost}]";
 
-        LoadUpgrade();
+
     }
 
     // AGGIUNGERE QUI FUNZIONI PER SCURIRE ICONA O ALTRO
     public void BlockUpgrade()
     {
-        button.interactable = false;
+        if (button)
+            button.interactable = false;
 
         if (upgradeCounter >= upgradeLimit) buttonText.text = "MAX";
 
-        // IMPOSTARE COLORE DIVERSO
-        if (icon) icon.color = Color.red;
+        // PROVA: USATO COLORE DI BUTTON DISABILITATO
+        if (icon && button) icon.color = button.colors.disabledColor;
     }
 
-    public void UpgradeCheck()
+    public void UpgradeCheck(bool approve = true)
     {
+        // Debug.Log("Approve = " + approve);
+
         if (upgradeCounter < upgradeLimit)
+        {
             if (WalletManager.instance)
+            {
                 if (!WalletManager.instance.CanBuy(cost))
                     BlockUpgrade();
-                else
+                else if (approve == true)
                 {
+                    // Debug.Log("APPROVATO " + approve);
                     Upgrade();
                 }
-            else Debug.Log("NESSUN WALLET");
+            }
+            else Debug.Log($"{id}:NESSUN WALLET");
+        }
         else
             BlockUpgrade();
     }
@@ -120,7 +131,7 @@ public class BuyableUpgrade : MonoBehaviour
         string key = id.ToString() + "_upgrade_level";
         PlayerPrefs.SetInt(key, upgradeCounter);
 
-       // Debug.Log("Salvato in Prefs upgrade a " + id.ToString());
+        // Debug.Log("Salvato in Prefs upgrade a " + id.ToString());
     }
 
     public void LoadUpgrade()
@@ -136,9 +147,27 @@ public class BuyableUpgrade : MonoBehaviour
             if (text) text.text = startText + $"\n{upgradeCounter}/{upgradeLimit}";
             buttonText.text = startButtonText + $" [{cost}]";
 
-            if (!WalletManager.instance.CanBuy(cost) || upgradeCounter >= upgradeLimit)
-                BlockUpgrade();
+            if (WalletManager.instance)
+                if (!WalletManager.instance.CanBuy(cost) || upgradeCounter >= upgradeLimit)
+                {
+                    Debug.Log($"{id}:Il caricamento ha bloccato l'upgrade");
+                    BlockUpgrade();
+                }
+
         }
         // else Debug.Log("Non ci sono upgrade precedenti per " + id.ToString());
+    }
+
+    public void OnDisable()
+    {
+        if (button)
+            button.interactable = true;
+
+        if (icon != null && buttonText && buttonText.text != "MAX") icon.color = Color.white;
+    }
+
+    public void OnEnable()
+    {
+        UpgradeCheck(false);
     }
 }

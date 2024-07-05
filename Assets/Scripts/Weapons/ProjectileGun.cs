@@ -69,6 +69,8 @@ public class ProjectileGun : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         gunMesh = GetComponentInChildren<MeshRenderer>().gameObject;
 
+        ammoInfo = GameObject.FindGameObjectWithTag("Ammo").GetComponent<TextMeshProUGUI>();
+
       //  gunMesh.SetActive(false);
 
         gunCollider = gunMesh.GetComponent<Collider>();
@@ -130,6 +132,7 @@ public class ProjectileGun : MonoBehaviour
 
     private void Update()
     {
+        if(GameManager.instance.CurrentGameState == GameManager.GameState.Running)
         MyInput();
 
         if (ammoInfo != null && !reloading && !isHidden)

@@ -2,14 +2,18 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-
     public static PlayerMovement instance;
 
     [Header("Movement")]
+    public Transform orientation;
+    private float horizontalInput;
+    private float verticalInput;
+    private Vector3 moveDirection;
+    private Rigidbody rb;
+
+    [Header("Stats")]
     public float moveSpeed;
     public float groundDrag;
-    public Transform orientation;
-
     public float jumpForce;
     public float jumpCooldown;
     public float airMultiplier;
@@ -21,6 +25,9 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
+    public KeyCode pauseKey = KeyCode.P;
+    public KeyCode skillKey = KeyCode.G;
+    public bool canPause = true;
 
     [Header("Ground Check")]
     public float playerHeight;
@@ -30,22 +37,16 @@ public class PlayerMovement : MonoBehaviour
     [Header("Sound")]
     public AudioClip jumpSound;
     public AudioClip[] footSteps;
-    private AudioSource audioSource;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioSource stepAudioSource;
     private float originalPitch;
-
-    float horizontalInput;
-    float verticalInput;
-
-    Vector3 moveDirection;
-
-    Rigidbody rb;
 
     private void Start()
     {
         instance = this;
 
-        audioSource = GetComponent<AudioSource>();
-        originalPitch = audioSource.pitch;
+        originalPitch = stepAudioSource.pitch;
+
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
@@ -83,42 +84,46 @@ public class PlayerMovement : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-        // when to jump
-        if (Input.GetKey(jumpKey) && readyToJump && grounded)
+        if (Input.GetKeyDown(pauseKey) && canPause)
         {
-            readyToJump = false;
-            Jump();
-
-            if (doubleJumpActive)
-                readyToDoubleJump = true;
-
-
-            Invoke(nameof(ResetJump), jumpCooldown);
+            if (GameManager.instance.CurrentGameState == GameManager.GameState.Running) GameManager.instance.PauseGame();
+            else if (GameManager.instance.CurrentGameState == GameManager.GameState.Waiting) GameManager.instance.PauseGame(true);
         }
 
-        // Doppio salto
-        if (Input.GetKeyDown(jumpKey) && readyToDoubleJump && !grounded)
+        if (GameManager.instance.CurrentGameState == GameManager.GameState.Running)
         {
-            // Debug.Log("Doppio salto = " + readyToDoubleJump);
-
-            Jump();
-
-            readyToDoubleJump = false;
-        }
-
-        // Skill attiva
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            if (SkillManager.instance.skillReady)
+            // when to jump
+            if (Input.GetKey(jumpKey) && readyToJump && grounded)
             {
-                //  Debug.Log("SKILL ATTIVATA");               
+                readyToJump = false;
+                Jump();
 
-                SkillManager.instance.skill.Activate(SkillManager.instance.skillCooldown / 2);
-                SkillManager.instance.skillReady = false;
-                StartCoroutine(SkillManager.instance.Cooldown(SkillManager.instance.skillCooldown));
+                if (doubleJumpActive)
+                    readyToDoubleJump = true;
+
+                Invoke(nameof(ResetJump), jumpCooldown);
             }
 
-            else Debug.Log("Non puoi attivare la skill. Aspetta fine cooldown.");
+            // Doppio salto
+            if (Input.GetKeyDown(jumpKey) && readyToDoubleJump && !grounded)
+            {
+                Jump();
+
+                readyToDoubleJump = false;
+            }
+
+            // Skill attiva
+            if (Input.GetKeyDown(skillKey))
+            {
+                if (SkillManager.instance.skillReady)
+                {
+                    SkillManager.instance.skill.Activate(SkillManager.instance.skillCooldown / 2);
+                    SkillManager.instance.skillReady = false;
+                    StartCoroutine(SkillManager.instance.Cooldown(SkillManager.instance.skillCooldown));
+                }
+
+                else Debug.Log("Non puoi attivare la skill. Aspetta fine cooldown.");
+            }
         }
     }
 
@@ -142,7 +147,6 @@ public class PlayerMovement : MonoBehaviour
                 isWalking = false;
                 audioSource.pitch = originalPitch;
             }
-
         }
 
         // in air
@@ -158,19 +162,19 @@ public class PlayerMovement : MonoBehaviour
 
         float stepRate = 10 - moveSpeed;
 
-        audioSource.pitch = stepRate;
-
+        stepAudioSource.pitch = stepRate;
 
         if (isWalking)
         {
-            if (!audioSource.isPlaying)
-                audioSource.PlayOneShot(footSteps[index]);
+            if (!stepAudioSource.isPlaying)
+            {
+                stepAudioSource.PlayOneShot(footSteps[index]);
+            }
             else return;
 
             Invoke(nameof(StepSound), footSteps[index].length / stepRate);
         }
-        else
-            return;
+        else return;
     }
 
     private void SpeedControl()
@@ -193,10 +197,7 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
 
         // play jump sound
-        // AudioSource.PlayClipAtPoint(jumpSound, gameObject.transform.position);
         audioSource.PlayOneShot(jumpSound);
-
-        //  Debug.Log("SALTATO");
     }
     private void ResetJump()
     {

@@ -1,14 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SaloonDoors : MonoBehaviour
 {
     public TransformAnimation[] animations;
-    public AudioClip sound;
     private AudioSource audioSource;
 
-    // Start is called before the first frame update
     void Start()
     {
         animations = GetComponentsInChildren<TransformAnimation>();
@@ -17,7 +13,8 @@ public class SaloonDoors : MonoBehaviour
 
     public void OpenDoors()
     {
-        audioSource.PlayOneShot(sound);
+        if(audioSource)
+        audioSource.Play();
 
         foreach (var anim in animations) anim.Play();
 
@@ -25,7 +22,8 @@ public class SaloonDoors : MonoBehaviour
 
     public void CloseDoors()
     {
-        audioSource.PlayOneShot(sound);
+        if(audioSource)
+        audioSource.Play();
 
         foreach (var anim in animations) anim.Play(false);
     }
