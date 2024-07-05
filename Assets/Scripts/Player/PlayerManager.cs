@@ -32,11 +32,11 @@ public class PlayerManager : MonoBehaviour
     public AudioClip PUPickup;
     public AudioClip CoinPickup;
     // public AudioClip[] footsteps;
-    private AudioSource audioSource;
+    [SerializeField] private AudioSource audioSource;
 
     public void Start()
     {
-        
+
 
         LoadUpgrades();
 
@@ -45,7 +45,7 @@ public class PlayerManager : MonoBehaviour
 
         health = maxHealth;
 
-        audioSource = GetComponent<AudioSource>();
+       // audioSource = GetComponent<AudioSource>();
 
         // DebugUpgrade();
 
@@ -61,6 +61,7 @@ public class PlayerManager : MonoBehaviour
             health -= bullet.damage;
             if (health <= 0) Death();
             else audioSource.PlayOneShot(hitSound);
+           // else AudioManager.PlayNotPitched(hitSound, audioSource);
         }
 
         else
@@ -75,6 +76,7 @@ public class PlayerManager : MonoBehaviour
                 }
 
                 audioSource.PlayOneShot(PUPickup);
+               // AudioManager.PlayNotPitched(PUPickup, audioSource);
 
                 Debug.Log("Preso power-up " + other.name);
                 Destroy(other.gameObject);
@@ -88,6 +90,7 @@ public class PlayerManager : MonoBehaviour
                 WalletManager.instance.wallet += (int)(coin.value * coinMultiplier);
 
                 audioSource.PlayOneShot(CoinPickup);
+                //AudioManager.PlayNotPitched(CoinPickup, audioSource);
                 Destroy(other.gameObject);
             }
 
@@ -100,6 +103,7 @@ public class PlayerManager : MonoBehaviour
         Debug.Log("SEI MORTO");
 
         audioSource.PlayOneShot(deathSound);
+        // AudioManager.PlayNotPitched(audioSource).PlayOneShot(deathSound);
     }
 
     public void LoadUpgrades()

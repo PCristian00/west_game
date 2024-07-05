@@ -33,7 +33,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Sound")]
     public AudioClip jumpSound;
     public AudioClip[] footSteps;
-    private AudioSource audioSource;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioSource stepAudioSource;
     private float originalPitch;
 
     float horizontalInput;
@@ -47,8 +48,8 @@ public class PlayerMovement : MonoBehaviour
     {
         instance = this;
 
-        audioSource = GetComponent<AudioSource>();
-        originalPitch = audioSource.pitch;
+        //audioSource = GetComponent<AudioSource>();
+        originalPitch = stepAudioSource.pitch;
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
@@ -172,14 +173,23 @@ public class PlayerMovement : MonoBehaviour
 
         float stepRate = 10 - moveSpeed;
 
-        audioSource.pitch = stepRate;
+        stepAudioSource.pitch = stepRate;
 
 
         if (isWalking)
         {
-            if (!audioSource.isPlaying)
-                audioSource.PlayOneShot(footSteps[index]);
-            else return;
+            if (!stepAudioSource.isPlaying)
+            {
+                stepAudioSource.PlayOneShot(footSteps[index]);
+                // audioSource.pitch = 1;
+            }
+            else
+            {
+                // audioSource.pitch = 1;
+                return;
+            };
+
+
 
             Invoke(nameof(StepSound), footSteps[index].length / stepRate);
         }
@@ -207,8 +217,10 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
 
         // play jump sound
-        // AudioSource.PlayClipAtPoint(jumpSound, gameObject.transform.position);
+
         audioSource.PlayOneShot(jumpSound);
+
+        // PlayNotPitched(jumpSound);
 
         //  Debug.Log("SALTATO");
     }
@@ -216,4 +228,20 @@ public class PlayerMovement : MonoBehaviour
     {
         readyToJump = true;
     }
+
+    //public void PlayNotPitched(AudioClip clip)
+    //{
+    //    Debug.Log($"Pitch = {audioSource.pitch}");
+
+    //    if (audioSource.pitch != originalPitch)
+    //    {
+    //        audioSource.pitch = originalPitch;
+    //        audioSource.PlayOneShot(clip);
+
+    //        Debug.Log("PITCH DIVERSO");
+    //    }
+    //    else audioSource.PlayOneShot(clip);
+    //    // return audioSource;
+    //}
+
 }
