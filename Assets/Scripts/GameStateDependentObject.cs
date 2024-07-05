@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class GameStateDependentObject : MonoBehaviour
 {
-    [SerializeField] private GameManager.GameState _targetGameState;
+    public GameManager.GameState _targetGameState;
 
     private void Start()
     {
