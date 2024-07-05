@@ -63,10 +63,10 @@ public class AudioManager : MonoBehaviour
         newClip = backgroundMusic[currentScene.buildIndex];
 
         // Cambia la traccia solo se è diversa da quella attuale
-        if (musicSource.clip != newClip)
-        {
-            StartCoroutine(FadeOutAndChangeMusic(newClip));
-        }
+        //if (musicSource.clip != newClip)
+        //{
+        StartCoroutine(FadeOutAndChangeMusic(newClip));
+        //}
     }
 
     public void SetMusic(int index)

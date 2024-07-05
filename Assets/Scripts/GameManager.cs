@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour
             // AudioManager.BackgroundMusic[5] deve essere Canzone GameOver
 
             // CAUSA PROBLEMI: RISOLVERE
-            // AudioManager.instance.SetMusic(5);
+            AudioManager.instance.SetMusic(5);
         }
     }
 
