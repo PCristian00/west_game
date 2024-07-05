@@ -1,8 +1,10 @@
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -24,6 +26,9 @@ public class GameManager : MonoBehaviour
 
     [Header("Objectives")]
     public int killGoal = 5;
+
+    [Header("Reference")]
+    public GameObject loadingScreen;
 
 
     public enum GameState
@@ -61,12 +66,15 @@ public class GameManager : MonoBehaviour
     private int inputBlockedCounter = 0;
 
     public string LevelName => SceneManager.GetActiveScene().name;
+    public int LevelIndex => SceneManager.GetActiveScene().buildIndex;
 
     void Start()
     {
         instance = this;
 
         PauseGame(true);
+
+        loadingScreen.SetActive(false);
 
         enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
 
@@ -140,26 +148,29 @@ public class GameManager : MonoBehaviour
             Invoke(nameof(SpawnEnemy), enemySpawnRate);
     }
 
+    // SUPERFLUE: RIMUOVERE E USARE DIRETTAMENTE LOADFROM INDEX
     public void LoadDebugLevel()
     {
-        SceneManager.LoadScene("DebugScene");
+        LoadSceneFromIndex(3);
     }
 
+    // SUPERFLUE: RIMUOVERE E USARE DIRETTAMENTE LOADFROM INDEX
     public void LoadMenu()
     {
-        SceneManager.LoadScene("Menù");
+        LoadSceneFromIndex(0);
     }
 
     public void LoadSceneFromIndex(int index)
     {
-        SceneManager.LoadScene(index);
+        StartCoroutine(Loading(index));
+        // return SceneManager.LoadSceneAsync(index);
     }
 
     public void ClearAllData()
     {
         PlayerPrefs.DeleteAll();
         // Cambiare in caricamento scena menù principale
-        SceneManager.LoadScene(LevelName);
+        LoadSceneFromIndex(LevelIndex);
     }
 
     public void PauseGame(bool unpause = false)
@@ -174,6 +185,29 @@ public class GameManager : MonoBehaviour
         {
             CurrentGameState = GameState.Running;
             Time.timeScale = 1f;
+        }
+    }
+
+    IEnumerator Loading(int index)
+    {
+        AsyncOperation load = SceneManager.LoadSceneAsync(index);
+
+        Slider bar = null;
+
+        if (loadingScreen)
+        {
+            loadingScreen.SetActive(true);
+            bar = loadingScreen.GetComponentInChildren<Slider>();
+        }
+
+        while (!load.isDone)
+        {
+            if (bar != null)
+            {
+                // bar.value = Mathf.Clamp01(load.progress / .9f);
+                bar.value = load.progress;
+            }
+            yield return null;
         }
     }
 }
