@@ -79,6 +79,8 @@ public class PlayerManager : MonoBehaviour
     private void Death()
     {
         Debug.Log("SEI MORTO");
+        //GameManager.instance.CurrentGameState = GameManager.GameState.Lost;
+        //AudioManager.instance.SetMusic(5);
         audioSource.PlayOneShot(deathSound);
     }
 

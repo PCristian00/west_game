@@ -27,9 +27,8 @@ public class GameManager : MonoBehaviour
     [Header("Objectives")]
     public int killGoal = 5;
 
-    //[Header("Reference")]
-    //public GameObject loadingScreen;
-
+    [Header("References")]
+    public TextMeshProUGUI enemyInfo;
 
     public enum GameState
     {
@@ -77,6 +76,9 @@ public class GameManager : MonoBehaviour
         // loadingScreen.SetActive(false);
 
         enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
+
+        if (enemyInfo)
+            enemyInfo.text = $"{enemyKilled} / {killGoal} NEMICI SCONFITTI";
 
 
         // TEST: Il gioco parte con 3 nemici
@@ -137,6 +139,9 @@ public class GameManager : MonoBehaviour
         enemyCount--;
         enemyKilled++;
 
+        if (enemyInfo)
+            enemyInfo.text = $"{enemyKilled} / {killGoal} NEMICI SCONFITTI";
+
         if (enemyKilled >= killGoal)
         {
             Debug.Log($"UCCISI {killGoal} NEMICI");
@@ -149,24 +154,6 @@ public class GameManager : MonoBehaviour
         else if (enemy)
             Invoke(nameof(SpawnEnemy), enemySpawnRate);
     }
-
-    //// SUPERFLUE: RIMUOVERE E USARE DIRETTAMENTE LOADFROM INDEX
-    //public void LoadDebugLevel()
-    //{
-    //    LoadSceneFromIndex(3);
-    //}
-
-    //// SUPERFLUE: RIMUOVERE E USARE DIRETTAMENTE LOADFROM INDEX
-    //public void LoadMenu()
-    //{
-    //    LoadSceneFromIndex(0);
-    //}
-
-    //public void LoadSceneFromIndex(int index)
-    //{
-    //    StartCoroutine(Loading(index));
-    //    // return SceneManager.LoadSceneAsync(index);
-    //}
 
     public void ClearAllData()
     {
@@ -189,27 +176,4 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 1f;
         }
     }
-
-    //IEnumerator Loading(int index)
-    //{
-    //    AsyncOperation load = SceneManager.LoadSceneAsync(index);
-
-    //    Slider bar = null;
-
-    //    if (loadingScreen)
-    //    {
-    //        loadingScreen.SetActive(true);
-    //        bar = loadingScreen.GetComponentInChildren<Slider>();
-    //    }
-
-    //    while (!load.isDone)
-    //    {
-    //        if (bar != null)
-    //        {
-    //            // bar.value = Mathf.Clamp01(load.progress / .9f);
-    //            bar.value = load.progress;
-    //        }
-    //        yield return null;
-    //    }
-    //}
 }
