@@ -936,8 +936,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 3073919028946884283}
+        m_TargetAssemblyTypeName: LoadingManager, Assembly-CSharp
         m_MethodName: LoadSceneFromIndex
         m_Mode: 3
         m_Arguments:
@@ -1084,8 +1084,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 3073919028946884283}
+        m_TargetAssemblyTypeName: LoadingManager, Assembly-CSharp
         m_MethodName: LoadSceneFromIndex
         m_Mode: 3
         m_Arguments:
@@ -3450,10 +3450,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: LoadSceneFromIndex
-        m_Mode: 3
+      - m_Target: {fileID: 3073919028946884283}
+        m_TargetAssemblyTypeName: LoadingManager, Assembly-CSharp
+        m_MethodName: LoadCurrent
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3902,8 +3902,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 3073919028946884283}
+        m_TargetAssemblyTypeName: LoadingManager, Assembly-CSharp
         m_MethodName: LoadSceneFromIndex
         m_Mode: 3
         m_Arguments:
@@ -4542,10 +4542,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: LoadSceneFromIndex
-        m_Mode: 3
+      - m_Target: {fileID: 3073919028946884283}
+        m_TargetAssemblyTypeName: LoadingManager, Assembly-CSharp
+        m_MethodName: LoadCurrent
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5240,6 +5240,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 8567308079920802919}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: PauseGame
@@ -5280,7 +5292,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4724027426871590311, guid: bb6d2f863060e1e48ac615bc3c5194b3, type: 3}
       propertyPath: m_Name
-      value: LoadingScreen
+      value: LoadingManager
       objectReference: {fileID: 0}
     - target: {fileID: 5326994204191869428, guid: bb6d2f863060e1e48ac615bc3c5194b3, type: 3}
       propertyPath: m_AnchorMax.y
@@ -5371,6 +5383,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb6d2f863060e1e48ac615bc3c5194b3, type: 3}
+--- !u!114 &3073919028946884283 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1690092270048055168, guid: bb6d2f863060e1e48ac615bc3c5194b3, type: 3}
+  m_PrefabInstance: {fileID: 4457623433184303419}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 949192f5b61cf7342b8e9f839ae46a5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &6064153843517141525 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7634897896734780206, guid: bb6d2f863060e1e48ac615bc3c5194b3, type: 3}

@@ -3445,7 +3445,15 @@ PrefabInstance:
     - target: {fileID: 4916025404551966898, guid: c875db9be3520c44e933317320630593, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 460344858}
+      objectReference: {fileID: 3610207013496624177}
+    - target: {fileID: 4916025404551966898, guid: c875db9be3520c44e933317320630593, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadSceneFromIndex
+      objectReference: {fileID: 0}
+    - target: {fileID: 4916025404551966898, guid: c875db9be3520c44e933317320630593, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LoadingManager, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 4958478181822205668, guid: c875db9be3520c44e933317320630593, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -3519,9 +3527,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5461833726851437682, guid: c875db9be3520c44e933317320630593, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5461833726851437682, guid: c875db9be3520c44e933317320630593, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 460344858}
+      objectReference: {fileID: 3610207013496624177}
+    - target: {fileID: 5461833726851437682, guid: c875db9be3520c44e933317320630593, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadSceneFromIndex
+      objectReference: {fileID: 0}
+    - target: {fileID: 5461833726851437682, guid: c875db9be3520c44e933317320630593, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LoadingManager, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 5572295428766081491, guid: c875db9be3520c44e933317320630593, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -4123,9 +4143,25 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8897572719638336555, guid: c875db9be3520c44e933317320630593, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8897572719638336555, guid: c875db9be3520c44e933317320630593, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 460344858}
+      objectReference: {fileID: 3610207013496624177}
+    - target: {fileID: 8897572719638336555, guid: c875db9be3520c44e933317320630593, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadSceneFromIndex
+      objectReference: {fileID: 0}
+    - target: {fileID: 8897572719638336555, guid: c875db9be3520c44e933317320630593, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LoadingManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8897572719638336555, guid: c875db9be3520c44e933317320630593, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8920090900564814962, guid: c875db9be3520c44e933317320630593, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -4263,6 +4299,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c875db9be3520c44e933317320630593, type: 3}
+--- !u!114 &3610207013496624177 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4520034837905731583, guid: c875db9be3520c44e933317320630593, type: 3}
+  m_PrefabInstance: {fileID: 3610207013496624176}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 400741528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 949192f5b61cf7342b8e9f839ae46a5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5111470728604689772
 PrefabInstance:
   m_ObjectHideFlags: 0

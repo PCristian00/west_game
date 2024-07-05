@@ -27,8 +27,8 @@ public class GameManager : MonoBehaviour
     [Header("Objectives")]
     public int killGoal = 5;
 
-    [Header("Reference")]
-    public GameObject loadingScreen;
+    //[Header("Reference")]
+    //public GameObject loadingScreen;
 
 
     public enum GameState
@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
 
         PauseGame(true);
 
-        loadingScreen.SetActive(false);
+        // loadingScreen.SetActive(false);
 
         enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
 
@@ -96,7 +96,9 @@ public class GameManager : MonoBehaviour
             CurrentGameState = GameState.Lost;
 
             // AudioManager.BackgroundMusic[5] deve essere Canzone GameOver
-            AudioManager.instance.SetMusic(5);
+
+            // CAUSA PROBLEMI: RISOLVERE
+            // AudioManager.instance.SetMusic(5);
         }
     }
 
@@ -148,29 +150,29 @@ public class GameManager : MonoBehaviour
             Invoke(nameof(SpawnEnemy), enemySpawnRate);
     }
 
-    // SUPERFLUE: RIMUOVERE E USARE DIRETTAMENTE LOADFROM INDEX
-    public void LoadDebugLevel()
-    {
-        LoadSceneFromIndex(3);
-    }
+    //// SUPERFLUE: RIMUOVERE E USARE DIRETTAMENTE LOADFROM INDEX
+    //public void LoadDebugLevel()
+    //{
+    //    LoadSceneFromIndex(3);
+    //}
 
-    // SUPERFLUE: RIMUOVERE E USARE DIRETTAMENTE LOADFROM INDEX
-    public void LoadMenu()
-    {
-        LoadSceneFromIndex(0);
-    }
+    //// SUPERFLUE: RIMUOVERE E USARE DIRETTAMENTE LOADFROM INDEX
+    //public void LoadMenu()
+    //{
+    //    LoadSceneFromIndex(0);
+    //}
 
-    public void LoadSceneFromIndex(int index)
-    {
-        StartCoroutine(Loading(index));
-        // return SceneManager.LoadSceneAsync(index);
-    }
+    //public void LoadSceneFromIndex(int index)
+    //{
+    //    StartCoroutine(Loading(index));
+    //    // return SceneManager.LoadSceneAsync(index);
+    //}
 
     public void ClearAllData()
     {
         PlayerPrefs.DeleteAll();
         // Cambiare in caricamento scena menù principale
-        LoadSceneFromIndex(LevelIndex);
+        LoadingManager.instance.LoadSceneFromIndex(LevelIndex);
     }
 
     public void PauseGame(bool unpause = false)
@@ -188,26 +190,26 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    IEnumerator Loading(int index)
-    {
-        AsyncOperation load = SceneManager.LoadSceneAsync(index);
+    //IEnumerator Loading(int index)
+    //{
+    //    AsyncOperation load = SceneManager.LoadSceneAsync(index);
 
-        Slider bar = null;
+    //    Slider bar = null;
 
-        if (loadingScreen)
-        {
-            loadingScreen.SetActive(true);
-            bar = loadingScreen.GetComponentInChildren<Slider>();
-        }
+    //    if (loadingScreen)
+    //    {
+    //        loadingScreen.SetActive(true);
+    //        bar = loadingScreen.GetComponentInChildren<Slider>();
+    //    }
 
-        while (!load.isDone)
-        {
-            if (bar != null)
-            {
-                // bar.value = Mathf.Clamp01(load.progress / .9f);
-                bar.value = load.progress;
-            }
-            yield return null;
-        }
-    }
+    //    while (!load.isDone)
+    //    {
+    //        if (bar != null)
+    //        {
+    //            // bar.value = Mathf.Clamp01(load.progress / .9f);
+    //            bar.value = load.progress;
+    //        }
+    //        yield return null;
+    //    }
+    //}
 }
