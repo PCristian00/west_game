@@ -2,14 +2,18 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-
     public static PlayerMovement instance;
 
     [Header("Movement")]
+    public Transform orientation;
+    private float horizontalInput;
+    private float verticalInput;
+    private Vector3 moveDirection;
+    private Rigidbody rb;
+
+    [Header("Stats")]
     public float moveSpeed;
     public float groundDrag;
-    public Transform orientation;
-
     public float jumpForce;
     public float jumpCooldown;
     public float airMultiplier;
@@ -37,19 +41,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private AudioSource stepAudioSource;
     private float originalPitch;
 
-    float horizontalInput;
-    float verticalInput;
-
-    Vector3 moveDirection;
-
-    Rigidbody rb;
-
     private void Start()
     {
         instance = this;
 
-        //audioSource = GetComponent<AudioSource>();
         originalPitch = stepAudioSource.pitch;
+
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
@@ -90,8 +87,6 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(pauseKey) && canPause)
         {
             if (GameManager.instance.CurrentGameState == GameManager.GameState.Running) GameManager.instance.PauseGame();
-
-            // UNPAUSE ANDREBBE GESTITO DA PULSANTE ANCHE SOLO DA BUTTON FORSE
             else if (GameManager.instance.CurrentGameState == GameManager.GameState.Waiting) GameManager.instance.PauseGame(true);
         }
 
@@ -106,15 +101,12 @@ public class PlayerMovement : MonoBehaviour
                 if (doubleJumpActive)
                     readyToDoubleJump = true;
 
-
                 Invoke(nameof(ResetJump), jumpCooldown);
             }
 
             // Doppio salto
             if (Input.GetKeyDown(jumpKey) && readyToDoubleJump && !grounded)
             {
-                // Debug.Log("Doppio salto = " + readyToDoubleJump);
-
                 Jump();
 
                 readyToDoubleJump = false;
@@ -125,8 +117,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (SkillManager.instance.skillReady)
                 {
-                    //  Debug.Log("SKILL ATTIVATA");               
-
                     SkillManager.instance.skill.Activate(SkillManager.instance.skillCooldown / 2);
                     SkillManager.instance.skillReady = false;
                     StartCoroutine(SkillManager.instance.Cooldown(SkillManager.instance.skillCooldown));
@@ -157,7 +147,6 @@ public class PlayerMovement : MonoBehaviour
                 isWalking = false;
                 audioSource.pitch = originalPitch;
             }
-
         }
 
         // in air
@@ -175,26 +164,17 @@ public class PlayerMovement : MonoBehaviour
 
         stepAudioSource.pitch = stepRate;
 
-
         if (isWalking)
         {
             if (!stepAudioSource.isPlaying)
             {
                 stepAudioSource.PlayOneShot(footSteps[index]);
-                // audioSource.pitch = 1;
             }
-            else
-            {
-                // audioSource.pitch = 1;
-                return;
-            };
-
-
+            else return;
 
             Invoke(nameof(StepSound), footSteps[index].length / stepRate);
         }
-        else
-            return;
+        else return;
     }
 
     private void SpeedControl()
@@ -217,31 +197,10 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
 
         // play jump sound
-
         audioSource.PlayOneShot(jumpSound);
-
-        // PlayNotPitched(jumpSound);
-
-        //  Debug.Log("SALTATO");
     }
     private void ResetJump()
     {
         readyToJump = true;
     }
-
-    //public void PlayNotPitched(AudioClip clip)
-    //{
-    //    Debug.Log($"Pitch = {audioSource.pitch}");
-
-    //    if (audioSource.pitch != originalPitch)
-    //    {
-    //        audioSource.pitch = originalPitch;
-    //        audioSource.PlayOneShot(clip);
-
-    //        Debug.Log("PITCH DIVERSO");
-    //    }
-    //    else audioSource.PlayOneShot(clip);
-    //    // return audioSource;
-    //}
-
 }
