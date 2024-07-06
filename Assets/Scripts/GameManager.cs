@@ -117,6 +117,8 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("You win!!!");
 
+        AudioManager.instance.SetMusic(6);
+
         CurrentGameState = GameState.Won;
 
         int bonusCoins = 0;
