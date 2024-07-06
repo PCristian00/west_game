@@ -1645,6 +1645,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyCapturePoint
       objectReference: {fileID: 0}
+    - target: {fileID: 7211991111394275063, guid: 742854edecb2cf048afba4bf9809f36f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8151033190178004346, guid: 742854edecb2cf048afba4bf9809f36f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -9
@@ -1655,7 +1659,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8151033190178004346, guid: 742854edecb2cf048afba4bf9809f36f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -80
+      value: -85.36
       objectReference: {fileID: 0}
     - target: {fileID: 8151033190178004346, guid: 742854edecb2cf048afba4bf9809f36f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1685,7 +1689,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1353370346733193267, guid: 742854edecb2cf048afba4bf9809f36f, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
