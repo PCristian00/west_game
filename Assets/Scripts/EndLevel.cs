@@ -12,11 +12,12 @@ public class EndLevel : MonoBehaviour
 
     private void OnEnable()
     {
-        if (dependentObject._targetGameState == GameManager.instance.CurrentGameState)
-        {
-            Time.timeScale = 0.2f;
-            Invoke(nameof(ShowPanel), Time.timeScale * 2.5f);
-        }
+        if (dependentObject)
+            if (dependentObject._targetGameState == GameManager.instance.CurrentGameState)
+            {
+                Time.timeScale = 0.2f;
+                Invoke(nameof(ShowPanel), Time.timeScale * 2.5f);
+            }
     }
 
     void ShowPanel()
