@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DebugScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/Sniper.unity
+    guid: e50dbd6a8682d53438da7947da7ed13a
   m_configObjects: {}

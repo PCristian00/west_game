@@ -49,7 +49,7 @@ public class LoadoutManager : MonoBehaviour
         // Cambiare nome scena in IF con quello corretto
         if (SceneManager.GetActiveScene().name.Equals("Sniper"))
         {
-           // weapons[4].name += "[E]";
+           weapons[4].name += "[E]";
             Debug.Log("LIVELLO SNIPER: SOLO ARMA DA CECCHINO");
         }
 
