@@ -1,10 +1,7 @@
 using System;
-using System.Collections;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,6 +13,8 @@ public class GameManager : MonoBehaviour
 
     [Header("LevelInfo")]
     public int enemySpawnRate = 5;
+    public string LevelName => SceneManager.GetActiveScene().name;
+    public int LevelIndex => SceneManager.GetActiveScene().buildIndex;
 
     [Header("Enemies")]
     public GameObject enemy;
@@ -43,6 +42,7 @@ public class GameManager : MonoBehaviour
     }
 
     private GameState _currentGameState;
+
     public GameState CurrentGameState
     {
         get => _currentGameState;
@@ -68,9 +68,6 @@ public class GameManager : MonoBehaviour
 
     private int inputBlockedCounter = 0;
 
-    public string LevelName => SceneManager.GetActiveScene().name;
-    public int LevelIndex => SceneManager.GetActiveScene().buildIndex;
-
     void Start()
     {
         instance = this;
@@ -83,13 +80,7 @@ public class GameManager : MonoBehaviour
 
         PauseGame(true);
 
-        // loadingScreen.SetActive(false);
-
         enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
-
-        //if (enemyInfo)
-        //    enemyInfo.text = $"{enemyKilled} / {killGoal} NEMICI SCONFITTI";
-
 
         // TEST: Il gioco parte con 3 nemici
         if (enemy)
