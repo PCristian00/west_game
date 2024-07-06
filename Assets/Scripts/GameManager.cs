@@ -11,14 +11,15 @@ public class GameManager : MonoBehaviour
     public bool slowMode = false;
     public float slowMultiplier = 0.5f;
 
-    [Header("LevelInfo")]
-    public int enemySpawnRate = 5;
+    // [Header("LevelInfo")]
     public string LevelName => SceneManager.GetActiveScene().name;
     public int LevelIndex => SceneManager.GetActiveScene().buildIndex;
 
     [Header("Enemies")]
     public GameObject enemy;
     public GameObject[] enemySpawn;
+    public int enemySpawnRate = 5;
+    public int spawnLimit = 5;
     private int enemyCount;
     private bool noEnemies = false;
     private int enemyKilled = 0;
@@ -82,13 +83,15 @@ public class GameManager : MonoBehaviour
 
         enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
 
-        // TEST: Il gioco parte con 3 nemici
+        // TEST: Il gioco parte con (spawnLimit) nemici
         if (enemy)
         {
-            for (int i = 0; i < 3; i++)
-            {
-                Invoke(nameof(SpawnEnemy), enemySpawnRate);
-            }
+            Invoke(nameof(SpawnEnemy), enemySpawnRate);
+
+            //for (int i = 0; i < spawnLimit; i++)
+            //{
+            //    Invoke(nameof(SpawnEnemy), enemySpawnRate);
+            //}
         }
     }
 
@@ -156,7 +159,7 @@ public class GameManager : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        if (CurrentGameState != GameState.Lost && enemySpawn.Length != 0)
+        if (CurrentGameState != GameState.Lost && enemySpawn.Length != 0 && enemyCount < spawnLimit)
         {
             int index = UnityEngine.Random.Range(0, enemySpawn.Length);
 
@@ -165,6 +168,8 @@ public class GameManager : MonoBehaviour
             Debug.Log($"{enemy.name} spawnato da {enemySpawn[index].name}");
             noEnemies = false;
             enemyCount++;
+
+            Invoke(nameof(SpawnEnemy), enemySpawnRate);
         }
         else return;
     }
@@ -194,6 +199,7 @@ public class GameManager : MonoBehaviour
     public void ClearAllData()
     {
         PlayerPrefs.DeleteAll();
+
         // Cambiare in caricamento scena menù principale
         LoadingManager.instance.LoadSceneFromIndex(LevelIndex);
     }

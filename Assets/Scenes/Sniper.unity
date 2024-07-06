@@ -630,6 +630,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2860288158014513818, guid: 3c00b8c50d6ae1a45aa94710ac8f2ee2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2860288158014513818, guid: 3c00b8c50d6ae1a45aa94710ac8f2ee2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2902100037803112357, guid: 3c00b8c50d6ae1a45aa94710ac8f2ee2, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -1427,7 +1435,7 @@ PrefabInstance:
       objectReference: {fileID: 7047220171206350073, guid: 0b3ea11bff0e4bc4e97f3f4d367a9147, type: 3}
     - target: {fileID: 849317902910664577, guid: 88bc537768b3fa64daf36f56e3c77971, type: 3}
       propertyPath: timer
-      value: 10
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 849317902910664577, guid: 88bc537768b3fa64daf36f56e3c77971, type: 3}
       propertyPath: killGoal
@@ -1455,7 +1463,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 849317902910664577, guid: 88bc537768b3fa64daf36f56e3c77971, type: 3}
       propertyPath: enemySpawnRate
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 849317902910664577, guid: 88bc537768b3fa64daf36f56e3c77971, type: 3}
       propertyPath: enemySpawn.Array.size

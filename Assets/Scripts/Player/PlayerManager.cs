@@ -41,9 +41,7 @@ public class PlayerManager : MonoBehaviour
         {
             EnemyBullet bullet = other.GetComponent<EnemyBullet>();
             Destroy(other.gameObject);
-            health -= bullet.damage;
-            if (health <= 0) Death();
-            else audioSource.PlayOneShot(hitSound);
+            TakeDamage(bullet.damage);
         }
 
         else
@@ -74,6 +72,13 @@ public class PlayerManager : MonoBehaviour
                 Destroy(other.gameObject);
             }
         }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0) Death();
+        else audioSource.PlayOneShot(hitSound);
     }
 
     private void Death()
