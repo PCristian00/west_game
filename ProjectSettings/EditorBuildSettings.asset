@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Sniper.unity
     guid: e50dbd6a8682d53438da7947da7ed13a
   - enabled: 1
+    path: Assets/Scenes/Factory.unity
+    guid: 604a38344ce885c42bc5f19c4b030421
+  - enabled: 1
     path: Assets/Scenes/DebugScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}
