@@ -115,14 +115,17 @@ public class PlayerMovement : MonoBehaviour
             // Skill attiva
             if (Input.GetKeyDown(skillKey))
             {
-                if (SkillManager.instance.skillReady)
+                if (SkillManager.instance)
                 {
-                    SkillManager.instance.skill.Activate(SkillManager.instance.skillCooldown / 2);
-                    SkillManager.instance.skillReady = false;
-                    StartCoroutine(SkillManager.instance.Cooldown(SkillManager.instance.skillCooldown));
+                    if (SkillManager.instance.skillReady)
+                    {
+                        SkillManager.instance.skill.Activate(SkillManager.instance.skillCooldown / 2);
+                        SkillManager.instance.skillReady = false;
+                        StartCoroutine(SkillManager.instance.Cooldown(SkillManager.instance.skillCooldown));
+                    }
+                    else Debug.Log("Non puoi attivare la skill. Aspetta fine cooldown.");
                 }
-
-                else Debug.Log("Non puoi attivare la skill. Aspetta fine cooldown.");
+                else Debug.Log("NO SKILLS FOUND");
             }
         }
     }

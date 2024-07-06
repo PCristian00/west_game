@@ -226,6 +226,7 @@ public class Enemy : MonoBehaviour
 
     private void DestroyEnemy()
     {
+        if(icon)
         Destroy(icon);
         // Debug.Log("NEMICO " + gameObject.name + " DISTRUTTO");
         GameManager.instance.EnemyKilled();
@@ -235,7 +236,7 @@ public class Enemy : MonoBehaviour
         GameObject coin = WalletManager.instance.DropCoin();
         // Rilascio casuale della moneta
 
-        if (canPatrol || canChase)
+        if ((canPatrol || canChase) && !walkOnly)
         {
 
             int dropChance = Random.Range(0, 5);
@@ -250,7 +251,7 @@ public class Enemy : MonoBehaviour
                 // Debug.Log("Moneta caduta - " + coin.name);
             }
         }
-        // Se il nemico non può spostarsi, carica direttamente i soldi senza rilasciare monete
+        // Se il nemico non può spostarsi o attaccare, carica direttamente i soldi senza rilasciare monete
         else WalletManager.instance.wallet += 25 * PlayerManager.instance.coinMultiplier;
     }
 

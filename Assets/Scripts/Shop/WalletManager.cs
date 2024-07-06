@@ -21,8 +21,8 @@ public class WalletManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(walletInfo)
-        walletInfo.text = wallet.ToString();
+        if (walletInfo)
+            walletInfo.text = $"({wallet})";
     }
 
     // Restituisce una moneta a caso tra i vari tipi (valori) disponibili

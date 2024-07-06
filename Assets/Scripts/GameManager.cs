@@ -1,10 +1,7 @@
 using System;
-using System.Collections;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,21 +11,28 @@ public class GameManager : MonoBehaviour
     public bool slowMode = false;
     public float slowMultiplier = 0.5f;
 
-    [Header("LevelInfo")]
-    public int enemySpawnRate = 5;
+    // [Header("LevelInfo")]
+    public string LevelName => SceneManager.GetActiveScene().name;
+    public int LevelIndex => SceneManager.GetActiveScene().buildIndex;
 
     [Header("Enemies")]
     public GameObject enemy;
     public GameObject[] enemySpawn;
+    public int enemySpawnRate = 5;
+    public int spawnLimit = 5;
     private int enemyCount;
     private bool noEnemies = false;
     private int enemyKilled = 0;
 
     [Header("Objectives")]
-    public int killGoal = 5;
-
-    [Header("References")]
-    public TextMeshProUGUI enemyInfo;
+    [Tooltip("Se maggiore di zero, una volta raggiunto l'obiettivo il giocatore vince")]
+    public int killGoal;
+    [Tooltip("Se maggiore di zero, viene attivato il timer")]
+    public float timer;
+    public bool killObjective = false;
+    public bool timerObjective = false;
+    [Tooltip("Stabilisce se dare un punteggio (in monete) per la salute rimasta al termine del livello")]
+    public bool bonusPoints = false;
 
     public enum GameState
     {
@@ -39,6 +43,7 @@ public class GameManager : MonoBehaviour
     }
 
     private GameState _currentGameState;
+
     public GameState CurrentGameState
     {
         get => _currentGameState;
@@ -64,44 +69,79 @@ public class GameManager : MonoBehaviour
 
     private int inputBlockedCounter = 0;
 
-    public string LevelName => SceneManager.GetActiveScene().name;
-    public int LevelIndex => SceneManager.GetActiveScene().buildIndex;
-
     void Start()
     {
         instance = this;
 
-        PauseGame(true);
+        if (killGoal > 0) killObjective = true;
+        else killObjective = false;
 
-        // loadingScreen.SetActive(false);
+        if (timer > 0) timerObjective = true;
+        else timerObjective = false;
+
+        PauseGame(true);
 
         enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
 
-        if (enemyInfo)
-            enemyInfo.text = $"{enemyKilled} / {killGoal} NEMICI SCONFITTI";
-
-
-        // TEST: Il gioco parte con 3 nemici
+        // TEST: Il gioco parte con (spawnLimit) nemici
         if (enemy)
         {
-            for (int i = 0; i < 3; i++)
-            {
-                Invoke(nameof(SpawnEnemy), enemySpawnRate);
-            }
+            Invoke(nameof(SpawnEnemy), enemySpawnRate);
+
+            //for (int i = 0; i < spawnLimit; i++)
+            //{
+            //    Invoke(nameof(SpawnEnemy), enemySpawnRate);
+            //}
         }
     }
 
     void Update()
     {
-        if (PlayerManager.instance.health <= 0)
+        if (CurrentGameState != GameState.Running) return;
+
+        if (timerObjective)
         {
-            CurrentGameState = GameState.Lost;
+            timer -= Time.deltaTime;
 
-            // AudioManager.BackgroundMusic[5] deve essere Canzone GameOver
-
-            // CAUSA PROBLEMI: RISOLVERE
-            AudioManager.instance.SetMusic(5);
+            if (timer <= 0f)
+            {
+                // Se il giocatore è ancora vivo entro la fine del timer, vince
+                WinLevel(bonusPoints);
+            }
         }
+    }
+
+    public void WinLevel(bool bonus = false)
+    {
+        if (CurrentGameState != GameState.Running) return;
+
+        Debug.Log("You win!!!");
+
+        AudioManager.instance.SetMusic(6);
+
+        CurrentGameState = GameState.Won;
+
+        int bonusCoins = 0;
+
+        if (bonus) bonusCoins = PlayerManager.instance.health / 5;
+
+        Debug.Log("BONUS POINTS: " + bonusCoins);
+
+        WalletManager.instance.wallet += 50 + bonusCoins;
+        SaveManager.UpdateFloat(WalletManager.instance.saveKey, WalletManager.instance.wallet);
+    }
+
+
+    public void LoseLevel()
+    {
+        if (CurrentGameState != GameState.Running) return;
+
+        Debug.Log("You lose...");
+
+        AudioManager.instance.SetMusic(5);
+
+
+        CurrentGameState = GameState.Lost;
     }
 
     public void RequestInputBlock()
@@ -121,7 +161,7 @@ public class GameManager : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        if (CurrentGameState != GameState.Lost && enemySpawn.Length != 0)
+        if (CurrentGameState != GameState.Lost && enemySpawn.Length != 0 && enemyCount < spawnLimit)
         {
             int index = UnityEngine.Random.Range(0, enemySpawn.Length);
 
@@ -130,6 +170,8 @@ public class GameManager : MonoBehaviour
             Debug.Log($"{enemy.name} spawnato da {enemySpawn[index].name}");
             noEnemies = false;
             enemyCount++;
+
+            Invoke(nameof(SpawnEnemy), enemySpawnRate);
         }
         else return;
     }
@@ -139,25 +181,27 @@ public class GameManager : MonoBehaviour
         enemyCount--;
         enemyKilled++;
 
-        if (enemyInfo)
-            enemyInfo.text = $"{enemyKilled} / {killGoal} NEMICI SCONFITTI";
-
-        if (enemyKilled >= killGoal)
+        if (enemyKilled >= killGoal && killObjective)
         {
             Debug.Log($"UCCISI {killGoal} NEMICI");
 
-            CurrentGameState = GameState.Won;
-            WalletManager.instance.wallet += 100;
-            SaveManager.UpdateFloat(WalletManager.instance.saveKey, WalletManager.instance.wallet);
-
+            WinLevel(bonusPoints);
         }
         else if (enemy)
             Invoke(nameof(SpawnEnemy), enemySpawnRate);
     }
 
+
+    public string KillGoalInfo()
+    {
+        return $"{enemyKilled} / {killGoal} NEMICI SCONFITTI";
+    }
+
+
     public void ClearAllData()
     {
         PlayerPrefs.DeleteAll();
+
         // Cambiare in caricamento scena menù principale
         LoadingManager.instance.LoadSceneFromIndex(LevelIndex);
     }

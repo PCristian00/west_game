@@ -7,12 +7,15 @@ public class CapturePoint : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             Enemy enemy = other.GetComponent<Enemy>();
-            Debug.Log("Raggiunto da " + other.name);
-            // Debug.Log("Colliso " + collision.gameObject.name);
+
             Destroy(other.gameObject);
-            PlayerManager.instance.health -= enemy.captureDamage;
-            Debug.Log(enemy.name + " ha fatto " + enemy.captureDamage + " punti danno");
+            Instantiate(enemy.deathEffect, transform.position, Quaternion.identity);
+
+            GameManager.instance.EnemyKilled();
+            PlayerManager.instance.TakeDamage(enemy.captureDamage);
+            
+            // Debug.Log(enemy.name + " ha fatto " + enemy.captureDamage + " punti danno");
         }
-       // else Debug.Log("NON ERA UN ENEMY");
+        else Debug.Log("NON ERA UN ENEMY");
     }
 }

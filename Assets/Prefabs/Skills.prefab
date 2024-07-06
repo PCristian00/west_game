@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 6589415209040101298}
   - component: {fileID: 7281215130946779883}
   m_Layer: 0
-  m_Name: DoubleJumpSkill
+  m_Name: Doppio Salto
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -136,9 +136,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: aad05c085ae286c4197c7972d4a16931, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 07500be63bee9c145b53796c99a4b3c7, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -159,7 +159,7 @@ GameObject:
   - component: {fileID: 8472806599931262543}
   - component: {fileID: 981403325677149178}
   m_Layer: 0
-  m_Name: ShieldSkill
+  m_Name: Scudo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -224,9 +224,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5d0717f5d784c704ea00bf8e7caa526a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a033bb62a3d6e06429b9f56bcc5df6ca, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -247,7 +247,7 @@ GameObject:
   - component: {fileID: 6904441689762806091}
   - component: {fileID: 5729803762919143705}
   m_Layer: 0
-  m_Name: SlowMoSkill
+  m_Name: SlowMo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -312,9 +312,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 172af1a52af8c8f4b99cc2094f63c964, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bd1ff6ee8d684d04db39fb8255a20ec9, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -335,7 +335,7 @@ GameObject:
   - component: {fileID: 3188130139363581647}
   - component: {fileID: 4565481067041923665}
   m_Layer: 0
-  m_Name: SuperspeedSkill
+  m_Name: Supervelocita'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -400,9 +400,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d2893520cfd08024fbdfa6519681c5a7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d7e8a8c9bd5c1f841b88217c6d8dbd0a, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
