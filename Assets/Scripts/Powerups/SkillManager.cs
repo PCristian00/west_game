@@ -8,7 +8,7 @@ public class SkillManager : MonoBehaviour
 {
     public GameObject[] skills;
 
-    private int current;
+    private int current;    
 
     private GameObject _currentSkill;
 
@@ -48,6 +48,7 @@ public class SkillManager : MonoBehaviour
     public Slider skillBar;
     public TextMeshProUGUI skillText;
     public Image skillIcon;
+    private Color activeColor;
 
     public static SkillManager instance;
 
@@ -87,17 +88,17 @@ public class SkillManager : MonoBehaviour
 
         float t = 0f;
 
+        activeColor = skillBar.fillRect.GetComponent<Image>().color;
+
 
         //yield return new WaitForSeconds(time);       
 
 
         while (t < 1f)
         {
-            yield return null;
+            yield return null;           
 
-
-
-            if (t <= 0.5f) skillIcon.color = Color.green;
+            if (t <= 0.5f) skillIcon.color = activeColor;
             else skillIcon.color = new Color(t, t, t, t);
 
             t += Time.deltaTime / time;
