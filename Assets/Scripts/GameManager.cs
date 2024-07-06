@@ -25,13 +25,14 @@ public class GameManager : MonoBehaviour
     private int enemyKilled = 0;
 
     [Header("Objectives")]
-    public int killGoal = 5;
+    [Tooltip("Se maggiore di zero, una volta raggiunto l'obiettivo il giocatore vince")]
+    public int killGoal;
+    [Tooltip("Se maggiore di zero, viene attivato il timer")]
     public float timer;
     public bool killObjective = false;
     public bool timerObjective = false;
-
-    [Header("References")]
-    public TextMeshProUGUI enemyInfo;
+    [Tooltip("Stabilisce se dare un punteggio (in monete) per la salute rimasta al termine del livello")]
+    public bool bonusPoints = false;
 
     public enum GameState
     {
@@ -86,8 +87,8 @@ public class GameManager : MonoBehaviour
 
         enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
 
-        if (enemyInfo)
-            enemyInfo.text = $"{enemyKilled} / {killGoal} NEMICI SCONFITTI";
+        //if (enemyInfo)
+        //    enemyInfo.text = $"{enemyKilled} / {killGoal} NEMICI SCONFITTI";
 
 
         // TEST: Il gioco parte con 3 nemici
@@ -107,34 +108,42 @@ public class GameManager : MonoBehaviour
         if (timerObjective)
         {
             timer -= Time.deltaTime;
-            //TimeSpan ts = TimeSpan.FromSeconds(_timer);
-            //_timerText.text =  ts.ToString( @"mm\:ss" );
+
             if (timer <= 0f)
             {
-                // Debug.Log("");
-                LoseLevel();
+                // Se il giocatore è ancora vivo entro la fine del timer, vince
+                WinLevel(bonusPoints);
             }
         }
     }
 
-    public void WinLevel()
+    public void WinLevel(bool bonus = false)
     {
         if (CurrentGameState != GameState.Running) return;
-        //GameRunning = false;
+
         Debug.Log("You win!!!");
-        //_winPanel.SetActive(true);
+
         CurrentGameState = GameState.Won;
+
+        int bonusCoins = 0;
+
+        if (bonus) bonusCoins = PlayerManager.instance.health / 5;
+
+        Debug.Log("BONUS POINTS: " + bonusCoins);
+
+        WalletManager.instance.wallet += 50 + bonusCoins;
+        SaveManager.UpdateFloat(WalletManager.instance.saveKey, WalletManager.instance.wallet);
     }
 
 
     public void LoseLevel()
     {
         if (CurrentGameState != GameState.Running) return;
-        //GameRunning = false;
+
         Debug.Log("You lose...");
 
         AudioManager.instance.SetMusic(5);
-        //_losePanel.SetActive(true);
+
 
         CurrentGameState = GameState.Lost;
     }
@@ -174,21 +183,22 @@ public class GameManager : MonoBehaviour
         enemyCount--;
         enemyKilled++;
 
-        if (enemyInfo)
-            enemyInfo.text = $"{enemyKilled} / {killGoal} NEMICI SCONFITTI";
-
-        if (enemyKilled >= killGoal)
+        if (enemyKilled >= killGoal && killObjective)
         {
             Debug.Log($"UCCISI {killGoal} NEMICI");
 
-            WinLevel();
-            WalletManager.instance.wallet += 100;
-            SaveManager.UpdateFloat(WalletManager.instance.saveKey, WalletManager.instance.wallet);
-
+            WinLevel(bonusPoints);
         }
         else if (enemy)
             Invoke(nameof(SpawnEnemy), enemySpawnRate);
     }
+
+
+    public string KillGoalInfo()
+    {
+        return $"{enemyKilled} / {killGoal} NEMICI SCONFITTI";
+    }
+
 
     public void ClearAllData()
     {
