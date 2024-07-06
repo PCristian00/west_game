@@ -15,6 +15,6 @@ public class HealthInfo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        healthInfo.SetText("Health: " + PlayerManager.instance.health);
+        healthInfo.text = $"(" + PlayerManager.instance.health + ")";
     }
 }
