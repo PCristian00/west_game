@@ -4328,6 +4328,7 @@ GameObject:
   - component: {fileID: 8813993287331402033}
   - component: {fileID: 8735419652022831635}
   - component: {fileID: 6678582542669499533}
+  - component: {fileID: 1265383494843476699}
   m_Layer: 5
   m_Name: Skill
   m_TagString: Untagged
@@ -4452,6 +4453,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1265383494843476699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6578734228341548052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd9fed05f33b3794aab29fd4d9fe5e85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6733260581706055913
 GameObject:
   m_ObjectHideFlags: 0
