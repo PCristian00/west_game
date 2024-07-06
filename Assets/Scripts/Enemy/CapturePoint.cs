@@ -1,3 +1,4 @@
+using System.Runtime.Serialization;
 using UnityEngine;
 
 public class CapturePoint : MonoBehaviour
@@ -13,9 +14,10 @@ public class CapturePoint : MonoBehaviour
             Debug.Log("Raggiunto da " + other.name);
             // Debug.Log("Colliso " + collision.gameObject.name);
             Destroy(other.gameObject);
+            Instantiate(enemy.deathEffect, transform.position, Quaternion.identity);
             PlayerManager.instance.health -= enemy.captureDamage;
             Debug.Log(enemy.name + " ha fatto " + enemy.captureDamage + " punti danno");
         }
-       else Debug.Log("NON ERA UN ENEMY");
+        else Debug.Log("NON ERA UN ENEMY");
     }
 }
