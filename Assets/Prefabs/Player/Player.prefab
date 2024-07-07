@@ -242,9 +242,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 164b19665957c754abb0f3beba9d0c70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  orientation: {fileID: 888674069841470712}
   moveSpeed: 7
   groundDrag: 5
-  orientation: {fileID: 888674069841470712}
   jumpForce: 10
   jumpCooldown: 0.25
   airMultiplier: 0.4
@@ -288,6 +288,8 @@ MonoBehaviour:
   _camera: {fileID: 0}
   raycastDistance: 5
   hasWeapons: 1
+  activateKey: 99
+  examineKey: 118
 --- !u!82 &4368195954557856234
 AudioSource:
   m_ObjectHideFlags: 0
