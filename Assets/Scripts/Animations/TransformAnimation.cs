@@ -8,7 +8,7 @@ public class TransformAnimation : MonoBehaviour
     [SerializeField] private Vector3 rotationAxis = Vector3.right;
     [SerializeField] private float rotationDegrees = 0f;
     [SerializeField] private Vector3 targetScale = Vector3.zero;
-    [SerializeField] private float duration = 1f;
+    public float duration = 1f;
 
     [SerializeField] private AnimationCurve curve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 

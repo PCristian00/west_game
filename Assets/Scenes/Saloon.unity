@@ -2466,8 +2466,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 893536706}
     - target: {fileID: 5427681536831620559, guid: 8b606aa936e301a448b8ecd4527b1824, type: 3}
+      propertyPath: examineKey
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 5427681536831620559, guid: 8b606aa936e301a448b8ecd4527b1824, type: 3}
       propertyPath: hasWeapons
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5427681536831620559, guid: 8b606aa936e301a448b8ecd4527b1824, type: 3}
+      propertyPath: activateKey
+      value: 122
       objectReference: {fileID: 0}
     - target: {fileID: 6557309845406260051, guid: 8b606aa936e301a448b8ecd4527b1824, type: 3}
       propertyPath: canPause

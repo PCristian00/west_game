@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class OpenOnActivate : MonoBehaviour, IActivate
+public class OpenSaloonDoorsOnActivate : MonoBehaviour, IActivate
 {
 
     public SaloonDoors doors;
