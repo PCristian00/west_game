@@ -79,7 +79,7 @@ MonoBehaviour:
   hitSound: {fileID: 8300000, guid: 67cb86cccd5bd30409d34fe89f01f267, type: 3}
   deathSound: {fileID: 8300000, guid: 9d130f1bc996ab5408ab8a00d0b693b9, type: 3}
   attackEffect: {fileID: 0}
-  hitEffect: {fileID: 0}
+  hitEffect: {fileID: 100002, guid: e74af37e539075d428c1f7bd8cdb781d, type: 3}
   deathEffect: {fileID: 5517220841568471734, guid: 8dca52d7c8265254eb32596149630449, type: 3}
   icon: {fileID: 0}
   flashColor: {r: 1, g: 0, b: 0, a: 1}
