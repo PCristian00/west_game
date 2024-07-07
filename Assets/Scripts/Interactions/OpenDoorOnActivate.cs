@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class OpenDoorOnActivate : MonoBehaviour, IActivate
 {
-    public GameObject door;
+    // public GameObject door;
     private AudioSource audioSource;
     public TransformAnimation doorAnimation;
 
