@@ -35,28 +35,8 @@ public class PlayerManager : MonoBehaviour
         instance = this;
     }
 
-
-    //public void OnCollisionEnter(Collision collision)
-    //{
-    //    if (collision.gameObject.CompareTag("Bullet") && !invincible)
-    //    {
-    //        EnemyBullet bullet = collision.gameObject.GetComponent<EnemyBullet>();
-    //        Destroy(collision.gameObject);
-    //        TakeDamage(bullet.damage);
-    //    }
-    //}
-
     public void OnTriggerEnter(Collider other)
     {
-        //if (other.CompareTag("Bullet") && !invincible)
-        //{
-        //    EnemyBullet bullet = other.GetComponent<EnemyBullet>();
-        //    Destroy(other.gameObject);
-        //    TakeDamage(bullet.damage);
-        //}
-
-        //else
-        //{
         if (other.CompareTag("Powerup"))
         {
             // Attiva ogni power-up contenuto nell'oggetto in collisione
@@ -82,7 +62,6 @@ public class PlayerManager : MonoBehaviour
             audioSource.PlayOneShot(CoinPickup);
             Destroy(other.gameObject);
         }
-        //}
     }
 
     public void TakeDamage(int damage)
