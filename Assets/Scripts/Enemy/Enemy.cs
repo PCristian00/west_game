@@ -150,7 +150,7 @@ public class Enemy : MonoBehaviour
         if (walkOnly) agent.SetDestination(transform.position);
         else
         {
-            transform.LookAt(player);
+            transform.LookAt(player, attackPoint.up);
 
             if (!alreadyAttacked && canAttack)
             {
@@ -168,8 +168,8 @@ public class Enemy : MonoBehaviour
                     multiplier = GameManager.instance.slowMultiplier;
                 else multiplier = 1f;
 
-                rb.AddForce(shootForce * multiplier * transform.forward, ForceMode.Impulse);
-                rb.AddForce(upwardForce * transform.up, ForceMode.Impulse);
+                rb.AddForce(shootForce * multiplier * attackPoint.forward, ForceMode.Impulse);
+                rb.AddForce(upwardForce * attackPoint.up, ForceMode.Impulse);
 
                 ///End of attack code
 

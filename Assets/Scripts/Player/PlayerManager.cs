@@ -57,39 +57,42 @@ public class PlayerManager : MonoBehaviour
 
         //else
         //{
-            if (other.CompareTag("Powerup"))
+        if (other.CompareTag("Powerup"))
+        {
+            // Attiva ogni power-up contenuto nell'oggetto in collisione
+            foreach (var powerup in other.GetComponents<IPowerup>())
             {
-                // Attiva ogni power-up contenuto nell'oggetto in collisione
-                foreach (var powerup in other.GetComponents<IPowerup>())
-                {
-                    // COOL-DOWN GENERICO: MODIFICARE IN QUALCHE MODO
-                    powerup.Activate(5f);
-                }
-
-                audioSource.PlayOneShot(PUPickup);
-
-                Debug.Log("Preso power-up " + other.name);
-                Destroy(other.gameObject);
+                // COOL-DOWN GENERICO: MODIFICARE IN QUALCHE MODO
+                powerup.Activate(5f);
             }
 
-            if (other.CompareTag("Coin"))
-            {
-                Coin coin = other.GetComponent<Coin>();
-                Debug.Log("Presa moneta da " + coin.value * coinMultiplier);
+            audioSource.PlayOneShot(PUPickup);
 
-                WalletManager.instance.wallet += (int)(coin.value * coinMultiplier);
+            Debug.Log("Preso power-up " + other.name);
+            Destroy(other.gameObject);
+        }
 
-                audioSource.PlayOneShot(CoinPickup);
-                Destroy(other.gameObject);
-            }
+        if (other.CompareTag("Coin"))
+        {
+            Coin coin = other.GetComponent<Coin>();
+            Debug.Log("Presa moneta da " + coin.value * coinMultiplier);
+
+            WalletManager.instance.wallet += (int)(coin.value * coinMultiplier);
+
+            audioSource.PlayOneShot(CoinPickup);
+            Destroy(other.gameObject);
+        }
         //}
     }
 
     public void TakeDamage(int damage)
     {
-        health -= damage;
-        if (health <= 0) Death();
-        else audioSource.PlayOneShot(hitSound);
+        if (!invincible)
+        {
+            health -= damage;
+            if (health <= 0) Death();
+            else audioSource.PlayOneShot(hitSound);
+        }
     }
 
     private void Death()
