@@ -203,7 +203,12 @@ public class Enemy : MonoBehaviour
             Instantiate(deathEffect, transform.position, Quaternion.identity);
             Invoke(nameof(DestroyEnemy), 0.5f);
         }
-        else if (audioSource && hitSound) audioSource.PlayOneShot(hitSound);
+        else
+        {
+            if (audioSource && hitSound) audioSource.PlayOneShot(hitSound);
+
+            if(hitEffect) Instantiate(hitEffect, transform.position, Quaternion.identity);            
+        }
     }
 
     private void FlashOnHit()

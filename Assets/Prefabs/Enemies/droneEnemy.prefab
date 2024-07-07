@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 5588290921877660850}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.5, z: -2.32}
+  m_LocalPosition: {x: 0, y: -1.435, z: 2.28}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -236,7 +236,7 @@ MonoBehaviour:
   walkOnly: 0
   captureDamage: 1
   shootForce: 32
-  upwardForce: 0
+  upwardForce: 4
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 20
   timeBetweenAttacks: 4
@@ -249,7 +249,7 @@ MonoBehaviour:
   hitSound: {fileID: 8300000, guid: 67cb86cccd5bd30409d34fe89f01f267, type: 3}
   deathSound: {fileID: 8300000, guid: 9d130f1bc996ab5408ab8a00d0b693b9, type: 3}
   attackEffect: {fileID: 0}
-  hitEffect: {fileID: 0}
+  hitEffect: {fileID: 100002, guid: e74af37e539075d428c1f7bd8cdb781d, type: 3}
   deathEffect: {fileID: 5517220841568471734, guid: 8dca52d7c8265254eb32596149630449, type: 3}
   icon: {fileID: 0}
   flashColor: {r: 1, g: 0, b: 0, a: 1}

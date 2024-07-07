@@ -9,6 +9,9 @@ public class PlayerInteraction : MonoBehaviour
 
     public bool hasWeapons = true;
 
+    [Header("Keybinds")]
+    public KeyCode activateKey = KeyCode.C;
+    public KeyCode examineKey = KeyCode.V;
 
     private void SetCursorLocked(bool locked)
     {       
@@ -55,15 +58,17 @@ public class PlayerInteraction : MonoBehaviour
                 }
             }
 
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetKeyDown(activateKey))
+            //if(Input.GetButtonDown("Fire1"))
             {
                 foreach (var interactable in lastHitGameObject.GetComponents<IActivate>())
                 {
                     interactable.Activate();
                 }
             }
-            else if (Input.GetButtonDown("Fire2"))
-            {
+            //else if (Input.GetButtonDown("Fire2"))
+            else if (Input.GetKeyDown(examineKey))
+                {
                 foreach (var interactable in lastHitGameObject.GetComponents<IExamine>())
                 {
                     interactable.Examine();

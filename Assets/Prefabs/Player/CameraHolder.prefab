@@ -263,6 +263,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6881147248107699827, guid: 1444735455c14f74395550466e34ce9b, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 8007135980016800367, guid: 1444735455c14f74395550466e34ce9b, type: 3}
       propertyPath: bullet
       value: 
@@ -338,6 +342,10 @@ PrefabInstance:
       propertyPath: fpsCam
       value: 
       objectReference: {fileID: 303071162265843639}
+    - target: {fileID: 6120323908106776972, guid: 1677818696d0e5a4192082a218d3f59f, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 6317332041935964709, guid: 1677818696d0e5a4192082a218d3f59f, type: 3}
       propertyPath: m_Name
       value: RocketLauncher
@@ -381,6 +389,10 @@ PrefabInstance:
       propertyPath: fpsCam
       value: 
       objectReference: {fileID: 303071162265843639}
+    - target: {fileID: 8399052268857801637, guid: bf37a98693d0cbc49b1e7b9a3fc2286d, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 8479098471599158265, guid: bf37a98693d0cbc49b1e7b9a3fc2286d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.4
@@ -451,6 +463,10 @@ PrefabInstance:
     - target: {fileID: 4019694772348678290, guid: 177a584f7a93c784281fc9a6e9864cb6, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4915954082407667749, guid: 177a584f7a93c784281fc9a6e9864cb6, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 6934855649155063821, guid: 177a584f7a93c784281fc9a6e9864cb6, type: 3}
       propertyPath: fpsCam
@@ -575,6 +591,10 @@ PrefabInstance:
       propertyPath: fpsCam
       value: 
       objectReference: {fileID: 303071162265843639}
+    - target: {fileID: 8805704017346516677, guid: 5962083e8592da44ba5fc183e739098b, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

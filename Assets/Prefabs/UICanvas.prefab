@@ -713,9 +713,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wallet: 0
   coins:
-  - {fileID: 1290909961078176413, guid: e78ca364e1c959a41817ce8f6e726aef, type: 3}
-  - {fileID: 1290909961078176413, guid: d884b267805b8cb49b2d31371740d5fd, type: 3}
-  - {fileID: 3601161503611962371, guid: 8056fa2818199d34a809547d96b4f482, type: 3}
+  - {fileID: 1290909961078176413, guid: 43515925e08abab4d863124bcdedb933, type: 3}
+  - {fileID: 1290909961078176413, guid: 2cf688f39bf25244a8e43a9cf46ab637, type: 3}
+  - {fileID: 3601161503611962371, guid: bd7583d0361b583429536ee8cf1e6550, type: 3}
   walletInfo: {fileID: 6208806987499928667}
 --- !u!1 &1199117805802754276
 GameObject:
@@ -1460,7 +1460,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 402f052cbf033c343850e9cd19b1f37b, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
