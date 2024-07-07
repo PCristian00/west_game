@@ -10,8 +10,8 @@ public class PlayerInteraction : MonoBehaviour
     public bool hasWeapons = true;
 
     [Header("Keybinds")]
-    public KeyCode activateKey = KeyCode.Z;
-    public KeyCode examineKey = KeyCode.X;
+    public KeyCode activateKey = KeyCode.C;
+    public KeyCode examineKey = KeyCode.V;
 
     private void SetCursorLocked(bool locked)
     {       
