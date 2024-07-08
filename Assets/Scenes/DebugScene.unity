@@ -658,6 +658,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Cubo
   description: Serve solo per le prove ed e' giallo.
+--- !u!1 &537026787
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 537026788}
+  m_Layer: 0
+  m_Name: EnemySpawnPoint (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &537026788
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537026787}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 29.02, y: 3, z: 65.26}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &611801264
 GameObject:
   m_ObjectHideFlags: 0
@@ -1529,6 +1560,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tooltip: Negozio
+--- !u!1 &1703483702
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1703483703}
+  m_Layer: 0
+  m_Name: EnemySpawnPoint (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1703483703
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1703483702}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.45, y: 3, z: 65.26}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1755388464 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 888674069841470712, guid: 8b606aa936e301a448b8ecd4527b1824, type: 3}
@@ -1565,6 +1627,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1947776696 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 849317902910664577, guid: 2017721950a259b47a334c362767d004, type: 3}
+  m_PrefabInstance: {fileID: 7810578122952535937}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6036d9b4c068d4642aec648a90eb95e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2049149126 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3547693090536040950, guid: 3c00b8c50d6ae1a45aa94710ac8f2ee2, type: 3}
@@ -1677,6 +1750,14 @@ PrefabInstance:
     - target: {fileID: 2330230586029359154, guid: 3c00b8c50d6ae1a45aa94710ac8f2ee2, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2902100037803112357, guid: 3c00b8c50d6ae1a45aa94710ac8f2ee2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1947776696}
+    - target: {fileID: 2902100037803112357, guid: 3c00b8c50d6ae1a45aa94710ac8f2ee2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: PauseGame
       objectReference: {fileID: 0}
     - target: {fileID: 3391042644611752193, guid: 3c00b8c50d6ae1a45aa94710ac8f2ee2, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2146,6 +2227,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1242496632971998435, guid: 41651fc43eeab4a4b913081e0c09487a, type: 3}
     - target: {fileID: 849317902910664577, guid: 2017721950a259b47a334c362767d004, type: 3}
+      propertyPath: killGoal
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 849317902910664577, guid: 2017721950a259b47a334c362767d004, type: 3}
       propertyPath: enemySpawn
       value: 
       objectReference: {fileID: 1774779853}
@@ -2158,9 +2243,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 849317902910664577, guid: 2017721950a259b47a334c362767d004, type: 3}
+      propertyPath: enemySpawn.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 849317902910664577, guid: 2017721950a259b47a334c362767d004, type: 3}
       propertyPath: enemySpawn.Array.data[0]
       value: 
       objectReference: {fileID: 1774779853}
+    - target: {fileID: 849317902910664577, guid: 2017721950a259b47a334c362767d004, type: 3}
+      propertyPath: enemySpawn.Array.data[1]
+      value: 
+      objectReference: {fileID: 1703483702}
+    - target: {fileID: 849317902910664577, guid: 2017721950a259b47a334c362767d004, type: 3}
+      propertyPath: enemySpawn.Array.data[2]
+      value: 
+      objectReference: {fileID: 537026787}
     - target: {fileID: 1270959114966007946, guid: 2017721950a259b47a334c362767d004, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -2360,6 +2457,8 @@ SceneRoots:
   - {fileID: 1291136115}
   - {fileID: 6590587666277929754}
   - {fileID: 1774779854}
+  - {fileID: 1703483703}
+  - {fileID: 537026788}
   - {fileID: 611801265}
   - {fileID: 839642382}
   - {fileID: 7379244719903948425}
