@@ -57,15 +57,23 @@ public class SkillManager : MonoBehaviour
     {
         instance = this;
 
-        for (int i = 0; i < ActiveSkillPopup.states.Length; i++)
+        // Nel livello Tutorial, viene caricata una Skill a caso
+        if (GameManager.instance.LevelIndex == 5)
         {
-            if (ActiveSkillPopup.states[i] == 2)
-            {
-                current = i;
-                skillLoaded = true;
-                break;
-            }
+            current = UnityEngine.Random.Range(0, skills.Length);
+            skillLoaded = true;
+
         }
+        else
+            for (int i = 0; i < ActiveSkillPopup.states.Length; i++)
+            {
+                if (ActiveSkillPopup.states[i] == 2)
+                {
+                    current = i;
+                    skillLoaded = true;
+                    break;
+                }
+            }
 
         if (!skillLoaded) NoSkillEquipped();
         else
