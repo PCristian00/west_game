@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class LoadoutManager : MonoBehaviour
 {
@@ -19,7 +18,7 @@ public class LoadoutManager : MonoBehaviour
 
     private bool next;
 
-    public GameObject loadingTest;
+    public GameObject briefingScreen;
 
     public GameObject CurrentWeapon
     {
@@ -29,12 +28,11 @@ public class LoadoutManager : MonoBehaviour
         {
             if (_currentWeapon == value)
             {
-                // Debug.Log("Current weapon: " + _currentWeapon.name);
                 return;
             }
 
             _currentWeapon = value;
-            // Debug.Log("New current weapon: " + _currentWeapon.name);
+
             OnWeaponChanged?.Invoke(_currentWeapon);
         }
     }
@@ -45,14 +43,12 @@ public class LoadoutManager : MonoBehaviour
         CurrentWeapon = weapons[current];
         LoadOutInfo();
 
-        // AGGIUNGERe CECCHINO solo in livello Bonus
-        // Cambiare nome scena in IF con quello corretto
-        if (SceneManager.GetActiveScene().name.Equals("Sniper"))
+        // Il fucile da CECCHINO è disponibile solo in livello Bonus ed è l'unica arma disponibile
+        if (GameManager.instance.LevelIndex == 3)
         {
-           weapons[4].name += "[E]";
+            weapons[4].name += "[E]";
             Debug.Log("LIVELLO SNIPER: SOLO ARMA DA CECCHINO");
         }
-
         else
         {
             for (int i = 0; i < GunPopup.states.Length; i++)
@@ -65,19 +61,21 @@ public class LoadoutManager : MonoBehaviour
                 }
             }
 
+            // Se una delle armi considerate attive è il revolver potenziato, non lo conta
+            if (weapons[0].name.Contains("[E]"))
+            {
+                activeWeaponsCounter--;
+            }
+
             // Se non sono state comprate altre armi o il revolver potenziato, carica il revolver classico
-            if (activeWeaponsCounter == 1 || !weapons[0].name.Contains("[E]")) weapons[3].name += " [E]";
+            if (activeWeaponsCounter == 1 && !weapons[0].name.Contains("[E]")) weapons[3].name += " [E]";
 
         }
-
-
-        // RemoveUnequipped();
-        // Debug.Log(weapons.Length);
     }
-    // Update is called once per frame
+
     void Update()
     {
-        // L'arma viene cambiata solo se non sta ricaricando
+        // L'arma viene cambiata solo se non sta ricaricando e ce ne sono almeno 2
         if (!_currentWeapon.GetComponent<ProjectileGun>().reloading && activeWeaponsCounter > 1)
         {
             if (Input.GetButtonDown("NextWeapon") || Input.GetAxis("Mouse ScrollWheel") > 0f)
@@ -85,18 +83,14 @@ public class LoadoutManager : MonoBehaviour
                 _currentWeapon.GetComponent<ProjectileGun>().Hide(false);
                 next = true;
                 Invoke(nameof(ChangeWeapon), 0.5f);
-                // ChangeWeapon(true);
-
             }
             else if (Input.GetButtonDown("PrevWeapon") || Input.GetAxis("Mouse ScrollWheel") < 0f)
             {
                 _currentWeapon.GetComponent<ProjectileGun>().Hide(false);
                 next = false;
                 Invoke(nameof(ChangeWeapon), 0.5f);
-                // ChangeWeapon(false);
             }
         }
-        // else Debug.Log("IMPOSSIBILE CAMBIARE. RICARICA");
     }
 
     private void ChangeWeapon()
@@ -106,19 +100,14 @@ public class LoadoutManager : MonoBehaviour
         {
             weapons[current].SetActive(false);
 
-            // Debug.Log("N");
-
             do
             {
-                // Debug.Log("N Provando " + weapons[current].name);
-
                 current++;
-                // Debug.Log(current);
+
                 if (current >= weapons.Length)
                 {
                     current = 0;
                 }
-                // Debug.Log("AUM// Arma " + current + ": " + weapons[current].gameObject.name);
             } while (!weapons[current].name.Contains("E"));
 
             weapons[current].SetActive(true);
@@ -127,57 +116,38 @@ public class LoadoutManager : MonoBehaviour
 
         else
         {
-            // Debug.Log("!N");
             weapons[current].SetActive(false);
 
             do
             {
-                // Debug.Log("!N Provando " + weapons[current].name);
-
                 current--;
-                //  Debug.Log(current);
+
                 if (current < 0)
                 {
-                    //  Debug.Log(current);
                     current = weapons.Length - 1;
                 }
-                //  Debug.Log("DEC// Arma " + current+": " + weapons[current].gameObject.name);
+
             } while (!weapons[current].name.Contains("E"));
             weapons[current].SetActive(true);
             CurrentWeapon = weapons[current];
         }
-
-        // Debug.Log("cambio arma completato");
-
     }
 
 
     // Funzioni per caricamento: risolvono parzialmente il problema del crosshair e delle animazioni non caricate in tempo.
-    // Potrebbe essere rimosso dalla versione finale del gioco se ottimizzato correttamente.
+    // Attenzione: disattiva la schermata di Briefing dopo 1.5 secondi.
+    // Disattivare manualmente schermata di Briefing se questa funzione non è usata.
+
     private void LoadOutInfo()
     {
         CrosshairManager.instance.ResetColor();
 
-        //  Debug.Log("Armi su giocatore: " + weapons.Length);
         foreach (var weapon in weapons)
         {
-            // Debug.Log("Arma caricata: " + weapon.name + ";");
-            //try
-            //{
             weapon.SetActive(true);
-            //} catch (Exception e)
-            //{
-            //    Debug.Log(e);
-            //}
-
-
-            //  weapon.GetComponent<ProjectileGun>().Hide(false);
         }
 
-        // LoadComplete();
-
         Invoke(nameof(LoadComplete), 1.5f);
-
     }
 
     private void LoadComplete()
@@ -185,30 +155,12 @@ public class LoadoutManager : MonoBehaviour
 
         foreach (var weapon in weapons)
         {
-            // Debug.Log("Arma caricata: " + weapon.name + ";");
-            //try
-            //{
             weapon.SetActive(false);
-            //} catch (Exception e)
-            //{
-            //    Debug.Log(e);
-            //}
-
-
-            //  weapon.GetComponent<ProjectileGun>().Hide(false);
         }
 
         ChangeWeapon();
-        //for (int i = 0; i < weapons.Length; i++)
-        //{
 
-        //    // Invoke(nameof(ChangeWeapon), 0.5f);
-        //    ChangeWeapon();
-        //}
-
-        // weapons[0].SetActive(true);
-
-        if (loadingTest)
-            loadingTest.SetActive(false);
+        if (briefingScreen)
+            briefingScreen.SetActive(false);
     }
 }

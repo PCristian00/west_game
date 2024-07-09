@@ -197,12 +197,21 @@ public class GameManager : MonoBehaviour
         return $"{enemyKilled} / {killGoal} NEMICI SCONFITTI";
     }
 
+    public string BriefingInfo()
+    {
+        string briefing = LevelName;
+
+        if (killObjective) briefing += $"\nSconfiggi {killGoal} nemici";
+        if (timerObjective) briefing += $"\nSopravvivi per {timer} secondi";
+
+        return briefing;
+    }
+
 
     public void ClearAllData()
     {
         PlayerPrefs.DeleteAll();
 
-        // Cambiare in caricamento scena menù principale
         LoadingManager.instance.LoadSceneFromIndex(LevelIndex);
     }
 

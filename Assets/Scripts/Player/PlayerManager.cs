@@ -41,8 +41,7 @@ public class PlayerManager : MonoBehaviour
         {
             // Attiva ogni power-up contenuto nell'oggetto in collisione
             foreach (var powerup in other.GetComponents<IPowerup>())
-            {
-                // COOL-DOWN GENERICO: MODIFICARE IN QUALCHE MODO
+            {               
                 powerup.Activate(5f);
             }
 
@@ -83,7 +82,6 @@ public class PlayerManager : MonoBehaviour
 
     public void LoadUpgrades()
     {
-        // Debug.Log("Caricamento upgrades");
         maxHealth = SaveManager.LoadInt(healthKey, maxHealth);
         damageMultiplier = SaveManager.LoadFloat(damageKey);
         coinMultiplier = SaveManager.LoadFloat(coinKey);

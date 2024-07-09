@@ -14,7 +14,7 @@ public class PlayerInteraction : MonoBehaviour
     public KeyCode examineKey = KeyCode.V;
 
     private void SetCursorLocked(bool locked)
-    {       
+    {
         Cursor.visible = !locked;
         Cursor.lockState = locked ? CursorLockMode.Locked : CursorLockMode.None;
     }
@@ -29,10 +29,6 @@ public class PlayerInteraction : MonoBehaviour
         SetCursorLocked(GameManager.instance.IsInputActive);
 
         if (!GameManager.instance.IsInputActive) return;
-
-       // SetCursorLocked(false);
-
-        // Debug.Log("Input attivo");        
 
         Ray ray = _camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
 
@@ -59,16 +55,14 @@ public class PlayerInteraction : MonoBehaviour
             }
 
             if (Input.GetKeyDown(activateKey))
-            //if(Input.GetButtonDown("Fire1"))
             {
                 foreach (var interactable in lastHitGameObject.GetComponents<IActivate>())
                 {
                     interactable.Activate();
                 }
             }
-            //else if (Input.GetButtonDown("Fire2"))
             else if (Input.GetKeyDown(examineKey))
-                {
+            {
                 foreach (var interactable in lastHitGameObject.GetComponents<IExamine>())
                 {
                     interactable.Examine();
@@ -92,8 +86,5 @@ public class PlayerInteraction : MonoBehaviour
     {
         ProjectileGun currentWeapon = gun.GetComponent<ProjectileGun>();
         raycastDistance = currentWeapon.shootForce;
-
-        // ATTENZIONE: QUESTA RIGA DI DEBUG FA CROLLARE GLI FPS
-        // Debug.Log("Arma attuale: " + currentWeapon.name + "\nGittata (shoot Force): " + currentWeapon.shootForce + " impostata come distanza di interazione");
     }
 }

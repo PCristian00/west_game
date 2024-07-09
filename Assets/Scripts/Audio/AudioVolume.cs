@@ -10,12 +10,8 @@ public class AudioVolume : MonoBehaviour
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider SFXSlider;
 
-    // public static AudioVolume instance;
-
     public void Start()
     {
-        // instance = this;
-
         if (PlayerPrefs.HasKey("musicVolume"))
         {
             LoadVolume();

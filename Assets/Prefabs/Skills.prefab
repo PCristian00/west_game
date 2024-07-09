@@ -53,7 +53,7 @@ MonoBehaviour:
   - {fileID: 3869517677836117068}
   - {fileID: 5477124765428123753}
   - {fileID: 6823357519120774292}
-  skillCooldown: 15
+  skillCooldown: 20
   skillReady: 1
   skillBar: {fileID: 0}
   skillText: {fileID: 0}

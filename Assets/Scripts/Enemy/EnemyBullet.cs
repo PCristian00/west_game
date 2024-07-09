@@ -27,7 +27,6 @@ public class EnemyBullet : MonoBehaviour
         {
             collision.gameObject.GetComponent<PlayerManager>().TakeDamage(damage);
             Explode();
-            Debug.Log("GIOCATORE DANNEGGIATO");
         }
     }
 

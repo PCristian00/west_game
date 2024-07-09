@@ -36,6 +36,8 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Sound")]
     public AudioClip jumpSound;
+    public AudioClip powerupActivate;
+    public AudioClip powerupCooldown;
     public AudioClip[] footSteps;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioSource stepAudioSource;
@@ -119,13 +121,20 @@ public class PlayerMovement : MonoBehaviour
                 {
                     if (SkillManager.instance.skillReady)
                     {
+                        // INSERIRE SUONO DI ATTIVAZIONE
+                        audioSource.PlayOneShot(powerupActivate);
                         SkillManager.instance.skill.Activate(SkillManager.instance.skillCooldown / 2);
                         SkillManager.instance.skillReady = false;
                         StartCoroutine(SkillManager.instance.Cooldown(SkillManager.instance.skillCooldown));
                     }
-                    else Debug.Log("Non puoi attivare la skill. Aspetta fine cooldown.");
+                    else
+                    {
+                        // INSERIRE SUONO DI ERRORE
+                        audioSource.PlayOneShot(powerupCooldown);
+                        Debug.Log("Non puoi attivare la skill. Aspetta fine cooldown.");
+                    }
                 }
-                else Debug.Log("NO SKILLS FOUND");
+               // else Debug.Log("NO SKILLS FOUND");
             }
         }
     }

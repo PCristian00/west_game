@@ -3,23 +3,13 @@ using UnityEngine;
 
 public class RotationAnimation : MonoBehaviour
 {
-
-
     [SerializeField] private Vector3 rotationAxis = Vector3.right;
     [SerializeField] private float rotationDegrees = 0f;
-
-
     [SerializeField] private AnimationCurve curve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
-
     private Quaternion startRotation;
-
     private Quaternion targetRotation;
-
     private Transform _transform;
-
-    // public bool looping = false;
-
 
 
     private void Start()
@@ -40,11 +30,6 @@ public class RotationAnimation : MonoBehaviour
     {
         StopAllCoroutines();
         StartCoroutine(AnimateComplete(duration));
-
-        //while (looping)
-        //{
-        //    StartCoroutine(AnimateComplete(duration));
-        //}
     }
 
     IEnumerator Animate(float duration, bool forward)
@@ -84,7 +69,7 @@ public class RotationAnimation : MonoBehaviour
                 }
             }
         }
-        else Debug.Log("Errore durante animazione di " + gameObject.name+" : l'oggetto non ha Transform.");
+        else Debug.Log("Errore durante animazione di " + gameObject.name + " : l'oggetto non ha Transform.");
     }
 
     IEnumerator AnimateComplete(float duration)
@@ -113,6 +98,4 @@ public class RotationAnimation : MonoBehaviour
             _transform.localRotation = Quaternion.Lerp(currentStartRotation, currentTargetRotation, curve.Evaluate(t));
         }
     }
-
-    // TROVARE UN MODO PER TORNARE PIù VELOCEMENTE ALL'INIZIO SE IL GIOCATORE SPARA (CYLINDER RELOAD)
 }

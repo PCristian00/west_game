@@ -19,7 +19,6 @@ public class OpenDoorOnActivate : MonoBehaviour, IActivate
 
     public void Activate()
     {
-        // door.SetActive(false);
         if (doorAnimation)
             if (isClosed)
             {
@@ -36,13 +35,13 @@ public class OpenDoorOnActivate : MonoBehaviour, IActivate
         else
         {
             if (audioSource) audioSource.PlayOneShot(errorSound);
-            Debug.Log("Porta distrutta o non collegata");
+            // Debug.Log("Porta distrutta o non collegata");
         }
     }
 
     public void DestroyDoor()
     {
         Destroy(doorAnimation.gameObject);
-        Debug.Log("PORTA DISTRUTTA OFF-SCREEN");
+        // Debug.Log("PORTA DISTRUTTA OFF-SCREEN");
     }
 }

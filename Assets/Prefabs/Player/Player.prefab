@@ -259,6 +259,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   jumpSound: {fileID: 8300000, guid: 92a217430f2e4ee4a90c4337eeba9e95, type: 3}
+  powerupActivate: {fileID: 8300000, guid: 0620fc44db0e403488c0d1b0798871df, type: 3}
+  powerupCooldown: {fileID: 8300000, guid: db35ffe50739b78419788f99f8b4d0e1, type: 3}
   footSteps:
   - {fileID: 8300000, guid: cc66e016f8612c04c8195685627c0920, type: 3}
   - {fileID: 8300000, guid: e7bd8a0b5d9a00746b4e80136fda783c, type: 3}

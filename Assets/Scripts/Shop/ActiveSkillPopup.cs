@@ -68,23 +68,23 @@ public class ActiveSkillPopup : MonoBehaviour
         switch (id)
         {
             case 0:
-                skillName.text = "Super Velocità";
-                skillDesc.text = "Aumenta la velocità di spostamento";
+                skillName.text = "Super Velocita'";
+                skillDesc.text = "Aumenta la velocita' di movimento.";
 
                 break;
             case 1:
                 skillName.text = "Doppio Salto";
-                skillDesc.text = "Permette di eseguire il doppio salto";
+                skillDesc.text = "Permette di eseguire temporaneamente il doppio salto.";
 
                 break;
             case 2:
                 skillName.text = "Scudo";
-                skillDesc.text = "Attiva uno scudo che ti rende invulnerabile";
+                skillDesc.text = "Attiva uno scudo che ti rende invulnerabile ai colpi nemici.";
 
                 break;
             case 3:
                 skillName.text = "Slow Motion";
-                skillDesc.text = "Rallenta i nemici";
+                skillDesc.text = "Rallenta i nemici e i loro proiettili.";
 
                 break;
         }

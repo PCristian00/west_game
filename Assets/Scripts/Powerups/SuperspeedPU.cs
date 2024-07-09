@@ -8,7 +8,7 @@ public class SuperspeedPU : MonoBehaviour, IPowerup
         PlayerMovement.instance.moveSpeed *= 2;
         PlayerMovement.instance.airMultiplier *= 2;
 
-        Debug.Log("Velocita' di movimento e 'volo' duplicate");
+        // Debug.Log("Velocita' di movimento e 'volo' duplicate");
         Deactivate(wait);
     }
 
@@ -24,6 +24,6 @@ public class SuperspeedPU : MonoBehaviour, IPowerup
         PlayerMovement.instance.moveSpeed /= 2;
         PlayerMovement.instance.airMultiplier /= 2;
 
-        Debug.Log("Velocita' di movimento e 'volo' resettate");
+       // Debug.Log("Velocita' di movimento e 'volo' resettate");
     }
 }
