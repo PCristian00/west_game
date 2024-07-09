@@ -6,7 +6,7 @@ public class SkillUI : MonoBehaviour
     {
         if (!SkillManager.instance)
         {
-            Debug.Log("NO SKILLLL");
+            // Debug.Log("NO SKILL MANAGER");
             gameObject.SetActive(false);
         }
 

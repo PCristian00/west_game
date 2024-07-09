@@ -14,8 +14,7 @@ public class WalletManager : MonoBehaviour
     void Start()
     {
         instance = this;
-        wallet = SaveManager.LoadFloat(saveKey, wallet);
-        // walletInfo = GetComponent<TextMeshProUGUI>();
+        wallet = SaveManager.LoadFloat(saveKey, wallet);       
     }
 
     // Update is called once per frame
@@ -34,9 +33,7 @@ public class WalletManager : MonoBehaviour
     public bool CanBuy(float cost)
     {
         if (wallet >= cost)
-        {
-            // wallet -= cost;
-
+        {           
             return true;
         }
         return false;

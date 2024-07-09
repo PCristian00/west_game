@@ -18,8 +18,8 @@ public class CrosshairManager : MonoBehaviour
 
     private void Start()
     {
-       // Debug.Log("CrosshairManager avviato");
         instance = this;
+
         crosshair = GameObject.FindGameObjectWithTag("Crosshair").GetComponent<Image>();
         if (crosshair)
             startColor = crosshair.color;
@@ -58,10 +58,9 @@ public class CrosshairManager : MonoBehaviour
     {
         if (OldColor == Color.red)
         {
-            Debug.Log("Puntavo un nemico...");
-            CrosshairManager.instance.ChangeColor(OldColor);
+            ChangeColor(OldColor);
         }
         else
-            CrosshairManager.instance.ResetColor();
+            ResetColor();
     }
 }

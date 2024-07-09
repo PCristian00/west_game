@@ -8,7 +8,7 @@ public class SlowMoPU : MonoBehaviour, IPowerup
         GameManager.instance.slowMode = true;
 
 
-        Debug.Log("Velocita' di gioco dimezzata a " + GameManager.instance.slowMultiplier);
+        // Debug.Log("Velocita' di gioco dimezzata a " + GameManager.instance.slowMultiplier);
         Deactivate(wait);
     }
 
@@ -23,6 +23,6 @@ public class SlowMoPU : MonoBehaviour, IPowerup
         yield return new WaitForSeconds(wait);
         GameManager.instance.slowMode = false;
 
-        Debug.Log("Velocita' di gioco resettata.");
+        // Debug.Log("Velocita' di gioco resettata.");
     }
 }

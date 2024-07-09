@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -9,7 +7,6 @@ public class LoadingManager : MonoBehaviour
 {
     public static LoadingManager instance;
 
-    // RIMUOVERE E CONSIDERARE loadingScreen come il gameObject stesso
     [Header("Reference")]
     public GameObject loadingScreen;
 
@@ -20,14 +17,9 @@ public class LoadingManager : MonoBehaviour
         loadingScreen.SetActive(false);
     }
 
-
-    // FARE VARIANTE PER LOAD FROM NAME (Di loadScene e Loading)
-    // Vedi se possibile con <T>, parametro di tipo casuale
-
     public void LoadSceneFromIndex(int index)
     {
-        StartCoroutine(Loading(index));
-        // return SceneManager.LoadSceneAsync(index);
+        StartCoroutine(Loading(index));        
     }
 
     public void LoadCurrent()
@@ -52,8 +44,7 @@ public class LoadingManager : MonoBehaviour
         while (!load.isDone)
         {
             if (bar != null)
-            {
-                // bar.value = Mathf.Clamp01(load.progress / .9f);
+            {                
                 bar.value = load.progress;
             }
             yield return null;

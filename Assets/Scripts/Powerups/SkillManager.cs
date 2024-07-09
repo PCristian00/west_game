@@ -8,7 +8,7 @@ public class SkillManager : MonoBehaviour
 {
     public GameObject[] skills;
 
-    private int current;    
+    private int current;
 
     private GameObject _currentSkill;
 
@@ -40,7 +40,6 @@ public class SkillManager : MonoBehaviour
 
 
     [Header("Skills")]
-    // public GameObject activeSkill;
     public IPowerup skill;
     public float skillCooldown = 10f;
     private bool skillLoaded = false;
@@ -81,22 +80,16 @@ public class SkillManager : MonoBehaviour
         skillReady = false;
     }
 
-    
+
     public IEnumerator Cooldown(float time)
     {
-        // skillBar.gameObject.SetActive(true);
-
         float t = 0f;
 
         activeColor = skillBar.fillRect.GetComponent<Image>().color;
 
-
-        //yield return new WaitForSeconds(time);       
-
-
         while (t < 1f)
         {
-            yield return null;           
+            yield return null;
 
             if (t <= 0.5f) skillIcon.color = activeColor;
             else skillIcon.color = new Color(t, t, t, t);
@@ -106,10 +99,6 @@ public class SkillManager : MonoBehaviour
             if (t >= 0.5f) skillBar.gameObject.SetActive(true);
 
             skillBar.value = t;
-
-            // Inserire qui ripristino icona, messaggio etc...
-            // Provare barra di caricamento 
-
         }
 
         skillBar.gameObject.SetActive(false);

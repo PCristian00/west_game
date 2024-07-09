@@ -6,7 +6,7 @@ public class ShieldPU : MonoBehaviour, IPowerup
     public void Activate(float wait)
     {
         PlayerManager.instance.invincible = true;
-        Debug.Log("Scudo attivato");
+       // Debug.Log("Scudo attivato");
         Deactivate(wait);
     }
 
@@ -22,7 +22,7 @@ public class ShieldPU : MonoBehaviour, IPowerup
         yield return new WaitForSeconds(wait);
         PlayerManager.instance.invincible = false;
 
-        Debug.Log("Scudo disattivato");
+       // Debug.Log("Scudo disattivato");
     }
 }
 
