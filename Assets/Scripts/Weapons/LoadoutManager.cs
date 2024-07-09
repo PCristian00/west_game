@@ -47,9 +47,10 @@ public class LoadoutManager : MonoBehaviour
 
         // AGGIUNGERe CECCHINO solo in livello Bonus
         // Cambiare nome scena in IF con quello corretto
-        if (SceneManager.GetActiveScene().name.Equals("Sniper"))
+        // if (SceneManager.GetActiveScene().name.Equals("Sniper"))
+        if (GameManager.instance.LevelIndex == 3)
         {
-           weapons[4].name += "[E]";
+            weapons[4].name += "[E]";
             Debug.Log("LIVELLO SNIPER: SOLO ARMA DA CECCHINO");
         }
 
