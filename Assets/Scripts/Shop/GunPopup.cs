@@ -64,17 +64,17 @@ public class GunPopup : MonoBehaviour
         {
             case 0:
                 gunName.text = "Revolver Migliorato";
-                gunDesc.text = "Più danni, caricatore più capiente";
+                gunDesc.text = "Piu' danni e caricatore piu' capiente.\nSpara durante la ricarica.";
 
                 break;
             case 1:
                 gunName.text = "Fucile d'assalto";
-                gunDesc.text = "Grande velocità di fuoco";
+                gunDesc.text = "Grande velocita' di fuoco.";
 
                 break;
             case 2:
                 gunName.text = "Lanciarazzi";
-                gunDesc.text = "Proiettili esplosivi con danno ad area";
+                gunDesc.text = "Proiettili esplosivi con danno ad area.";
 
                 break;
             
