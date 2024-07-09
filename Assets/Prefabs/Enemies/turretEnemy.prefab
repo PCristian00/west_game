@@ -76,8 +76,8 @@ MonoBehaviour:
   playerInSightRange: 0
   playerInAttackRange: 0
   attackSound: {fileID: 8300000, guid: f0fd1072ca4135c46ba2f406f17fd329, type: 3}
-  hitSound: {fileID: 8300000, guid: 67cb86cccd5bd30409d34fe89f01f267, type: 3}
-  deathSound: {fileID: 8300000, guid: 9d130f1bc996ab5408ab8a00d0b693b9, type: 3}
+  hitSound: {fileID: 8300000, guid: 2a56714f26bb73b44ae12bb939607ed9, type: 3}
+  deathSound: {fileID: 8300000, guid: f12c9f68e901b624ea5dee1a80a5b99d, type: 3}
   attackEffect: {fileID: 0}
   hitEffect: {fileID: 100002, guid: e74af37e539075d428c1f7bd8cdb781d, type: 3}
   deathEffect: {fileID: 5517220841568471734, guid: 8dca52d7c8265254eb32596149630449, type: 3}
