@@ -1613,6 +1613,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7014006818613553770, guid: afa86d23009a2ee4085063669a04fd67, type: 3}
+      propertyPath: m_Name
+      value: porta.001 (INT)
+      objectReference: {fileID: 0}
     - target: {fileID: 7758352605167670202, guid: afa86d23009a2ee4085063669a04fd67, type: 3}
       propertyPath: tooltip
       value: Uscita
