@@ -66,8 +66,14 @@ public class LoadoutManager : MonoBehaviour
                 }
             }
 
+            // Se una delle armi considerate attive è il revolver potenziato, non lo conta
+            if (weapons[0].name.Contains("[E]"))
+            {
+                activeWeaponsCounter--;
+            }
+
             // Se non sono state comprate altre armi o il revolver potenziato, carica il revolver classico
-            if (activeWeaponsCounter == 1 || !weapons[0].name.Contains("[E]")) weapons[3].name += " [E]";
+            if (activeWeaponsCounter == 1 && !weapons[0].name.Contains("[E]")) weapons[3].name += " [E]";
 
         }
 
