@@ -71,10 +71,7 @@ public class ProjectileGun : MonoBehaviour
 
         ammoInfo = GameObject.FindGameObjectWithTag("Ammo").GetComponent<TextMeshProUGUI>();
 
-      //  gunMesh.SetActive(false);
-
         gunCollider = gunMesh.GetComponent<Collider>();
-        //  Debug.Log("Collider di " + name + " = " + gunCollider.name);
         gunCollider.enabled = false;
 
     }
@@ -88,9 +85,6 @@ public class ProjectileGun : MonoBehaviour
 
     public void OnEnable()
     {
-
-     //   gunMesh.SetActive(true);
-
         try
         {
             if (crosshairSprite)
@@ -108,15 +102,11 @@ public class ProjectileGun : MonoBehaviour
 
     public void Hide(bool show)
     {
-        // Debug.Log(gameObject.name + " change speed = " + changeSpeed);
-
         if (!show)
         {
             collisionAnimation.Play(changeSpeed, true);
             isHidden = true;
             CrosshairManager.instance.ChangeColor(Color.clear);
-
-          //  gunMesh.SetActive(false);
         }
 
         else
@@ -124,9 +114,6 @@ public class ProjectileGun : MonoBehaviour
             collisionAnimation.Play(changeSpeed, false);
             isHidden = false;
             CrosshairManager.instance.ResetColor();
-
-           // gunMesh.SetActive(true);
-            // OnEnable();
         }
     }
 
@@ -138,7 +125,7 @@ public class ProjectileGun : MonoBehaviour
         if (ammoInfo != null && !reloading && !isHidden)
             ammoInfo.SetText(bulletsLeft / bulletsPerTap + " / " + magazineSize / bulletsPerTap);
         else if (reloading) ammoInfo.text = "Reloading...";
-        else if (isHidden) ammoInfo.text = gameObject.name + " hidden";
+       // else if (isHidden) ammoInfo.text = gameObject.name + " hidden";
 
     }
 
@@ -154,11 +141,11 @@ public class ProjectileGun : MonoBehaviour
             // Ricarica
             if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !isHidden) Reload();
 
-            // Hide test
-            if (Input.GetKeyDown(KeyCode.F) && !activeScope)
-            {
-                Hide(isHidden);
-            }
+            // Hide test (INUTILE IN GIOCO FINALE)
+            //if (Input.GetKeyDown(KeyCode.F) && !activeScope)
+            //{
+            //    Hide(isHidden);
+            //}
 
             if (!isHidden)
             {
@@ -341,14 +328,12 @@ public class ProjectileGun : MonoBehaviour
         // Controlla se il mirino era puntato su un nemico
         CrosshairManager.instance.EnemyOnCrosshair();
         reloading = false;
-        // Debug.Log("Reload finished! (R = " + reloading + ")");
     }
 
     //Gestione collisioni dell'arma
 
     private void OnTriggerEnter(Collider other)
     {
-        // Debug.Log(other.gameObject.layer);
 
         if (!other.CompareTag("Bullet") && !other.CompareTag("Player") && !other.CompareTag("Coin") && !other.CompareTag("Powerup"))
         {
