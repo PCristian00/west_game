@@ -290,7 +290,7 @@ MonoBehaviour:
   _camera: {fileID: 0}
   raycastDistance: 5
   hasWeapons: 1
-  activateKey: 99
+  activateKey: 102
   examineKey: 118
 --- !u!82 &4368195954557856234
 AudioSource:
