@@ -1384,6 +1384,10 @@ PrefabInstance:
       propertyPath: loadingTest
       value: 
       objectReference: {fileID: 366169244}
+    - target: {fileID: 5796138128804082628, guid: 3b901ff6852a58c438fc39eb5468dc33, type: 3}
+      propertyPath: briefingScreen
+      value: 
+      objectReference: {fileID: 366169244}
     - target: {fileID: 5854150610713407954, guid: 3b901ff6852a58c438fc39eb5468dc33, type: 3}
       propertyPath: m_Layer
       value: 0
