@@ -23,10 +23,6 @@ public class CustomBullet : MonoBehaviour
     public float explosionRange;
     public float explosionForce;
 
-    //[Header("Sound")]
-    //public AudioClip explosionSound;
-    //private AudioSource audioSource;
-
     int collisions;
     PhysicMaterial physics_mat;
 
@@ -35,8 +31,6 @@ public class CustomBullet : MonoBehaviour
         explosionDamage *= PlayerManager.instance.damageMultiplier;
 
         Setup();
-        // audioSource = GetComponent<AudioSource>();
-        //  Debug.Log("Creato " + name);
     }
 
     private void Update()
@@ -59,7 +53,7 @@ public class CustomBullet : MonoBehaviour
             Instantiate(explosion, transform.position, Quaternion.identity);
             explosion = null;
         }
-       
+
         //Check for enemies 
         Collider[] enemies = Physics.OverlapSphere(transform.position, explosionRange, whatIsEnemies);
 
@@ -67,13 +61,10 @@ public class CustomBullet : MonoBehaviour
         {
             //Get component of enemy and call Take Damage
 
-
-            // Debug.Log("Il nemico si chiama "+enemies[i].name);
             if (enemies[i].GetComponent<Enemy>())
             {
-                // Debug.Log(enemies[i].name + " sta per subire danno");
                 enemies[i].GetComponent<Enemy>().TakeDamage(explosionDamage);
-            }            
+            }
 
             //Add explosion force (if enemy has a rigidbody)
             if (enemies[i].GetComponent<Rigidbody>())
@@ -82,8 +73,6 @@ public class CustomBullet : MonoBehaviour
 
         //Add a little delay, just to make sure everything works fine
         Invoke(nameof(Delay), 0.05f);
-
-        //  Debug.Log("Esploso " + name);
     }
     private void Delay()
     {

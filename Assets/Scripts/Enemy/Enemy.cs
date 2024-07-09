@@ -189,7 +189,7 @@ public class Enemy : MonoBehaviour
     {
         health -= damage;
 
-        Debug.Log("OUCH! " + gameObject.name + " ha subito " + damage + " danni!!! (vita rimasta = " + health + ")");
+        // Debug.Log("OUCH! " + gameObject.name + " ha subito " + damage + " danni!!! (vita rimasta = " + health + ")");
 
         if (enemyMesh)
             FlashOnHit();
@@ -207,7 +207,7 @@ public class Enemy : MonoBehaviour
         {
             if (audioSource && hitSound) audioSource.PlayOneShot(hitSound);
 
-            if(hitEffect) Instantiate(hitEffect, transform.position, Quaternion.identity);            
+            if (hitEffect) Instantiate(hitEffect, transform.position, Quaternion.identity);
         }
     }
 
@@ -231,21 +231,20 @@ public class Enemy : MonoBehaviour
 
     private void DestroyEnemy()
     {
-        if(icon)
-        Destroy(icon);
-        // Debug.Log("NEMICO " + gameObject.name + " DISTRUTTO");
+        if (icon)
+            Destroy(icon);
         GameManager.instance.EnemyKilled();
         Destroy(gameObject);
 
 
         GameObject coin = WalletManager.instance.DropCoin();
+
         // Rilascio casuale della moneta
 
         if ((canPatrol || canChase) && !walkOnly)
         {
 
             int dropChance = Random.Range(0, 5);
-            //  Debug.Log("Drop = " + dropChance);
 
             if (dropChance >= 1)
             {
@@ -253,11 +252,10 @@ public class Enemy : MonoBehaviour
                 if (dropPosition.y >= 3) dropPosition.y = player.position.y;
 
                 Instantiate(coin, dropPosition, coin.transform.rotation);
-                // Debug.Log("Moneta caduta - " + coin.name);
             }
         }
         // Se il nemico non può spostarsi o attaccare, carica direttamente i soldi senza rilasciare monete
-        else WalletManager.instance.wallet += 25 * PlayerManager.instance.coinMultiplier;
+        else WalletManager.instance.wallet += (int) 25 * PlayerManager.instance.coinMultiplier;
     }
 
 

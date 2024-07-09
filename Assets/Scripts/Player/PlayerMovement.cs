@@ -119,13 +119,20 @@ public class PlayerMovement : MonoBehaviour
                 {
                     if (SkillManager.instance.skillReady)
                     {
+                        // INSERIRE SUONO DI ATTIVAZIONE
+
                         SkillManager.instance.skill.Activate(SkillManager.instance.skillCooldown / 2);
                         SkillManager.instance.skillReady = false;
                         StartCoroutine(SkillManager.instance.Cooldown(SkillManager.instance.skillCooldown));
                     }
-                    else Debug.Log("Non puoi attivare la skill. Aspetta fine cooldown.");
+                    else
+                    {
+                        // INSERIRE SUONO DI ERRORE
+
+                        Debug.Log("Non puoi attivare la skill. Aspetta fine cooldown.");
+                    }
                 }
-                else Debug.Log("NO SKILLS FOUND");
+               // else Debug.Log("NO SKILLS FOUND");
             }
         }
     }

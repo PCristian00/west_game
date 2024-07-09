@@ -212,7 +212,6 @@ public class GameManager : MonoBehaviour
     {
         PlayerPrefs.DeleteAll();
 
-        // Cambiare in caricamento scena menù principale
         LoadingManager.instance.LoadSceneFromIndex(LevelIndex);
     }
 

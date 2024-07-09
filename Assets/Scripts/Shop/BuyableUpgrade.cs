@@ -23,7 +23,6 @@ public class BuyableUpgrade : MonoBehaviour
     private string startButtonText;
     public Image icon;
 
-    // Start is called before the first frame update
     void Start()
     {
         button = GetComponent<Button>();
@@ -46,7 +45,6 @@ public class BuyableUpgrade : MonoBehaviour
 
     }
 
-    // AGGIUNGERE QUI FUNZIONI PER SCURIRE ICONA O ALTRO
     public void BlockUpgrade()
     {
         if (button)
@@ -54,14 +52,11 @@ public class BuyableUpgrade : MonoBehaviour
 
         if (upgradeCounter >= upgradeLimit) buttonText.text = "MAX";
 
-        // PROVA: USATO COLORE DI BUTTON DISABILITATO
         if (icon && button) icon.color = button.colors.disabledColor;
     }
 
     public void UpgradeCheck(bool approve = true)
     {
-        // Debug.Log("Approve = " + approve);
-
         if (upgradeCounter < upgradeLimit)
         {
             if (WalletManager.instance)
@@ -70,7 +65,6 @@ public class BuyableUpgrade : MonoBehaviour
                     BlockUpgrade();
                 else if (approve == true)
                 {
-                    // Debug.Log("APPROVATO " + approve);
                     Upgrade();
                 }
             }
