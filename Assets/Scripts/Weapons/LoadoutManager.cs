@@ -49,6 +49,20 @@ public class LoadoutManager : MonoBehaviour
             weapons[4].name += "[E]";
             Debug.Log("LIVELLO SNIPER: SOLO ARMA DA CECCHINO");
         }
+        // In livello Tutorial carica tutte le armi
+        else if (GameManager.instance.LevelIndex == 5)
+        {
+            Debug.Log("LIVELLO TUTORIAL");
+            for (int i = 0; i < weapons.Length; i++)
+            {
+                // if (GunPopup.states[i] == 2)
+                {
+                    current = i;
+                    weapons[i].name += " [E]";
+                    activeWeaponsCounter++;
+                }
+            }
+        }
         else
         {
             for (int i = 0; i < GunPopup.states.Length; i++)
