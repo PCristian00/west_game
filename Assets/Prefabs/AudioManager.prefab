@@ -184,6 +184,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 42b4d2e3fc669334aa6f57fe94a2b5a7, type: 3}
   - {fileID: 8300000, guid: 77d799467ba728b4398fcffe25aa966e, type: 3}
   - {fileID: 8300000, guid: 186d544141069e641ab38528aa49adf1, type: 3}
+  - {fileID: 8300000, guid: f2744c9ee41427b43acc6eefd0d8f1f2, type: 3}
+  - {fileID: 8300000, guid: 1681cce9661f64d4893870eba113823c, type: 3}
   buttonSounds:
   - {fileID: 8300000, guid: 695e004283698bd4c8dfade14699cd45, type: 3}
   - {fileID: 8300000, guid: 029774e59f060da498ba2d20e18db320, type: 3}
