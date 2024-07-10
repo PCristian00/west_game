@@ -257,7 +257,7 @@ public class Enemy : MonoBehaviour
             }
         }
         // Se il nemico non può spostarsi o attaccare, carica direttamente i soldi senza rilasciare monete
-        else WalletManager.instance.wallet += (int) coinsOnKill * PlayerManager.instance.coinMultiplier;
+        else WalletManager.instance.wallet += (int)(coinsOnKill * PlayerManager.instance.coinMultiplier);
     }
 
 
