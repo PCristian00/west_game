@@ -10,5 +10,7 @@ public class SkillUI : MonoBehaviour
             gameObject.SetActive(false);
         }
 
+        else if (SkillManager.instance.CurrentSkill == null) gameObject.SetActive(false);
+
     }
 }
