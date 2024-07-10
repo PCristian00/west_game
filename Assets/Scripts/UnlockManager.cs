@@ -5,7 +5,7 @@ public class UnlockManager : MonoBehaviour
 {
     private Button[] levelButtons;
 
-    void Start()
+    private void OnEnable()
     {
         levelButtons = GetComponentsInChildren<Button>();
         foreach (Button levelButton in levelButtons)

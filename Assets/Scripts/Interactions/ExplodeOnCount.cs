@@ -22,7 +22,7 @@ public class ExplodeOnCount : MonoBehaviour
         if (countOnActivate)
         {
             if (countOnActivate.GetCount() >= countLimit && !exploded)
-            {              
+            {
                 Explode();
             }
         }
@@ -40,15 +40,15 @@ public class ExplodeOnCount : MonoBehaviour
         //    audioSource.PlayOneShot(explosionSound);
         //}
 
-        exploded = true;       
-        
+        exploded = true;
+
         Invoke(nameof(DestroyObject), 0.005f);
-        
+
     }
 
     private void DestroyObject()
     {
-       ActivateCheat();
+        ActivateCheat();
         Destroy(gameObject);
     }
 
@@ -58,8 +58,10 @@ public class ExplodeOnCount : MonoBehaviour
         {
             Debug.Log("CHEAT ATTIVATO");
 
+            // Il giocatore riceve 5000 monete e sblocca tutti i livelli
             WalletManager.instance.wallet += 5000;
             SaveManager.UpdateFloat(WalletManager.instance.saveKey, WalletManager.instance.wallet);
+            SaveManager.UpdateInt(GameManager.levelUnlockedKey, 3);
         }
         else Debug.Log("Nessun WALLET");
     }
