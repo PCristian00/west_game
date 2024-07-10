@@ -809,6 +809,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c00b8c50d6ae1a45aa94710ac8f2ee2, type: 3}
+--- !u!114 &286910157 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3320344694220037941, guid: 3c00b8c50d6ae1a45aa94710ac8f2ee2, type: 3}
+  m_PrefabInstance: {fileID: 286910156}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &366169244 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3547693090536040950, guid: 3c00b8c50d6ae1a45aa94710ac8f2ee2, type: 3}
@@ -1144,6 +1155,10 @@ PrefabInstance:
       propertyPath: enemy
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 849317902910664577, guid: 2017721950a259b47a334c362767d004, type: 3}
+      propertyPath: winInfo
+      value: 
+      objectReference: {fileID: 286910157}
     - target: {fileID: 849317902910664577, guid: 2017721950a259b47a334c362767d004, type: 3}
       propertyPath: killGoal
       value: 4

@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -35,6 +36,7 @@ public class GameManager : MonoBehaviour
     public bool timerObjective = false;
     [Tooltip("Stabilisce se dare un punteggio (in monete) per la salute rimasta al termine del livello")]
     public bool bonusPoints = false;
+    public TextMeshProUGUI winInfo;
 
     public enum GameState
     {
@@ -125,11 +127,17 @@ public class GameManager : MonoBehaviour
 
         int bonusCoins = 0;
 
-        if (bonus) bonusCoins = PlayerManager.instance.health / 5;
-
-        Debug.Log("BONUS POINTS: " + bonusCoins);
+        if (bonus)
+        {
+            bonusCoins = PlayerManager.instance.health / 5;
+            Debug.Log("BONUS POINTS: " + bonusCoins);
+        }
 
         WalletManager.instance.wallet += 50 + bonusCoins;
+
+        if (winInfo)
+            winInfo.text += $"\n + {50 + bonusCoins} ingranaggi";
+
         SaveManager.UpdateFloat(WalletManager.instance.saveKey, WalletManager.instance.wallet);
 
         // Controllo sblocco livello
@@ -138,11 +146,23 @@ public class GameManager : MonoBehaviour
 
         // Ad eccezione del Tutorial e dell'ultimo livello (attualmente index 4, Factory), si fa un controllo sullo sblocco del nuovo livello
         if (LevelIndex <= 3)
+        {
             if (LevelIndex > levelUnlocked)
             {
                 SaveManager.UpdateInt(levelUnlockedKey, LevelIndex);
-                Debug.Log("NUOVO LIVELLO SBLOCCATO");
+                if (winInfo)
+                    winInfo.text += "\nNUOVO LIVELLO SBLOCCATO";
+                // Debug.Log("NUOVO LIVELLO SBLOCCATO");
             }
+            else Debug.Log("Nessun nuovo livello da sbloccare");
+        }
+        else if (LevelIndex == 4)
+        {
+            // Debug.Log("SBLOCCATO FUCILE CECCHINO");
+            if (winInfo)
+                winInfo.text += "\nCECCHINO SBLOCCATO";
+            SaveManager.UpdateInt(LoadoutManager.sniperKey, 1);
+        }
     }
 
 
