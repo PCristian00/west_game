@@ -20,6 +20,8 @@ public class LoadoutManager : MonoBehaviour
 
     public GameObject briefingScreen;
 
+    public static string sniperKey = "sniper";
+
     public GameObject CurrentWeapon
     {
         get => _currentWeapon;
@@ -49,6 +51,17 @@ public class LoadoutManager : MonoBehaviour
             weapons[4].name += "[E]";
             Debug.Log("LIVELLO SNIPER: SOLO ARMA DA CECCHINO");
         }
+        // In livello Tutorial carica tutte le armi
+        else if (GameManager.instance.LevelIndex == 5)
+        {
+            Debug.Log("LIVELLO TUTORIAL");
+            for (int i = 0; i < weapons.Length; i++)
+            {
+                current = i;
+                weapons[i].name += " [E]";
+                activeWeaponsCounter++;
+            }
+        }
         else
         {
             for (int i = 0; i < GunPopup.states.Length; i++)
@@ -70,6 +83,12 @@ public class LoadoutManager : MonoBehaviour
             // Se non sono state comprate altre armi o il revolver potenziato, carica il revolver classico
             if (activeWeaponsCounter == 1 && !weapons[0].name.Contains("[E]")) weapons[3].name += " [E]";
 
+            // Se il cecchino è stato sbloccato (finendo livello Factory)
+            if (SaveManager.LoadInt(sniperKey) == 1)
+            {
+                weapons[4].name += "[E]";
+                activeWeaponsCounter++;
+            }
         }
     }
 

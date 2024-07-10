@@ -57,10 +57,17 @@ public class AudioManager : MonoBehaviour
         Scene currentScene = SceneManager.GetActiveScene();
         //string sceneName = currentScene.name;
 
+
+
         AudioClip newClip;
 
-
-        newClip = backgroundMusic[currentScene.buildIndex];
+        // Se la scena è Tutorial, carica una canzone a caso
+        if (currentScene.buildIndex == 5)
+        {
+            newClip = backgroundMusic[Random.Range(0, backgroundMusic.Length)];
+        }
+        else
+            newClip = backgroundMusic[currentScene.buildIndex];
 
         // Cambia la traccia solo se è diversa da quella attuale
         //if (musicSource.clip != newClip)

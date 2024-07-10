@@ -50,14 +50,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52c282738049c67439c253a3f3fd5378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 5205490927276427104, guid: cc23d493a8fde574c93700c9a2908fc4, type: 3}
+  bullet: {fileID: 2229914854006437348, guid: fe9b340e6381f0446865b04b4c0cf296, type: 3}
   shootForce: 30
   upwardForce: 0
-  timeBetweenShooting: 0.2
-  spread: 0.1
-  reloadTime: 2.5
+  timeBetweenShooting: 0.3
+  spread: 0.2
+  reloadTime: 4
   timeBetweenShots: 1
-  magazineSize: 48
+  magazineSize: 24
   bulletsPerTap: 1
   allowButtonHold: 1
   hasCylinder: 0
@@ -65,7 +65,7 @@ MonoBehaviour:
   activeScope: 0
   zoomRate: 40
   playerRb: {fileID: 0}
-  recoilForce: 1
+  recoilForce: 2
   changeSpeed: 0.5
   shooting: 0
   readyToShoot: 0

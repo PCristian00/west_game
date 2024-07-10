@@ -23,6 +23,8 @@ public class Enemy : MonoBehaviour
     public int captureDamage = 1;
     public float shootForce = 32f;
     public float upwardForce = 8f;
+    [Tooltip("Valuta rilasciata dai nemici irraggiungibili")]
+    public float coinsOnKill = 5f;
 
     [Header("Patroling")]
     public Vector3 walkPoint;
@@ -255,7 +257,7 @@ public class Enemy : MonoBehaviour
             }
         }
         // Se il nemico non può spostarsi o attaccare, carica direttamente i soldi senza rilasciare monete
-        else WalletManager.instance.wallet += (int) 25 * PlayerManager.instance.coinMultiplier;
+        else WalletManager.instance.wallet += (int)(coinsOnKill * PlayerManager.instance.coinMultiplier);
     }
 
 
