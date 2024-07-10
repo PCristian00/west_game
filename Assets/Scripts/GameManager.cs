@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     public string LevelName => SceneManager.GetActiveScene().name;
     public int LevelIndex => SceneManager.GetActiveScene().buildIndex;
 
-    private string levelUnlockedKey = "last_level_unlocked";
+    public static string levelUnlockedKey = "last_level_unlocked";
 
     [Header("Enemies")]
     public GameObject enemy;
@@ -133,12 +133,11 @@ public class GameManager : MonoBehaviour
         SaveManager.UpdateFloat(WalletManager.instance.saveKey, WalletManager.instance.wallet);
 
         // Controllo sblocco livello
+
         int levelUnlocked = SaveManager.LoadInt(levelUnlockedKey, 1);
 
-        Debug.Log($"Ultimo livello sbloccato : {SceneManager.GetSceneByBuildIndex(levelUnlocked).name}");
-
-        // Ad eccezione del Tutorial, si fa un controllo sullo sblocco del nuovo livello
-        if (LevelIndex != 5)
+        // Ad eccezione del Tutorial e dell'ultimo livello (attualmente index 4, Factory), si fa un controllo sullo sblocco del nuovo livello
+        if (LevelIndex <= 3)
             if (LevelIndex > levelUnlocked)
             {
                 SaveManager.UpdateInt(levelUnlockedKey, LevelIndex);

@@ -1,26 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UnlockManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-
     private Button[] levelButtons;
+
     void Start()
     {
         levelButtons = GetComponentsInChildren<Button>();
-
         foreach (Button levelButton in levelButtons)
         {
-            Debug.Log(levelButton.name);
+            // Debug.Log(levelButton.name);            
+            levelButton.interactable = false;
         }
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        int unlocked = SaveManager.LoadInt(GameManager.levelUnlockedKey, 1);
+
+        if (unlocked > levelButtons.Length) unlocked = levelButtons.Length;
+
+        for (int i = 0; i <= unlocked; i++)
+        {
+            if (levelButtons[i])
+            {
+                Debug.Log("unblocking " + levelButtons[i].name);
+                levelButtons[i].interactable = true;
+            }
+        }
     }
 }
