@@ -1568,7 +1568,7 @@ PrefabInstance:
       objectReference: {fileID: 286910157}
     - target: {fileID: 849317902910664577, guid: 2017721950a259b47a334c362767d004, type: 3}
       propertyPath: killGoal
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 849317902910664577, guid: 2017721950a259b47a334c362767d004, type: 3}
       propertyPath: enemyInfo
