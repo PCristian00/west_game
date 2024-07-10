@@ -1372,7 +1372,14 @@ MonoBehaviour:
     MOUSE DX - Mira (Solo cecchino)
 
     Rotella / Q
-    / E - Cambio arma'
+    / E - Cambio arma
+
+    R - Ricarica
+
+    La ricarica del revolver puo'' essere
+    cancellata sparando
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 491878b1dcab0444fb89f2745895035d, type: 2}
   m_sharedMaterial: {fileID: -5594995772334950408, guid: 491878b1dcab0444fb89f2745895035d, type: 2}
