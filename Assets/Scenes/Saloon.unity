@@ -123,6 +123,23 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &951280 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4019694772348678290, guid: 177a584f7a93c784281fc9a6e9864cb6, type: 3}
+  m_PrefabInstance: {fileID: 1431022161}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &951287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 951280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 219dcec693a4d2f4c9345d2e83be8fb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &95991058
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -725,6 +742,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b298743526bbd1418dd819577cd388b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &543431499 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6483841110590920261, guid: 177a584f7a93c784281fc9a6e9864cb6, type: 3}
+  m_PrefabInstance: {fileID: 1431022161}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &543431504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 543431499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba11d6f0696755b46842dd8c34dc8ef2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  title: Fucile da cecchino
+  description: Grande gittata, grandi danni.
+--- !u!114 &543431505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 543431499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b298743526bbd1418dd819577cd388b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &543431506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 543431499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db7fed265b030a74db4f9ea2ba7f9a55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltip: Cecchino
 --- !u!1 &654195525 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1103296515346279217, guid: c875db9be3520c44e933317320630593, type: 3}
@@ -2269,6 +2330,91 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2017721950a259b47a334c362767d004, type: 3}
+--- !u!1001 &1431022161
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4019694772348678290, guid: 177a584f7a93c784281fc9a6e9864cb6, type: 3}
+      propertyPath: m_Name
+      value: Sniper
+      objectReference: {fileID: 0}
+    - target: {fileID: 6934855649155063821, guid: 177a584f7a93c784281fc9a6e9864cb6, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7106818921974646198, guid: 177a584f7a93c784281fc9a6e9864cb6, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7830497240214600067, guid: 177a584f7a93c784281fc9a6e9864cb6, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8679046698306946889, guid: 177a584f7a93c784281fc9a6e9864cb6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.411
+      objectReference: {fileID: 0}
+    - target: {fileID: 8679046698306946889, guid: 177a584f7a93c784281fc9a6e9864cb6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.71
+      objectReference: {fileID: 0}
+    - target: {fileID: 8679046698306946889, guid: 177a584f7a93c784281fc9a6e9864cb6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 14.966
+      objectReference: {fileID: 0}
+    - target: {fileID: 8679046698306946889, guid: 177a584f7a93c784281fc9a6e9864cb6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99614865
+      objectReference: {fileID: 0}
+    - target: {fileID: 8679046698306946889, guid: 177a584f7a93c784281fc9a6e9864cb6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.080809236
+      objectReference: {fileID: 0}
+    - target: {fileID: 8679046698306946889, guid: 177a584f7a93c784281fc9a6e9864cb6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.026762854
+      objectReference: {fileID: 0}
+    - target: {fileID: 8679046698306946889, guid: 177a584f7a93c784281fc9a6e9864cb6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.021011524
+      objectReference: {fileID: 0}
+    - target: {fileID: 8679046698306946889, guid: 177a584f7a93c784281fc9a6e9864cb6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -9.33
+      objectReference: {fileID: 0}
+    - target: {fileID: 8679046698306946889, guid: 177a584f7a93c784281fc9a6e9864cb6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 2.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8679046698306946889, guid: 177a584f7a93c784281fc9a6e9864cb6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 2.18
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6934855649155063821, guid: 177a584f7a93c784281fc9a6e9864cb6, type: 3}
+    - {fileID: 1851904399981573069, guid: 177a584f7a93c784281fc9a6e9864cb6, type: 3}
+    - {fileID: 7106818921974646198, guid: 177a584f7a93c784281fc9a6e9864cb6, type: 3}
+    - {fileID: 7830497240214600067, guid: 177a584f7a93c784281fc9a6e9864cb6, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4019694772348678290, guid: 177a584f7a93c784281fc9a6e9864cb6, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 951287}
+    - targetCorrespondingSourceObject: {fileID: 6483841110590920261, guid: 177a584f7a93c784281fc9a6e9864cb6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 543431506}
+    - targetCorrespondingSourceObject: {fileID: 6483841110590920261, guid: 177a584f7a93c784281fc9a6e9864cb6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 543431505}
+    - targetCorrespondingSourceObject: {fileID: 6483841110590920261, guid: 177a584f7a93c784281fc9a6e9864cb6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 543431504}
+  m_SourcePrefab: {fileID: 100100000, guid: 177a584f7a93c784281fc9a6e9864cb6, type: 3}
 --- !u!1 &1480809951 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4f11edd260c09de4a8d187ff01c5a96e, type: 3}
@@ -4234,3 +4380,4 @@ SceneRoots:
   - {fileID: 1123661652}
   - {fileID: 1951032824}
   - {fileID: 783071877}
+  - {fileID: 1431022161}
